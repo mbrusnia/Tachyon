@@ -1,0 +1,81 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.5
+version = '1.0'
+
+repositories {
+    mavenCentral()
+    maven {url"http://intranet.audaxis.com/maven2/"}
+}
+sourceSets {
+    main {
+        java {
+            srcDir 'src/java'
+        }
+        resources {
+            srcDir 'src/resources'
+        }
+        output.resourcesDir = 'build/resources/main'
+        output.classesDir = 'build/classes'
+    }
+}
+
+configurations {
+    hplcConfig
+}
+
+dependencies {
+    compile group: 'javax.jnlp', name: 'jnlp', version: '1.5'
+    hplcConfig group: 'javax.jnlp', name: 'jnlp', version: '1.5'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+//create a single Jar with all dependencies
+jar  {
+    manifest {
+        attributes 'Main-Class': 'org.fhcrc.optides.apps.HPLCGraphingApp',
+                'Implementation-Title': 'Gradle Quickstart'
+    }
+    from { configurations.hplcConfig.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
+task run(type: JavaExec, dependsOn: classes) {
+    group 'run'
+    main 'org.fhcrc.optides.apps.HPLCGraphingApp'
+    classpath sourceSets.main.runtimeClasspath
+    args ''
+}
+
+task runJar(type: Exec, dependsOn: jar) {
+    group 'run'
+    executable 'java'
+    args '-jar', "$jar.archivePath"
+}
+
+task demoTask1 {
+    group 'GradleDemo'
+    description 'GradleDemoCodes'
+    //file('GradleDemoOutput.txt').text = 'demoTask1 Msg: Gradle IO Demo output using'
+
+    project.ext.set("customTask", "true")
+    onlyIf { project.ext.get("customTask") == "true" }
+
+    // this is done in the configuration phase
+    println( 'custom task in the greeting group configuration phase. ' +
+            'Note that the configuration phase is not affected by onlyIf which controls the execution phase')
+    // execution phase
+    ext.custom = 'exiting configuration phase'
+    doFirst { println 'action in the beginning'}
+    doLast { println 'hello!'}
+    doLast { println "ExtCustomTask: $custom"}
+}
+
+task demoTask2 {
+    group 'GradleDemo'
+    outputs.file('GradleDemoOutput.txt')
+} << {
+    file('GradleDemoOutput.txt').text = 'demoTask2_v2 Msg:Gradle Demo Output Message!'
+    println 'executing demoTask2'
+}
+
+demoTask2.mustRunAfter demoTask1  // demoTask2.dependsOn demoTask1 would do the same.
