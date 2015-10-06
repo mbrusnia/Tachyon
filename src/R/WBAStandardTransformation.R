@@ -12,7 +12,7 @@ rpPath<- "${runInfo}"
 
 getRunPropsList<- function(rpPath, baseUrl) 
 {
-	rpIn<- read.table(rpPath,  col.names=c("name", "val1", "val2", "val3"),          #########
+	rpIn<- read.table(rpPath,  col.names=c("name", "val1", "val2", "val3"),              #########
 		header=FALSE, check.names=FALSE,                                             ##  1  ##  
 		stringsAsFactors=FALSE, sep="\t", quote="", fill=TRUE, na.strings="");       ######### 
 	## pull out the run properties
@@ -49,7 +49,7 @@ FittedDPM <- 2^((log10(data[,INTENSITY_BKG_COL_INDEX])-intercept)/slope)
 FittedDPMOverArea <- FittedDPM/data[,AREA_COL_INDEX] 
 
 result <- cbind(data, FittedDPM, FittedDPMOverArea)
-names(result) <- c("Grp", "Grp Name", "Name", "Type", "Area [mm_]", "Intensity [QL]", "Intensity-Bkg [QL]", "Intensity/Area [QL/mm_]", "Intensity/Area-Bkg [QL/mm_]", "Std. Activity [DPM]", "Recalc. Activity [DPM]", "Fitted [DPM]", "Norm [DPM/mm_]")
+names(result) <- c("Grp", "Grp Name", "Name", "Type", "Area [mm2]", "Intensity [QL]", "Intensity-Bkg [QL]", "Intensity/Area [QL/mm2]", "Intensity/Area-Bkg [QL/mm2]", "Std. Activity [DPM]", "Recalc. Activity [DPM]", "Fitted [DPM]", "Norm [DPM/mm2]")
 write.table(result,file=params$outputPath, col.names = TRUE, sep="\t",na="", row.names=F, quote=F)
 
  
