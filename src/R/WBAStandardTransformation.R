@@ -37,8 +37,8 @@ data <- read.csv(params$inputPathUploadedFile, header=T, sep=",", stringsAsFacto
 ## based on these hard coded column names, get the column indices
 GROUP_COL_INDEX = which(names(data) == "Grp");
 CONC_DPM_COL_INDEX = which(names(data) == "Std..Activity..DPM.");
-INTENSITY_BKG_COL_INDEX = which(names(data) == "Intensity.Area.Bkg..QL.mm_.")
-AREA_COL_INDEX = which(names(data) == "Area..mm_.");
+INTENSITY_BKG_COL_INDEX = which(names(data) == "Intensity.Area.Bkg..QL.mm2.")
+AREA_COL_INDEX = which(names(data) == "Area..mm2.");
 GRP_NAME_COL_INDEX = which(names(data) == "Grp.Name");
 
 Y <- log10(data[data[,GROUP_COL_INDEX]=="std", INTENSITY_BKG_COL_INDEX])
