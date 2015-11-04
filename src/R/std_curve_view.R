@@ -1,11 +1,11 @@
 # This code draws the sample's standardization line at the top,
-# then (optionally) uncomment the last line to draw the data table underneath
+# then (optionally) uncomment the last line to draw the data table underneath 
 
 
 # get colunm indices based on their column names
-CONC_DPM_COL_INDEX = which(names(labkey.data) == "std__activity__dpm_" )
-INTENSITY_BKG_COL_INDEX = which(names(labkey.data) == "intensity_area__ql_mm2_" )
-AREA_COL_INDEX = which(names(labkey.data) == "area__mm2_")
+CONC_DPM_COL_INDEX = which(grepl ("std_{1,2}activity_{1,2}dpm_{1,2}", names(labkey.data), perl=TRUE))
+INTENSITY_BKG_COL_INDEX = which(grepl ("intensity_{1,2}area_{1,2}ql_{1,2}mm2_{1,2}", names(labkey.data), perl=TRUE))
+AREA_COL_INDEX = which(grepl ("area_{1,2}mm2_{1,2}", names(labkey.data), perl=TRUE))
 GROUP_COL_INDEX = which(names(labkey.data) == "grp")
 
 #Standardization line
