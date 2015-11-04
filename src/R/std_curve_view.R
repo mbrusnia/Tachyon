@@ -1,5 +1,5 @@
 # This code draws the sample's standardization line at the top,
-# then (optionally) uncomment the last line to draw the data table underneath
+# then (optionally) uncomment the last line to draw the data table underneath 
 
 
 # get colunm indices based on their column names
