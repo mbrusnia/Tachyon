@@ -36,5 +36,5 @@ names(mydata)[NORM_DPM_IDX] <- "Norm"
 names(mydata)[TISSUE_IDX] <- "Tissue"
 names(mydata)[MOUSE_ID_IDX] <- "MouseID"
 png(filename="${imgout:labkeyl_png}", width=IMAGE_WIDTH, height=IMAGE_HEIGHT_PER_EACH_BOXPLOT*length(mouse_ids))
-ggplot(mydata, aes(Tissue, Norm)) + geom_boxplot(fill="blue") + facet_grid(MouseID ~ .) + ggtitle("Mouse Luminescence per Tissue") + theme(axis.text.x=element_text(angle=90, vjust=0.4,hjust=1)) + labs(y="log10(Normalized DPM)")
+ggplot(mydata, aes(Tissue, Norm)) + geom_boxplot(fill="blue") + facet_grid(MouseID ~ .) + ggtitle("Mouse Luminescence per Tissue") + theme(axis.text.x=element_text(angle=90, vjust=0.4,hjust=1, size=14)) + labs(y="log10(Normalized DPM)")
 dev.off()
