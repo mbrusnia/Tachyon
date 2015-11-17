@@ -30,17 +30,30 @@ previousAssayResults <- labkey.selectRows(baseUrl, params$containerPath, ASSAY_S
 ## read the input data frame just  to get the column headers.
 inputDF<-read.table(file=params$inputPathUploadedFile, header = TRUE, sep = "\t")
 
-#check for duplicates in input data. if so, throw error
-if(length(inputDF[,ASSAY_SEQUENCE_COL_NAME]) != length(unique(inputDF[,ASSAY_SEQUENCE_COL_NAME]))){
-	cat("Error: There are sequences which appear multiple times in your input file.  Each sequence needs to be unique.\n")
-	stop()
-}
-
-#check if the new sequences have previously been loaded into the database. if so, throw error
-for(i in 1:length(inputDF[,ASSAY_SEQUENCE_COL_NAME])){
-	if(inputDF[i,ASSAY_SEQUENCE_COL_NAME] %in% previousAssayResults[,ASSAY_SEQUENCE_COL_NAME]){ 
-		cat("ERROR: No duplicates allowed. This sequence has previously been uploaded into the repository: ", inputDF[i,ASSAY_SEQUENCE_COL_NAME], "\n")
-		stop() 
+##
+## check for duplicates in input data. if so, list the row and sequence, then throw error
+##
+duplicates = duplicated(inputDF[,ASSAY_SEQUENCE_COL_NAME])
+if(length(duplicates[duplicates == TRUE]) > 0){
+	cat("ERROR: No duplicates allowed. Your input file contains the following duplicated sequences: \n")
+	for(i in 1:length(duplicates)){
+		if(duplicates[i]){
+			cat("row ", i, ": ", inputDF[i,ASSAY_SEQUENCE_COL_NAME], "\n")
+		}
 	}
+	stop("Please remove the duplicates from your input file and try again.")
 }
 
+##
+## check if the new sequences have previously been loaded into the database. 
+## if so, list the rows and sequences of the repeated sequences
+##
+matches <- match(previousAssayResults[,ASSAY_SEQUENCE_COL_NAME],inputDF[,ASSAY_SEQUENCE_COL_NAME])
+matches <- matches[!is.na(matches)]
+if(length(matches) > 0){
+	cat("ERROR: No duplicates allowed. The following sequences have previously been uploaded into the repository: \n")
+	for(i in 1:length(matches)){
+		cat("row ", matches[i], ": ", inputDF[matches[i],ASSAY_SEQUENCE_COL_NAME], "\n")
+	}
+	stop("Please remove the duplicates from your input file and try again.")
+}
