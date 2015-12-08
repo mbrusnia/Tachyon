@@ -1,0 +1,9 @@
+<tables xmlns="http://labkey.org/data/xml">
+    <table tableName="Runs" tableDbType="NOT_IN_DB">
+        <columns>
+            <column columnName="Name">
+                <url>/assay/assayDetailRedirect.view?runId=${RowId}</url>
+            </column>
+        </columns>
+    </table>
+</tables>
