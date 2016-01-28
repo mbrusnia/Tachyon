@@ -9,6 +9,7 @@
 var console = require("console");
 var LABKEY = require("labkey");
 
+var SCHEMA_NAME = "Samples";
 var QUERY_NAME = 'IdentifiedCompounds';  //this must be the same as the filename of this script
 var COMPOUND_ID_COL_NAME = 'compoundID';
 var SEQUENCE_COL_NAME = 'Sequence';
@@ -27,7 +28,7 @@ function init(event, errors) {
 	//fetch all compoundID, sequence data already uploaded to this dataset
 	LABKEY.Query.selectRows({
 			requiredVersion: 9.1,
-			schemaName: 'study',
+			schemaName: SCHEMA_NAME,
 			queryName: QUERY_NAME,
 			columns: COMPOUND_ID_COL_NAME + ', ' + SEQUENCE_COL_NAME,
 			filterArray: null,
@@ -47,6 +48,11 @@ function init(event, errors) {
 
 function complete(event, errors) {
     console.log("complete() called in orgs.js with an event type of " + event);	
+	
+	//compute execution time
+	var end = new Date().getTime();
+	var time = end - startTime;
+	console.log('Execution time: ' + time);
 }
 
 //this function is called before a new row is inserted into the database
@@ -64,11 +70,6 @@ function beforeInsert(row, errors){
 			throw new Error(str);
 		}
 	}
-	
-	//compute execution time
-	var end = new Date().getTime();
-	var time = end - startTime;
-	console.log('Execution time: ' + time);
 }
 
 function beforeUpdate(row, oldRow, errors){

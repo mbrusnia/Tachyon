@@ -9,7 +9,7 @@ baseUrl<-"http://localhost:8080/labkey"
 source("${srcDirectory}/Utils.R")
 
 ## These next four constants point to the data we wish to query from the DB
-ASSAY_SCHEMA_NAME = "assay.General.Identified Compounds"
+ASSAY_SCHEMA_NAME = "assay.General.IdentifiedCompounds"
 ASSAY_QUERY_NAME = "Data"
 ASSAY_SEQUENCE_COL_NAME = "Sequence"
 ASSAY_COMPOUND_ID_COL_NAME = "compoundID"
@@ -26,6 +26,7 @@ previousAssayResults <- labkey.selectRows(baseUrl, params$containerPath, ASSAY_S
     viewName = NULL, colSelect = c(ASSAY_COMPOUND_ID_COL_NAME , ASSAY_SEQUENCE_COL_NAME ), maxRows = NULL,
     rowOffset = NULL, colSort = NULL,	colFilter=NULL, showHidden = FALSE, colNameOpt="caption",
     containerFilter=NULL)
+length(previousAssayResults)
 
 ## read the input data frame just  to get the column headers.
 inputDF<-read.table(file=params$inputPathUploadedFile, header = TRUE, sep = "\t")
@@ -35,7 +36,7 @@ inputDF<-read.table(file=params$inputPathUploadedFile, header = TRUE, sep = "\t"
 ##
 duplicates = duplicated(inputDF[,ASSAY_SEQUENCE_COL_NAME])
 if(length(duplicates[duplicates == TRUE]) > 0){
-	cat("ERROR: No duplicates allowed. Your input file contains the following duplicated sequences: \n")
+	cat("ERROR: No duplicates allowed. Your input file contains the following duplicate sequences: \n")
 	for(i in 1:length(duplicates)){
 		if(duplicates[i]){
 			cat("row ", i, ": ", inputDF[i,ASSAY_SEQUENCE_COL_NAME], "\n")
