@@ -1,14 +1,14 @@
 # produce unique sequences for testing
 
 # specify the range of compoundIDs to create (with corresponding sequences)
-$UPPER_CID_LIMIT = 15999;  #max value can be 20^4
-$LOWER_CID_LIMIT = 14990;
+$LOWER_CID_LIMIT = 1;
+$UPPER_CID_LIMIT = 99;  #max value can be 20^4
 
 @AA = split(//, "ACDEFGHIKLMNPQRSTVWY");
 $naas = 20;
-print "compoundID\tSequence\n";
+print "compoundID\tSequence\tParticipantID\tSequenceNum\n";
 
-$i = 0;
+$i = 0; #$LOWER_CID_LIMIT;
 for($a = 0; $a< $naas; $a++){
 for($b = 0; $b< $naas; $b++){
 for($c = 0; $c< $naas; $c++){
@@ -16,7 +16,7 @@ for($d = 0; $d< $naas; $d++){
 	if($i > $UPPER_CID_LIMIT){exit;}  #upper limit for compoundID
 	if($i >= $LOWER_CID_LIMIT){        #lower limit for compoundID
 		$seq = $AA[$a] . $AA[$b] . $AA[$c] . $AA[$d] . "AAAAAAAAAAAAAAAAAAAAAAAAAAACCCAAAAAAAAAAAAAAAAAAAAA";
-		print $i . "\t" . $seq ."\n";
+		print $i . "\t" . $seq . "\t101344\t" . $i . "\n";
 	}
 	$i++;
 }}}}
