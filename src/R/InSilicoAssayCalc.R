@@ -6,21 +6,21 @@
 
 library(Rlabkey)
 library(Peptides)
-
+library(stringr)
 
 
 #Parameters for this script (login script: _netrc)
 BASE_URL = "http://optides-stage.fhcrc.org/"
-FOLDER_PATH = "/Optides"
-#BASE_URL = "http://localhost:8080/labkey"
-#FOLDER_PATH = "/Optides 01"
+FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
 SCHEMA_NAME = "Samples"
-QUERY_NAME  = "IdentifiedCompounds"
-COMPOUNDID_COLNAME = "CompoundID"
-SEQUENCE_COLNAME = "Sequence"
+QUERY_NAME  = "Construct"
+COMPOUNDID_COLNAME = "ID"
+SEQUENCE_COLNAME = "AASeq"
 
 DESTINATION_ASSAY_NAME = "InSilicoAssay"
-DESTINATION_FOLDER_PATH = FOLDER_PATH
+DESTINATION_FOLDER_PATH = "Optides/InSilicoAssay/MolecularProperties"
+
+H_ISO_MASS = 1.0078250
 
 #query sequence data
 mydata <- labkey.selectRows(
@@ -35,30 +35,34 @@ mydata <- labkey.selectRows(
 )
 
 #remove compounds for which we have already done the calculation
-previousAssayResults <- labkey.selectRows(BASE_URL, FOLDER_PATH, paste("assay.General.", DESTINATION_ASSAY_NAME, sep=""), "Data", viewName = NULL, colSelect = c(COMPOUNDID_COLNAME , SEQUENCE_COLNAME ), maxRows = NULL, rowOffset = NULL, colSort = NULL, colFilter = NULL, showHidden = FALSE)
+previousAssayResults <- labkey.selectRows(BASE_URL, DESTINATION_FOLDER_PATH, paste("assay.General.", DESTINATION_ASSAY_NAME, sep=""), "Data", viewName = NULL, colSelect = c(COMPOUNDID_COLNAME , SEQUENCE_COLNAME ), maxRows = NULL, rowOffset = NULL, colSort = NULL, colFilter = NULL, showHidden = FALSE)
 
 #calculate desired values
-avg = vector('numeric')
-monoisotopic = vector('numeric')
-pIs = vector('numeric')
+toinsert = data.frame()
+toinsert$ID = vector('character')
+toinsert$AASeq = vector('character')
+toinsert$AverageMass = vector('numeric')
+toinsert$MonoisotopicMass = vector('numeric')
+toinsert$pI = vector('numeric')
 
-for(i in 1:length(mydata$Sequence)){
-	#cat(Sequence[i], "   ", mw(mydata$Sequence[i], monoisotopic=TRUE), "\n")
-	if(!mydata$Sequence %in% previousAssayResults$Sequence){
-		avg[i] = mw(mydata$Sequence[i], monoisotopic=FALSE)
-		monoisotopic[i] = mw(mydata$Sequence[i], monoisotopic=TRUE)
-		pIs[i] = pI(mydata$Sequence[i], pKscale="Sillero")
+for(i in 1:length(mydata$AASeq)){
+	if(length(previousAssayResults$AASeq) == 0 || !mydata$AASeq[i] %in% previousAssayResults$AASeq){
+		
+		col1 = mydata$ID[i]
+		col2 = mydata$AASeq[i]
+		Cs = floor(str_count(mydata$AASeq[i], "C")/2) * 2
+		col3 = mw(mydata$AASeq[i], monoisotopic=FALSE) - Cs * H_ISO_MASS
+		col4 = mw(mydata$AASeq[i], monoisotopic=TRUE) - Cs * H_ISO_MASS
+		col5 = pI(mydata$AASeq[i], pKscale="EMBOSS")
+		toinsert = rbind(toinsert, data.frame(ID=col1, AASeq=col2, AverageMass=col3, MonoisotopicMass=col4, pI=col5))
 	}
 }
 
-mydata$MonoisotopicMass = monoisotopic
-mydata$AverageMass = avg
-mydata$pI = pIs
 
 #insert results as a batch into our destination assay
-if(length(monoisotopic) > 0){
-	labkey.saveBatch(BASE_URL, DESTINATION_FOLDER_PATH, DESTINATION_ASSAY_NAME, mydata,
-	batchPropertyList=NULL, runPropertyList=NULL)
+if(length(toinsert$MonoisotopicMass) > 0){
+	bpl <- list(name=paste("Batch ", as.character(format(Sys.time(), "%Y%M%d"))))
+	rpl <- list(name=paste("Assay Run ", as.character(format(Sys.time(), "%Y%M%d"))))
+	labkey.saveBatch(BASE_URL, DESTINATION_FOLDER_PATH, DESTINATION_ASSAY_NAME, toinsert,
+		batchPropertyList=bpl, runPropertyList=rpl)
 }
-
-
