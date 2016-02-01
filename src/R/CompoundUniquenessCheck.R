@@ -5,14 +5,14 @@
 
 options(stringsAsFactors = FALSE)
 suppressMessages(require(Rlabkey))
-baseUrl<-"http://localhost:8080/labkey"
+baseUrl<-"http://optides.fhcrc.org:8080/labkey"
 source("${srcDirectory}/Utils.R")
 
 ## These next four constants point to the data we wish to query from the DB
-ASSAY_SCHEMA_NAME = "assay.General.Identified Compounds"
+ASSAY_SCHEMA_NAME = "Samples"
 ASSAY_QUERY_NAME = "Data"
-ASSAY_SEQUENCE_COL_NAME = "Sequence"
-ASSAY_COMPOUND_ID_COL_NAME = "compoundID"
+ASSAY_SEQUENCE_COL_NAME = "AA_Sequence"
+ASSAY_COMPOUND_ID_COL_NAME = "KnottinID"
 
 ${rLabkeySessionId}
 
