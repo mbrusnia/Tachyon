@@ -16,7 +16,7 @@ for($d = 0; $d< $naas; $d++){
 	if($i > $UPPER_CID_LIMIT){exit;}  #upper limit for compoundID
 	if($i >= $LOWER_CID_LIMIT){        #lower limit for compoundID
 		$seq = $AA[$a] . $AA[$b] . $AA[$c] . $AA[$d] . "AAAAAAAAAAAAAAAAAAAAAAAAAAACCCAAAAAAAAAAAAAAAAAAAAA";
-		print $i . "\tVAR0000001\t" . $seq . "\n";
+		print "CNT" . $i . "\tVAR0000001\t" . $seq . "\n";
 	}
 	$i++;
 }}}}

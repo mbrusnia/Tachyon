@@ -15,8 +15,8 @@ suppressWarnings(suppressMessages(require(Peptides)))
 suppressWarnings(suppressMessages(require(stringr)))
 
 baseUrl<-"http://optides-stage.fhcrc.org/"
-baseUrl<-"http://localhost:8080/labkey/"
 source("${srcDirectory}/Utils.R")
+
 
 ## These next four constants point to the data we wish to query from the DB
 ASSAY_SCHEMA_NAME = "assay.General.InSilicoAssay"
@@ -33,12 +33,12 @@ COMPOUND_FOLDER = "Optides/CompoundsRegistry/Samples"
 ########################################
 #make sure there is no overlap in the 2 sets, and report the overlaps if they exist
 uniquenessCheck <- function(arg1, arg2){
-	matches <- match(arg1, arg2)
-	matches <- matches[!is.na(matches)]
+	matches <- match(arg1, arg2[,SEQUENCE_COL_NAME])
+	matches <- unique(matches[!is.na(matches)])
 	if(length(matches) > 0){
 		cat("ERROR: No duplicates allowed. The following sequences have previously been uploaded into the repository: \n")
 		for(i in 1:length(matches)){
-			cat("ID: ", inputDF[matches[i],COMPOUND_ID_COL_NAME], ": ", inputDF[matches[i],SEQUENCE_COL_NAME], "\n")
+			cat("ID: ", arg2[matches[i],COMPOUND_ID_COL_NAME], ": ", arg2[matches[i],SEQUENCE_COL_NAME], "\n")
 		}
 		return(FALSE)
 	}
@@ -122,9 +122,8 @@ parentSampleSetIDs <- labkey.selectRows(baseUrl, COMPOUND_FOLDER, "Samples", "Va
     containerFilter=NULL)
 
 ## read the input data frame just to get the column headers.
-inputDF<-read.table(file=params$inputPathUploadedFile, header = TRUE, sep = "\t", check.names=FALSE)
-
-
+inputDF<-read.table(file=params$inputPathUploadedFile, header = TRUE, sep = "\t")
+names(inputDF)[grepl("[Pp]arent.ID", names(inputDF))] <- PARENT_ID_COL_NAME
 
 #########################################################
 ## 1) Verify ParentIDs (that they exists in the Sample Set)
@@ -135,7 +134,6 @@ parentIDs <- inputDF[,PARENT_ID_COL_NAME]
 if(length(parentIDs[is.na(parentIDs) || parentIDs == ""]) > 0){ 
 	stop("There are sequences in your input that do not have a Parent ID.  Please provide a Parent ID for all sequences and then try again.")
 }
-
 #separate out comma delimmited parentIDs (only for our check here)
 for(i in 1:length(parentIDs)){
 	if(str_detect(parentIDs[i], ",")){
@@ -184,7 +182,7 @@ previousSampleSetContents <- labkey.selectRows(baseUrl, COMPOUND_FOLDER, "Sample
     rowOffset = NULL, colSort = NULL,	colFilter=NULL, showHidden = FALSE, colNameOpt="caption",
     containerFilter=NULL)
 
-if(!uniquenessCheck(previousSampleSetContents[,SEQUENCE_COL_NAME],inputDF[,SEQUENCE_COL_NAME])){
+if(!uniquenessCheck(previousSampleSetContents[,SEQUENCE_COL_NAME],inputDF[,c(COMPOUND_ID_COL_NAME, SEQUENCE_COL_NAME)])){
 	stop("Please remove the duplicates from your input file and try again.")
 }
 
@@ -220,10 +218,9 @@ for (i in 1:length(toinsert[,SEQUENCE_COL_NAME])){
 ## 4) Insert data to Database
 ###################################################################
 #insert input into compound registry sample set (error will be thrown if ID already exists)
-labkey.insertRows(baseUrl, COMPOUND_FOLDER, SAMPLES_SCHEMA, COMPOUND_TABLE, inputDF)
+#testing: first we have to read the table all over again
+#in2 <- read.table(file=params$inputPathUploadedFile, header = TRUE, sep = "\t", check.names=FALSE, as.is=c(1,2,3))
+labkey.insertRows(baseUrl, COMPOUND_FOLDER, SAMPLES_SCHEMA, COMPOUND_TABLE, in2)
 
 #insert input into assay
 write.table(toinsert,file=params$outputPath, col.names = TRUE, sep="\t",na="", row.names=F, quote=F)
-
-
-
