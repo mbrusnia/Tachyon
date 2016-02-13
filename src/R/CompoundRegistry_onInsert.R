@@ -218,9 +218,7 @@ for (i in 1:length(toinsert[,SEQUENCE_COL_NAME])){
 ## 4) Insert data to Database
 ###################################################################
 #insert input into compound registry sample set (error will be thrown if ID already exists)
-#testing: first we have to read the table all over again
-#in2 <- read.table(file=params$inputPathUploadedFile, header = TRUE, sep = "\t", check.names=FALSE, as.is=c(1,2,3))
-labkey.insertRows(baseUrl, COMPOUND_FOLDER, SAMPLES_SCHEMA, COMPOUND_TABLE, in2)
+labkey.insertRows(baseUrl, COMPOUND_FOLDER, SAMPLES_SCHEMA, COMPOUND_TABLE, inputDF)
 
 #insert input into assay
 write.table(toinsert,file=params$outputPath, col.names = TRUE, sep="\t",na="", row.names=F, quote=F)
