@@ -7,10 +7,11 @@ package org.fhcrc.optides.apps.OptideHunterUsageChart;
  */
 
 import java.io.*;
+import java.math.RoundingMode;
 import java.util.*;
-import javax.swing.JFrame;
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import org.jfree.chart.*;
@@ -18,16 +19,16 @@ import org.jfree.chart.plot.*;
 import org.jfree.chart.ChartFactory;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-public class OptideHunterUsageBarChart extends JFrame{
+public class OptideHunterUsageBarChart {
 	
 	//height and width of the chart
-	private int chartHeight = 540;
-	private int chartWidth = 1000;
+	private static int chartHeight = 540;
+	private static int chartWidth = 1000;
 	
 	/*
 	 * events we look for in the log file
 	 */
-	private String[][] eventsOfInterest= {
+	private static String[][] eventsOfInterest= {
 			{"view_request_gblocks start", "Gblocks"},
 			{"view_request_agilent_hplcworklist start", "Agilent HPLCworklist"},
 	        {"view_request_masscalc start", "MassCalc"},
@@ -40,34 +41,37 @@ public class OptideHunterUsageBarChart extends JFrame{
 			System.out.println("USAGE: java OptideHunterUsageBarChart monthsBack flaskLogFilename");
 			return;
 		}
-		
-		OptideHunterUsageBarChart bc = new OptideHunterUsageBarChart("Optide-Hunter Usage Statistics", Integer.parseInt(args[0]), args[1]);
-		bc.pack();
-		bc.setVisible(true);
-	}
-	
-	/*
-	 * Create the chart
-	 */
-	public OptideHunterUsageBarChart(String chartTitle, int monthsBack, String filename) {
-        super(chartTitle);
-        // This will create the dataset 
+		int monthsBack = Integer.parseInt(args[0]);
+		String filename = args[1];
+		Calendar cal = Calendar.getInstance();
+		DecimalFormat mFormat= new DecimalFormat("00");
+		mFormat.setRoundingMode(RoundingMode.DOWN);
+		String outputFilename = "OptideHunterUsageBarChart-" + mFormat.format(cal.get(Calendar.YEAR)) + "-" +  mFormat.format(Double.valueOf(cal.get(Calendar.MONTH) + 1)) + "-" +  mFormat.format(cal.get(Calendar.DAY_OF_MONTH))  + ".jpg";
+		String result = filename.substring(0, filename.lastIndexOf("/") + 1) + outputFilename;
+
+		// This will create the dataset 
         DefaultCategoryDataset dataset = getDataset(monthsBack, filename);
         // based on the dataset we create the chart
+        String chartTitle = "Optide-Hunter Usage Statistics - " + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.YEAR);
         JFreeChart chart = ChartFactory.createBarChart(
         		chartTitle, 
         		"Month", "Frequency", 
         		dataset,PlotOrientation.VERTICAL, 
         		true, true, false);
-        // we put the chart into a panel
-        ChartPanel chartPanel = new ChartPanel(chart);
-        // default size
-        chartPanel.setPreferredSize(new java.awt.Dimension(chartWidth, chartHeight));
-        // add it to our application
-        setContentPane(chartPanel);
-	  } 
+		
+		try {
+			ChartUtilities.saveChartAsJPEG(new File(result), chart, chartWidth, chartHeight);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
-	private DefaultCategoryDataset getDataset(int monthsBack, String filename) { 
+	/*
+	 * Create the chart
+	 */
+	
+	
+	private static DefaultCategoryDataset getDataset(int monthsBack, String filename) { 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
 		 
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -84,7 +88,7 @@ public class OptideHunterUsageBarChart extends JFrame{
 					a[3] += " start";
 					Date accessDate = null;
 					try {
-						accessDate =  df.parse(this.parseDate(a[0]));
+						accessDate =  df.parse(parseDate(a[0]));
 						Calendar calendar=Calendar.getInstance();
 						calendar.setTime(accessDate);
 						calendar.set(Calendar.HOUR_OF_DAY, 2);
@@ -131,11 +135,11 @@ public class OptideHunterUsageBarChart extends JFrame{
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
+	        	String xDate = getMonthFromInt(cal.get(Calendar.MONTH)) + " - " + cal.get(Calendar.YEAR);
 	        	if(innerMap.containsKey(eventsOfInterest[i][0])){
-				        dataset.addValue(Integer.parseInt(innerMap.get(eventsOfInterest[i][0]).toString()), eventsOfInterest[i][1], getMonthFromInt(cal.get(Calendar.MONTH)));
-				        //System.out.println(innerMap.get(eventsOfInterest[i][0]));
+				        dataset.addValue(Integer.parseInt(innerMap.get(eventsOfInterest[i][0]).toString()), eventsOfInterest[i][1], xDate);
 		    	}else{
-		    		dataset.addValue(0, eventsOfInterest[i][1], getMonthFromInt(cal.get(Calendar.MONTH)));
+		    		dataset.addValue(0, eventsOfInterest[i][1], xDate);
 		    	}
 	        	j++;		    		
 	        }
@@ -150,16 +154,16 @@ public class OptideHunterUsageBarChart extends JFrame{
 	 * 		it for SimpleDateFormat.parse; also, since we are interested
 	 * 		in monthly, we change the date to only 1
 	 */
-	private String parseDate(String s) {
+	private static String parseDate(String s) {
 		String[] b = s.split("-");
 		b[2] = "01";
 		return b[1] +"/"+ b[2] + "/"+ b[0];
 	}
 	
-	private String getMonthFromInt(int num) {
+	private static String getMonthFromInt(int num) {
         String month = "wrong";
         DateFormatSymbols dfs = new DateFormatSymbols();
-        String[] months = dfs.getMonths();
+        String[] months = dfs.getShortMonths();
         if (num >= 0 && num <= 11 ) {
             month = months[num];
         }
