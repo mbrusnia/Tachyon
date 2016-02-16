@@ -1,4 +1,4 @@
-package OptideUsageChart;
+package OptideHunterUsageChart;
 
 /*
  * This program parses a flask.log file to produce a jfreechart barchart
@@ -145,15 +145,7 @@ public class OptideHunterUsageBarChart extends JFrame{
 		return dataset; 
 	} 
 	
-	/*
-	 * Parse the flask.log file provided
-	 */
-	public String[][] getStats(int monthsBack, String filename){
-		String[][] returnVal = new String[eventsOfInterest.length * (monthsBack + 1)][3];
-		
-		return returnVal;
-	}
-
+	
 	/* s comes in as format YYYY-MM-DD, we need to reformat 
 	 * 		it for SimpleDateFormat.parse; also, since we are interested
 	 * 		in monthly, we change the date to only 1
