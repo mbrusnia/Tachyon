@@ -1,4 +1,4 @@
-package OptideUsageChart;
+package OptideHunterUsageChart;
 
 /*
  * This program parses a flask.log file to produce a jfreechart barchart
