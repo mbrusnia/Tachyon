@@ -1,8 +1,8 @@
 # produce unique sequences for testing
 
 # specify the range of compoundIDs to create (with corresponding sequences)
-$LOWER_CID_LIMIT = 100000;
-$UPPER_CID_LIMIT = 100099;  #max value can be 20^4
+$LOWER_CID_LIMIT = 100300;
+$UPPER_CID_LIMIT = 100399;  #max value can be 20^4
 
 @AA = split(//, "ACDEFGHIKLMNPQRSTVWY");
 $naas = 20;
