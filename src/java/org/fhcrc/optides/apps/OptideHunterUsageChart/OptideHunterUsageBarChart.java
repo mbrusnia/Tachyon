@@ -16,7 +16,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.*;
-import org.jfree.chart.ChartFactory;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 public class OptideHunterUsageBarChart {
@@ -24,6 +23,14 @@ public class OptideHunterUsageBarChart {
 	//height and width of the chart
 	private static int chartHeight = 540;
 	private static int chartWidth = 1000;
+	
+	private JFreeChart chart;
+	
+	private String chartTitle;
+	private int monthsBack;
+	private String inputFilename;
+	
+	private DefaultCategoryDataset dataset;
 	
 	/*
 	 * events we look for in the log file
@@ -35,32 +42,46 @@ public class OptideHunterUsageBarChart {
 	        {"view_request_proteinquantcalc start", "Protein QuantCalc"},
 	        {"view_request_blastotdsearch start", "BlastOTDsearch"}};
 	
+
 	//main app
 	public static void main(String[] args) {
 		if(args.length !=2){
 			System.out.println("USAGE: java OptideHunterUsageBarChart monthsBack flaskLogFilename");
 			return;
 		}
+		
 		int monthsBack = Integer.parseInt(args[0]);
 		String filename = args[1];
 		Calendar cal = Calendar.getInstance();
+		
+		String chartTitle = "Optide-Hunter Usage Statistics - " + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.YEAR);  
+		
+		OptideHunterUsageBarChart barchart = new OptideHunterUsageBarChart(chartTitle, monthsBack, filename);
+		
 		DecimalFormat mFormat= new DecimalFormat("00");
 		mFormat.setRoundingMode(RoundingMode.DOWN);
 		String outputFilename = "OptideHunterUsageBarChart-" + mFormat.format(cal.get(Calendar.YEAR)) + "-" +  mFormat.format(Double.valueOf(cal.get(Calendar.MONTH) + 1)) + "-" +  mFormat.format(cal.get(Calendar.DAY_OF_MONTH))  + ".jpg";
-		String result = filename.substring(0, filename.lastIndexOf("/") + 1) + outputFilename;
+		String outputPath = filename.substring(0, filename.lastIndexOf("/") + 1) + outputFilename;
 
-		// This will create the dataset 
-        DefaultCategoryDataset dataset = getDataset(monthsBack, filename);
-        // based on the dataset we create the chart
-        String chartTitle = "Optide-Hunter Usage Statistics - " + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.YEAR);
-        JFreeChart chart = ChartFactory.createBarChart(
-        		chartTitle, 
-        		"Month", "Frequency", 
-        		dataset,PlotOrientation.VERTICAL, 
-        		true, true, false);
+		barchart.saveChartAsJPEG(outputPath);
+	}
+	
+
+	public OptideHunterUsageBarChart(String ct, int mb, String filename) {
+		monthsBack = mb;
+		chartTitle = ct;
+		inputFilename = filename;
 		
+		// This will create the dataset 
+        dataset = getDataset();
+        
+        //create chart
+        getChart();
+	}
+	
+	private void saveChartAsJPEG(String outputPath) {
 		try {
-			ChartUtilities.saveChartAsJPEG(new File(result), chart, chartWidth, chartHeight);
+			ChartUtilities.saveChartAsJPEG(new File(outputPath), chart, chartWidth, chartHeight);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -69,15 +90,27 @@ public class OptideHunterUsageBarChart {
 	/*
 	 * Create the chart
 	 */
+	public JFreeChart getChart() {
+		if(chart == null){
+			chart = ChartFactory.createBarChart(
+		        		chartTitle, 
+		        		"Month", "Frequency", 
+		        		dataset,PlotOrientation.VERTICAL, 
+		        		true, true, false);
+		}
+		return chart;
+	}
 	
-	
-	private static DefaultCategoryDataset getDataset(int monthsBack, String filename) { 
+	/*
+	 * Parse the input file and create the dataset data structure
+	 */
+	private DefaultCategoryDataset getDataset() { 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
 		 
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		Map<String, Map<String, Integer>> map = new LinkedHashMap<String, Map<String, Integer>>();
 
-		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(inputFilename))) {
 			for(String line; (line = br.readLine()) != null; ) {
 				if(line.contains(eventsOfInterest[0][0]) ||
 						line.contains(eventsOfInterest[1][0]) ||
@@ -154,13 +187,14 @@ public class OptideHunterUsageBarChart {
 	 * 		it for SimpleDateFormat.parse; also, since we are interested
 	 * 		in monthly, we change the date to only 1
 	 */
-	private static String parseDate(String s) {
+	private String parseDate(String s) {
 		String[] b = s.split("-");
 		b[2] = "01";
 		return b[1] +"/"+ b[2] + "/"+ b[0];
 	}
 	
-	private static String getMonthFromInt(int num) {
+	//takes an int and returns Month 3 letter String
+	private String getMonthFromInt(int num) {
         String month = "wrong";
         DateFormatSymbols dfs = new DateFormatSymbols();
         String[] months = dfs.getShortMonths();
