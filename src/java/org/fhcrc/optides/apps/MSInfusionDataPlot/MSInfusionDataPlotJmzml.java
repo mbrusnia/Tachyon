@@ -6,37 +6,24 @@ package org.fhcrc.optides.apps.MSInfusionDataPlot;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import org.expasy.mzjava.core.ms.peaklist.PeakList.Precision;
-import org.expasy.mzjava.core.ms.spectrum.MsnSpectrum;
-import org.expasy.mzjava.external.io.ms.spectrum.mzml.EbiMzmlReader;
-import org.expasy.mzjava.external.io.ms.spectrum.mzml.MzmlConsistencyCheck;
+import org.fhcrc.optides.Utils.SortedArrayList;
+import org.fhcrc.optides.Utils.Utils;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.labels.XYItemLabelGenerator;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.xy.AbstractXYDataset;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 
-import uk.ac.ebi.jmzml.model.mzml.BinaryDataArray;
-import uk.ac.ebi.jmzml.model.mzml.BinaryDataArrayList;
-import uk.ac.ebi.jmzml.model.mzml.CVList;
-import uk.ac.ebi.jmzml.model.mzml.Chromatogram;
-import uk.ac.ebi.jmzml.model.mzml.ChromatogramList;
-import uk.ac.ebi.jmzml.model.mzml.FileDescription;
 import uk.ac.ebi.jmzml.model.mzml.MzML;
 import uk.ac.ebi.jmzml.model.mzml.Spectrum;
 import uk.ac.ebi.jmzml.model.mzml.SpectrumList;
-import uk.ac.ebi.jmzml.xml.Constants;
-import uk.ac.ebi.jmzml.xml.io.MzMLObjectIterator;
 import uk.ac.ebi.jmzml.xml.io.MzMLUnmarshaller;
 
 
@@ -48,180 +35,197 @@ import uk.ac.ebi.jmzml.xml.io.MzMLUnmarshaller;
 public class MSInfusionDataPlotJmzml {
 
 	private String mzmlFilename;
-	private int thresholdIntensity;
-	EbiMzmlReader mzmlReader;
+	private double maxMS1Intensity;
+	private double thresholdIntensity;
+	private MzML completeMzML;
+	private SortedArrayList<MS1Spec> sortedMS1s;
+	private int ms1sAboveThresholdCount = 0;
 	
-	private double ms2CuttoffThreshold = .10;
+	private SortedArrayList<Peak> monoPeaks =  new SortedArrayList<Peak>();
 	
-	public MSInfusionDataPlotJmzml(String filename, int threshold) {
+	private Number[] finalMzs;
+	private Number[] finalIntensities;
+	private String[] zLabels;
+
+	/**
+	 * @param args = filename, intensityThresholdPercentage
+	 */
+	public static void main(String[] args) {
+		if(args.length != 2){
+			System.out.println("USAGE: MSInfusionDataPlotJmzml pathToMzmlFile thresholdIntensity");
+			
+		} 
+		MSInfusionDataPlotJmzml msip = new MSInfusionDataPlotJmzml(args[0], Integer.parseInt(args[1]));
+		msip.pickMonoisotopicPeaks();
+		msip.averageOutResults();
+		
+		String chartTitle = msip.mzmlFilename.substring(msip.mzmlFilename.lastIndexOf("/") +1, msip.mzmlFilename.lastIndexOf("."));
+		chartTitle = chartTitle + ": Monoisotopic Peaks Averaged Out for All Spectra Over " + args[1] + " Percent of the Highest Recorded Intensity";
+		msip.saveResultsAsJPG(chartTitle);
+	}
+
+	/*
+	 * Constructor - set filename, read and parse xml, find max intensity among
+	 * all the spectra, sort the spectra by max intensity
+	 */
+	public MSInfusionDataPlotJmzml(String filename, int thresholdInt) {
 		mzmlFilename = filename;
-		thresholdIntensity = threshold;
 		
 		//create a new unmarshaller object 
 		//you can use a URL or a File to initialize the unmarshaller 
 		File xmlFile = new File(mzmlFilename); 
-		//Corra
+
 		MzMLUnmarshaller unmarshaller = new MzMLUnmarshaller(xmlFile);
-		/* unmarshaller.unmarshall();
-		mzmlReader = new EbiMzmlReader(unmarshaller, Precision.DOUBLE);
-		Set<MzmlConsistencyCheck> css = new HashSet<MzmlConsistencyCheck>();
-		css.add(MzmlConsistencyCheck.TOTAL_ION_CURRENT);
-		mzmlReader.turnTolerant(css);
-		// hasNext() returns true if there is more spectrum to read
-		while (mzmlReader.hasNext()) {
+		completeMzML = unmarshaller.unmarshall();
 
-		    // next() returns the next spectrum or throws an IOException is something went wrong
-		    MsnSpectrum spectrum;
-			try {
-				spectrum = mzmlReader.next();
-			    // do some stuff with your spectrum
-			    System.out.println(spectrum.size());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
-
-		try {
-			mzmlReader.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-		MzML completeMzML = unmarshaller.unmarshall();
-		
-		//retrieve the cvList element of the mzML file, given its XPath 
-		//CVList cvList = unmarshaller.unmarshalFromXpath("/cvList", CVList.class); 
-		//the object is now fully populated with the data from the XML file 
-		//System.out.println("Number of defined CVs in this mzML: " + cvList.getCount()); 
-		//retrieve the fileDescription element 
-		/*ChromatogramList cl = completeMzML.getRun().getChromatogramList();//unmarshaller.unmarshalFromXpath("/mzML/run/chromatogramList", ChromatogramList.class); 
-		Chromatogram c = cl.getChromatogram().get(0); 
-		BinaryDataArrayList bdal = c.getBinaryDataArrayList();
-		BinaryDataArray bda = bdal.getBinaryDataArray().get(0);
-		BinaryDataArray bda2 = bdal.getBinaryDataArray().get(1);
-		Number[] time = bda.getBinaryDataAsNumberArray();
-		Number[] intensity = bda2.getBinaryDataAsNumberArray();
-		*/
 		SpectrumList sl = completeMzML.getRun().getSpectrumList();
 		List<Spectrum> spec = sl.getSpectrum();
-		SortedArrayList<MS1Scan> sortedMS1s = new SortedArrayList<MS1Scan>();
-		double maxIntensity = 0;
-		double intensity = 0;
-		//get maxIntensity
+		sortedMS1s = new SortedArrayList<MS1Spec>();
 		for(int i =0; i < sl.getCount(); i++){
 			Spectrum s = spec.get(i);
 
 			//if MS1
 			if(s.getCvParam().get(1).getValue().equals("1")){
-				intensity = Double.parseDouble(s.getCvParam().get(6).getValue());
-				if(intensity>maxIntensity)
-					maxIntensity = intensity;
-				//MS1Scan scan = new MS1Scan(i, time[i], intensity[i]);
-				//sortedMS1s.insertSorted(scan);
-				//System.out.println(maxIntensity);
+				sortedMS1s.insertSorted(new MS1Spec(i, s), "desc");
 			}
 		}
-		
+		maxMS1Intensity = sortedMS1s.get(0).getMaxIntensity();
+		thresholdIntensity = maxMS1Intensity * ((double)thresholdInt/100);
+	}
+	
+	
+	public void pickMonoisotopicPeaks(){
 		//now, for those MS1s that lie within the threshold cutoff, 
 		//get the ms1s and average them together, with a 10% cuttoff threshold
-		for(int i =0; i < sl.getCount(); i++){
-			Spectrum s = spec.get(i);
+		for(int i =0; i < sortedMS1s.size(); i++){
+			MS1Spec ms1 = sortedMS1s.get(i);
 
-			//if MS1
-			if(s.getCvParam().get(1).getValue().equals("1")){
-				intensity = Double.parseDouble(s.getCvParam().get(6).getValue());
-				if(intensity>maxIntensity * ((double)thresholdIntensity/100)){
-					//MS1Scan scan = new MS1Scan(i, time[i], intensity[i]);
-					//sortedMS1s.insertSorted(scan);
-					System.out.println(intensity);
-				}
+			//if MS1 and passes maxIntensity threshold
+			if(ms1.getMaxIntensity() > this.thresholdIntensity){
+				//saveResultsAsJPG(ms1);
+				ms1.peakPicking();
+				//saveResultsAsJPG(ms1);
+				ms1.monoisotopePeakPicking();
+				//saveResultsAsJPG(ms1);
+				ms1.dumpMonoPeaks(monoPeaks);
+				ms1sAboveThresholdCount++;
 			}
 		}
-		//print
-		/*double maxIntensity = sortedMS1s.get(0).getIntensity();
-		double lowTime = 1000;
-		double highTime = 0;
-		int i;
-		for(i = 0; i < sortedMS1s.size(); i++){
-			MS1Scan scan = sortedMS1s.get(i);
-			if(scan.getIntensity() < maxIntensity * ((double)thresholdIntensity/100))
-				break;
-
-			//System.out.println(i + " - " + scan.getIndex() + " - " + scan.getTime() + " - " + scan.getIntensity());
-			if(scan.getTime() < lowTime)
-				lowTime = scan.getTime();
-			if(scan.getTime() > highTime)
-				highTime = scan.getTime();
-			
-		}
-		System.out.println("number of spectra passing threshold: " + i);
-		System.out.println("MS1 filtered range: " + lowTime + " - " + highTime);
-		*/
-		//now get the ms1s and average them together, with a 10% cuttoff threshold
-		/*SpectrumList sl1 = completeMzML.getRun().getSpectrumList();
-		List<Spectrum> spec1 = sl1.getSpectrum();
-		ArrayList<SortedArrayList<MS2Scan>> sortedMS2s  = new ArrayList<SortedArrayList<MS2Scan>>();
-		for(int j=0; j <  i ; j++){
-			Spectrum ms2 = spec1.get(sortedMS1s.get(j).getIndex());
-			BinaryDataArray mz = ms2.getBinaryDataArrayList().getBinaryDataArray().get(0);
-			BinaryDataArray intensityMs2 = ms2.getBinaryDataArrayList().getBinaryDataArray().get(1);
-			Number[] mzVals = mz.getBinaryDataAsNumberArray();
-			Number[] intensityVals = intensityMs2.getBinaryDataAsNumberArray();
-			SortedArrayList<MS2Scan> ms2SAR = new SortedArrayList<MS2Scan>();
-			for(int k=0; k < mzVals.length; k++){
-				double mzVal = mzVals[k].doubleValue();
-				double intensityVal = intensityVals[k].doubleValue();
-				if(intensityVal > 10000){
-					MS2Scan scan = new MS2Scan(k, mzVal, intensityVal);
-					ms2SAR.insertSorted(scan);
-				}
-			}
-			sortedMS2s.add(j, ms2SAR);
-		}
-		for(int j =0; j < i; j++){
-			System.out.println(sortedMS1s.get(j).getIndex()+1 + " - " + sortedMS2s.get(j).get(0).getMz() + " - " + sortedMS2s.get(j).get(0).getIntensity());
-			drawSpectrumAsJPG(sortedMS2s.get(j), .05, mzmlFilename.substring(0, mzmlFilename.lastIndexOf("/")+1) + "spec-" + j + ".jpg");
-		}
-		*/
-		//System.out.println("Number of defined Spectrums in this mzML: " + spec1.size());
-		
-		//supported XPath for indexed and non-indexed mzML 
-		//System.out.println("Supported XPath:" + Constants.XML_INDEXED_XPATHS);
-		
-		//number of spectrum elements in the XML file 
-		//System.out.println("Number of spectrum elements: " + unmarshaller.getObjectCountForXpath("/run/spectrumList/spectrum"));
-		
-		//retrieve the cvList element of the mzML file, given its XPath 
-		//SpectrumList spectrumList = unmarshaller.unmarshalFromXpath("/run/spectrumList", SpectrumList.class); 
-				//the object is now fully populated with the data from the XML file 
-				
-				//dealing with element collections 
-				/*MzMLObjectIterator<Spectrum> spectrumIterator = unmarshaller.unmarshalCollectionFromXpath("/run/spectrumList/spectrum", Spectrum.class); 
-				while (spectrumIterator.hasNext()){ 
-					//read next spectrum from XML file 
-					Spectrum spectrum = spectrumIterator.next(); 
-					//use it 
-					//System.out.println("Spectrum ID: " + spectrum.getId()); 
-				}*/
 	}
+	
+	/*
+	 * go through all found monoPeaks from all spectra and add them together and average them out and
+	 * filter based on if the average passes the maxIntensity*.10 threshold
+	 */
+	public void averageOutResults(){
+		SortedArrayList<Peak> list = new SortedArrayList<Peak>();
+		Peak curPeak = monoPeaks.get(0);
+		//TODO
+		for(int i = 1; i<monoPeaks.size(); i++){
+			Peak mp = monoPeaks.get(i);
 
-	private void drawSpectrumAsJPG(SortedArrayList<MS2Scan> spec, double intensityThreshold, String outputFilename) {
-		// Create a single plot containing both the scatter and line
-		XYPlot plot = new XYPlot();
+			//if it could be considered the same peak, add the intensity
+			if(Math.abs(curPeak.mz - mp.mz) <= Constants.mzTolerance && curPeak.z.equals(mp.z)||
+					(Math.abs(curPeak.mz - mp.mz - Constants.z2) <= Constants.mzTolerance && curPeak.z.equals("2") && mp.z.equals("2")) ||
+					(Math.abs(curPeak.mz - mp.mz - Constants.z3) <= Constants.mzTolerance && curPeak.z.equals("3") && mp.z.equals("3")) ||
+					(Math.abs(curPeak.mz - mp.mz - Constants.z4) <= Constants.mzTolerance && curPeak.z.equals("4") && mp.z.equals("4")) ||
+					(Math.abs(curPeak.mz - mp.mz - Constants.z5) <= Constants.mzTolerance && curPeak.z.equals("5") && mp.z.equals("5")) ||
+					(Math.abs(curPeak.mz - mp.mz - Constants.z6) <= Constants.mzTolerance && curPeak.z.equals("6") && mp.z.equals("6")) ||
+					(Math.abs(curPeak.mz - mp.mz - Constants.z7) <= Constants.mzTolerance && curPeak.z.equals("7") && mp.z.equals("7")) ||
+					(Math.abs(curPeak.mz - mp.mz - Constants.z8) <= Constants.mzTolerance && curPeak.z.equals("8") && mp.z.equals("8"))){
+				curPeak.intensity += mp.intensity;
+			}else{  //do we keep the peak?
+				curPeak.intensity = curPeak.intensity / ms1sAboveThresholdCount;
+				if(curPeak.intensity > maxMS1Intensity * Constants.finalIntensityCuttoff)
+					list.insertSorted(curPeak, "asc");
+				curPeak = new Peak(mp.scanNum, mp.mz, mp.intensity, mp.z);
+			}
+		}
+		System.out.println("initial monopeaks size: " + monoPeaks.size() + "\tfinal monoPeak list size: " + list.size());
+		finalMzs = new Number[list.size()];
+		finalIntensities = new Number[list.size()];
+		zLabels = new String[list.size()];
+		for(int i = 0; i < list.size(); i++){
+			Peak p = list.get(i);
+			finalMzs[i] = p.mz;
+			finalIntensities[i] = p.intensity;
+			zLabels[i] = p.z;
+			//System.out.println(list.get(i).mz + "\t" + 
+			//		list.get(i).intensity + "\t" + list.get(i).z + "\t" + list.get(i).scanNum);
+		}
+	}
+	
+	private void saveResultsAsJPG(String chartTitle) {
+		double maxInt = 0;
+		for(int i = 0; i < finalIntensities.length; i++)
+			if(finalIntensities[i].doubleValue() > maxInt)
+				maxInt = finalIntensities[i].doubleValue();
+		drawSpectrumAsJPG(chartTitle, finalMzs, finalIntensities, zLabels, 300.0, 1800.0, 1000, 420, 
+				maxInt*Constants.finalIntensityCuttoff, maxInt, 
+				mzmlFilename.substring(0, mzmlFilename.lastIndexOf(".")) + ".jpg");
+	}
+	
 
-		/* SETUP SCATTER */
-
-		// Create the scatter data, renderer, and axis
-		XYDataset collection1 = getScatterPlotData(spec, intensityThreshold);
-		XYItemRenderer renderer1 = new XYLineAndShapeRenderer(false, true);   // Shapes only
+	//used mainly for debugging
+	private void saveResultsAsJPG(MS1Spec ms) {
+		double maxInt = 0;
+		Number[] intensities = null;
+		Number[] mzs = null;
+		String[] zLabels = null;
+		String suffix = "a";
+		String typeOfChart = "Raw";
+		
+		if(ms.isMonoisotopicPeakPicked()){
+			mzs = ms.getMonoisotopePeakMzs();
+			intensities = ms.getMonoisotopePeakIntensities();
+			zLabels = ms.getMonoisotopeZlabels();
+			suffix = "c";
+			typeOfChart = "Monoisotopic Peaks";
+		}else if(ms.isPeakPicked()){
+			mzs = ms.getPeakMzs();
+			intensities = ms.getPeakIntensities();
+			zLabels = new String[mzs.length];
+			suffix = "b";
+			typeOfChart = "Picked Peaks";
+		}else{
+			mzs = ms.getRawMzs();
+			intensities = ms.getRawIntensities();
+			zLabels = new String[mzs.length];
+		}
+		for(int i = 0; i < intensities.length; i++)
+			if(intensities[i].doubleValue() > maxInt)
+				maxInt = intensities[i].doubleValue();
+		drawSpectrumAsJPG("Spec " + ms.getScanNumber() + " - " + typeOfChart, mzs, intensities, zLabels, 300.0, 1800.0, 1000, 420, maxInt * Constants.finalIntensityCuttoff, maxInt, 
+				mzmlFilename.substring(0, mzmlFilename.lastIndexOf("/")+1) + "scan" + ms.getScanNumber() + suffix + ".jpg");
+	}
+	
+	
+	private void drawSpectrumAsJPG(String chartTitle, Number[] mzs, Number[] intensities, String[] zLabels, double lowerMz, double higherMz, int width, int height, 
+								double intensityThreshold, double maxIntensity, String outputFilename) {
+		LabeledXYDataset ds = new LabeledXYDataset();
+        for(int i = 0; i < mzs.length; i++){
+        	if(mzs[i].doubleValue() > higherMz)
+        		break;
+        	if(mzs[i].doubleValue() > lowerMz && intensities[i].doubleValue() > intensityThreshold){
+    			ds.add(mzs[i].doubleValue() - 0.0001, 0.0, "");
+        		ds.add(mzs[i].doubleValue(), intensities[i].doubleValue(), Double.toString(Utils.round(mzs[i].doubleValue(), 4)) + " (" + zLabels[i] + ")");
+    			ds.add(mzs[i].doubleValue() + 0.0001, 0.0, "");
+        	}
+        }
+        
+        XYItemRenderer renderer1 = new XYLineAndShapeRenderer(true, false);  
+		renderer1.setBaseItemLabelGenerator(new LabelGenerator());
+	    renderer1.setBaseItemLabelsVisible(true);
+	    
+		
 		ValueAxis domain1 = new NumberAxis("m/z");
+		domain1.setRange(lowerMz, higherMz);
 		ValueAxis range1 = new NumberAxis("Intensity");
+		range1.setRange(0, maxIntensity*1.061);
 
+		XYPlot plot = new XYPlot();
 		// Set the scatter data, renderer, and axis into plot
-		plot.setDataset(0, collection1);
+		plot.setDataset(0, ds);
 		plot.setRenderer(0, renderer1);
 		plot.setDomainAxis(0, domain1);
 		plot.setRangeAxis(0, range1);
@@ -230,170 +234,69 @@ public class MSInfusionDataPlotJmzml {
 		plot.mapDatasetToDomainAxis(0, 0);
 		plot.mapDatasetToRangeAxis(0, 0);
 
-		/* SETUP LINE 
-
-		// Create the line data, renderer, and axis
-		XYDataset collection2 = getLinePlotData();
-		XYItemRenderer renderer2 = new XYLineAndShapeRenderer(true, false);   // Lines only
-		ValueAxis domain2 = new NumberAxis("Domain2");
-		ValueAxis range2 = new NumberAxis("Range2");
-
-		// Set the line data, renderer, and axis into plot
-		plot.setDataset(1, collection2);
-		plot.setRenderer(1, renderer2);
-		plot.setDomainAxis(1, domain2);
-		plot.setRangeAxis(1, range2);
-
-		// Map the line to the second Domain and second Range
-		plot.mapDatasetToDomainAxis(1, 1);
-		plot.mapDatasetToRangeAxis(1, 1);
-*/
 		// Create the chart with the plot and a legend
-		JFreeChart chart = new JFreeChart("Multi Dataset Chart", JFreeChart.DEFAULT_TITLE_FONT, plot, true);
-		
-
-		int chartWidth = 560;
-		int chartHeight = 300;
-		
+		JFreeChart chart = new JFreeChart(chartTitle, JFreeChart.DEFAULT_TITLE_FONT, plot, true);
+			
 		try {
-			ChartUtilities.saveChartAsJPEG(new File(outputFilename), chart, chartWidth, chartHeight);
+			ChartUtilities.saveChartAsJPEG(new File(outputFilename), chart, width, height);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private XYDataset getScatterPlotData(SortedArrayList<MS2Scan> spec, double intensityThreshold) {
-		final XYSeries series1 = new XYSeries("First");
-        for(int i = 0; i < spec.size(); i++){
-        	if(spec.get(i).getIntensity() < spec.get(0).getIntensity() * intensityThreshold)
-        		break;
-        	
-        	series1.add(spec.get(i).getMz(), spec.get(i).getIntensity());
+	/*
+	 * Necessary for adding labels to the chart.
+	 */
+	private static class LabeledXYDataset extends AbstractXYDataset {
+        private List<Number> x = new ArrayList<Number>();
+        private List<Number> y = new ArrayList<Number>();
+        private List<String> label = new ArrayList<String>();
+
+
+		public void add(double x, double y, String label){
+            this.x.add(x);
+            this.y.add(y);
+            this.label.add(label);
         }
 
-        
-        final XYSeriesCollection dataset = new XYSeriesCollection();
-        dataset.addSeries(series1);
-                
-        return dataset;
-	}
+        public String getLabel(int series, int item) {
+            return label.get(item);
+        }
 
-	/**
-	 * @param args = filename, 
+        @Override
+        public int getSeriesCount() {
+            return 1;
+        }
+
+        @Override
+        public Comparable getSeriesKey(int series) {
+            return "Intensity";
+        }
+
+        @Override
+        public int getItemCount(int series) {
+            return label.size();
+        }
+
+        @Override
+        public Number getX(int series, int item) {
+            return x.get(item);
+        }
+
+        @Override
+        public Number getY(int series, int item) {
+            return y.get(item);
+        }
+    }
+
+	/*
+	 * Necessary for adding labels to the chart.
 	 */
-	public static void main(String[] args) {
-		if(args.length != 2){
-			System.out.println("USAGE: MSInfusionDataPlotJmzml pathToMzmlFile thresholdIntensity");
-			
-		} 
-		MSInfusionDataPlotJmzml msip = new MSInfusionDataPlotJmzml(args[0], Integer.parseInt(args[1]));
-
-	}
-	
-	private class SortedArrayList<T> extends ArrayList<T> {
-
-	    @SuppressWarnings("unchecked")
-	    public void insertSorted(T value) {
-	        add(value);
-	        Comparable<T> cmp = (Comparable<T>) value;
-	        for (int i = size()-1; i > 0 && cmp.compareTo(get(i-1)) < 0; i--)
-	            Collections.swap(this, i, i-1);
+    private static class LabelGenerator implements XYItemLabelGenerator {
+	    @Override
+	    public String generateLabel(XYDataset dataset, int series, int item) {
+	            LabeledXYDataset labelSource = (LabeledXYDataset) dataset;
+	            return labelSource.getLabel(series, item);
 	    }
-	}
-	@SuppressWarnings("rawtypes")
-	private class MS1Scan implements Comparable<MS1Scan>{
-		private int index;
-		private double time;
-		private double intensity;
-
-
-		public MS1Scan(int i, Number number, Number number2) {
-			this.index = i;
-			this.time = number.doubleValue();
-			this.intensity = number2.doubleValue();
-		}
-
-		@Override
-		public int compareTo(MS1Scan cs) {
-			if(this.intensity == cs.getIntensity())
-				return 0;
-			else
-				return this.intensity < cs.getIntensity() ? 1 : -1;
-
-		}
-
-		public int getIndex() {
-			return index;
-		}
-
-		public void setIndex(int index) {
-			this.index = index;
-		}
-
-		public double getTime() {
-			return time;
-		}
-
-		public void setTime(double time) {
-			this.time = time;
-		}
-
-		public double getIntensity() {
-			return intensity;
-		}
-
-		public void setIntensity(double intensity) {
-			this.intensity = intensity;
-		}
-		
-	}
-	
-	@SuppressWarnings("rawtypes")
-	private class MS2Scan implements Comparable<MS2Scan>{
-		private int index;
-		private double mz;
-		private double intensity;
-
-
-		public MS2Scan(int i, Number number, Number number2) {
-			this.index = i;
-			this.mz = number.doubleValue();
-			this.intensity = number2.doubleValue();
-		}
-
-		@Override
-		public int compareTo(MS2Scan cs) {
-			if(this.intensity == cs.getIntensity())
-				return 0;
-			else
-				return this.intensity < cs.getIntensity() ? 1 : -1;
-
-		}
-
-		public int getIndex() {
-			return index;
-		}
-
-		public void setIndex(int index) {
-			this.index = index;
-		}
-
-		public double getMz() {
-			return mz;
-		}
-
-		public void setMz(double mz) {
-			this.mz = mz;
-		}
-
-		public double getIntensity() {
-			return intensity;
-		}
-
-		public void setIntensity(double intensity) {
-			this.intensity = intensity;
-		}
-		
-	}
-
+    }
 }
