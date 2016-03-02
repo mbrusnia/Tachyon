@@ -1,40 +1,31 @@
 ###
-###  IMPORTANT INFO:  THIS CODE EXPOSED A BUG IN THE LABKEY FRAMEWORK.
-###  WHILE THIS COMMENT REMAINS, THE BUG IS STILL PRESENT AND THIS CODE
-###  WILL CAUSE THE SERVER TO HANG.
-###
-###
-###
-###
-###
-### This Labkey Transformation script will do 4 things upon insertion of new
-### peptide sequences into any of the 3 compound Registry Assay tables:
-### 1) Will verify the ParentID's of all incoming sequences (that they are valid)
-###	2) Will make sure than non of the incoming sequences are already in the database
+### This Labkey Transformation script will do XXXXXXXX things upon insertion of new
+### peptide sequences into the InSilicoAssay table:
+###################### XXXXXXX 1) Will verify the ParentID's of all incoming sequences (that they are valid)
+###	2) Will make sure than none of the incoming sequences are already in the InSilicoAssay Table (identify duplicates)
 ###	3) Will calculate AverageMass, MonoisotopicMass, and pI for each sequence
 ###	4) Will save all the data as follows:
 ###		a) ID, ParentID, Sequence, AverageMass, MonoMass, and pI in the Assay
-###		b) Everything BUT those 3 calculated values in the Sample Set
 ###
+
 options(stringsAsFactors = FALSE)
 options(digits=10)
 suppressWarnings(suppressMessages(require(Rlabkey)))
 suppressWarnings(suppressMessages(require(Peptides)))
 suppressWarnings(suppressMessages(require(stringr)))
 
-baseUrl<-"http://optides-stage.fhcrc.org/"
 source("${srcDirectory}/Utils.R")
 
-
-## These next four constants point to the data we wish to query from the DB
-ASSAY_SCHEMA_NAME = "assay.General.InSilicoAssay"
-ASSAY_QUERY_NAME = "Data"
+#Parameters for this script (login script: _netrc)
+BASE_URL = "http://optides-stage.fhcrc.org/"
 SEQUENCE_COL_NAME = "AASeq"
 COMPOUND_ID_COL_NAME = "ID"
-PARENT_ID_COL_NAME = "Parent ID"
-SAMPLES_SCHEMA = "Samples"
-COMPOUND_TABLE = "Construct"
-COMPOUND_FOLDER = "Optides/CompoundsRegistry/Samples"
+PARENT_ID_COL_NAME = "ParentID"
+
+ASSAY_SCHEMA_NAME = "assay.General.InSilicoAssay"
+ASSAY_QUERY_NAME = "Data"
+ASSAY_NAME = "InSilicoAssay"
+ASSAY_FOLDER_PATH = "Optides/InSilicoAssay/MolecularProperties"
 
 ########################################
 # FUNCTIONS
@@ -112,60 +103,25 @@ calc_formula_monomass <- function(formula){
 	}
 	weight_total
 }
-###########################################################
-# END FUNCTIONS
-###########################################################
+###############
+#END FUNCTIONS
+###############
 
 ${rLabkeySessionId}
 
 rpPath <- "${runInfo}"
 
 ## read the file paths etc out of the runProperties.tsv file
-params <- getRunPropsList(rpPath, baseUrl)
-
-## get all previously uploaded sequences
-parentSampleSetIDs <- labkey.selectRows(baseUrl, COMPOUND_FOLDER, "Samples", "Variant",
-    viewName = NULL, colSelect = COMPOUND_ID_COL_NAME, maxRows = NULL,
-    rowOffset = NULL, colSort = NULL,	colFilter=NULL, showHidden = FALSE, colNameOpt="caption",
-    containerFilter=NULL)
+params <- getRunPropsList(rpPath, BASE_URL)
 
 ## read the input data frame just to get the column headers.
 inputDF<-read.table(file=params$inputPathUploadedFile, header = TRUE, sep = "\t")
+
+#change the column name of parent.ID
 names(inputDF)[grepl("[Pp]arent.ID", names(inputDF))] <- PARENT_ID_COL_NAME
 
-#########################################################
-## 1) Verify ParentIDs (that they exists in the Sample Set)
-## TODO: multiple parentIDs separated by comma(s)
-#########################################################
-#NA check.  prompt user if there are missting parent IDs in his input
-parentIDs <- inputDF[,PARENT_ID_COL_NAME]
-if(length(parentIDs[is.na(parentIDs) || parentIDs == ""]) > 0){ 
-	stop("There are sequences in your input that do not have a Parent ID.  Please provide a Parent ID for all sequences and then try again.")
-}
-#separate out comma delimmited parentIDs (only for our check here)
-for(i in 1:length(parentIDs)){
-	if(str_detect(parentIDs[i], ",")){
-		delim <- gsub(',\\W*','\\1%', parentIDs[i])
-		IDs <- str_split(delim, "%")[[1]]
-		parentIDs[i] <- IDs[1]
-		for(j in 2:length(IDs)){
-			parentIDs <- c(parentIDs, IDs[j])
-		}
-	}
-}
-
-a <- mysetdiff(parentIDs, parentSampleSetIDs[,COMPOUND_ID_COL_NAME], multiple=TRUE)
-if(length(a) > 0){
-	cat("ERROR: Some of the ParentIDs were not found in the ", COMPOUND_TABLE, " Table. The following ParentID were not found: \n")
-	for(i in 1:length(a)){
-		cat(i, ": ", a[i], "\n")
-	}
-	stop("Please correct these Parent IDs and try again.")
-}
-
-
 ##############################################################
-## 2) Check for duplicates in input data. if so, list the row and sequence, then throw error
+## 1) Check for duplicates in input data. if so, list the row and sequence, then throw error
 ##############################################################
 duplicates = duplicated(inputDF[,SEQUENCE_COL_NAME])
 if(length(duplicates[duplicates == TRUE]) > 0){
@@ -175,7 +131,7 @@ if(length(duplicates[duplicates == TRUE]) > 0){
 			cat("ID: ", inputDF[i,COMPOUND_ID_COL_NAME], ": ", inputDF[i,SEQUENCE_COL_NAME], "\n")
 		}
 	}
-	stop("Please remove the duplicates from your input file and try again.")
+	stop("Please remove the duplicates from your input list or file and try again.")
 }
 
 
@@ -185,48 +141,62 @@ if(length(duplicates[duplicates == TRUE]) > 0){
 ##
 
 ## get all previously uploaded sequences
-previousSampleSetContents <- labkey.selectRows(baseUrl, COMPOUND_FOLDER, "Samples", "Construct",
+previousAssaySequenceContents <- labkey.selectRows(BASE_URL, ASSAY_FOLDER_PATH, ASSAY_SCHEMA_NAME, ASSAY_QUERY_NAME,
     viewName = NULL, colSelect = c(COMPOUND_ID_COL_NAME, PARENT_ID_COL_NAME, SEQUENCE_COL_NAME), maxRows = NULL,
     rowOffset = NULL, colSort = NULL,	colFilter=NULL, showHidden = FALSE, colNameOpt="caption",
     containerFilter=NULL)
 
-if(!uniquenessCheck(previousSampleSetContents[,SEQUENCE_COL_NAME],inputDF[,c(COMPOUND_ID_COL_NAME, SEQUENCE_COL_NAME)])){
-	stop("Please remove the duplicates from your input file and try again.")
+matches <- match(inputDF[,SEQUENCE_COL_NAME], previousAssaySequenceContents[,SEQUENCE_COL_NAME])
+rowsWithDuplicates <- which(!is.na(matches))
+if(length(rowsWithDuplicates) > 0){
+	cat("ERROR: No duplicate sequences allowed. The following sequences have previously been uploaded into the repository: \n")
+	for(i in 1:length(rowsWithDuplicates)){
+		cat("Row ", rowsWithDuplicates[i], " - ID: ", inputDF[rowsWithDuplicates[i],COMPOUND_ID_COL_NAME], " - AASeq: ", inputDF[rowsWithDuplicates[i],SEQUENCE_COL_NAME], "\n")
+	}
+	stop("Please remove the duplicate sequences from your input file and try again.")
+}
+##
+## check if the new IDs have previously been loaded into the database. 
+## if so, list the rows and IDs 
+##
+matches <- match(inputDF[,COMPOUND_ID_COL_NAME], previousAssaySequenceContents[,COMPOUND_ID_COL_NAME])
+rowsWithDuplicates <- which(!is.na(matches))
+if(length(rowsWithDuplicates) > 0){
+	cat("ERROR: Some of your Compound IDs have been entered into the table before. The following IDs have previously been uploaded into the repository: \n")
+	for(i in 1:length(rowsWithDuplicates)){
+		cat("Row ", rowsWithDuplicates[i], " - ID: ", inputDF[rowsWithDuplicates[i],COMPOUND_ID_COL_NAME], "\n")
+	}
+	stop("Please remove the duplicate IDs from your input file and try again.")
 }
 
 ############################################################
-## 3) calculate average mass, monoisotopic mass, and pI
+## 2) calculate average mass, monoisotopic mass, and pI
 ############################################################
-toinsert <- inputDF
-if(!"AverageMass" %in% names(toinsert)){
-	toinsert <- cbind(toinsert, AverageMass = vector(length=length(toinsert[,COMPOUND_ID_COL_NAME])))
-	toinsert$AverageMass[] <- NA
+if(!"AverageMass" %in% names(inputDF)){
+	inputDF <- cbind(inputDF, AverageMass = vector(length=length(inputDF[,COMPOUND_ID_COL_NAME])))
+	inputDF$AverageMass[] <- NA
 }
-if(!"MonoisotopicMass" %in% names(toinsert)){
-	toinsert <- cbind(toinsert, MonoisotopicMass = vector(length=length(toinsert[,COMPOUND_ID_COL_NAME])))
-	toinsert$MonoisotopicMass[] <- NA
+if(!"MonoisotopicMass" %in% names(inputDF)){
+	inputDF <- cbind(inputDF, MonoisotopicMass = vector(length=length(inputDF[,COMPOUND_ID_COL_NAME])))
+	inputDF$MonoisotopicMass[] <- NA
 }
-if(!"pI" %in% names(toinsert)){
-	toinsert <- cbind(toinsert, pI = vector(length=length(toinsert[,COMPOUND_ID_COL_NAME])))
-	toinsert$pI[] <- NA
+if(!"pI" %in% names(inputDF)){
+	inputDF <- cbind(inputDF, pI = vector(length=length(inputDF[,COMPOUND_ID_COL_NAME])))
+	inputDF$pI[] <- NA
 }
-for (i in 1:length(toinsert[,SEQUENCE_COL_NAME])){
+for (i in 1:length(inputDF[,SEQUENCE_COL_NAME])){
 	#if it's a chemical formula...
-	if(str_detect(toinsert[i,SEQUENCE_COL_NAME], "[1-9]+")){
-		toinsert$MonoisotopicMass[i] <- calc_formula_monomass(inputDF[i, SEQUENCE_COL_NAME])
+	if(str_detect(inputDF[i,SEQUENCE_COL_NAME], "[1-9]+")){
+		inputDF$MonoisotopicMass[i] <- calc_formula_monomass(inputDF[i, SEQUENCE_COL_NAME])
 	}else{
 		#if it's a peptide sequence...
-		toinsert$AverageMass[i] <- mymw(inputDF[i, SEQUENCE_COL_NAME], monoisotopic=FALSE)
-		toinsert$MonoisotopicMass[i] <- mymw(inputDF[i, SEQUENCE_COL_NAME], monoisotopic=TRUE)
-		toinsert$pI[i] <- pI(inputDF[i, SEQUENCE_COL_NAME], pKscale="EMBOSS")
+		inputDF$AverageMass[i] <- mymw(inputDF[i, SEQUENCE_COL_NAME], monoisotopic=FALSE)
+		inputDF$MonoisotopicMass[i] <- mymw(inputDF[i, SEQUENCE_COL_NAME], monoisotopic=TRUE)
+		inputDF$pI[i] <- pI(inputDF[i, SEQUENCE_COL_NAME], pKscale="EMBOSS")
 	}
 }
-
 ###################################################################
-## 4) Insert data to Database
+## 3) Insert data to Database
 ###################################################################
-#insert input into compound registry sample set (error will be thrown if ID already exists)
-labkey.insertRows(baseUrl, COMPOUND_FOLDER, SAMPLES_SCHEMA, COMPOUND_TABLE, inputDF)
 
-#insert input into assay
-write.table(toinsert,file=params$outputPath, col.names = TRUE, sep="\t",na="", row.names=F, quote=F)
+write.table(inputDF,file=params$outputPath, col.names = TRUE, sep="\t",na="", row.names=F, quote=F)
