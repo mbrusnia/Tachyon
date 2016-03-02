@@ -1,7 +1,7 @@
 options(stringsAsFactors = FALSE)
 library(Rlabkey)
 
-baseUrl<-"http://localhost:8080/labkey"
+baseUrl<-"http://http://optides-prod.fhcrc.org/"
 ${rLabkeySessionId}
 rpPath<- "${runInfo}"
 
