@@ -1,10 +1,9 @@
 ###
-### This Labkey Transformation script will do XXXXXXXX things upon insertion of new
+### This Labkey Transformation script will do 3 things upon insertion of new
 ### peptide sequences into the InSilicoAssay table:
-###################### XXXXXXX 1) Will verify the ParentID's of all incoming sequences (that they are valid)
-###	2) Will make sure than none of the incoming sequences are already in the InSilicoAssay Table (identify duplicates)
-###	3) Will calculate AverageMass, MonoisotopicMass, and pI for each sequence
-###	4) Will save all the data as follows:
+###	1) Will make sure than none of the incoming sequences are already in the InSilicoAssay Table (identify duplicates)
+###	2) Will calculate AverageMass, MonoisotopicMass, and pI for each sequence
+###	3) Will save all the data as follows:
 ###		a) ID, ParentID, Sequence, AverageMass, MonoMass, and pI in the Assay
 ###
 
@@ -30,20 +29,6 @@ ASSAY_FOLDER_PATH = "Optides/InSilicoAssay/MolecularProperties"
 ########################################
 # FUNCTIONS
 ########################################
-#make sure there is no overlap in the 2 sets, and report the overlaps if they exist
-uniquenessCheck <- function(arg1, arg2){
-	matches <- match(arg1, arg2[,SEQUENCE_COL_NAME])
-	matches <- unique(matches[!is.na(matches)])
-	if(length(matches) > 0){
-		cat("ERROR: No duplicates allowed. The following sequences have previously been uploaded into the repository: \n")
-		for(i in 1:length(matches)){
-			cat("ID: ", arg2[matches[i],COMPOUND_ID_COL_NAME], ": ", arg2[matches[i],SEQUENCE_COL_NAME], "\n")
-		}
-		return(FALSE)
-	}
-	return(TRUE)
-}
-
 #return those elements in x that are not in y
 mysetdiff<-function (x, y, multiple=FALSE) {
     x <- as.vector(x)
@@ -113,12 +98,19 @@ rpPath <- "${runInfo}"
 
 ## read the file paths etc out of the runProperties.tsv file
 params <- getRunPropsList(rpPath, BASE_URL)
+params
 
-## read the input data frame just to get the column headers.
-inputDF<-read.table(file=params$inputPathUploadedFile, header = TRUE, sep = "\t")
+## read the input data frame. Is xlsx or tsv?
+if(tools::file_ext(params$inputPathUploadedFile) == "xlsx"){
+	source("${srcDirectory}/xlsxToR.R")
+	inputDF <- xlsxToR(params$inputPathUploadedFile, header=TRUE)
+}else{ 
+	inputDF<-read.table(file=params$inputPathUploadedFile, header = TRUE, sep = "\t")
+}
 
-#change the column name of parent.ID
+#change the column name of parent.ID and alternate.name
 names(inputDF)[grepl("[Pp]arent.ID", names(inputDF))] <- PARENT_ID_COL_NAME
+names(inputDF)[grepl("[Aa]lternate.[Nn]ame", names(inputDF))] <- "AlternateName"
 
 ##############################################################
 ## 1) Check for duplicates in input data. if so, list the row and sequence, then throw error
