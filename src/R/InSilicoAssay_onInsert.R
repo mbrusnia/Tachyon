@@ -20,6 +20,7 @@ BASE_URL = "http://optides-stage.fhcrc.org/"
 SEQUENCE_COL_NAME = "AASeq"
 COMPOUND_ID_COL_NAME = "ID"
 PARENT_ID_COL_NAME = "ParentID"
+ALTERNATE_NAME_COL_NAME = "AlternateName"
 
 ASSAY_SCHEMA_NAME = "assay.General.InSilicoAssay"
 ASSAY_QUERY_NAME = "Data"
@@ -110,7 +111,7 @@ if(tools::file_ext(params$inputPathUploadedFile) == "xlsx"){
 
 #change the column name of parent.ID and alternate.name
 names(inputDF)[grepl("[Pp]arent.ID", names(inputDF))] <- PARENT_ID_COL_NAME
-names(inputDF)[grepl("[Aa]lternate.[Nn]ame", names(inputDF))] <- "AlternateName"
+names(inputDF)[grepl("[Aa]lternate.[Nn]ame", names(inputDF))] <- ALTERNATE_NAME_COL_NAME
 
 ##############################################################
 ## 1) Check for duplicates in input data. if so, list the row and sequence, then throw error
