@@ -18,7 +18,7 @@ CONSTRUCT_QUERY_NAME = "Construct"
 SAMPLE_SETS_FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
 
 #a hash to look up vector ids to vector names
-Vector_hash <- list(VCR010="RKS017", VCR011="RSK056", VCR012="RKS017", VCR020 ="JMO084", VCR21="JMO084", VCR30="JMO300", VCR040="MDT208", VCR050-"Elafin", VCR000="Unavailable")  #this list will grow
+Vector_hash <- list(VCR010="RKS017", VCR011="RSK056", VCR012="RKS017", VCR020 ="JMO084", VCR21="JMO084", VCR30="JMO300", VCR040="MDT208", VCR050="Elafin", VCR000="Unavailable")  #this list will grow
 
 
 ${rLabkeySessionId}
@@ -72,6 +72,13 @@ names(inputDF) <- c("Name", "Sample Set", "Flag", "ConstructID", "ID", "Parent I
 inputDF <- inputDF[, c(1,4, 5, 8, 9)]
 
 for(i in 1:length(inputDF[,1])){
+	#no blank allowed as well as no unknown
+	if(is.na(inputDF[i, "Vector"])){
+		stop("There is a blank value entered for a Vector value.  This is not allowed.  Please fix this and try again.")
+	}
+	if(is.null(Vector_hash[[inputDF[i, "Vector"]]])){
+		stop(paste("An invalid Vector has been specified in your input.  This Vector value is invalid: ", inputDF[i, "Vector"]))
+	}
 	inputDF[i, "Vector"] <- Vector_hash[[inputDF[i, "Vector"]]]
 }
 

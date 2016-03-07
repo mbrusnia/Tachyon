@@ -99,7 +99,6 @@ rpPath <- "${runInfo}"
 
 ## read the file paths etc out of the runProperties.tsv file
 params <- getRunPropsList(rpPath, BASE_URL)
-params
 
 ## read the input data frame. Is xlsx or tsv?
 if(tools::file_ext(params$inputPathUploadedFile) == "xlsx"){
