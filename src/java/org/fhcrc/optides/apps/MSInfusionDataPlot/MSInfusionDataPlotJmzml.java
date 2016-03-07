@@ -53,7 +53,7 @@ public class MSInfusionDataPlotJmzml {
 	public static void main(String[] args) {
 		if(args.length != 2){
 			System.out.println("USAGE: MSInfusionDataPlotJmzml pathToMzmlFile thresholdIntensity");
-			
+			return;
 		} 
 		MSInfusionDataPlotJmzml msip = new MSInfusionDataPlotJmzml(args[0], Integer.parseInt(args[1]));
 		msip.pickMonoisotopicPeaks();
