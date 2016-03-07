@@ -18,7 +18,7 @@ CONSTRUCT_QUERY_NAME = "Construct"
 SAMPLE_SETS_FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
 
 #a hash to look up vector ids to vector names
-Vector_hash <- list(VCR010="RKS017", VCR011="RSK056", VCR012="RKS017", VCR020 ="JMO84", VCR21="JMO84", VCR30="JMO300", VCR040="MDT208", VCR050-"Elafin", VCR000="Unavailable")  #this list will grow
+Vector_hash <- list(VCR010="RKS017", VCR011="RSK056", VCR012="RKS017", VCR020 ="JMO084", VCR21="JMO084", VCR30="JMO300", VCR040="MDT208", VCR050-"Elafin", VCR000="Unavailable")  #this list will grow
 
 
 ${rLabkeySessionId}
