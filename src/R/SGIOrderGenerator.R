@@ -8,7 +8,7 @@ suppressWarnings(suppressMessages(require(Rlabkey)))
 source("${srcDirectory}/Utils.R")
 
 #Parameters for this script (login script: _netrc)
-BASE_URL = "http://optides-stage.fhcrc.org/"
+BASE_URL = "http://optides-prod.fhcrc.org/"
 SEQUENCE_COL_NAME = "AASeq"
 COMPOUND_ID_COL_NAME = "ID"
 PARENT_ID_COL_NAME = "ParentID"
