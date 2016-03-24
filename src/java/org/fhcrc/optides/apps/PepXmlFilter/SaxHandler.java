@@ -50,8 +50,8 @@ public class SaxHandler extends DefaultHandler {
 	    	  break;
 	    case "mod_aminoacid_mass":
 	    	  if(sh.mod_position.length() > 0){
-	    		  sh.mod_position += ", ";
-	    		  sh.mod_mass += ", ";
+	    		  sh.mod_position += "; ";
+	    		  sh.mod_mass += "; ";
 	    	  }
     		  sh.mod_position += attributes.getValue("position");
     		  sh.mod_mass += attributes.getValue("mass");
