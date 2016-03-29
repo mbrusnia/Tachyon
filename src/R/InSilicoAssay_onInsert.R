@@ -6,10 +6,10 @@
 ###	3) Will save all the data as follows:
 ###		a) ID, ParentID, Sequence, AverageMass, MonoMass, and pI in the Assay
 ###
+### 3/29/2016 update: Step #1 has been removed, as it has shown to expose buggy behavior in the labkey framework
 
 options(stringsAsFactors = FALSE)
 options(digits=10)
-suppressWarnings(suppressMessages(require(Rlabkey)))
 suppressWarnings(suppressMessages(require(Peptides)))
 suppressWarnings(suppressMessages(require(stringr)))
 
@@ -21,11 +21,6 @@ SEQUENCE_COL_NAME = "AASeq"
 COMPOUND_ID_COL_NAME = "ID"
 PARENT_ID_COL_NAME = "ParentID"
 ALTERNATE_NAME_COL_NAME = "AlternateName"
-
-ASSAY_SCHEMA_NAME = "assay.General.InSilicoAssay"
-ASSAY_QUERY_NAME = "Data"
-ASSAY_NAME = "InSilicoAssay"
-ASSAY_FOLDER_PATH = "Optides/InSilicoAssay/MolecularProperties"
 
 ########################################
 # FUNCTIONS
@@ -129,37 +124,8 @@ if(length(duplicates[duplicates == TRUE]) > 0){
 
 ##
 ## check if the new sequences have previously been loaded into the database. 
-## if so, list the rows and sequences of the repeated sequences
 ##
-
-## get all previously uploaded sequences
-previousAssaySequenceContents <- labkey.selectRows(BASE_URL, ASSAY_FOLDER_PATH, ASSAY_SCHEMA_NAME, ASSAY_QUERY_NAME,
-    viewName = NULL, colSelect = c(COMPOUND_ID_COL_NAME, PARENT_ID_COL_NAME, SEQUENCE_COL_NAME), maxRows = NULL,
-    rowOffset = NULL, colSort = NULL,	colFilter=NULL, showHidden = FALSE, colNameOpt="caption",
-    containerFilter=NULL)
-
-matches <- match(inputDF[,SEQUENCE_COL_NAME], previousAssaySequenceContents[,SEQUENCE_COL_NAME])
-rowsWithDuplicates <- which(!is.na(matches))
-if(length(rowsWithDuplicates) > 0){
-	cat("ERROR: No duplicate sequences allowed. The following sequences have previously been uploaded into the repository: \n")
-	for(i in 1:length(rowsWithDuplicates)){
-		cat("Row ", rowsWithDuplicates[i], " - ID: ", inputDF[rowsWithDuplicates[i],COMPOUND_ID_COL_NAME], " - AASeq: ", inputDF[rowsWithDuplicates[i],SEQUENCE_COL_NAME], "\n")
-	}
-	stop("Please remove the duplicate sequences from your input file and try again.")
-}
-##
-## check if the new IDs have previously been loaded into the database. 
-## if so, list the rows and IDs 
-##
-matches <- match(inputDF[,COMPOUND_ID_COL_NAME], previousAssaySequenceContents[,COMPOUND_ID_COL_NAME])
-rowsWithDuplicates <- which(!is.na(matches))
-if(length(rowsWithDuplicates) > 0){
-	cat("ERROR: Some of your Compound IDs have been entered into the table before. The following IDs have previously been uploaded into the repository: \n")
-	for(i in 1:length(rowsWithDuplicates)){
-		cat("Row ", rowsWithDuplicates[i], " - ID: ", inputDF[rowsWithDuplicates[i],COMPOUND_ID_COL_NAME], "\n")
-	}
-	stop("Please remove the duplicate IDs from your input file and try again.")
-}
+##  removed.
 
 ############################################################
 ## 2) calculate average mass, monoisotopic mass, and pI
