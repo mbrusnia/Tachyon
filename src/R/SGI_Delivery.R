@@ -4,8 +4,9 @@
 
 options(stringsAsFactors = FALSE)
 library(Rlabkey)
-pathToInputFile <- "C:/Users/hramos/Documents/HRInternetConsulting/Clients/FHCRC/Project13 - SGI_DNA_pipeline/SGI_Delivery_Form.xlsx"
-
+pathToInputFile <- "/Users/mbrusnia/Documents/LabKey/LIMSData/SGI_Delivery_Form.xlsx"
+srcDirectory <- "/Users/mbrusnia/IntelliJProjects/Tachyon/src/R"
+source("/Users/mbrusnia/IntelliJProjects/Tachyon/src/R/xlsxToR.R")
 #Parameters for this script (login script: _netrc)
 BASE_URL = "http://optides-stage.fhcrc.org/"
 
@@ -18,9 +19,9 @@ SGI_DNA_QUERY_NAME = "SGI_DNA"
 SAMPLE_SETS_FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
 
 
+
 ## read the input data frame. Is xlsx or tsv?
 if(tools::file_ext(pathToInputFile) == "xlsx"){
-	source("./xlsxToR.R")
 	inputDF <- xlsxToR(pathToInputFile, header=TRUE)
 }else{ 
 	inputDF<-read.table(file=pathToInputFile, header = TRUE, sep = "\t")

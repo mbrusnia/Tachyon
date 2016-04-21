@@ -4,10 +4,12 @@
 
 options(stringsAsFactors = FALSE)
 library(Rlabkey)
-pathToInputFile <- "C:/Users/hramos/Documents/HRInternetConsulting/Clients/FHCRC/Project13 - SGI_DNA_pipeline/Book1.xlsx"
+pathToInputFile <- "/Users/mbrusnia/Documents/LabKey/LIMSData/SGIOrderGeneratorExample.xlsx"
+srcDirectory <- "/Users/mbrusnia/IntelliJProjects/Tachyon/src/R"
+source("/Users/mbrusnia/IntelliJProjects/Tachyon/src/R/xlsxToR.R")
 
 #Parameters for this script (login script: _netrc)
-BASE_URL = "http://optides-prod.fhcrc.org/"
+BASE_URL = "http://optides-stage.fhcrc.org/"
 
 SEQUENCE_COL_NAME = "AASeq"
 COMPOUND_ID_COL_NAME = "ID"
@@ -22,7 +24,6 @@ Vector_hash <- list(VCR010="RKS017", VCR011="RSK056", VCR012="RKS017", VCR020 ="
 
 ## read the input data frame. Is xlsx or tsv?
 if(tools::file_ext(pathToInputFile) == "xlsx"){
-	source("./xlsxToR.R")
 	inputDF <- xlsxToR(pathToInputFile, header=TRUE)
 }else{ 
 	inputDF<-read.table(file=pathToInputFile, header = TRUE, sep = "\t")
