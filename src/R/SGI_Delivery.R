@@ -8,13 +8,7 @@ source("/Users/mbrusnia/IntelliJProjects/Tachyon/src/R/xlsxToR.R")
 #pathToInputFile <- "C:/Users/hramos/Documents/HRInternetConsulting/Clients/FHCRC/Project13 - SGI_DNA_pipeline/SGI_Delivery_Form.xlsx"
 options(stringsAsFactors = FALSE)
 library(Rlabkey)
-<<<<<<< HEAD
 
-=======
-pathToInputFile <- "/Users/mbrusnia/Documents/LabKey/LIMSData/SGI_Delivery_Form.xlsx"
-srcDirectory <- "/Users/mbrusnia/IntelliJProjects/Tachyon/src/R"
-source("/Users/mbrusnia/IntelliJProjects/Tachyon/src/R/xlsxToR.R")
->>>>>>> e8f32fdddac9c384c33591d6436760599ee6961d
 #Parameters for this script (login script: _netrc)
 BASE_URL = "http://optides-stage.fhcrc.org/"
 
