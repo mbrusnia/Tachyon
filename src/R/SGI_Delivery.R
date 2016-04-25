@@ -47,7 +47,6 @@ for(i in 1:length(inputDF[,1])){
 		filterArr <- c(filterArr, c(inputDF[i, "Construct ID"]))
 	}
 }
-filterArr <- filterArr[2:length(filterArr)]
 filterS <- paste(filterArr, collapse=";")
 	
 ss <- labkey.selectRows(
