@@ -1,0 +1,13 @@
+<task xmlns="http://labkey.org/pipeline/xml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:type="ScriptTaskType"
+      name="ht_plate_generator" version="0.0">
+    <description>Upload SGI Delivery Form</description>
+    <inputs>
+		<file name="input.xlsx"/>
+	</inputs>
+	<outputs>
+		<file name="output.xxx"/>
+	</outputs>
+	<script file="HT_PlateGenerator.R"/>
+</task>

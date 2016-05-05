@@ -18,7 +18,6 @@ PARENT_ID_COL_NAME = "ParentID"
 
 SAMPLE_SETS_SCHEMA_NAME = "Samples"
 SGI_DNA_QUERY_NAME = "SGI_DNA"
-HTP_SPECIMEN_QUERY_NAME = "HTP_SPECIMEN"
 SAMPLE_SETS_FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
 
 #######################################################################################
@@ -65,7 +64,7 @@ for( i in 1:length(inputDF[, "Plate ID"])){
 }
 
 
-##get corresponding constructIDs from Constructs sampleSet
+##get corresponding constructIDs from SGI_DNA sampleSet  (i.e. previously ordered constructs)
 ##makeFilter
 filterArr = c()
 for(i in 1:length(inputDF[,1])){
@@ -121,66 +120,5 @@ ssu <- labkey.updateRows(
 	toUpdate=ss
 )
 
-#
-#now prepare data for insertion into HTP_Specimen
-#
-
-##find the latest HTPPlateID (we will begin with that + 1 for our new HTPPlate)
-ssHTP <- labkey.selectRows(
-	baseUrl=BASE_URL,
-	folderPath=SAMPLE_SETS_FOLDER_PATH,
-	schemaName=SAMPLE_SETS_SCHEMA_NAME,
-	queryName=HTP_SPECIMEN_QUERY_NAME,
-	colNameOpt="fieldname",
-	colSelect=c("Name", "HTPPlateID")
-)
-newHTPPlateID <- 0
-if(length(ssHTP$HTPPlateID) == 0){
-	newHTPPlateID <- 20
-}else{
-	newHTPPlateID <- max(as.numeric(substr(ssHTP$HTPPlateID, 4, nchar(ssHTP$HTPPlateID)))) + 1
-}
-if(newHTPPlateID < 20){ newHTPPlateID <- 20}
-if(nchar(newHTPPlateID) == 2){
-	newHTPPlateID = paste0("00", newHTPPlateID)
-}else if(nchar(newHTPPlateID) == 3){
-	newHTPPlateID = paste0("0", newHTPPlateID)
-}
-newHTPPlateID <- paste0("HTP", newHTPPlateID)
-
-htpSpecimenToInsert <- data.frame(cbind("Specimen" = newHTPPlateID, "HTPPlateID" = newHTPPlateID, "CNT" = inputDF[, "Construct ID"], "PlateID" = inputDF[, "Plate ID"], "WellID" = inputDF[, "Well ID"]))
-
-#now calculate quadrant and update/complete Specimen value
-for(i in 1:length(htpSpecimenToInsert$Specimen)){
-	wid <- htpSpecimenToInsert$WellID[i]
-	letter <- substr(wid, 1,1)
-	num    <- as.numeric(substr(wid, 2,3))
-
-	quadrant <- 0
-	if(letter == "A" || letter == "B" || letter == "C" || letter == "D"){
-		if(num < 7){
-			quadrant = 1
-		}else{
-			quadrant = 2
-		}
-	}else{
-		if(num < 7){
-			quadrant = 3
-		}else{
-			quadrant = 4
-		}
-	}
-	htpSpecimenToInsert$Specimen[i] <- paste0(htpSpecimenToInsert$Specimen[i], quadrant, htpSpecimenToInsert$WellID[i])
-}
-htpSpecimenToInsert <- cbind("Name" = htpSpecimenToInsert$Specimen, htpSpecimenToInsert)
-
-##insert data into HTP_Specimen sampleset database
-ssHTP_insert <- labkey.insertRows(
-	baseUrl=BASE_URL,
-	folderPath=SAMPLE_SETS_FOLDER_PATH,
-	schemaName=SAMPLE_SETS_SCHEMA_NAME,
-	queryName=HTP_SPECIMEN_QUERY_NAME,
-	toInsert=htpSpecimenToInsert
-)
 #completed
-cat(length(ss$DNASeq), "RECORDS HAVE BEEN UPDATED IN SGI_DNA.\n", length(htpSpecimenToInsert$Name), "ROWS HAVE BEEN INSERTED INTO HTP_SPECIMEN.\n")
+cat(length(ss$DNASeq), "RECORDS HAVE BEEN UPDATED IN SGI_DNA.\n")

@@ -1,0 +1,8 @@
+<pipeline xmlns="http://labkey.org/pipeline/xml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      name="ht_plate_generator" version="0.0">
+    <description>Generate HT Plates info from SGI Delivery form</description>
+    <tasks>
+		<taskref ref="SGI_DNA_pipeline:task:ht_plate_generator"/>
+    </tasks>
+</pipeline>
