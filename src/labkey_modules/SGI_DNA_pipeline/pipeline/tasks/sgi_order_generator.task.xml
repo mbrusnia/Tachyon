@@ -2,7 +2,7 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:type="ScriptTaskType"
       name="sgi_order_generator" version="0.0">
-    <description>Upload SGI Order Form</description>
+    <description>Update SGI_DNA to be downloaded for SGI Order file</description>
 	<inputs>
 		<file name="input.xlsx"/>
 	</inputs>

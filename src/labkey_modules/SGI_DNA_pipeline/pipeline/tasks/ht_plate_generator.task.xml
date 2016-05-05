@@ -2,7 +2,7 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:type="ScriptTaskType"
       name="ht_plate_generator" version="0.0">
-    <description>Upload SGI Delivery Form</description>
+    <description>Generate HT plate from SGI Delivery well location</description>
     <inputs>
 		<file name="input.xlsx"/>
 	</inputs>
