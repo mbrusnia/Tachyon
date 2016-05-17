@@ -7,12 +7,13 @@
 	<script type="text/javascript">
 	window.onload = function(){
 		YUI().use('oop', 'json-stringify', 'io-base', 'event', 'event-delegate', function(Y){
+			var uri = "xml/out.xml";
 			<? if($_GET["tax"] == "class") { ?>
-			var uri = "xml/outClass.xml";
+			uri = "xml/outClass.xml";
 			<? }elseif($_GET["tax"] == "family") { ?>
-			var uri = "xml/outFamily.xml";
+			uri = "xml/outFamily.xml";
 			<? }elseif($_GET["tax"] == "order") { ?>
-			var uri = "xml/outOrder.xml";
+			uri = "xml/outOrder.xml";
 			<? } ?>
 			function complete(id, o, args) {
 				var data = o.responseXML; // Response data.
@@ -23,7 +24,7 @@
 				phylocanvas = new Smits.PhyloCanvas(
 					dataObject,
 					'svgCanvas', 
-					800, 800,
+					1200, 1200,
 					'circular'				
 				);
 			};
