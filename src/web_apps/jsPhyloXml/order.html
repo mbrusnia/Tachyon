@@ -7,14 +7,7 @@
 	<script type="text/javascript">
 	window.onload = function(){
 		YUI().use('oop', 'json-stringify', 'io-base', 'event', 'event-delegate', function(Y){
-			var uri = "xml/out.xml";
-			<? if($_GET["tax"] == "class") { ?>
-			uri = "xml/outClass.xml";
-			<? }elseif($_GET["tax"] == "family") { ?>
-			uri = "xml/outFamily.xml";
-			<? }elseif($_GET["tax"] == "order") { ?>
-			uri = "xml/outOrder.xml";
-			<? } ?>
+			var uri = "xml/outOrder.xml";		
 			function complete(id, o, args) {
 				var data = o.responseXML; // Response data.
 				var dataObject = {
@@ -24,7 +17,7 @@
 				phylocanvas = new Smits.PhyloCanvas(
 					dataObject,
 					'svgCanvas', 
-					1200, 1200,
+					1100, 1100,
 					'circular'				
 				);
 			};
@@ -35,6 +28,9 @@
 	</script>
 </head>
 <body>
+<a href="class.html">Class Tree</a><br>
+<a href="order.html">Order Tree</a><br>
+<a href="family.html">Family Tree</a><br>
 	<div id="svgCanvas"> </div>
 </body>
 </html>		
