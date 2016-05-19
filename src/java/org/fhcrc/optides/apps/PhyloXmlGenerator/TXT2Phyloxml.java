@@ -196,14 +196,14 @@ public class TXT2Phyloxml {
 			writer.write("<render>\n\t<parameters>\n\t\t<circular>\n\t\t\t<bufferRadius>0.4</bufferRadius>\n\t\t</circular>\n\t</parameters>\n");
 			writer.write("\t<charts>");
 			if(hasSecondLayerMarkings()){
-				writer.write("\n\t\t<second_layer type=\"binary\" thickness=\"10\" />\n");
+				writer.write("\n\t\t<second_layer type=\"binary\" thickness=\"30\" />\n");
 			}
 			if(hasThirdLayerMarkings()){
-				writer.write("\n\t\t<third_layer type=\"binary\" thickness=\"10\"  bufferSiblings=\"0.3\" />\n");
+				writer.write("\n\t\t<third_layer type=\"binary\" thickness=\"30\"  bufferSiblings=\"0.3\" />\n");
 			}
 			writer.write("\t</charts>\n");
 			writer.write("\t<styles>\n");
-			writer.write("\t\t<AAA fill='#A93' stroke='#DDD' />\n");
+			writer.write("\t\t<AAA fill='#006600' stroke='#DDD' />\n");
 			writer.write("\t\t<BBB fill='#8b7100' stroke='#DDD' />\n");
 			writer.write("\t</styles>\n");
 			writer.write("</render>\n");
@@ -231,10 +231,10 @@ public class TXT2Phyloxml {
 			writer.write(indent + "<clade>\n");
 			//writer.write(indent + "	<taxonomy>\n");
 			//writer.write(indent + "		<scientific_name>" + line[i] + "</scientific_name>\n");
-			writer.write(indent + "	<name>" + line[i] + "</name>\n");
+			//writer.write(indent + "	<name>" + line[i] + "</name>\n");
 			//writer.write(indent + "	</taxonomy>\n");
 			if(i==0)
-				writer.write(indent + "	<branch_length>.05</branch_length>\n");
+				writer.write(indent + "	<branch_length>2</branch_length>\n");
 			else
 				writer.write(indent + "	<branch_length>" + (/*double)((double)1/(double)*/(level_cutoff + 1 - i)) + "</branch_length>\n");
 		
@@ -283,10 +283,10 @@ public class TXT2Phyloxml {
 				writer.write(indent + "<clade>\n");
 				//writer.write(indent + "	<taxonomy>\n");
 				//writer.write(indent + "		<scientific_name>" + nextLine[j] + "</scientific_name>\n");
-				writer.write(indent + "	<name>" + nextLine[j] + "</name>\n");
+				//writer.write(indent + "	<name>" + nextLine[j] + "</name>\n");
 				//writer.write(indent + "	</taxonomy>\n");
 				if(j==0)
-					writer.write(indent + "	<branch_length>.05</branch_length>\n");
+					writer.write(indent + "	<branch_length>2</branch_length>\n");
 				else
 					writer.write(indent + "	<branch_length>" + (/*double)((double)1/(double)*/(level_cutoff + 1 - j)) + "</branch_length>\n");
 				
