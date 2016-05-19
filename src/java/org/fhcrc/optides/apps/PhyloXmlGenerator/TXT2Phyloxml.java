@@ -203,8 +203,8 @@ public class TXT2Phyloxml {
 			}
 			writer.write("\t</charts>\n");
 			writer.write("\t<styles>\n");
-			writer.write("\t\t<AAA fill='#006600' stroke='#DDD' />\n");
-			writer.write("\t\t<BBB fill='#8b7100' stroke='#DDD' />\n");
+			writer.write("\t\t<AAA fill='#336600' stroke='#DDD' />\n");
+			writer.write("\t\t<BBB fill='#0000cc' stroke='#DDD' />\n");
 			writer.write("\t</styles>\n");
 			writer.write("</render>\n");
 		}
