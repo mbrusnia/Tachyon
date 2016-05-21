@@ -1,0 +1,8 @@
+<pipeline xmlns="http://labkey.org/pipeline/xml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      name="ht_plate_generator_data_class" version="0.0">
+    <description>DataClass: Generate HT Plates info from SGI Delivery form</description>
+    <tasks>
+		<taskref ref="SGI_DNA_DataClass_pipeline:task:ht_plate_generator"/>
+    </tasks>
+</pipeline>

@@ -1,0 +1,8 @@
+<pipeline xmlns="http://labkey.org/pipeline/xml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      name="sgi_order_generator_data_class" version="0.0">
+    <description>Data Class: Upload SGI Order Form into the Database</description>
+    <tasks>
+		<taskref ref="SGI_DNA_DataClass_pipeline:task:sgi_order_generator"/>
+    </tasks>
+</pipeline>
