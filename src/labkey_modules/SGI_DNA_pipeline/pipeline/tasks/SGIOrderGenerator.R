@@ -37,7 +37,8 @@ close(con=f)
 
 
 #a hash to look up vector ids to vector names  #this list will grow
-Vector_hash <- list(VCR010="RKS017", VCR011="RSK056", VCR012="RKS017", VCR020 ="JMO084", VCR21="JMO084", VCR30="JMO300", VCR040="MDT208", VCR050="Elafin", VCR000="Unavailable")  
+#Vector_hash <- list(VCR010="RKS017", VCR011="RSK056", VCR012="RKS017", VCR020 ="JMO084", VCR21="JMO084", VCR30="JMO300", VCR040="MDT208", VCR050="Elafin", VCR000="Unavailable")
+Vector_hash <- list(VCR010="VCR010", VCR011="VCR011", VCR012="VCR012", VCR020 ="VCR020", VCR21="VCR21", VCR30="VCR30", VCR040="VCR040", VCR050="VCR050", VCR000="Unavailable")
 
 
 ## read the input
