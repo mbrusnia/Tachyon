@@ -1,6 +1,8 @@
 ###
 ### This is an R script for a labkey pipeline import feature
 ###
+### HT_PlateGenerator.R
+###
 
 
 options(stringsAsFactors = FALSE)
@@ -14,12 +16,35 @@ source("C:/labkey/labkey/files/Optides/@files/xlsxToR.R")
 ## Make the _netrc file we need in order to connect to the database through rlabkey
 ##
 #######################################################################################
-f = file(description="_netrc", open="w")
-cat(file=f, sep="", "machine optides-stage.fhcrc.org", "\n")
-cat(file=f, sep="", "login brusniak.computelifesci@gmail.com", "\n")
-cat(file=f, sep="", "password Kn0ttin10K", "\n")
-flush(con=f)
-close(con=f)
+filename <- paste0(Sys.getenv()["HOME"], .Platform$file.sep, "_netrc")
+if(!file.exists(filename)){
+	f = file(description=filename, open="w")
+	cat(file=f, sep="", "machine optides-stage.fhcrc.org", "\n")
+	cat(file=f, sep="", "login brusniak.computelifesci@gmail.com", "\n")
+	cat(file=f, sep="", "password Kn0ttin10K", "\n")
+	flush(con=f)
+	close(con=f)
+}else{
+	txtFile <- readLines(filename)
+	counter <- 0
+	for(i in 1:length(txtFile)){
+		if(txtFile[i] == "machine optides-stage.fhcrc.org"){
+			counter <- counter + 1
+		}
+		if(txtFile[i] == "login brusniak.computelifesci@gmail.com"){
+			counter <- counter + 1
+		}
+		if(txtFile[i] == "password Kn0ttin10K"){
+			counter <- counter + 1
+		}
+	}
+	if(counter != 3){
+		write("\nmachine optides-stage.fhcrc.org",file=filename,append=TRUE)
+		write("login brusniak.computelifesci@gmail.com",file=filename,append=TRUE)
+		write("password Kn0ttin10K",file=filename,append=TRUE)
+	}
+
+}
 ######################################
 ## end
 ######################################
@@ -27,42 +52,37 @@ close(con=f)
 pathToInputFile <- "${input.xlsx}"
 
 #Parameters for this script (login script: _netrc)
-BASE_URL = "http://optides-stage.fhcrc.org/"
-
-SEQUENCE_COL_NAME = "AASeq"
-COMPOUND_ID_COL_NAME = "ID"
-PARENT_ID_COL_NAME = "ParentID"
+BASE_URL = "http://optides-prod.fhcrc.org/"
 
 SAMPLE_SETS_SCHEMA_NAME = "Samples"
-HTP_SPECIMEN_QUERY_NAME = "HTP_SPECIMEN"
+HT_PRODUCTION_QUERY_NAME = "HTProduction"
 SAMPLE_SETS_FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
 
 ## read the input
-inputDF <- xlsxToR(pathToInputFile, header=TRUE)
+inputDF <- xlsxToR(pathToInputFile, header=FALSE)
+
+##
+## Extract only the plate data and its column headers from the file 
+##
+onBlankFill <- inputDF[1,2]
+mynames <- inputDF[18, 1:11]
+inputDF <- inputDF[19:(19 - 1 + 96),1:11]
+names(inputDF) <- mynames
 
 colHeaders <- names(inputDF)
-if(colHeaders[1] != "Plate ID" || colHeaders[2] != "Construct ID" ||
-	colHeaders[3] != "Well ID" || colHeaders[4] != "DNA Concentration" ||
-	colHeaders[5] != "AASeq" || colHeaders[6] != "DNASeq" ||
-	colHeaders[7] != "Comment"){
-	
-	stop("The input file format detected is incompatible with this operation.  Please contact the administrator.")
+if(grepl("Construct.*ID", colHeaders[1]) && grepl("Construct.*Name", colHeaders[2]) && grepl("Plate.*ID", colHeaders[3])
+	&& grepl("Well.*Location", colHeaders[4]) && grepl("Concentration.*ng/uL", colHeaders[5])
+	&& grepl("Volume.*uL", colHeaders[6]) && grepl("Total.*DNA.*ng", colHeaders[7])
+	&& grepl("Vector", colHeaders[8]) && grepl("Resistance", colHeaders[9])
+	&& grepl("Flanking.*Restriction.*Site", colHeaders[10]) && grepl("Sequence.*Verification", colHeaders[11])){	
+	1==1
+}else{
+	stop("This file does not conform to the expected format.  Please contact the administrator.")
 }
 
-#re-format the PlateID and WellID fields
-inputDF[, "Plate ID"] <- sub("Plate_", "", inputDF[, "Plate ID"])
-for( i in 1:length(inputDF[, "Plate ID"])){
-	if(nchar(inputDF[i, "Well ID"]) == 2){
-		inputDF[i, "Well ID"] = paste0(substr(inputDF[i, "Well ID"], 1, 1), "0", substr(inputDF[i, "Well ID"], 2, 2))
-	}
-	if(nchar(inputDF[i, "Plate ID"]) == 1){
-		inputDF[i, "Plate ID"] = paste0("000", inputDF[i, "Plate ID"])
-	}else if(nchar(inputDF[i, "Plate ID"]) == 2){
-		inputDF[i, "Plate ID"] = paste0("00", inputDF[i, "Plate ID"])
-	}else if(nchar(inputDF[i, "Plate ID"]) == 3){
-		inputDF[i, "Plate ID"] = paste0("0", inputDF[i, "Plate ID"])
-	}
-}
+#change SGI headers to FHCRC Optides labkey sampleset headers
+names(inputDF)[1:7] <- c("SGIID", "ConstructID", "SGIPlateID", "WellLocation", "Concentration_ngPeruL", "Volume_uL", "TotalDNA_ng") 
+
 
 #
 #now prepare data for insertion into HTP_Specimen
@@ -73,25 +93,26 @@ ssHTP <- labkey.selectRows(
 	baseUrl=BASE_URL,
 	folderPath=SAMPLE_SETS_FOLDER_PATH,
 	schemaName=SAMPLE_SETS_SCHEMA_NAME,
-	queryName=HTP_SPECIMEN_QUERY_NAME,
+	queryName=HT_PRODUCTION_QUERY_NAME,
 	colNameOpt="fieldname",
-	colSelect=c("HTPPlateID")
+	colSelect=c("HTQuadPlateID")
 )
-newHTPPlateID <- 100
-if(length(ssHTP$HTPPlateID) > 0){
-	newHTPPlateID <- max(as.numeric(substr(ssHTP$HTPPlateID, 4, nchar(ssHTP$HTPPlateID)))) + 1
+newHTPlateID <- 100
+if(length(ssHTP$HTQuadPlateID) > 0){
+	newHTPlateID <- max(as.numeric(substr(ssHTP$HTQuadPlateID, 3, 6))) + 1
 }
 
-if(nchar(newHTPPlateID) == 3){
-	newHTPPlateID = paste0("0", newHTPPlateID)
+if(nchar(newHTPlateID) == 3){
+	newHTPlateID = paste0("0", newHTPlateID)
 }
-newHTPPlateID <- paste0("HTP", newHTPPlateID)
+newHTPlateID <- paste0("HT", newHTPlateID)
 
-htpSpecimenToInsert <- data.frame(cbind("Specimen" = newHTPPlateID, "HTPPlateID" = newHTPPlateID, "CNT" = inputDF[, "Construct ID"], "PlateID" = inputDF[, "Plate ID"], "WellID" = inputDF[, "Well ID"]))
+htProductsToInsert <- data.frame(cbind(HTProductID = newHTPlateID, HTQuadPlateID = newHTPlateID, 
+	ConstructID = inputDF[, "ConstructID"], WellLocation = inputDF[, "WellLocation"], SGIID = inputDF[, "SGIID"], SGIPlateID = inputDF[, "SGIPlateID"]))
 
 #now calculate quadrant and update/complete Specimen value
-for(i in 1:length(htpSpecimenToInsert$Specimen)){
-	wid <- htpSpecimenToInsert$WellID[i]
+for(i in 1:length(htProductsToInsert$HTProductID)){
+	wid <- htProductsToInsert$WellLocation[i]
 	letter <- substr(wid, 1,1)
 	num    <- as.numeric(substr(wid, 2,3))
 
@@ -109,7 +130,12 @@ for(i in 1:length(htpSpecimenToInsert$Specimen)){
 			quadrant = 4
 		}
 	}
-	htpSpecimenToInsert$Specimen[i] <- paste0(htpSpecimenToInsert$Specimen[i], quadrant, htpSpecimenToInsert$WellID[i])
+	htProductsToInsert$HTQuadPlateID[i] <- paste0(htProductsToInsert$HTQuadPlateID[i], quadrant)
+	htProductsToInsert$HTProductID[i] <- paste0(htProductsToInsert$HTProductID[i], quadrant, htProductsToInsert$WellLocation[i])
+
+	if(htProductsToInsert$ConstructID[i] == "Blank"){
+		htProductsToInsert$ConstructID[i] = onBlankFill
+	}
 }
 htpSpecimenToInsert <- cbind("Name" = htpSpecimenToInsert$Specimen, htpSpecimenToInsert)
 
@@ -118,8 +144,10 @@ ssHTP_insert <- labkey.insertRows(
 	baseUrl=BASE_URL,
 	folderPath=SAMPLE_SETS_FOLDER_PATH,
 	schemaName=SAMPLE_SETS_SCHEMA_NAME,
-	queryName=HTP_SPECIMEN_QUERY_NAME,
-	toInsert=htpSpecimenToInsert
+	queryName=HT_PRODUCTION_QUERY_NAME,
+	toInsert=htProductsToInsert
 )
+
 #completed
-cat(length(htpSpecimenToInsert$Name), "ROWS HAVE BEEN INSERTED INTO HTP_SPECIMEN.\n")
+cat(length(htProductsToInsert$HTProductID), "ROWS HAVE BEEN INSERTED INTO HTProduction.\n")
+

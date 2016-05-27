@@ -1,6 +1,8 @@
 ###
 ### This is an R script for a labkey pipeline import feature
 ###
+### SGI_Delivery.R - Parse and insert an SGI Delivery xlsx file
+###
 
 
 options(stringsAsFactors = FALSE)
@@ -10,11 +12,7 @@ source("C:/labkey/labkey/files/Optides/@files/xlsxToR.R")
 pathToInputFile <- "${input.xlsx}"
 
 #Parameters for this script (login script: _netrc)
-BASE_URL = "http://optides-stage.fhcrc.org/"
-
-SEQUENCE_COL_NAME = "AASeq"
-COMPOUND_ID_COL_NAME = "ID"
-PARENT_ID_COL_NAME = "ParentID"
+BASE_URL = "http://optides-prod.fhcrc.org/"
 
 SAMPLE_SETS_SCHEMA_NAME = "Samples"
 SGI_DNA_QUERY_NAME = "SGI_DNA"
@@ -25,51 +23,71 @@ SAMPLE_SETS_FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
 ## Make the _netrc file we need in order to connect to the database through rlabkey
 ##
 #######################################################################################
-f = file(description="_netrc", open="w")
-cat(file=f, sep="", "machine optides-stage.fhcrc.org", "\n")
-cat(file=f, sep="", "login brusniak.computelifesci@gmail.com", "\n")
-cat(file=f, sep="", "password Kn0ttin10K", "\n")
-flush(con=f)
-close(con=f)
+filename <- paste0(Sys.getenv()["HOME"], .Platform$file.sep, "_netrc")
+if(!file.exists(filename)){
+	f = file(description=filename, open="w")
+	cat(file=f, sep="", "machine optides-stage.fhcrc.org", "\n")
+	cat(file=f, sep="", "login brusniak.computelifesci@gmail.com", "\n")
+	cat(file=f, sep="", "password Kn0ttin10K", "\n")
+	flush(con=f)
+	close(con=f)
+}else{
+	txtFile <- readLines(filename)
+	counter <- 0
+	for(i in 1:length(txtFile)){
+		if(txtFile[i] == "machine optides-stage.fhcrc.org"){
+			counter <- counter + 1
+		}
+		if(txtFile[i] == "login brusniak.computelifesci@gmail.com"){
+			counter <- counter + 1
+		}
+		if(txtFile[i] == "password Kn0ttin10K"){
+			counter <- counter + 1
+		}
+	}
+	if(counter != 3){
+		write("\nmachine optides-stage.fhcrc.org",file=filename,append=TRUE)
+		write("login brusniak.computelifesci@gmail.com",file=filename,append=TRUE)
+		write("password Kn0ttin10K",file=filename,append=TRUE)
+	}
+
+}
 ######################################
 ## end
 ######################################
 
 
 ## read the input
-inputDF <- xlsxToR(pathToInputFile, header=TRUE)
+inputDF <- xlsxToR(pathToInputFile, header=FALSE)
+
+##
+## Extract only the plate data and its column headers from the file 
+##
+mynames <- inputDF[17, 1:11]
+inputDF <- inputDF[18:(18 - 1 + 96),1:11]
+names(inputDF) <- mynames
+
 
 colHeaders <- names(inputDF)
-if(colHeaders[1] != "Plate ID" || colHeaders[2] != "Construct ID" ||
-	colHeaders[3] != "Well ID" || colHeaders[4] != "DNA Concentration" ||
-	colHeaders[5] != "AASeq" || colHeaders[6] != "DNASeq" ||
-	colHeaders[7] != "Comment"){
-	
-	stop("The input file format detected is incompatible with this operation.  Please contact the administrator.")
+if(grepl("Construct.*ID", colHeaders[1]) && grepl("Construct.*Name", colHeaders[2]) && grepl("Plate.*ID", colHeaders[3])
+	&& grepl("Well.*Location", colHeaders[4]) && grepl("Concentration.*ng/uL", colHeaders[5])
+	&& grepl("Volume.*uL", colHeaders[6]) && grepl("Total.*DNA.*ng", colHeaders[7])
+	&& grepl("Vector", colHeaders[8]) && grepl("Resistance", colHeaders[9])
+	&& grepl("Flanking.*Restriction.*Site", colHeaders[10]) && grepl("Sequence.*Verification", colHeaders[11])){	
+	1==1
+}else{
+	stop("This file does not conform to the expected format.  Please contact the administrator.")
 }
 
-#re-format the PlateID and WellID fields
-inputDF[, "Plate ID"] <- sub("Plate_", "", inputDF[, "Plate ID"])
-for( i in 1:length(inputDF[, "Plate ID"])){
-	if(nchar(inputDF[i, "Well ID"]) == 2){
-		inputDF[i, "Well ID"] = paste0(substr(inputDF[i, "Well ID"], 1, 1), "0", substr(inputDF[i, "Well ID"], 2, 2))
-	}
-	if(nchar(inputDF[i, "Plate ID"]) == 1){
-		inputDF[i, "Plate ID"] = paste0("000", inputDF[i, "Plate ID"])
-	}else if(nchar(inputDF[i, "Plate ID"]) == 2){
-		inputDF[i, "Plate ID"] = paste0("00", inputDF[i, "Plate ID"])
-	}else if(nchar(inputDF[i, "Plate ID"]) == 3){
-		inputDF[i, "Plate ID"] = paste0("0", inputDF[i, "Plate ID"])
-	}
-}
-
+#change SGI headers to FHCRC Optides labkey sampleset headers
+names(inputDF)[1:7] <- c("SGIID", "ConstructID", "SGIPlateID", "WellLocation", "Concentration_ngPeruL", "Volume_uL", "TotalDNA_ng") 
 
 ##get corresponding constructIDs from SGI_DNA sampleSet  (i.e. previously ordered constructs)
 ##makeFilter
 filterArr = c()
 for(i in 1:length(inputDF[,1])){
-	if(is.na(inputDF[i, "Comment"]) || (inputDF[i, "Construct ID"] != "Blank" && inputDF[i, "Comment"] != "Leave well blank" && inputDF[i, "Comment"] != "Control")){
-		filterArr <- c(filterArr, c(inputDF[i, "Construct ID"]))
+	if(inputDF[i, "ConstructID"] != "Blank" && inputDF[i, "ConstructID"] != "CNT0001396" && inputDF[i, "ConstructID"] != "Control"){
+		filterArr <- c(filterArr, c(inputDF[i, "ConstructID"]))
 	}
 }
 filterS <- paste(filterArr, collapse=";")
@@ -79,10 +97,8 @@ ss <- labkey.selectRows(
 	folderPath=SAMPLE_SETS_FOLDER_PATH,
 	schemaName=SAMPLE_SETS_SCHEMA_NAME,
 	queryName=SGI_DNA_QUERY_NAME,
-	viewName="",
-	containerFilter=NULL,
 	colNameOpt="fieldname",
-	colSelect=c("Name", "ConstructID", "Comments", "DNAConcentration", "DNASeq", "PlateID", "WellID"),
+	colSelect=c("Name", "SGIID", "ConstructID", "SGIPlateID", "WellLocation", "Concentration_ngPeruL", "Volume_uL", "TotalDNA_ng"),
 	colFilter=makeFilter(c("ConstructID", "IN", filterS))
 )
 
@@ -99,16 +115,13 @@ if(length(matches[is.na(matches)]) > 0){
 
 #append data from the input to the existing rows in SGI_DNA
 for(i in 1:length(ss$ConstructID)){
-	thisRow <- inputDF[inputDF[,"Construct ID"] == ss$ConstructID[i], ]
-	ss$DNASeq[i] <- thisRow[["DNASeq"]]
-	ss$PlateID[i] <- thisRow[["Plate ID"]]
-	ss$WellID[i] <- thisRow[["Well ID"]]
-	ss$DNAConcentration[i] <- thisRow[["DNA Concentration"]]
-	if(is.na(thisRow[["Comment"]])){
-		ss$Comments[i] <- ""
-	}else{
-		ss$Comments[i] <- thisRow[["Comment"]]
-	}
+	thisRow <- inputDF[inputDF[,"ConstructID"] == ss$ConstructID[i], ]
+	ss$SGIID[i] <- thisRow[["SGIID"]]
+	ss$SGIPlateID[i] <- thisRow[["SGIPlateID"]]
+	ss$WellLocation[i] <- thisRow[["WellLocation"]]
+	ss$Concentration_ngPeruL[i] <- thisRow[["Concentration_ngPeruL"]]
+	ss$Volume_uL[i] <- thisRow[["Volume_uL"]]
+	ss$TotalDNA_ng[i] <- thisRow[["TotalDNA_ng"]]
 }
 
 #update SGI_DNA Database/SampleSet
@@ -121,4 +134,4 @@ ssu <- labkey.updateRows(
 )
 
 #completed
-cat(length(ss$DNASeq), "RECORDS HAVE BEEN UPDATED IN SGI_DNA.\n")
+cat(length(ss$SGIID), "RECORDS HAVE BEEN UPDATED IN SGI_DNA.\n")

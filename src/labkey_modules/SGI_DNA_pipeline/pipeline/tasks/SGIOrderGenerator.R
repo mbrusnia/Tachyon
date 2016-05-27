@@ -1,6 +1,8 @@
 ###
 ### This is an R script for a labkey pipeline import feature
 ###
+### SGIOrderGenerator.R
+###
 
 options(stringsAsFactors = FALSE)
 library(Rlabkey)
@@ -10,10 +12,10 @@ pathToInputFile <- "${input.xlsx}"
 source("C:/labkey/labkey/files/Optides/@files/xlsxToR.R")
 
 #Parameters for this script (login script: _netrc)
-BASE_URL = "http://optides-stage.fhcrc.org/"
+BASE_URL = "http://optides-prod.fhcrc.org/"
 
 SEQUENCE_COL_NAME = "AASeq"
-COMPOUND_ID_COL_NAME = "ID"
+CONSTRUCT_ID_COL_NAME = "ConstructID"
 
 SAMPLE_SETS_SCHEMA_NAME = "Samples"
 SGI_DNA_QUERY_NAME = "SGI_DNA"
@@ -24,12 +26,35 @@ SAMPLE_SETS_FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
 ## Make the _netrc file we need in order to connect to the database through rlabkey
 ##
 #######################################################################################
-f = file(description="_netrc", open="w")
-cat(file=f, sep="", "machine optides-stage.fhcrc.org", "\n")
-cat(file=f, sep="", "login brusniak.computelifesci@gmail.com", "\n")
-cat(file=f, sep="", "password Kn0ttin10K", "\n")
-flush(con=f)
-close(con=f)
+filename <- paste0(Sys.getenv()["HOME"], .Platform$file.sep, "_netrc")
+if(!file.exists(filename)){
+	f = file(description=filename, open="w")
+	cat(file=f, sep="", "machine optides-stage.fhcrc.org", "\n")
+	cat(file=f, sep="", "login brusniak.computelifesci@gmail.com", "\n")
+	cat(file=f, sep="", "password Kn0ttin10K", "\n")
+	flush(con=f)
+	close(con=f)
+}else{
+	txtFile <- readLines(filename)
+	counter <- 0
+	for(i in 1:length(txtFile)){
+		if(txtFile[i] == "machine optides-stage.fhcrc.org"){
+			counter <- counter + 1
+		}
+		if(txtFile[i] == "login brusniak.computelifesci@gmail.com"){
+			counter <- counter + 1
+		}
+		if(txtFile[i] == "password Kn0ttin10K"){
+			counter <- counter + 1
+		}
+	}
+	if(counter != 3){
+		write("\nmachine optides-stage.fhcrc.org",file=filename,append=TRUE)
+		write("login brusniak.computelifesci@gmail.com",file=filename,append=TRUE)
+		write("password Kn0ttin10K",file=filename,append=TRUE)
+	}
+
+}
 ######################################
 ## end
 ######################################
@@ -67,25 +92,23 @@ for(i in 1:length(inputDF[,SEQUENCE_COL_NAME])){
 ##
 
 ## get all previously uploaded sequences
-previousConstructSequenceContents <- labkey.selectRows(BASE_URL, SAMPLE_SETS_FOLDER_PATH, SAMPLE_SETS_SCHEMA_NAME, SGI_DNA_QUERY_NAME,
-    viewName = NULL, colSelect = c(COMPOUND_ID_COL_NAME, SEQUENCE_COL_NAME), maxRows = NULL,
-    rowOffset = NULL, colSort = NULL,colFilter=NULL, showHidden = FALSE, colNameOpt="fieldname",
-    containerFilter=NULL)
+previousSGI_DNASequenceContents <- labkey.selectRows(BASE_URL, SAMPLE_SETS_FOLDER_PATH, 
+		SAMPLE_SETS_SCHEMA_NAME, SGI_DNA_QUERY_NAME, colSelect =c(CONSTRUCT_ID_COL_NAME, SEQUENCE_COL_NAME), colNameOpt="fieldname")
 
 #find duplicates
-matches <- match(inputDF[,SEQUENCE_COL_NAME], previousConstructSequenceContents[,SEQUENCE_COL_NAME])
+matches <- match(inputDF[,SEQUENCE_COL_NAME], previousSGI_DNASequenceContents[,SEQUENCE_COL_NAME])
 rowsWithDuplicates <- which(!is.na(matches))
 if(length(rowsWithDuplicates) > 0){
 	cat("ERROR: No duplicate sequences allowed. The following sequences have previously been uploaded into the repository: \n")
 	for(i in 1:length(rowsWithDuplicates)){
-		cat("Row ", rowsWithDuplicates[i] + 2, " - ID: ", inputDF[rowsWithDuplicates[i],COMPOUND_ID_COL_NAME], " - AASeq: ", inputDF[rowsWithDuplicates[i],SEQUENCE_COL_NAME], "\n")
+		cat("Row ", rowsWithDuplicates[i] + 2, " - ID: ", inputDF[rowsWithDuplicates[i],CONSTRUCT_ID_COL_NAME], " - AASeq: ", inputDF[rowsWithDuplicates[i],SEQUENCE_COL_NAME], "\n")
 	}
 	stop("Please remove the duplicate sequences from your input file and try again.")
 }
 
 ##prepare the table for insertion into the assay
 names(inputDF) <- c("Name", "Sample Set", "Flag", "ConstructID", "ID", "Parent ID", "Alternate Name", "AASeq", "Vector")
-inputDF <- inputDF[, c(1,4, 5, 8, 9)]
+inputDF <- inputDF[, c(1,4, 8, 9)]
 
 for(i in 1:length(inputDF[,1])){
 	#no blank allowed as well as no unknown
