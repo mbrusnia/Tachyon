@@ -3,7 +3,7 @@
     <tr>
       <td class='labkey-form-label'>Protocol Name:</td>
       <td>
-        <input id='protocolNameInput' name='protocolNameInput' type='text' size=40>
+        <input id='protocolNameInput' name='protocolNameInput' type='text' size=40 value="Generate HT Plate from SGI Delivery Form">
       </td>
     </tr>
 
@@ -15,9 +15,9 @@
     </tr>
 
     <tr>
-      <td class='labkey-form-label'>Skip Lines:</td>
+      <td class='labkey-form-label'>Replace "Blank" values with this value:</td>
       <td>
-        <input id='skipLinesInput' name='skipLinesInput' type='number'>
+        <input id='toReplaceBlanks' name='toReplaceBlanks' type='text'>
       </td>
     </tr>
 
@@ -25,7 +25,7 @@
       <td>&nbsp;</td>
       <td>
         <a class='labkey-button' href='#' onclick='startAnalysis(); return false;'>
-          <span>Duplicate File(s)</span>
+          <span>Generate HT Plate</span>
         </a>
       </td>
     </tr>
@@ -56,6 +56,7 @@ LABKEY.requiresExt3ClientAPI(function() {
         }
 
         fileStatus();
+
     });
 });
 
@@ -81,21 +82,21 @@ function startAnalysis()
     return;
   }
 
-  var skipLines = document.getElementById("skipLinesInput").value;
-  if (skipLines < 0) {
-    alert("Skip lines >= 0 required");
+  var replacementForBlanks = document.getElementById("toReplaceBlanks").value;
+  if (replacementForBlanks == "") {
+    alert("Replacement value for Blank values required.");
     return;
   }
 
   LABKEY.Pipeline.startAnalysis({
-    taskId: "pipelinetest:pipeline:r-copy-inline",
+    taskId: "SGI_DNA_pipeline:pipeline:ht_plate_generator",
     path: path,
     files: files,
     //fileIds: fileIds,
     protocolName: protocolName,
     //protocolDescription: "",
     jsonParameters: {
-      'skip-lines': skipLines
+      'blanks-replacement': replacementForBlanks
     },
     saveProtocol: false,
     success: function() {

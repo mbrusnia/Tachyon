@@ -19,7 +19,7 @@ source("C:/labkey/labkey/files/Optides/@files/xlsxToR.R")
 filename <- paste0(Sys.getenv()["HOME"], .Platform$file.sep, "_netrc")
 if(!file.exists(filename)){
 	f = file(description=filename, open="w")
-	cat(file=f, sep="", "machine optides-stage.fhcrc.org", "\n")
+	cat(file=f, sep="", "machine optides-prod.fhcrc.org", "\n")
 	cat(file=f, sep="", "login brusniak.computelifesci@gmail.com", "\n")
 	cat(file=f, sep="", "password Kn0ttin10K", "\n")
 	flush(con=f)
@@ -28,7 +28,7 @@ if(!file.exists(filename)){
 	txtFile <- readLines(filename)
 	counter <- 0
 	for(i in 1:length(txtFile)){
-		if(txtFile[i] == "machine optides-stage.fhcrc.org"){
+		if(txtFile[i] == "machine optides-prod.fhcrc.org"){
 			counter <- counter + 1
 		}
 		if(txtFile[i] == "login brusniak.computelifesci@gmail.com"){
@@ -39,7 +39,7 @@ if(!file.exists(filename)){
 		}
 	}
 	if(counter != 3){
-		write("\nmachine optides-stage.fhcrc.org",file=filename,append=TRUE)
+		write("\nmachine optides-prod.fhcrc.org",file=filename,append=TRUE)
 		write("login brusniak.computelifesci@gmail.com",file=filename,append=TRUE)
 		write("password Kn0ttin10K",file=filename,append=TRUE)
 	}
@@ -64,9 +64,8 @@ inputDF <- xlsxToR(pathToInputFile, header=FALSE)
 ##
 ## Extract only the plate data and its column headers from the file 
 ##
-onBlankFill <- inputDF[1,2]
-mynames <- inputDF[18, 1:11]
-inputDF <- inputDF[19:(19 - 1 + 96),1:11]
+mynames <- inputDF[17, 1:11]
+inputDF <- inputDF[18:(18 - 1 + 96),1:11]
 names(inputDF) <- mynames
 
 colHeaders <- names(inputDF)
@@ -134,10 +133,9 @@ for(i in 1:length(htProductsToInsert$HTProductID)){
 	htProductsToInsert$HTProductID[i] <- paste0(htProductsToInsert$HTProductID[i], quadrant, htProductsToInsert$WellLocation[i])
 
 	if(htProductsToInsert$ConstructID[i] == "Blank"){
-		htProductsToInsert$ConstructID[i] = onBlankFill
+		htProductsToInsert$ConstructID[i] = "${blanks-replacement}"
 	}
 }
-htpSpecimenToInsert <- cbind("Name" = htpSpecimenToInsert$Specimen, htpSpecimenToInsert)
 
 ##insert data into HTP_Specimen sampleset database
 ssHTP_insert <- labkey.insertRows(

@@ -26,7 +26,7 @@ SAMPLE_SETS_FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
 filename <- paste0(Sys.getenv()["HOME"], .Platform$file.sep, "_netrc")
 if(!file.exists(filename)){
 	f = file(description=filename, open="w")
-	cat(file=f, sep="", "machine optides-stage.fhcrc.org", "\n")
+	cat(file=f, sep="", "machine optides-prod.fhcrc.org", "\n")
 	cat(file=f, sep="", "login brusniak.computelifesci@gmail.com", "\n")
 	cat(file=f, sep="", "password Kn0ttin10K", "\n")
 	flush(con=f)
@@ -35,7 +35,7 @@ if(!file.exists(filename)){
 	txtFile <- readLines(filename)
 	counter <- 0
 	for(i in 1:length(txtFile)){
-		if(txtFile[i] == "machine optides-stage.fhcrc.org"){
+		if(txtFile[i] == "machine optides-prod.fhcrc.org"){
 			counter <- counter + 1
 		}
 		if(txtFile[i] == "login brusniak.computelifesci@gmail.com"){
@@ -46,7 +46,7 @@ if(!file.exists(filename)){
 		}
 	}
 	if(counter != 3){
-		write("\nmachine optides-stage.fhcrc.org",file=filename,append=TRUE)
+		write("\nmachine optides-prod.fhcrc.org",file=filename,append=TRUE)
 		write("login brusniak.computelifesci@gmail.com",file=filename,append=TRUE)
 		write("password Kn0ttin10K",file=filename,append=TRUE)
 	}
