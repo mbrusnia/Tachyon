@@ -80,10 +80,9 @@ if(colHeaders[1] != "Name" || colHeaders[2] != "Sample Set" ||
 }
 
 ## Get the Linker sequence and remove it from all the sequences
-linker <- inputDF[1,SEQUENCE_COL_NAME]
-inputDF <- inputDF[2:length(inputDF[,SEQUENCE_COL_NAME]),]
+linker <- "${linkerSequence}"
 for(i in 1:length(inputDF[,SEQUENCE_COL_NAME])){
-	inputDF[i, SEQUENCE_COL_NAME] = sub(linker, "", inputDF[i, SEQUENCE_COL_NAME])
+	inputDF[i, SEQUENCE_COL_NAME] = sub(paste0("^", linker), "", inputDF[i, SEQUENCE_COL_NAME])
 }
 
 ##
