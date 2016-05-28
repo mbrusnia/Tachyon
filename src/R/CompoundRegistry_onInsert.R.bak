@@ -130,7 +130,7 @@ parentSampleSetIDs <- labkey.selectRows(baseUrl, COMPOUND_FOLDER, "Samples", "Va
     containerFilter=NULL)
 
 ## read the input data frame just to get the column headers.
-inputDF<-read.table(file=params$inputPathUploadedFile, header = TRUE, sep = "\t", check.names=FALSE)
+inputDF<-read.table(file=params$inputPathUploadedFile, header = TRUE, sep = "\t")
 names(inputDF)[grepl("[Pp]arent.ID", names(inputDF))] <- PARENT_ID_COL_NAME
 
 #########################################################
