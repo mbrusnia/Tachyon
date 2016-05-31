@@ -97,7 +97,8 @@ public class HPLCPeakClassifier {
 			hpc.subtractBackgroundAUsfromR();
 			//hpc.printPeaks("R");
 			hpc.subtractBackgroundAUsfromNR();
-			hpc.drawHPLCsAsJPG(sampleName, outDir + sampleName + ".jpg", 700, 500);
+			String chartName = sampleName.split("\\_")[0];
+			hpc.drawHPLCsAsJPG(chartName, outDir + chartName.replace(" ",  "") + "s_LCPlot.jpg", 700, 500);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -114,7 +115,7 @@ public class HPLCPeakClassifier {
 		ValueAxis domain1 = new NumberAxis("Retention Time (min)");
 		//domain1.setRange(lowerMz, higherMz);
 		ValueAxis range1 = new NumberAxis("mAU (214nm wavelength)");
-		//range1.setRange(0, maxIntensity*1.061);
+		range1.setRange(-20, 500);
 
 		XYPlot plot = new XYPlot();
 		// Set the scatter data, renderer, and axis into plot
