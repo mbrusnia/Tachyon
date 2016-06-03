@@ -44,7 +44,7 @@ if(grepl("Plate ID", names(inputDF)[1]) && grepl("Well ID", names(inputDF)[2])
 	stop("This file does not conform to the expected format.  Please contact the administrator.")
 }
 
-names(inputDF) = c("PlateID", "WellID", "Specimen", "Sample", "M3_Percent_Parent", "M3_Median_FITC_H", "P1_percent_All", "R2_percent_Parent", "R2_Abs_Count")
+names(inputDF) = c("PlateID", "WellID", "Specimen", "Sample", "M3_Percent_Parent", "M3_Median_FITC_H", "P1_percent_All", "R2_percent_Parent", "Run_Time", "R2_Abs_Count")
 
 ##
 ## 1) a. Create HTProductionID and append to the data
