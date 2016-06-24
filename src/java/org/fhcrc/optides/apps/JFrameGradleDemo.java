@@ -53,13 +53,13 @@ import javax.jnlp.*;
  *   images/Open16.gif
  *   images/Save16.gif
  */
-public class HPLCGraphingApp extends JPanel
+public class JFrameGradleDemo extends JPanel
         implements ActionListener {
     static private final String newline = "\n";
     JButton openButton, saveButton;
     JTextArea log;
 
-    public HPLCGraphingApp() {
+    public JFrameGradleDemo() {
         super(new BorderLayout());
 
         //Create the log first, because the action listeners
@@ -203,7 +203,7 @@ public class HPLCGraphingApp extends JPanel
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Add content to the window.
-        frame.add(new HPLCGraphingApp());
+        frame.add(new JFrameGradleDemo());
 
         //Display the window.
         frame.pack();
