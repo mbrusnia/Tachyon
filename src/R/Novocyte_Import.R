@@ -25,11 +25,11 @@ if(tools::file_ext(params$inputPathUploadedFile) == "xlsx"){
 	inputDF <- xlsxToR(params$inputPathUploadedFile, header=TRUE)
 }else if (tools::file_ext(params$inputPathUploadedFile) == "csv"){ 
 	inputDF<-read.table(file=params$inputPathUploadedFile, header = TRUE, sep = ",", check.names=FALSE)
-}else if (tools::file_ext(params$inputPathUploadedFile) == "tsv"){ 
+}else if (tools::file_ext(params$inputPathUploadedFile) == "tsv" || tools::file_ext(params$inputPathUploadedFile) == "tmp"){ 
 	inputDF<-read.table(file=params$inputPathUploadedFile, header = TRUE, sep = "\t", check.names=FALSE)
 }
 
-
+params$inputPathUploadedFile
 
 ###################################################################
 ## 1) Format column headers
