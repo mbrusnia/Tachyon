@@ -79,48 +79,59 @@ public class HPLCPeakClassifier {
 		String rCsv = "";
 		String sampleInfoXmlFile = "";
 		String outDir = "";
-		double sn_ratio = 0; 
+		double sn_ratio = .10; 
 		int classification = 0; 
 		
-		if(args.length != 8){
-			printUsage();
-			return;
-		}else{
-			//get input params
-			String[] curParam = null;
-			for(int i = 0; i < args.length; i++){
-				curParam = args[i].split("=");
-				if(curParam[0].equals("--BLANK_R"))
-					blankRCsv = curParam[1];
-				else if(curParam[0].equals("--BLANK_NR"))
-					blankNRCsv = curParam[1];
-				else if(curParam[0].equals("--NR"))
-					nrCsv = curParam[1];
-				else if(curParam[0].equals("--R"))
-					rCsv = curParam[1];
-				else if(curParam[0].equals("--sampleInfo"))
-					sampleInfoXmlFile = curParam[1];
-				else if(curParam[0].equals("--SN"))
-					sn_ratio = Double.parseDouble(curParam[1]);
-				else if(curParam[0].equals("--Classification"))
-					classification = Integer.parseInt(curParam[1]);
-				else if(curParam[0].equals("--outdir"))
-					outDir = curParam[1];
-				else{
-					System.out.println("Unrecognized command line parameter: " + curParam[0]);
-					printUsage();
-					return;
-				}
-			}
-			if(blankRCsv == "" || blankNRCsv == "" || nrCsv == "" || rCsv == "" || sampleInfoXmlFile == "" || outDir == ""){
-				System.out.println("A command line parameter is missing or incorrect: ");
+		//get input params
+		String[] curParam = null;
+		for(int i = 0; i < args.length; i++){
+			curParam = args[i].split("=");
+			if(curParam[0].equals("--BLANK_R"))
+				blankRCsv = curParam[1];
+			else if(curParam[0].equals("--BLANK_NR"))
+				blankNRCsv = curParam[1];
+			else if(curParam[0].equals("--NR"))
+				nrCsv = curParam[1];
+			else if(curParam[0].equals("--R"))
+				rCsv = curParam[1];
+			else if(curParam[0].equals("--sampleInfo"))
+				sampleInfoXmlFile = curParam[1];
+			else if(curParam[0].equals("--SN"))
+				sn_ratio = Double.parseDouble(curParam[1]);
+			else if(curParam[0].equals("--Classification"))
+				classification = Integer.parseInt(curParam[1]);
+			else if(curParam[0].equals("--outdir"))
+				outDir = curParam[1];
+			else{
+				System.out.println("Unrecognized command line parameter: " + curParam[0]);
 				printUsage();
 				return;
 			}
-			if(blankRCsv == blankNRCsv){
-				System.out.println("BLANK_R and BLANK_NR files cannot be set to the same value!");
-				return;
-			}
+		}
+		/*System.out.println("USAGE: HPLCPeakClassifier --NR=pathToNRcsvFile --R=pathToRcsvFile "
+				+ "--BLANK_NR=pathToBlankNRCsvFile --BLANK_R=pathToBlankRCsvFile "
+				+ "--sampleInfo=pathToSampleInfoXmlFile --outdir=pathToOutputDir "
+				+ "--SN=sn_ratio_decimal --Classification=NumOfPeaksForClassification");*/
+		
+		if(blankRCsv == "" || blankNRCsv == "" || nrCsv == "" || rCsv == "" || 
+				sampleInfoXmlFile == "" || outDir == "" || classification == 0){
+			System.out.println("A command line parameter is missing or incorrect.  Please look over your entered parameters: ");
+
+			System.out.println("--NR: " + nrCsv);
+			System.out.println("--R: " + rCsv);
+			System.out.println("--BLANK_NR: " + blankNRCsv);
+			System.out.println("--BLANK_R: " + blankRCsv);
+			System.out.println("--sampleInfo: " + sampleInfoXmlFile);
+			System.out.println("--outdir: " + outDir);
+			System.out.println("--SN: " + sn_ratio + "   (default: 0.10)"); 
+			System.out.println("--Classification: " + classification); 
+			System.out.println(""); 
+			printUsage();
+			return;
+		}
+		if(blankRCsv == blankNRCsv){
+			System.out.println("BLANK_R and BLANK_NR files cannot be set to the same value!");
+			return;
 		}
 		
 		try {
