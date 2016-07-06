@@ -10,6 +10,8 @@
 <tr><td><b>Test Suite</b></td></tr>
 <tr><td><a href="NovocyteTransformationScriptTest.html">Novocyte Transformation Script Test</a></td></tr>
 <tr><td><a href="SGIOrderGeneratorPipelineTest.html">SGI_DNA Pipeline Test</a></td></tr>
+<tr><td><a href="SGIDeliveryPipelineTest.html">SGI_Delivery Pipeline Test</a></td></tr>
+<tr><td><a href="HTPlateGeneratorPipelineTest.html">HTProduction Pipeline Test</a></td></tr>
 </tbody></table>
 </body>
 </html>

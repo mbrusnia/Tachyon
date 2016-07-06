@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://optides-stage.fhcrc.org/" />
-<title>SGI_DNA Pipeline Test</title>
+<title>SGI_Delivery Pipeline Test</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">SGI_DNA Pipeline Test</td></tr>
+<tr><td rowspan="1" colspan="3">SGI_Delivery Pipeline Test</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -33,7 +33,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//span[text()='TESTING_SGIOrder_201602.xlsx']</td>
+	<td>//span[text()='TESTING_SGI_Delivery_Input.xlsx']</td>
 	<td></td>
 </tr>
 <tr>
@@ -43,7 +43,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//table/tbody/tr/td/table/tbody/tr/td[2]/label[text()='Upload SGI Order Form into the Database']</td>
+	<td>//table/tbody/tr/td/table/tbody/tr/td[2]/label[text()='Upload SGI Delivery info into the Database']</td>
 	<td></td>
 </tr>
 <tr>
@@ -52,13 +52,43 @@
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>id=linker_seq_txt</td>
-	<td>GS</td>
+	<td>storeTextPresent</td>
+	<td>Retry</td>
+	<td>is_retry</td>
+</tr>
+<tr>
+	<td>gotoIf</td>
+	<td>${is_retry}</td>
+	<td>retry</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Generate SGI Order Form</td>
+	<td>link=Analyze</td>
+	<td></td>
+</tr>
+<tr>
+	<td>goto</td>
+	<td>submitted</td>
+	<td>submitted</td>
+</tr>
+<tr>
+	<td>label</td>
+	<td>retry</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Retry</td>
+	<td></td>
+</tr>
+<tr>
+	<td>label</td>
+	<td>submitted</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Pipeline</td>
 	<td></td>
 </tr>
 <tr>
@@ -73,7 +103,7 @@
 </tr>
 <tr>
 	<td>storeTextPresent</td>
-	<td>sgi_order_generator RUNNING</td>
+	<td>RUNNING</td>
 	<td>is_running</td>
 </tr>
 <tr>
@@ -116,6 +146,7 @@
 	<td>link=Confirm Delete</td>
 	<td></td>
 </tr>
+
 </tbody></table>
 </body>
 </html>

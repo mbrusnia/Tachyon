@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://optides-stage.fhcrc.org/" />
-<title>SGI_DNA Pipeline Test</title>
+<title>HTProduction Pipeline Test</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">SGI_DNA Pipeline Test</td></tr>
+<tr><td rowspan="1" colspan="3">HTProduction Pipeline Test</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -33,7 +33,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//span[text()='TESTING_SGIOrder_201602.xlsx']</td>
+	<td>//span[text()='TESTING_SGI_Delivery_Input.xlsx']</td>
 	<td></td>
 </tr>
 <tr>
@@ -43,7 +43,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//table/tbody/tr/td/table/tbody/tr/td[2]/label[text()='Upload SGI Order Form into the Database']</td>
+	<td>//table/tbody/tr/td/table/tbody/tr/td[2]/label[text()='Generate HT Plates info from SGI Delivery form']</td>
 	<td></td>
 </tr>
 <tr>
@@ -53,12 +53,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=linker_seq_txt</td>
-	<td>GS</td>
+	<td>id=toReplaceBlanks</td>
+	<td>parentalCells</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Generate SGI Order Form</td>
+	<td>link=Generate HT Plate</td>
 	<td></td>
 </tr>
 <tr>
@@ -73,7 +73,7 @@
 </tr>
 <tr>
 	<td>storeTextPresent</td>
-	<td>sgi_order_generator RUNNING</td>
+	<td>ht_plate_generator RUNNING</td>
 	<td>is_running</td>
 </tr>
 <tr>
@@ -102,6 +102,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>assertTextPresent</td>
+	<td>COMPLETE</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>name=.toggle</td>
 	<td></td>
@@ -116,6 +121,7 @@
 	<td>link=Confirm Delete</td>
 	<td></td>
 </tr>
+
 </tbody></table>
 </body>
 </html>
