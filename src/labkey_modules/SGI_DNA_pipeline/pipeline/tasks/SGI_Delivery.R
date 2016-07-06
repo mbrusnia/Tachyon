@@ -86,7 +86,7 @@ names(inputDF)[1:7] <- c("SGIID", "ConstructID", "SGIPlateID", "WellLocation", "
 ##makeFilter
 filterArr = c()
 for(i in 1:length(inputDF[,1])){
-	if(inputDF[i, "ConstructID"] != "Blank" && inputDF[i, "ConstructID"] != "CNT0001396" && inputDF[i, "ConstructID"] != "Control"){
+	if(inputDF[i, "ConstructID"] != "Blank" && inputDF[i, "ConstructID"] != "CNT0001396"  && inputDF[i, "ConstructID"] != "TEST0001396" && inputDF[i, "ConstructID"] != "Control"){
 		filterArr <- c(filterArr, c(inputDF[i, "ConstructID"]))
 	}
 }
