@@ -15,6 +15,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.*;
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -108,10 +109,6 @@ public class HPLCPeakClassifier {
 				return;
 			}
 		}
-		/*System.out.println("USAGE: HPLCPeakClassifier --NR=pathToNRcsvFile --R=pathToRcsvFile "
-				+ "--BLANK_NR=pathToBlankNRCsvFile --BLANK_R=pathToBlankRCsvFile "
-				+ "--sampleInfo=pathToSampleInfoXmlFile --outdir=pathToOutputDir "
-				+ "--SN=sn_ratio_decimal --Classification=NumOfPeaksForClassification");*/
 		
 		if(blankRCsv == "" || blankNRCsv == "" || nrCsv == "" || rCsv == "" || 
 				sampleInfoXmlFile == "" || outDir == "" || classification == 0){
@@ -370,17 +367,21 @@ public class HPLCPeakClassifier {
 	protected void loadLCAUdata() throws IOException {
 		for (HashMap.Entry<String, ArrayList<HPLCPeak>> entry : peakLists.entrySet()) {
 			 
-			// FileReader reads text files in the default encoding.
-	        FileReader fileReader = new FileReader(entry.getKey());
+			// read file
+	        File f = new File(entry.getKey());
+	        FileInputStream stream = new FileInputStream(f);
 	
 	        // Always wrap FileReader in BufferedReader.
-	        BufferedReader bufferedReader = new BufferedReader(fileReader);
+	        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-16")));
+	        
 	
 	        String line = null;
 	        String[] rt_au = null;
 	        while((line = bufferedReader.readLine()) != null) {
-	        	rt_au = line.split("\\w?,\\w?");
-	        	entry.getValue().add(new HPLCPeak(Double.parseDouble(rt_au[0]), Double.parseDouble(rt_au[1])));
+	        	if(line.contains(",")){
+	        		rt_au = line.trim().split("\\w?,\\w?");
+	        		entry.getValue().add(new HPLCPeak(Double.parseDouble(rt_au[0]), Double.parseDouble(rt_au[1])));
+	        	}
 	        }   
 	
 	        // Always close files.
