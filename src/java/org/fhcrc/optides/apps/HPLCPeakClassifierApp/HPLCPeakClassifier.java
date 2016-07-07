@@ -379,8 +379,10 @@ public class HPLCPeakClassifier {
 	        String line = null;
 	        String[] rt_au = null;
 	        while((line = bufferedReader.readLine()) != null) {
-	        	rt_au = line.split("\\w?,\\w?");
-	        	entry.getValue().add(new HPLCPeak(Double.parseDouble(rt_au[0]), Double.parseDouble(rt_au[1])));
+	        	if(line.contains(",")){
+	        		rt_au = line.split("\\w?,\\w?");
+		        	entry.getValue().add(new HPLCPeak(Double.parseDouble(rt_au[0]), Double.parseDouble(rt_au[1])));
+	        	}
 	        }   
 	
 	        // Always close files.
