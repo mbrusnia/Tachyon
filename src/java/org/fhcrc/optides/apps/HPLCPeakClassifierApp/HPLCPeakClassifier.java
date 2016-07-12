@@ -15,12 +15,13 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.*;
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
 public class HPLCPeakClassifier {
-	//Signal-to-noise ratio for cuttoff in peak picking
+	//Signal-to-noise ratio for cutoff in peak picking
 	private double sn_ratio;
 	
 	//parameter for labeling output jpg - number of peaks to use for file classification
@@ -108,10 +109,6 @@ public class HPLCPeakClassifier {
 				return;
 			}
 		}
-		/*System.out.println("USAGE: HPLCPeakClassifier --NR=pathToNRcsvFile --R=pathToRcsvFile "
-				+ "--BLANK_NR=pathToBlankNRCsvFile --BLANK_R=pathToBlankRCsvFile "
-				+ "--sampleInfo=pathToSampleInfoXmlFile --outdir=pathToOutputDir "
-				+ "--SN=sn_ratio_decimal --Classification=NumOfPeaksForClassification");*/
 		
 		if(blankRCsv == "" || blankNRCsv == "" || nrCsv == "" || rCsv == "" || 
 				sampleInfoXmlFile == "" || outDir == "" || classification == 0){
@@ -178,7 +175,7 @@ public class HPLCPeakClassifier {
 	private int getMaxNumOfPeaksPicked() {
 		int peaks = rpp.size() / 3;
 		if(nrpp.size() / 3 > peaks)
-			peaks = nrpp.size();
+			peaks = nrpp.size() / 3;
 		return peaks;
 	}
 
@@ -247,7 +244,12 @@ public class HPLCPeakClassifier {
 		//domain1.setRange(lowerMz, higherMz);
 		domain1.setRange(0, 15);
 		ValueAxis range1 = new NumberAxis("mAU (214nm wavelength)");
-		range1.setRange(0, 500);
+		int yMax = 500;
+		int yNRpp = maxAUvalue(rpp, nrpp);
+		if(yNRpp > yMax){
+			yMax = yNRpp + 20;
+		}
+		range1.setRange(0, yMax);
 		//range1.setRange(0, 100);
 
 		XYPlot plot = new XYPlot();
@@ -269,6 +271,19 @@ public class HPLCPeakClassifier {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private int maxAUvalue(ArrayList<HPLCPeak> l1, ArrayList<HPLCPeak> l2) {
+		double max = 0;
+		for(int i = 0; i < l1.size(); i++){
+			if(l1.get(i).getAu() > max)
+				max = l1.get(i).getAu();
+		}
+		for(int i = 0; i < l2.size(); i++){
+			if(l2.get(i).getAu() > max)
+				max = l2.get(i).getAu();
+		}
+		return (int) max;
 	}
 
 	/*
@@ -369,13 +384,20 @@ public class HPLCPeakClassifier {
 
 	protected void loadLCAUdata() throws IOException {
 		for (HashMap.Entry<String, ArrayList<HPLCPeak>> entry : peakLists.entrySet()) {
-			 
+			 /*default encoding **
 			// FileReader reads text files in the default encoding.
 	        FileReader fileReader = new FileReader(entry.getKey());
 	
 	        // Always wrap FileReader in BufferedReader.
 	        BufferedReader bufferedReader = new BufferedReader(fileReader);
-	
+	        ***/
+			
+			/* UTF-16 encoding */
+			File f = new File(entry.getKey());
+	        FileInputStream stream = new FileInputStream(f);
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-16")));
+			/*  */
+			
 	        String line = null;
 	        String[] rt_au = null;
 	        while((line = bufferedReader.readLine()) != null) {

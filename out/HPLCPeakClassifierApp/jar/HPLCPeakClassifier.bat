@@ -1,9 +1,9 @@
 java -jar HPLCPeakClassifier.jar ^
---BLANK_R="C:/Users/hramos/Documents/HRInternetConsulting/Clients/FHCRC/Project17 - HPLCPeakClassifierApp/004-2201.D/BLANK_H2O_4_DAD.CSV" ^
---BLANK_NR="C:/Users/hramos/Documents/HRInternetConsulting/Clients/FHCRC/Project17 - HPLCPeakClassifierApp/004-2201.D/BLANK_H2O_4_DAD2.CSV" ^
---NR="C:/Users/hramos/Documents/HRInternetConsulting/Clients/FHCRC/Project17 - HPLCPeakClassifierApp/1BG-2301.D/HTP013_B4_NR_DAD.CSV" ^
---R="C:/Users/hramos/Documents/HRInternetConsulting/Clients/FHCRC/Project17 - HPLCPeakClassifierApp/1BH-2401.D/HTP013_B4_DTT_DAD.CSV" ^
---sampleInfo="C:/Users/hramos/Documents/HRInternetConsulting/Clients/FHCRC/Project17 - HPLCPeakClassifierApp/1BG-2301.D/SAMPLE.XML" ^
---outdir="C:/Users/hramos/Documents/HRInternetConsulting/Clients/FHCRC/Project17 - HPLCPeakClassifierApp/" ^
+--BLANK_R="./001-0101.D/BLANK_H2O_1_DAD.CSV" ^
+--BLANK_NR="./001-3601.D/BLANK_H2O_6_DAD.CSV" ^
+--NR="./4AA-3701.D/HTP024-A01_NR_DAD.CSV" ^
+--R="./3AA-0201.D/HTP024-A01_DTT_DAD.CSV" ^
+--sampleInfo="./4AA-3701.D/SAMPLE.XML" ^
+--outdir="./" ^
 --SN=.35 ^
 --Classification=3
