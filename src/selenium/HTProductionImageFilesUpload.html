@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://optides-stage.fhcrc.org/" />
+<title>Novocyte Transformation Script Test</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Novocyte Transformation Script Test</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/project/home/begin.view?</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div/a/span[text()='Optides']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=HTProduction</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Assays</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=HPLC Assays</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Import Data</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=HTPlateID</td>
+	<td>HT0001</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Next</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=TextAreaDataCollector.textArea</td>
+	<td>HT00011A01_Complex.jpg<br />HT00011A02_Complex.jpg<br />HT00011A03_Simple.jpg<br />HT00011A04_Simple.jpg<br />HT00011A05_Perfect.jpg<br /></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Save and Finish</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td>5000</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=labkey-nav-trail-current-page</td>
+	<td>HPLC Assays Runs</td>
+</tr>
+</tbody></table>
+</body>
+</html>
