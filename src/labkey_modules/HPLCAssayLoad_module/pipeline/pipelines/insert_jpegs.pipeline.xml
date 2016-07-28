@@ -1,0 +1,8 @@
+<pipeline xmlns="http://labkey.org/pipeline/xml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      name="insert_jpegs" version="0.0">
+    <description>Update HPLC Assay into the database</description>
+    <tasks>
+		<taskref ref="HPLCAssayLoad_module:task:insert_jpegs"/>
+    </tasks>
+</pipeline>
