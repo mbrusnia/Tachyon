@@ -82,7 +82,7 @@ public class HPLCPeakClassifier {
 		String outDir = "";
 		double sn_ratio = .10; 
 		int classification = 0; 
-		
+		int maxRTForPeak = 11;
 		//get input params
 		String[] curParam = null;
 		for(int i = 0; i < args.length; i++){
@@ -99,6 +99,8 @@ public class HPLCPeakClassifier {
 				sampleInfoXmlFile = curParam[1];
 			else if(curParam[0].equals("--SN"))
 				sn_ratio = Double.parseDouble(curParam[1]);
+			else if(curParam[0].equals("--MaxRTForPeak"))
+				maxRTForPeak = Integer.parseInt(curParam[1]);
 			else if(curParam[0].equals("--Classification"))
 				classification = Integer.parseInt(curParam[1]);
 			else if(curParam[0].equals("--outdir"))
@@ -121,7 +123,8 @@ public class HPLCPeakClassifier {
 			System.out.println("--sampleInfo: " + sampleInfoXmlFile);
 			System.out.println("--outdir: " + outDir);
 			System.out.println("--SN: " + sn_ratio + "   (default: 0.10)"); 
-			System.out.println("--Classification: " + classification); 
+			System.out.println("--Classification: " + classification);
+			System.out.println("--MaxRTForPeak: " + maxRTForPeak);
 			System.out.println(""); 
 			printUsage();
 			return;
@@ -141,8 +144,8 @@ public class HPLCPeakClassifier {
 			//hpc.printPeaks("R");
 			hpc.subtractBackgroundAUsfromNR();
 			
-			hpc.peakPickingR(sn_ratio, 2.0, 14.0);
-			hpc.peakPickingNR(sn_ratio, 2.0, 14.0);
+			hpc.peakPickingR(sn_ratio, 2.0, maxRTForPeak);
+			hpc.peakPickingNR(sn_ratio, 2.0, maxRTForPeak);
 			
 			int peaks = hpc.getMaxNumOfPeaksPicked();
 			String str = sampleName.split("\\_")[0];
