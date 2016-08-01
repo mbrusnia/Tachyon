@@ -176,9 +176,9 @@ public class HPLCPeakClassifier {
 	 * after peak picking, this func. tells us what the max num of peaks between r vs. nr were
 	 */
 	private int getMaxNumOfPeaksPicked() {
-		int peaks = rpp.size() / 3;
-		if(nrpp.size() / 3 > peaks)
-			peaks = nrpp.size() / 3;
+		int peaks = rpp.size();
+		if(nrpp.size() > peaks)
+			peaks = nrpp.size();
 		return peaks;
 	}
 
@@ -208,12 +208,15 @@ public class HPLCPeakClassifier {
 		
 		//find the peaks of the ones that pass  the s/n ratio
 		HPLCPeak local_max = new HPLCPeak(0,0);
+		double threshold = max*sn_ratio;
+		if(sn_ratio > 1.0)
+			threshold = sn_ratio;
 		double prev_au = 0;
 		String direction = "down";
 		for(int i=0; i < from.size(); i++){
 			if(from.get(i).getRt() >= lowerRT 
 					&& from.get(i).getRt() <= upperRT 
-					&& from.get(i).getAu() >= max*sn_ratio){
+					&& from.get(i).getAu() >= threshold){
 				if(direction.equals("down") && from.get(i).getAu() > prev_au +.1){
 					direction = "up";
 				}
@@ -221,9 +224,7 @@ public class HPLCPeakClassifier {
 					if(from.get(i).getAu() > local_max.getAu()){
 						local_max = from.get(i);
 					}else {
-						to.add(new HPLCPeak(local_max.getRt() - .001, 0));
 						to.add(local_max);
-						to.add(new HPLCPeak(local_max.getRt() + .001, 0));
 						local_max = new HPLCPeak(0,0);
 						direction = "down";						
 					}
@@ -428,6 +429,8 @@ public class HPLCPeakClassifier {
 
 	private static void printUsage() {
 		System.out.println("USAGE: HPLCPeakClassifier --NR=pathToNRcsvFile --R=pathToRcsvFile --BLANK_NR=pathToBlankNRCsvFile --BLANK_R=pathToBlankRCsvFile --sampleInfo=pathToSampleInfoXmlFile --outdir=pathToOutputDir --SN=sn_ratio_decimal --Classification=NumOfPeaksForClassification");
+		System.out.println("");
+		System.out.println("note: if SN parameter is set to greater than 1, then it will be used as an absolute intensity threshold cuttoff for peak finding.");
 	}
 
 }
