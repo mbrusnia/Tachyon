@@ -15,7 +15,9 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.*;
 import java.io.*;
+import java.math.RoundingMode;
 import java.nio.charset.Charset;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -161,7 +163,9 @@ public class HPLCPeakClassifier {
 					chartName += " [Complex]";
 					fileName += "_Complex";
 			}
-			fileName += ".jpg";
+			DecimalFormat df = new DecimalFormat("#.##");
+			df.setRoundingMode(RoundingMode.HALF_UP);
+			fileName += "_" + df.format(hpc.getMaxAU(hpc.getNRPP(), 2, maxRTForPeak)) + ".jpg";
 			System.out.println("max peaks found: " + peaks);
 			System.out.println("Chart Title: " + chartName);
 			System.out.println("Filename: " + fileName);
@@ -172,8 +176,23 @@ public class HPLCPeakClassifier {
 		}
 	}
 	
+	private ArrayList<HPLCPeak> getNRPP() {
+		return nrpp;
+	}
+
+	private double getMaxAU(ArrayList<HPLCPeak> pl, double lowerRT, double upperRT) {
+		double max = 0.0;
+		for(int i=0; i < pl.size(); i++){
+			if(pl.get(i).getRt() >= lowerRT 
+					&& pl.get(i).getRt() <= upperRT 
+					&& pl.get(i).getAu() > max)
+				max = pl.get(i).getAu();
+		}
+		return max;
+	}
+
 	/*
-	 * after peak picking, this func. tells us what the max num of peaks between r vs. nr were
+	 * after peak picking, this function tells us what the max num of peaks between r vs. nr were
 	 */
 	private int getMaxNumOfPeaksPicked() {
 		int peaks = rpp.size();
@@ -199,12 +218,8 @@ public class HPLCPeakClassifier {
 	private void peakPicking(ArrayList<HPLCPeak> from, ArrayList<HPLCPeak> to, 
 			double sn_ratio, double lowerRT, double upperRT){
 		//find max AU value
-		double max = 0;
-		for(int i=0; i < from.size(); i++){
-			if(from.get(i).getRt() >= lowerRT && from.get(i).getRt() <= upperRT 
-					&& from.get(i).getAu() > max)
-				max = from.get(i).getAu();
-		}
+		double max = getMaxAU(from, lowerRT, upperRT);
+		
 		
 		//find the peaks of the ones that pass  the s/n ratio
 		HPLCPeak local_max = new HPLCPeak(0,0);
@@ -388,19 +403,19 @@ public class HPLCPeakClassifier {
 
 	protected void loadLCAUdata() throws IOException {
 		for (HashMap.Entry<String, ArrayList<HPLCPeak>> entry : peakLists.entrySet()) {
-			 /*default encoding **
+			 /*default encoding *****/
 			// FileReader reads text files in the default encoding.
 	        FileReader fileReader = new FileReader(entry.getKey());
 	
 	        // Always wrap FileReader in BufferedReader.
 	        BufferedReader bufferedReader = new BufferedReader(fileReader);
-	        ***/
+	        
 			
-			/* UTF-16 encoding */
+			/* UTF-16 encoding 
 			File f = new File(entry.getKey());
 	        FileInputStream stream = new FileInputStream(f);
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-16")));
-			/*  */
+			  */
 			
 	        String line = null;
 	        String[] rt_au = null;
@@ -428,7 +443,7 @@ public class HPLCPeakClassifier {
 	}
 
 	private static void printUsage() {
-		System.out.println("USAGE: HPLCPeakClassifier --NR=pathToNRcsvFile --R=pathToRcsvFile --BLANK_NR=pathToBlankNRCsvFile --BLANK_R=pathToBlankRCsvFile --sampleInfo=pathToSampleInfoXmlFile --outdir=pathToOutputDir --SN=sn_ratio_decimal --Classification=NumOfPeaksForClassification");
+		System.out.println("USAGE: HPLCPeakClassifier --NR=pathToNRcsvFile --R=pathToRcsvFile --BLANK_NR=pathToBlankNRCsvFile --BLANK_R=pathToBlankRCsvFile --sampleInfo=pathToSampleInfoXmlFile --outdir=pathToOutputDir --SN=sn_ratio_decimal --Classification=NumOfPeaksForClassification --MaxRTForPeak=maxRTtoConsider");
 		System.out.println("");
 		System.out.println("note: if SN parameter is set to greater than 1, then it will be used as an absolute intensity threshold cuttoff for peak finding.");
 	}

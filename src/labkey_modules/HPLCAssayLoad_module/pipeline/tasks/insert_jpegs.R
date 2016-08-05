@@ -56,11 +56,15 @@ if(length(HTPlateID) > 1){
 ###########################################################################################################
 
 parseFilename <- function(filename, path){
+	if(length(unlist(strsplit(filename , "[_.]"))) != 5){
+		stop("The detected format of the filename(s) is incorrect.  This is what we are looking for: HTProductionID_Classification_MaxAUNR.jpg, where MaxAUNR is a double value, with a decimal point.  For example: HT01011A01_Simple_817.61.jpg")
+	}
 	HTProductionID <- unlist(strsplit(filename , "[_.]"))[1]
 	Classification <- unlist(strsplit(filename , "[_.]"))[2]
+	MaxPeakNR <- paste0(unlist(strsplit(filename , "[_.]"))[3], ".", unlist(strsplit(filename , "[_.]"))[4])
 	#HTPlateID <- substr(HTProductionID, 1, 6)
 	Image <- paste0(path, "/", filename)
-	df <- data.frame(HTProductionID, Classification, Image)
+	df <- data.frame(HTProductionID, Classification, Image, MaxPeakNR)
 	return (df)
 }
 
