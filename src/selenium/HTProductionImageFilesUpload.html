@@ -32,6 +32,36 @@
 	<td></td>
 </tr>
 <tr>
+	<td>doubleClick</td>
+	<td>//div/div/span[text()=&quot;HPLC_Assay_Images&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>doubleClick</td>
+	<td>//div/div/span[text()=&quot;HT0100&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div/div/span[text()=&quot;HT01001A01_Complex.jpg&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>shiftKeyDown</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div/div/span[text()=&quot;HT01001A05_Perfect.jpg&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>shiftKeyUp</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>link=HPLC Assays</td>
 	<td></td>
@@ -42,34 +72,69 @@
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>name=HTPlateID</td>
-	<td>HT0001</td>
-</tr>
-<tr>
 	<td>clickAndWait</td>
-	<td>link=Next</td>
+	<td>link=Import</td>
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>id=TextAreaDataCollector.textArea</td>
-	<td>HT00011A01_Complex.jpg<br />HT00011A02_Complex.jpg<br />HT00011A03_Simple.jpg<br />HT00011A04_Simple.jpg<br />HT00011A05_Perfect.jpg<br /></td>
-</tr>
-<tr>
 	<td>clickAndWait</td>
-	<td>link=Save and Finish</td>
+	<td>link=Analyze</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>5000</td>
-	<td>5000</td>
+	<td>clickAndWait</td>
+	<td>link=All</td>
+	<td></td>
 </tr>
 <tr>
-	<td>assertText</td>
-	<td>id=labkey-nav-trail-current-page</td>
-	<td>HPLC Assays Runs</td>
+	<td>assertNotText</td>
+	<td>//tr/td/a[text()=&quot;Error&quot;]</td>
+	<td>Error</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=.toggle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Confirm Delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Assays</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Assays</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=HPLC Assays</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//tr/td[text()=&quot;HT0100&quot;]/preceding-sibling::td/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Confirm Delete</td>
+	<td></td>
 </tr>
 </tbody></table>
 </body>
