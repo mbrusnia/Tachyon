@@ -84,7 +84,7 @@ public class HPLCPeakClassifier {
 		String outDir = "";
 		double sn_ratio = .10; 
 		int classification = 0; 
-		int maxRTForPeak = 11;
+		double maxRTForPeak = 11.0;
 		//get input params
 		String[] curParam = null;
 		for(int i = 0; i < args.length; i++){
@@ -102,7 +102,7 @@ public class HPLCPeakClassifier {
 			else if(curParam[0].equals("--SN"))
 				sn_ratio = Double.parseDouble(curParam[1]);
 			else if(curParam[0].equals("--MaxRTForPeak"))
-				maxRTForPeak = Integer.parseInt(curParam[1]);
+				maxRTForPeak = Double.parseDouble(curParam[1]);
 			else if(curParam[0].equals("--Classification"))
 				classification = Integer.parseInt(curParam[1]);
 			else if(curParam[0].equals("--outdir"))
@@ -411,11 +411,11 @@ public class HPLCPeakClassifier {
 	        BufferedReader bufferedReader = new BufferedReader(fileReader);
 	        
 			
-			/* UTF-16 encoding 
+			/* UTF-16 encoding
 			File f = new File(entry.getKey());
 	        FileInputStream stream = new FileInputStream(f);
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-16")));
-			  */
+            */
 			
 	        String line = null;
 	        String[] rt_au = null;
