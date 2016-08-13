@@ -13,12 +13,17 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
+import sun.util.logging.resources.logging_fr;
+
 import javax.xml.parsers.*;
 import java.io.*;
 import java.math.RoundingMode;
-import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 
@@ -43,12 +48,15 @@ public class HPLCPeakClassifier {
 	//Sample Info
 	private String sampleName = null;
 	
-	//peak lists stored in a HashMap (key = filename)
-	HashMap<String, ArrayList<HPLCPeak>> peakLists = null;	
+	//peak lists stored in a HashMap (key = fullpathFfilename)
+	private HashMap<String, HPLCPeakList> peakLists = null;	
 	
 	//peak picked lists
-	ArrayList<HPLCPeak> rpp = null;
-	ArrayList<HPLCPeak> nrpp = null;
+	private HPLCPeakList rpp = null;
+	private HPLCPeakList nrpp = null;
+	
+	//path to Logging output file
+	private static String loggingFilepath = "C:/Users/hramos/Documents/HRInternetConsulting/Clients/FHCRC/Project17 - HPLCPeakClassifierApp/log.txt";
 	
 	
 	public HPLCPeakClassifier(double sn_ratio, int classification, String blankRCsv, String blankNRCsv, String nrCsv, String rCsv, String sampleInfoXmlFile, String outDir) throws ParserConfigurationException, SAXException, IOException {
@@ -62,11 +70,11 @@ public class HPLCPeakClassifier {
 		this.outDir = outDir;
 		
 		//initiate peakLists HashMap:
-		peakLists = new HashMap<String, ArrayList<HPLCPeak>>();
-		peakLists.put(blankRCsvFilepath, new ArrayList<HPLCPeak>());
-		peakLists.put(blankNRCsvFilepath, new ArrayList<HPLCPeak>());
-		peakLists.put(nrCsvFilepath, new ArrayList<HPLCPeak>());
-		peakLists.put(rCsvFilepath, new ArrayList<HPLCPeak>());
+		peakLists = new HashMap<String, HPLCPeakList>();
+		peakLists.put(blankRCsvFilepath, new HPLCPeakList());
+		peakLists.put(blankNRCsvFilepath, new HPLCPeakList());
+		peakLists.put(nrCsvFilepath, new HPLCPeakList());
+		peakLists.put(rCsvFilepath, new HPLCPeakList());
 		
 		//parse the Sample Info XML
 		File inputFile = new File(sampleInfoXmlFile);
@@ -153,44 +161,68 @@ public class HPLCPeakClassifier {
 			String str = sampleName.split("\\_")[0];
 			String chartName = str;
 			String fileName = str;
+			String classificationOutput = "";
 			if(peaks == 1){
-				chartName += " [Perfect]";
-				fileName += "_Perfect";
+				classificationOutput = "Perfect";
 			}else if (peaks > 1 && peaks <= classification){
-				chartName += " [Simple]";
-				fileName += "_Simple";
+				classificationOutput = "Simple";
 			}else if(peaks > classification){
-					chartName += " [Complex]";
-					fileName += "_Complex";
+				classificationOutput = "Complex";
 			}
+			chartName += " [" + classificationOutput + "]";
+			fileName += "_" + classificationOutput;
 			DecimalFormat df = new DecimalFormat("#.##");
 			df.setRoundingMode(RoundingMode.HALF_UP);
-			fileName += "_" + df.format(hpc.getMaxAU(hpc.getNRPP(), 2, maxRTForPeak)) + ".jpg";
+			fileName += "_" + df.format(hpc.getPeakList(nrCsv).getMaxAU(2, maxRTForPeak)) + ".jpg";
 			System.out.println("max peaks found: " + peaks);
 			System.out.println("Chart Title: " + chartName);
 			System.out.println("Filename: " + fileName);
 			
 			hpc.drawHPLCsAsJPG(chartName, outDir + fileName.replace(" ",  ""), 800, 600);
+		
+			//append stats to log file
+			/*
+			 * 
+	 Date BLANK_R BLANK_NR R NR ClassificationOutput R_Max NR_Max R_Total NR_Total BLANK_R_Max 
+	 								BLANK_NR_Max BLANK_R_Total BLANK_R_Total
+	
+			 */
+			StringBuilder log_str = new StringBuilder();
+			File f = new File(HPLCPeakClassifier.loggingFilepath);
+			PrintWriter logfile = null;
+			if(!f.exists()){
+				Files.write(Paths.get(HPLCPeakClassifier.loggingFilepath), "Date\tBLANK_R\tBLANK_NR\tR\tNR\tClassificationCount\tClassificationOutput\tR_Max\tNR_Max\tR_Total\tNR_Total\tBLANK_R_Max\tBLANK_NR_Max\tBLANK_R_Total\tBLANK_R_Total\n".getBytes(), StandardOpenOption.CREATE_NEW);
+			}
+
+			//append
+			log_str.append(new Date() + "\t");
+			log_str.append(blankRCsv + "\t");
+			log_str.append(blankNRCsv + "\t");
+			log_str.append(rCsv + "\t");
+			log_str.append(nrCsv + "\t");
+			log_str.append(classification + "\t");
+			log_str.append(classificationOutput + "\t");
+			log_str.append(df.format(hpc.getPeakList(rCsv).getMaxAU(2.0, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(nrCsv).getMaxAU(2.0, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(rCsv).getTotalAU(2.0, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(nrCsv).getTotalAU(2.0, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(blankRCsv).getMaxAU(2.0, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(blankNRCsv).getMaxAU(2.0, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(blankRCsv).getTotalAU(2.0, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(blankNRCsv).getTotalAU(2.0, maxRTForPeak)) + "\t");
+			log_str.append("\n");
+			
+			Files.write(Paths.get(HPLCPeakClassifier.loggingFilepath), log_str.toString().getBytes(), StandardOpenOption.APPEND);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private ArrayList<HPLCPeak> getNRPP() {
-		return nrpp;
+	private HPLCPeakList getPeakList(String key) {
+		return peakLists.get(key);
 	}
 
-	private double getMaxAU(ArrayList<HPLCPeak> pl, double lowerRT, double upperRT) {
-		double max = 0.0;
-		for(int i=0; i < pl.size(); i++){
-			if(pl.get(i).getRt() >= lowerRT 
-					&& pl.get(i).getRt() <= upperRT 
-					&& pl.get(i).getAu() > max)
-				max = pl.get(i).getAu();
-		}
-		return max;
-	}
-
+	
 	/*
 	 * after peak picking, this function tells us what the max num of peaks between r vs. nr were
 	 */
@@ -202,53 +234,16 @@ public class HPLCPeakClassifier {
 	}
 
 	public void peakPickingR(double sn_ratio, double lowerRT, double upperRT) {
-		ArrayList<HPLCPeak> pl = peakLists.get(rCsvFilepath);
-		rpp = new ArrayList<HPLCPeak>();
-		
-		peakPicking(pl, rpp, sn_ratio, lowerRT, upperRT);
+		HPLCPeakList pl = peakLists.get(rCsvFilepath);
+		rpp = pl.peakPick(sn_ratio, lowerRT, upperRT);
 	}
 	
 	public void peakPickingNR(double sn_ratio, double lowerRT, double upperRT) {
-		ArrayList<HPLCPeak> pl = peakLists.get(nrCsvFilepath);
-		nrpp = new ArrayList<HPLCPeak>();
-		
-		peakPicking(pl, nrpp, sn_ratio, lowerRT, upperRT);
+		HPLCPeakList pl = peakLists.get(nrCsvFilepath);
+		nrpp = pl.peakPick(sn_ratio, lowerRT, upperRT);
 	}
 	
-	private void peakPicking(ArrayList<HPLCPeak> from, ArrayList<HPLCPeak> to, 
-			double sn_ratio, double lowerRT, double upperRT){
-		//find max AU value
-		double max = getMaxAU(from, lowerRT, upperRT);
-		
-		
-		//find the peaks of the ones that pass  the s/n ratio
-		HPLCPeak local_max = new HPLCPeak(0,0);
-		double threshold = max*sn_ratio;
-		if(sn_ratio > 1.0)
-			threshold = sn_ratio;
-		double prev_au = 0;
-		String direction = "down";
-		for(int i=0; i < from.size(); i++){
-			if(from.get(i).getRt() >= lowerRT 
-					&& from.get(i).getRt() <= upperRT 
-					&& from.get(i).getAu() >= threshold){
-				if(direction.equals("down") && from.get(i).getAu() > prev_au +.1){
-					direction = "up";
-				}
-				if(direction.equals("up")){
-					if(from.get(i).getAu() > local_max.getAu()){
-						local_max = from.get(i);
-					}else {
-						to.add(local_max);
-						local_max = new HPLCPeak(0,0);
-						direction = "down";						
-					}
-				}
-				prev_au = from.get(i).getAu();
-			}
-		}
-	}
-
+	
 	/*
 	 * using JFreeChart, draw the jpg of the LC runs
 	 */
@@ -292,7 +287,7 @@ public class HPLCPeakClassifier {
 		}
 	}
 
-	private int maxAUvalue(ArrayList<HPLCPeak> l1, ArrayList<HPLCPeak> l2) {
+	private int maxAUvalue(HPLCPeakList l1, HPLCPeakList l2) {
 		double max = 0;
 		for(int i = 0; i < l1.size(); i++){
 			if(l1.get(i).getAu() > max)
@@ -308,7 +303,7 @@ public class HPLCPeakClassifier {
 	/*
 	 * create the dataset for jFreeChart to draw the line chart
 	 */
-	private XYDataset createDataset(ArrayList<HPLCPeak> rHplcPeaks, ArrayList<HPLCPeak> nrHplcPeaks) {
+	private XYDataset createDataset(HPLCPeakList rHplcPeaks, HPLCPeakList nrHplcPeaks) {
 		XYSeries series1 = new XYSeries("R");
 		XYSeries series2 = new XYSeries("NR");
 		for(int i=0; i < rHplcPeaks.size(); i++)
@@ -324,7 +319,7 @@ public class HPLCPeakClassifier {
 	}
 
 	private void printPeaks(String which) {
-		ArrayList<HPLCPeak> peaks = null;
+		HPLCPeakList peaks = null;
 		switch(which){
 		case "R":
 			peaks = peakLists.get(rCsvFilepath);
@@ -347,11 +342,12 @@ public class HPLCPeakClassifier {
 	private void subtractBackgroundAUsfromR() {
 		subtractAUs(peakLists.get(rCsvFilepath), peakLists.get(blankRCsvFilepath)); 
 	}
+	
 	private void subtractBackgroundAUsfromNR() {
 		subtractAUs(peakLists.get(nrCsvFilepath), peakLists.get(blankNRCsvFilepath)); 
 	}
 
-	private void subtractAUs(ArrayList<HPLCPeak> peaks1, ArrayList<HPLCPeak> peaks2) {
+	private void subtractAUs(HPLCPeakList peaks1, HPLCPeakList peaks2) {
 		assert(peaks1.size() == peaks2.size());
 
 		HPLCPeak p1 = null;
@@ -364,12 +360,12 @@ public class HPLCPeakClassifier {
 	}
 
 	private void trimHPLCPeakListsByRT(double lowerRtLimit, double upperRTLimit) {
-		ArrayList<HPLCPeak> newBlankRPeakList = new ArrayList<HPLCPeak>();
-		ArrayList<HPLCPeak> newBlankNRPeakList = new ArrayList<HPLCPeak>();
-		ArrayList<HPLCPeak> newNRPeakList = new ArrayList<HPLCPeak>();
-		ArrayList<HPLCPeak> newRPeakList = new ArrayList<HPLCPeak>();
+		HPLCPeakList newBlankRPeakList = new HPLCPeakList();
+		HPLCPeakList newBlankNRPeakList = new HPLCPeakList();
+		HPLCPeakList newNRPeakList = new HPLCPeakList();
+		HPLCPeakList newRPeakList = new HPLCPeakList();
 		
-		ArrayList<HPLCPeak> refPeakList = peakLists.get(blankRCsvFilepath);
+		HPLCPeakList refPeakList = peakLists.get(blankRCsvFilepath);
 		for(int i=0; i < refPeakList.size(); i++){
 			if(refPeakList.get(i).getRt() >= lowerRtLimit 
 					&& refPeakList.get(i).getRt() <= upperRTLimit){
@@ -402,7 +398,7 @@ public class HPLCPeakClassifier {
 	}
 
 	protected void loadLCAUdata() throws IOException {
-		for (HashMap.Entry<String, ArrayList<HPLCPeak>> entry : peakLists.entrySet()) {
+		for (HashMap.Entry<String, HPLCPeakList> entry : peakLists.entrySet()) {
 			 /*default encoding *****/
 			// FileReader reads text files in the default encoding.
 	        FileReader fileReader = new FileReader(entry.getKey());
