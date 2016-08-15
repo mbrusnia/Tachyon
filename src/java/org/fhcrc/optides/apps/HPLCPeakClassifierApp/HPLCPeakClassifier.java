@@ -12,8 +12,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
-
-import sun.util.logging.resources.logging_fr;
+import java.nio.charset.Charset;
 
 import javax.xml.parsers.*;
 import java.io.*;
@@ -22,7 +21,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -56,7 +54,7 @@ public class HPLCPeakClassifier {
 	private HPLCPeakList nrpp = null;
 	
 	//path to Logging output file
-	private static String loggingFilepath = "C:/Users/hramos/Documents/HRInternetConsulting/Clients/FHCRC/Project17 - HPLCPeakClassifierApp/log.txt";
+	private static String loggingFilepath = "/Users/mbrusnia/Documents/ToolGuides/OptidesSoftware/Optide-Hunter.log";
 	
 	
 	public HPLCPeakClassifier(double sn_ratio, int classification, String blankRCsv, String blankNRCsv, String nrCsv, String rCsv, String sampleInfoXmlFile, String outDir) throws ParserConfigurationException, SAXException, IOException {
