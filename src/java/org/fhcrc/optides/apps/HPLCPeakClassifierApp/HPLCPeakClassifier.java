@@ -54,7 +54,7 @@ public class HPLCPeakClassifier {
 	private HPLCPeakList nrpp = null;
 	
 	//path to Logging output file
-	private static String loggingFilepath = "/Users/mbrusnia/Documents/ToolGuides/OptidesSoftware/Optide-Hunter.log";
+	private static String loggingFilepath = "C:/Program Files/OptidesSoftware/Optide-Hunter.log";
 	
 	
 	public HPLCPeakClassifier(double sn_ratio, int classification, String blankRCsv, String blankNRCsv, String nrCsv, String rCsv, String sampleInfoXmlFile, String outDir) throws ParserConfigurationException, SAXException, IOException {
@@ -169,7 +169,7 @@ public class HPLCPeakClassifier {
 			}
 			chartName += " [" + classificationOutput + "]";
 			fileName += "_" + classificationOutput;
-			DecimalFormat df = new DecimalFormat("#.##");
+			DecimalFormat df = new DecimalFormat("#.00");
 			df.setRoundingMode(RoundingMode.HALF_UP);
 			fileName += "_" + df.format(hpc.getPeakList(nrCsv).getMaxAU(2, maxRTForPeak)) + ".jpg";
 			System.out.println("max peaks found: " + peaks);
@@ -409,7 +409,7 @@ public class HPLCPeakClassifier {
 			File f = new File(entry.getKey());
 	        FileInputStream stream = new FileInputStream(f);
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-16")));
-            */
+			*/
 			
 	        String line = null;
 	        String[] rt_au = null;
