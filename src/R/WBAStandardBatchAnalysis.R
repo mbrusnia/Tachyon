@@ -9,7 +9,6 @@ assaydata <- labkey.selectRows(
 	folderPath="/Optides/VIVOAssay/Sample",
 	schemaName="assay.General.WBA",
 	queryName="Data",
-	viewName="wBatch",
 	colSelect=c("RowId", "Std_Activity_DPM_", "Intensity_Area_QL_mm2_", "Run/Batch/StudyName", "Run/Batch"),
 	colNameOpt="fieldname",
 	showHidden=TRUE,
