@@ -17,31 +17,34 @@ source("C:/labkey/labkey/files/Optides/@files/xlsxToR.R")
 ##
 #######################################################################################
 filename <- paste0(Sys.getenv()["HOME"], .Platform$file.sep, "_netrc")
+machineName <- "optides-stage.fhcrc.org"
+login <- "brusniak.computelifesci@gmail.com"
+password <- "Kn0ttin10K"
 if(!file.exists(filename)){
 	f = file(description=filename, open="w")
-	cat(file=f, sep="", "machine optides-prod.fhcrc.org", "\n")
-	cat(file=f, sep="", "login brusniak.computelifesci@gmail.com", "\n")
-	cat(file=f, sep="", "password Kn0ttin10K", "\n")
+	cat(file=f, sep="", "machine ", machineName, "\n")
+	cat(file=f, sep="", "login ", login, "\n")
+	cat(file=f, sep="", "password ", password, "\n")
 	flush(con=f)
 	close(con=f)
 }else{
 	txtFile <- readLines(filename)
 	counter <- 0
 	for(i in 1:length(txtFile)){
-		if(txtFile[i] == "machine optides-prod.fhcrc.org"){
+		if(txtFile[i] == paste0("machine ", machineName)){
 			counter <- counter + 1
 		}
-		if(txtFile[i] == "login brusniak.computelifesci@gmail.com"){
+		if(txtFile[i] == paste0("login ", login)){
 			counter <- counter + 1
 		}
-		if(txtFile[i] == "password Kn0ttin10K"){
+		if(txtFile[i] == paste0("password ", password)){
 			counter <- counter + 1
 		}
 	}
 	if(counter != 3){
-		write("\nmachine optides-prod.fhcrc.org",file=filename,append=TRUE)
-		write("login brusniak.computelifesci@gmail.com",file=filename,append=TRUE)
-		write("password Kn0ttin10K",file=filename,append=TRUE)
+		write(paste0("\nmachine ", machineName),file=filename,append=TRUE)
+		write(paste0("login ", login),file=filename,append=TRUE)
+		write(paste0("password ", password),file=filename,append=TRUE)
 	}
 
 }
@@ -52,7 +55,7 @@ if(!file.exists(filename)){
 pathToInputFile <- "${input.xlsx}"
 
 #Parameters for this script (login script: _netrc)
-BASE_URL = "http://optides-prod.fhcrc.org/"
+BASE_URL = "http://optides-stage.fhcrc.org/"
 
 SAMPLE_SETS_SCHEMA_NAME = "Samples"
 HT_PRODUCTION_QUERY_NAME = "HTProduction"
@@ -86,6 +89,10 @@ names(inputDF)[1:7] <- c("SGIID", "ConstructID", "SGIPlateID", "WellLocation", "
 #
 #now prepare data for insertion into HTP_Specimen
 #
+
+
+#added 9/8/16 to correct parentID conflicts between Construct and SGI_DNA
+inputDF$ConstructID <- paste0("Construct.", inputDF$ConstructID)
 
 ##find the latest HTPPlateID (we will begin with that + 1 for our new HTPPlate)
 ssHTP <- labkey.selectRows(
@@ -132,20 +139,24 @@ for(i in 1:length(htProductsToInsert$HTProductID)){
 	htProductsToInsert$HTQuadPlateID[i] <- paste0(htProductsToInsert$HTQuadPlateID[i], quadrant)
 	htProductsToInsert$HTProductID[i] <- paste0(htProductsToInsert$HTProductID[i], quadrant, htProductsToInsert$WellLocation[i])
 
-	if(htProductsToInsert$ConstructID[i] == "Blank"){
-		htProductsToInsert$ConstructID[i] = "${blanks-replacement}"
+	if(htProductsToInsert$ConstructID[i] == "Construct.Blank"){
+		#WAS: htProductsToInsert$ConstructID[i] = "${blanks-replacement}", but now, since this col is a ParentID col, we have to:
+		htProductsToInsert$ConstructID[i] = ""
 	}
 }
 
+#take a peak at what we're about to insert
+head(htProductsToInsert)
+
 ##insert data into HTP_Specimen sampleset database
-ssHTP_insert <- labkey.insertRows(
+ssHTP_insert <- labkey.importRows(
 	baseUrl=BASE_URL,
 	folderPath=SAMPLE_SETS_FOLDER_PATH,
 	schemaName=SAMPLE_SETS_SCHEMA_NAME,
 	queryName=HT_PRODUCTION_QUERY_NAME,
-	toInsert=htProductsToInsert
+	toImport=htProductsToInsert
 )
 
 #completed
-cat(length(htProductsToInsert$HTProductID), "ROWS HAVE BEEN INSERTED INTO HTProduction.\n")
+cat(ssHTP_insert$rowsAffected, "ROWS HAVE BEEN INSERTED INTO HTProduction.\n")
 

@@ -12,7 +12,7 @@ source("C:/labkey/labkey/files/Optides/@files/xlsxToR.R")
 pathToInputFile <- "${input.xlsx}"
 
 #Parameters for this script (login script: _netrc)
-BASE_URL = "http://optides-prod.fhcrc.org/"
+BASE_URL = "http://optides-stage.fhcrc.org/"
 
 SAMPLE_SETS_SCHEMA_NAME = "Samples"
 SGI_DNA_QUERY_NAME = "SGI_DNA"
@@ -24,31 +24,34 @@ SAMPLE_SETS_FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
 ##
 #######################################################################################
 filename <- paste0(Sys.getenv()["HOME"], .Platform$file.sep, "_netrc")
+machineName <- "optides-stage.fhcrc.org"
+login <- "brusniak.computelifesci@gmail.com"
+password <- "Kn0ttin10K"
 if(!file.exists(filename)){
 	f = file(description=filename, open="w")
-	cat(file=f, sep="", "machine optides-prod.fhcrc.org", "\n")
-	cat(file=f, sep="", "login brusniak.computelifesci@gmail.com", "\n")
-	cat(file=f, sep="", "password Kn0ttin10K", "\n")
+	cat(file=f, sep="", "machine ", machineName, "\n")
+	cat(file=f, sep="", "login ", login, "\n")
+	cat(file=f, sep="", "password ", password, "\n")
 	flush(con=f)
 	close(con=f)
 }else{
 	txtFile <- readLines(filename)
 	counter <- 0
 	for(i in 1:length(txtFile)){
-		if(txtFile[i] == "machine optides-prod.fhcrc.org"){
+		if(txtFile[i] == paste0("machine ", machineName)){
 			counter <- counter + 1
 		}
-		if(txtFile[i] == "login brusniak.computelifesci@gmail.com"){
+		if(txtFile[i] == paste0("login ", login)){
 			counter <- counter + 1
 		}
-		if(txtFile[i] == "password Kn0ttin10K"){
+		if(txtFile[i] == paste0("password ", password)){
 			counter <- counter + 1
 		}
 	}
 	if(counter != 3){
-		write("\nmachine optides-prod.fhcrc.org",file=filename,append=TRUE)
-		write("login brusniak.computelifesci@gmail.com",file=filename,append=TRUE)
-		write("password Kn0ttin10K",file=filename,append=TRUE)
+		write(paste0("\nmachine ", machineName),file=filename,append=TRUE)
+		write(paste0("login ", login),file=filename,append=TRUE)
+		write(paste0("password ", password),file=filename,append=TRUE)
 	}
 
 }
