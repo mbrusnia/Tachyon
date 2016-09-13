@@ -174,11 +174,11 @@ public class HPLCPeakClassifier {
 			
 			if(nrpeaks == 0 || rpeaks == 0){
 				if(rpeaks == 0)
-					classificationOutput += "No_R";
+					classificationOutput += "NoR";
 				if(nrpeaks == 0 && rpeaks == 0)
-					classificationOutput += "_";
+					classificationOutput += "-";
 				if(nrpeaks == 0)
-					classificationOutput += "No_NR";
+					classificationOutput += "NoNR";
 			}else{				
 				if(peaks == 1){
 					classificationOutput = "Perfect";
@@ -191,7 +191,9 @@ public class HPLCPeakClassifier {
 			fileName += "_" + classificationOutput;
 			DecimalFormat df = new DecimalFormat("#.00");
 			df.setRoundingMode(RoundingMode.HALF_UP);
-			if(rpeaks != 0 && nrpeaks != 0){
+			if(nrpeaks == 0){
+				fileName += "_0.00";
+			}else{
 				fileName += "_" + df.format(hpc.getPeakList(nrCsv).getMaxAU(minRTForPeak, maxRTForPeak));
 			}
 			fileName +=  ".jpg";
