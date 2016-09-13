@@ -3,11 +3,19 @@ package org.fhcrc.optides.apps.HPLCPeakClassifierApp;
 import java.util.ArrayList;
 
 public class HPLCPeakList extends ArrayList<HPLCPeak> {
+	protected HPLCPeak majorPeak = null;
 	
 	protected HPLCPeakList peakPick(double sn_ratio, double lowerRT, double upperRT){
 		HPLCPeakList retVal = new HPLCPeakList();
 		//find max AU value
 		double max = this.getMaxAU(lowerRT, upperRT);
+		
+		//find average AU value
+		double avg = this.getAverageAU(lowerRT, upperRT);
+		
+		//if max au is not greater than 3 times the average or less than 20, then forget it, we wont count any peaks
+		if(max < 3*avg || max < 20)
+			return retVal;
 				
 		//find the peaks of the ones that pass  the s/n ratio
 		HPLCPeak local_max = new HPLCPeak(0,0);
@@ -43,8 +51,10 @@ public class HPLCPeakList extends ArrayList<HPLCPeak> {
 		for(int i=0; i < this.size(); i++){
 			if(this.get(i).getRt() >= lowerRT 
 					&& this.get(i).getRt() <= upperRT 
-					&& this.get(i).getAu() > max)
+					&& this.get(i).getAu() > max){
 				max = this.get(i).getAu();
+				majorPeak = this.get(i);
+			}
 		}
 		return max;
 	}
@@ -56,5 +66,19 @@ public class HPLCPeakList extends ArrayList<HPLCPeak> {
 				total += this.get(i).getAu();
 		}
 		return total;
+	}
+
+	public double getAverageAU(double lowerRT, double upperRT) {
+		int count = 0;
+		for(int i=0; i < this.size(); i++){
+			if(this.get(i).getRt() >= lowerRT && this.get(i).getRt() <= upperRT)
+				count++;
+		}
+		return getTotalAU(lowerRT, upperRT) / count;
+	}
+	public HPLCPeak getMajorPeak(double lowerRT, double upperRT){
+		if(majorPeak == null)
+			getMaxAU(lowerRT, upperRT);
+		return majorPeak;
 	}
 }

@@ -40,6 +40,13 @@ public class HPLCPeakClassifier {
 	private String sampleInfoXmlFile = "";
 	private String outDir = "";
 	
+	//max and min RTs to use in all calculations
+	private double maxRTForPeak = 11.0; 
+	private static double minRTForPeak = 2.0; 
+	
+	//when checking for r and nr peak overlap, this is the RT tolerance for the window
+	private static double peakOverlapTolerance = .1;
+	
 	//xml document for Sample Info
 	private Document sampleInfoXmlDoc = null;
 	
@@ -57,7 +64,7 @@ public class HPLCPeakClassifier {
 	private static String loggingFilepath = "C:/Program Files/OptidesSoftware/Optide-Hunter.log";
 	
 	
-	public HPLCPeakClassifier(double sn_ratio, int classification, String blankRCsv, String blankNRCsv, String nrCsv, String rCsv, String sampleInfoXmlFile, String outDir) throws ParserConfigurationException, SAXException, IOException {
+	public HPLCPeakClassifier(double sn_ratio, int classification, String blankRCsv, String blankNRCsv, String nrCsv, String rCsv, String sampleInfoXmlFile, double maxRTForPeak, String outDir) throws ParserConfigurationException, SAXException, IOException {
 		this.sn_ratio = sn_ratio;
 		this.classification = classification;
 		this.blankRCsvFilepath = blankRCsv;
@@ -65,6 +72,7 @@ public class HPLCPeakClassifier {
 		this.nrCsvFilepath = nrCsv;
 		this.rCsvFilepath = rCsv;
 		this.sampleInfoXmlFile = sampleInfoXmlFile;
+		this.maxRTForPeak = maxRTForPeak;
 		this.outDir = outDir;
 		
 		//initiate peakLists HashMap:
@@ -143,7 +151,7 @@ public class HPLCPeakClassifier {
 		}
 		
 		try {
-			HPLCPeakClassifier hpc = new HPLCPeakClassifier(sn_ratio, classification, blankRCsv, blankNRCsv, nrCsv, rCsv, sampleInfoXmlFile, outDir);
+			HPLCPeakClassifier hpc = new HPLCPeakClassifier(sn_ratio, classification, blankRCsv, blankNRCsv, nrCsv, rCsv, sampleInfoXmlFile, maxRTForPeak, outDir);
 			String sampleName = hpc.getSampleName();
 			hpc.loadLCAUdata();
 			hpc.initialRtAlignmentCheck();
@@ -152,26 +160,42 @@ public class HPLCPeakClassifier {
 			//hpc.printPeaks("R");
 			hpc.subtractBackgroundAUsfromNR();
 			
-			hpc.peakPickingR(sn_ratio, 2.0, maxRTForPeak);
-			hpc.peakPickingNR(sn_ratio, 2.0, maxRTForPeak);
+			hpc.peakPickingR(sn_ratio, minRTForPeak, maxRTForPeak);
+			hpc.peakPickingNR(sn_ratio, minRTForPeak, maxRTForPeak);
 			
-			int peaks = hpc.getMaxNumOfPeaksPicked();
+			int nrpeaks = hpc.getNRPeakPicked().size();
+			int rpeaks = hpc.getRPeakPicked().size();
+
 			String str = sampleName.split("\\_")[0];
 			String chartName = str;
 			String fileName = str;
 			String classificationOutput = "";
-			if(peaks == 1){
-				classificationOutput = "Perfect";
-			}else if (peaks > 1 && peaks <= classification){
-				classificationOutput = "Simple";
-			}else if(peaks > classification){
-				classificationOutput = "Complex";
+			int peaks = hpc.getNumberOfPeaksToReport();
+			
+			if(nrpeaks == 0 || rpeaks == 0){
+				if(rpeaks == 0)
+					classificationOutput += "No_R";
+				if(nrpeaks == 0 && rpeaks == 0)
+					classificationOutput += "_";
+				if(nrpeaks == 0)
+					classificationOutput += "No_NR";
+			}else{				
+				if(peaks == 1){
+					classificationOutput = "Perfect";
+				}else if (peaks > 1 && peaks <= classification){
+					classificationOutput = "Simple";
+				}else if(peaks > classification){
+					classificationOutput = "Complex";
+				}
 			}
-			chartName += " [" + classificationOutput + "]";
 			fileName += "_" + classificationOutput;
 			DecimalFormat df = new DecimalFormat("#.00");
 			df.setRoundingMode(RoundingMode.HALF_UP);
-			fileName += "_" + df.format(hpc.getPeakList(nrCsv).getMaxAU(2, maxRTForPeak)) + ".jpg";
+			if(rpeaks != 0 && nrpeaks != 0){
+				fileName += "_" + df.format(hpc.getPeakList(nrCsv).getMaxAU(minRTForPeak, maxRTForPeak));
+			}
+			fileName +=  ".jpg";
+			chartName += " [" + classificationOutput + "]";
 			System.out.println("max peaks found: " + peaks);
 			System.out.println("Chart Title: " + chartName);
 			System.out.println("Filename: " + fileName);
@@ -200,14 +224,14 @@ public class HPLCPeakClassifier {
 			log_str.append(nrCsv + "\t");
 			log_str.append(classification + "\t");
 			log_str.append(classificationOutput + "\t");
-			log_str.append(df.format(hpc.getPeakList(rCsv).getMaxAU(2.0, maxRTForPeak)) + "\t");
-			log_str.append(df.format(hpc.getPeakList(nrCsv).getMaxAU(2.0, maxRTForPeak)) + "\t");
-			log_str.append(df.format(hpc.getPeakList(rCsv).getTotalAU(2.0, maxRTForPeak)) + "\t");
-			log_str.append(df.format(hpc.getPeakList(nrCsv).getTotalAU(2.0, maxRTForPeak)) + "\t");
-			log_str.append(df.format(hpc.getPeakList(blankRCsv).getMaxAU(2.0, maxRTForPeak)) + "\t");
-			log_str.append(df.format(hpc.getPeakList(blankNRCsv).getMaxAU(2.0, maxRTForPeak)) + "\t");
-			log_str.append(df.format(hpc.getPeakList(blankRCsv).getTotalAU(2.0, maxRTForPeak)) + "\t");
-			log_str.append(df.format(hpc.getPeakList(blankNRCsv).getTotalAU(2.0, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(rCsv).getMaxAU(minRTForPeak, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(nrCsv).getMaxAU(minRTForPeak, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(rCsv).getTotalAU(minRTForPeak, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(nrCsv).getTotalAU(minRTForPeak, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(blankRCsv).getMaxAU(minRTForPeak, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(blankNRCsv).getMaxAU(minRTForPeak, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(blankRCsv).getTotalAU(minRTForPeak, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(blankNRCsv).getTotalAU(minRTForPeak, maxRTForPeak)) + "\t");
 			log_str.append("\n");
 			
 			Files.write(Paths.get(HPLCPeakClassifier.loggingFilepath), log_str.toString().getBytes(), StandardOpenOption.APPEND);
@@ -222,12 +246,25 @@ public class HPLCPeakClassifier {
 
 	
 	/*
-	 * after peak picking, this function tells us what the max num of peaks between r vs. nr were
+	 * after peak picking, this function tells us what the  num of peaks between r vs. nr to report
+	 * we want to report the most possible, after subtracting overlapping nr and r peaks
 	 */
-	private int getMaxNumOfPeaksPicked() {
-		int peaks = rpp.size();
-		if(nrpp.size() > peaks)
-			peaks = nrpp.size();
+	private int getNumberOfPeaksToReport() {
+		int peaks = nrpp.size();
+		if(rpp.size() > peaks){
+			peaks = rpp.size();
+			
+			//if a reduced peak overlaps with the nr major peak, subtract it from the count
+			HPLCPeak nrMajorPeak = nrpp.getMajorPeak(minRTForPeak, maxRTForPeak);
+			if(nrMajorPeak == null)
+				return peaks;
+			for(int i = 0; i < rpp.size(); i++){
+				if(Math.abs(nrMajorPeak.getRt() - rpp.get(i).getRt()) < peakOverlapTolerance){
+					peaks--;
+					break;
+				}
+			}
+		}
 		return peaks;
 	}
 
@@ -397,19 +434,19 @@ public class HPLCPeakClassifier {
 
 	protected void loadLCAUdata() throws IOException {
 		for (HashMap.Entry<String, HPLCPeakList> entry : peakLists.entrySet()) {
-			 /*default encoding *****/
+			 /*default encoding ***
 			// FileReader reads text files in the default encoding.
 	        FileReader fileReader = new FileReader(entry.getKey());
 	
 	        // Always wrap FileReader in BufferedReader.
 	        BufferedReader bufferedReader = new BufferedReader(fileReader);
-	        
+	        **/
 			
-			/* UTF-16 encoding
+			/* UTF-16 encoding*/
 			File f = new File(entry.getKey());
 	        FileInputStream stream = new FileInputStream(f);
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-16")));
-			*/
+			
 			
 	        String line = null;
 	        String[] rt_au = null;
@@ -442,4 +479,11 @@ public class HPLCPeakClassifier {
 		System.out.println("note: if SN parameter is set to greater than 1, then it will be used as an absolute intensity threshold cuttoff for peak finding.");
 	}
 
+	private HPLCPeakList getNRPeakPicked(){
+		return nrpp;
+	}
+
+	private HPLCPeakList getRPeakPicked(){
+		return rpp;
+	}
 }
