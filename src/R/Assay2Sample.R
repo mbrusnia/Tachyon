@@ -68,13 +68,19 @@ if(length(constructData$ID) != length(molecularPropertiesData$ID)){
 results <-data.frame()
 for(i in 1:length(inputDF[,HTPROD_COL])){
 	curRow <- data.frame(inputDF[i,], check.names=FALSE)
-	curConstID <- htProdData$ConstructID[htProdData$HTProductID == inputDF[i, HTPROD_COL]]
-	curRow <-cbind(curRow, constructData[constructData$ID == curConstID,])
-	curRow <-cbind(curRow, molecularPropertiesData[molecularPropertiesData$ID == curConstID, c("AverageMass", "MonoisotopicMass", "pI")])
+	curConstID <- htProdData$ConstructID[htProdData$HTProductID == inputDF[i, HTPROD_COL]][1]
+
+	if(length(curConstID) == 1){
+		curRow <-cbind(curRow, constructData[constructData$ID == curConstID,][1,])
+		curRow <-cbind(curRow, molecularPropertiesData[molecularPropertiesData$ID == curConstID, c("AverageMass", "MonoisotopicMass", "pI")][1,])
+	}else{
+		curRow <- cbind(curRow, ID="", ParentID="", AlternateName="", Vector="", AASeq="", AverageMass="", MonoisotopicMass="", pI="")
+	}
 
 	results <-rbind(results, curRow)
 }
-outfile <- gsub("\\.(\\w{3})", "_out.\\1", inputFile)
+
+outfile <- gsub("\\.(\\w{3,4})$", "_out.\\1", inputFile)
 write.table(results, file=outfile, sep = "\t", row.names=FALSE, na = "")
 
 
