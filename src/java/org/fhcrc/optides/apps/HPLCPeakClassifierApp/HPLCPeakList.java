@@ -5,16 +5,17 @@ import java.util.ArrayList;
 public class HPLCPeakList extends ArrayList<HPLCPeak> {
 	protected HPLCPeak majorPeak = null;
 	
+	//If there are no AU values above this value, we will not count any peaks (in peakPick())
+	public static double peakAbsoluteAUThreshold = 10.0;
+	
 	protected HPLCPeakList peakPick(double sn_ratio, double lowerRT, double upperRT){
 		HPLCPeakList retVal = new HPLCPeakList();
+		
 		//find max AU value
 		double max = this.getMaxAU(lowerRT, upperRT);
 		
-		//find average AU value
-		double avg = this.getAverageAU(lowerRT, upperRT);
-		
-		//if max au is not greater than 3 times the average or less than 20, then forget it, we wont count any peaks
-		if(max < 3*avg || max < 20)
+		//if max au is not greater than peakAbsoluteAUThreshold, then forget it, we wont count any peaks at all
+		if(max < peakAbsoluteAUThreshold)
 			return retVal;
 				
 		//find the peaks of the ones that pass  the s/n ratio

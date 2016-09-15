@@ -172,13 +172,13 @@ public class HPLCPeakClassifier {
 			String classificationOutput = "";
 			int peaks = hpc.getNumberOfPeaksToReport();
 			
-			if(nrpeaks == 0 || rpeaks == 0){
-				if(rpeaks == 0)
-					classificationOutput += "NoR";
-				if(nrpeaks == 0 && rpeaks == 0)
-					classificationOutput += "-";
+			if(nrpeaks == 0){
 				if(nrpeaks == 0)
 					classificationOutput += "NoNR";
+				if(nrpeaks == 0 && rpeaks == 0)
+					classificationOutput += "-";
+				if(rpeaks == 0)
+					classificationOutput += "NoR";
 			}else{				
 				if(peaks == 1){
 					classificationOutput = "Perfect";
