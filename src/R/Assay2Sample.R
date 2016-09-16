@@ -6,9 +6,9 @@
 library(Rlabkey)
 options(stringsAsFactors = FALSE)
 
-inputFile <- "C:/PATH/TO/YOUR/FILE/HTProduction_data.tsv"
+inputFile <- "/Users/mbrusnia/Documents/HTLibrary/1K-Perfect-200mAU.csv"
 
-inputDF <- read.table(inputFile, sep="\t", header=TRUE, check.names=FALSE)
+inputDF <- read.table(inputFile, sep=",", header=TRUE, check.names=FALSE)
 
 HTPROD_COL  <- which(names(inputDF) == "HTProduction ID" || names(inputDF) == "HTProductionID")
 
@@ -30,7 +30,9 @@ if(length(inputDF[,HTPROD_COL]) != length(htProdData$HTProductID)){
 
 #remove prefixing "Construct." if it is present
 htProdData$ConstructID <- gsub("Construct.", "", htProdData$ConstructID)
-
+# Count CNT0001396 and CNT0001465 controls.
+CNT0001396 <- dim(inputDF[grep("A01|A07|E01|E07",inputDF$HTProductionID),])[1]
+CNT0001465 <- dim(inputDF[grep("D06|D12|H06|H12",inputDF$HTProductionID),])[1]
 #get data from Construct 
 constructData <- labkey.selectRows(
 	baseUrl="http://optides-prod.fhcrc.org",
@@ -43,7 +45,7 @@ constructData <- labkey.selectRows(
 )
 
 #make sure we have a 1 to 1 lookup
-if(length(htProdData$HTProductID) != length(constructData$ID)){
+if((length(htProdData$HTProductID) - CNT0001396 - CNT0001465 + 2) != length(constructData$ID)){
 	stop("Not all of your entered HTProductionID's were mapped to a corresponding construct in the Construct Table.  Please address this error and try again.")
 }
 
@@ -81,7 +83,7 @@ for(i in 1:length(inputDF[,HTPROD_COL])){
 }
 
 outfile <- gsub("\\.(\\w{3,4})$", "_out.\\1", inputFile)
-write.table(results, file=outfile, sep = "\t", row.names=FALSE, na = "")
+write.table(results, file=outfile, sep = ",", row.names=FALSE, na = "")
 
 
 
