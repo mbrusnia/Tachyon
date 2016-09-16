@@ -9,7 +9,7 @@ assaydata <- labkey.selectRows(
 	folderPath="/Optides/VIVOAssay/Sample",
 	schemaName="assay.General.WBA",
 	queryName="Data",
-	colSelect=c("RowId", "Std_Activity_DPM_", "Intensity_Area_QL_mm2_", "Run/Batch/StudyName", "Run/Batch"),
+	colSelect=c("RowId", "Std_Activity_DPM_", "Intensity_Area_Bkg_QL_mm2_", "Run/Batch/StudyName", "Run/Batch"),
 	colNameOpt="fieldname",
 	showHidden=TRUE,
 	colFilter=makeFilter(c("Type", "EQUALS", "Standard"))
@@ -51,5 +51,14 @@ assaydata$StandardAmounts[assaydata$Std_Activity_DPM_ == "1580"] <- paste0("K-15
 assaydata$StandardAmounts[assaydata$Std_Activity_DPM_ == "3920"] <- paste0("L-3920-",length(assaydata$StandardAmounts[assaydata$Std_Activity_DPM_ == "3920"]))
 assaydata$StandardAmounts[assaydata$Std_Activity_DPM_ == "6610"] <- paste0("M-6610-",length(assaydata$StandardAmounts[assaydata$Std_Activity_DPM_ == "6610"]))
 
-ggplot(assaydata, aes(StandardAmounts, Intensity_Area_QL_mm2_)) + geom_boxplot(fill="blue") +  ggtitle("Luminescence per Standard Across Batches") + theme(axis.text.x=element_text(angle=90, vjust=0.4,hjust=1, size=14)) + labs(y="Intensity_Area_QL_mm2_")
+ggplot(assaydata, aes(StandardAmounts, Intensity_Area_Bkg_QL_mm2_)) + geom_boxplot(fill="blue") +  ggtitle("Luminescence per Standard Across Batches") + theme(axis.text.x=element_text(angle=90, vjust=0.4,hjust=1, size=14)) + labs(y="Intensity_Area_Bkg_QL_mm2_")
+# Remove 2016-02-05 batch 2
+assaydata_subset <- assaydata[-grep("2016-02-05 batch 2", assaydata$BatchName),]
+assaydata_subset$LogIntAreaBkg <- log10(assaydata_subset$Intensity_Area_Bkg_QL_mm2_)
+ggplot(assaydata_subset, aes(StandardAmounts, LogIntAreaBkg)) + geom_boxplot(fill="blue") +  ggtitle("Luminescence per Standard Across Batches") + theme(axis.text.x=element_text(angle=90, vjust=0.4,hjust=1, size=14)) + labs(y="log10(Intensity_Area_Bkg_QL_mm2_)") 
+fit <- lm(assaydata_subset$LogIntAreaBkg~assaydata_subset$StandardAmounts)
+summary(fit)
+sd(assaydata_subset[grep("F-75-12", assaydata_subset$StandardAmounts),]$Intensity_Area_Bkg_QL_mm2_)/mean(assaydata_subset[grep("F-75-12", assaydata_subset$StandardAmounts),]$Intensity_Area_Bkg_QL_mm2_)
+sd(assaydata_subset[grep("G-96-13", assaydata_subset$StandardAmounts),]$Intensity_Area_Bkg_QL_mm2_)/mean(assaydata_subset[grep("G-96-13", assaydata_subset$StandardAmounts),]$Intensity_Area_Bkg_QL_mm2_)
 
+min(assaydata_subset[grep("F-75-12", assaydata_subset$StandardAmounts),]$Intensity_Area_Bkg_QL_mm2_)
