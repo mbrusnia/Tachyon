@@ -6,7 +6,7 @@ public class HPLCPeakList extends ArrayList<HPLCPeak> {
 	protected HPLCPeak majorPeak = null;
 	
 	//If there are no AU values above this value, we will not count any peaks (in peakPick())
-	public static double peakAbsoluteAUThreshold = 10.0;
+	public static double peakAbsoluteAUThreshold = 20.0;
 	
 	protected HPLCPeakList peakPick(double sn_ratio, double lowerRT, double upperRT){
 		HPLCPeakList retVal = new HPLCPeakList();
