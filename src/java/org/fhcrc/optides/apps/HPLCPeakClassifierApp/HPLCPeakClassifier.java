@@ -39,7 +39,8 @@ public class HPLCPeakClassifier {
 	private String rCsvFilepath = "";
 	private String sampleInfoXmlFile = "";
 	private String outDir = "";
-	
+	private boolean isPartialPeak = false;
+
 	//max and min RTs to use in all calculations
 	private double maxRTForPeak = 11.0; 
 	private static double minRTForPeak = 2.0; 
@@ -171,6 +172,7 @@ public class HPLCPeakClassifier {
 			String fileName = str;
 			String classificationOutput = "";
 			int peaks = hpc.getNumberOfPeaksToReport();
+			boolean isPartialPeak = hpc.isPartialPeak();
 			
 			if(nrpeaks == 0){
 				if(nrpeaks == 0)
@@ -181,7 +183,10 @@ public class HPLCPeakClassifier {
 					classificationOutput += "NoR";
 			}else{				
 				if(peaks == 1){
-					classificationOutput = "Perfect";
+					if(isPartialPeak){
+						classificationOutput = "Perfect-PR";
+					}
+					else classificationOutput = "Perfect";
 				}else if (peaks > 1 && peaks <= classification){
 					classificationOutput = "Simple";
 				}else if(peaks > classification){
@@ -263,13 +268,16 @@ public class HPLCPeakClassifier {
 			for(int i = 0; i < rpp.size(); i++){
 				if(Math.abs(nrMajorPeak.getRt() - rpp.get(i).getRt()) < peakOverlapTolerance){
 					peaks--;
+					isPartialPeak = true;
 					break;
 				}
 			}
 		}
 		return peaks;
 	}
-
+	public boolean isPartialPeak(){
+		return isPartialPeak;
+	}
 	public void peakPickingR(double sn_ratio, double lowerRT, double upperRT) {
 		HPLCPeakList pl = peakLists.get(rCsvFilepath);
 		rpp = pl.peakPick(sn_ratio, lowerRT, upperRT);
