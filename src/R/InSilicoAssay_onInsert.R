@@ -127,9 +127,9 @@ if(length(duplicates[duplicates == TRUE]) > 0){
 ##
 ##  removed.
 
-############################################################
-## 2) calculate average mass, monoisotopic mass, and pI
-############################################################
+############################################################################
+## 2) calculate average mass, monoisotopic mass, pI and netcharge at pH=7.4
+############################################################################
 if(!"AverageMass" %in% names(inputDF)){
 	inputDF <- cbind(inputDF, AverageMass = vector(length=length(inputDF[,COMPOUND_ID_COL_NAME])))
 	inputDF$AverageMass[] <- NA
@@ -138,9 +138,13 @@ if(!"MonoisotopicMass" %in% names(inputDF)){
 	inputDF <- cbind(inputDF, MonoisotopicMass = vector(length=length(inputDF[,COMPOUND_ID_COL_NAME])))
 	inputDF$MonoisotopicMass[] <- NA
 }
-if(!"pI" %in% names(inputDF)){
-	inputDF <- cbind(inputDF, pI = vector(length=length(inputDF[,COMPOUND_ID_COL_NAME])))
-	inputDF$pI[] <- NA
+if(!"ReducedForm_pI" %in% names(inputDF)){
+	inputDF <- cbind(inputDF, ReducedForm_pI = vector(length=length(inputDF[,COMPOUND_ID_COL_NAME])))
+	inputDF$ReducedForm_pI[] <- NA
+}
+if(!"NetChargeAtpH7_4" %in% names(inputDF)){
+	inputDF <- cbind(inputDF, NetChargeAtpH7_4 = vector(length=length(inputDF[,COMPOUND_ID_COL_NAME])))
+	inputDF$NetChargeAtpH7_4[] <- NA
 }
 for (i in 1:length(inputDF[,SEQUENCE_COL_NAME])){
 	#if it's a chemical formula...
@@ -150,7 +154,10 @@ for (i in 1:length(inputDF[,SEQUENCE_COL_NAME])){
 		#if it's a peptide sequence...
 		inputDF$AverageMass[i] <- mymw(inputDF[i, SEQUENCE_COL_NAME], monoisotopic=FALSE)
 		inputDF$MonoisotopicMass[i] <- mymw(inputDF[i, SEQUENCE_COL_NAME], monoisotopic=TRUE)
-		inputDF$pI[i] <- pI(inputDF[i, SEQUENCE_COL_NAME], pKscale="EMBOSS")
+		inputDF$ReducedForm_pI[i] <- pI(inputDF[i, SEQUENCE_COL_NAME], pKscale="EMBOSS")
+		nDSB <- length(gregexpr("C", inputDF[i, SEQUENCE_COL_NAME])[[1]])/2
+        inputDF$NetChargeAtpH7_4[i]<-round(charge(inputDF[i, SEQUENCE_COL_NAME], pH=7.4, pKscale="Sillero") + 1.9989*nDSB, digit=2)
+
 	}
 }
 ###################################################################
