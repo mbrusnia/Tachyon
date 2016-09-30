@@ -155,8 +155,7 @@ for (i in 1:length(inputDF[,SEQUENCE_COL_NAME])){
 		inputDF$AverageMass[i] <- mymw(inputDF[i, SEQUENCE_COL_NAME], monoisotopic=FALSE)
 		inputDF$MonoisotopicMass[i] <- mymw(inputDF[i, SEQUENCE_COL_NAME], monoisotopic=TRUE)
 		inputDF$ReducedForm_pI[i] <- pI(inputDF[i, SEQUENCE_COL_NAME], pKscale="EMBOSS")
-		nDSB <- length(gregexpr("C", inputDF[i, SEQUENCE_COL_NAME])[[1]])/2
-        inputDF$NetChargeAtpH7_4[i]<-round(charge(inputDF[i, SEQUENCE_COL_NAME], pH=7.4, pKscale="Sillero") + 1.9989*nDSB, digit=2)
+        inputDF$NetChargeAtpH7_4[i]<-round(charge(inputDF[i, SEQUENCE_COL_NAME], pH=7.4, pKscale="Sillero"), digit=2)
 
 	}
 }
