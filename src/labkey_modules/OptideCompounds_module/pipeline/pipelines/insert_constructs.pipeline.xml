@@ -1,8 +1,0 @@
-<pipeline xmlns="http://labkey.org/pipeline/xml"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      name="insert_constructs" version="0.0">
-    <description>Upload new Constructs into the Constructs DATA CLASS</description>
-    <tasks>
-		<taskref ref="OptideCompounds_module:task:insert_constructs"/>
-    </tasks>
-</pipeline>
