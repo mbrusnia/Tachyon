@@ -98,3 +98,32 @@ for(i in unique(wba[,"Run/Batch"])){
 #into the staging database
 #write.table(wba, file=outputFileName, sep = "\t", row.names=FALSE, na = "", quote=FALSE)
 
+##################################################################################
+# 3)  We've inserted a new column in the HTProduction sampleset named parentID.  Here we
+#     populate this new column with the necessary value (taken from the other data)
+###################################################################################
+htp <- labkey.selectRows(
+	baseUrl="http://optides-stage.fhcrc.org",
+	folderPath="/Optides/CompoundsRegistry/Samples",
+	schemaName="samples",
+	queryName="HTProduction",
+	colNameOpt="fieldname",
+	showHidden=TRUE,
+	colSelect=c("RowId", "Name", "ConstructID", "ParentID")
+)
+
+htp$ParentID <- gsub("Construct.", "", htp$ConstructID)
+
+#fix NAs
+htp$ConstructID[is.na(htp$Construct)] <- ""
+htp$ParentID[is.na(htp$ParentID)] <- ""
+
+htpUpdate <- labkey.updateRows(
+	baseUrl="http://optides-stage.fhcrc.org",
+	folderPath="/Optides/CompoundsRegistry/Samples",
+	schemaName="samples",
+	queryName="HTProduction",
+	toUpdate=htp
+)
+
+
