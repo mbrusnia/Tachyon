@@ -87,9 +87,11 @@ names(inputDF)[1:7] <- c("SGIID", "ConstructID", "SGIPlateID", "WellLocation", "
 
 
 #
-#now prepare data for insertion into HTP_Specimen
+#now prepare data for insertion into HTProduction
 #
 
+#added 10/13/16 to include new column: ParentID.  this is a lookup field which goes direcly to Construct
+inputDF <- cbind(inputDF, ParentID = inputDF$ConstructID)
 
 #added 9/8/16 to correct parentID conflicts between Construct and SGI_DNA
 inputDF$ConstructID <- paste0("Construct.", inputDF$ConstructID)
@@ -114,7 +116,7 @@ if(nchar(newHTPlateID) == 3){
 newHTPlateID <- paste0("HT", newHTPlateID)
 
 htProductsToInsert <- data.frame(cbind(HTProductID = newHTPlateID, HTQuadPlateID = newHTPlateID, 
-	ConstructID = inputDF[, "ConstructID"], WellLocation = inputDF[, "WellLocation"], SGIID = inputDF[, "SGIID"], SGIPlateID = inputDF[, "SGIPlateID"]))
+	ConstructID = inputDF[, "ConstructID"], WellLocation = inputDF[, "WellLocation"], SGIID = inputDF[, "SGIID"], SGIPlateID = inputDF[, "SGIPlateID"], ParentID = inputDF[, "ParentID"]))
 
 #now calculate quadrant and update/complete Specimen value
 for(i in 1:length(htProductsToInsert$HTProductID)){
