@@ -3,9 +3,14 @@
 #sampleSet in the CompoundsRegistry folder and write the fasta file to the 
 #working directory.
 
-
 library(Rlabkey)
 options(stringsAsFactors = FALSE)
+
+args = commandArgs(trailingOnly=TRUE)
+filename <-paste0("OptideConstruct_", Sys.Date(), ".fasta")
+if(length(args) == 1){
+	filename <- args[1]
+}
 
 mydata <- labkey.selectRows(
 	baseUrl="http://optides-prod.fhcrc.org",
@@ -16,7 +21,6 @@ mydata <- labkey.selectRows(
 	colNameOpt="fieldname"
 )
 
-filename <-paste0("OptideConstruct_", Sys.Date(), ".fasta")
 sink(filename)
 for(i in 1:length(mydata$ID)){
 	cat(paste0(">", mydata$ID[i], "\t", mydata$ParentID[i], "\t", mydata$AlternateName[i], "\n", mydata$AASeq[i], "\n"))
