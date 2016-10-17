@@ -84,6 +84,49 @@ for(i in 1:length(inputDF[,HTPROD_COL])){
 
 outfile <- gsub("\\.(\\w{3,4})$", "_out.\\1", inputFile)
 write.table(results, file=outfile, sep = ",", row.names=FALSE, na = "")
-
+#
+# 10/10/2016
+# 1K Library analysis
+assaydata <- labkey.selectRows(
+	baseUrl="https://optides-prod.fhcrc.org",
+	folderPath="/Optides/HTProduction/Assays",
+	schemaName="assay.General.HPLC Assays",
+	queryName="Data",
+	colSelect=c("RowId", "HTProductionID", "Classification", "MaxPeakNR", "Run/StudyDescription","Run/Batch/HTPlateID"),
+	colNameOpt="fieldname",
+	showHidden=TRUE,
+	colFilter=makeFilter(c("Type", "EQUALS", "Standard"))
+)
+# Filter out only 1K Library 
+data <- assaydata[grep("1K", assaydata$"Run/StudyDescription"),]
+CNT0001396 <- data[grep("A01|A07|E01|E07",data$HTProductionID),]
+boxplot(CNT0001396$MaxPeakNR~CNT0001396$"Run/Batch/HTPlateID")
+CNT0001396[grep("Simple",CNT0001396$Classification),]
+CNT0001465 <- data[grep("D06|D12|H06|H12",data$HTProductionID),]
+# Remove following parental cells from Midori email
+#HT0101: all 4 wells (D06, D12, H06, H12)
+#HT0102&103: D06, D12, H06
+#All the rest: D06, D12, H12
+CNT0001465 <- CNT0001465[-grep("HT01024H12|HT01034H12|HT01044H12|HT01054H12|HT01064H12|HT01074H12|HT01084H12|HT01094H12|HT01104H12|HT01114H12|HT01124H12|HT01134H12|HT01144H12",CNT0001465$HTProductionID),]
+boxplot(CNT0001465$MaxPeakNR~CNT0001465$"Run/Batch/HTPlateID")
+CNT0001465[grep("Simple", CNT0001465$Classification),]
+CNT0001465[grep("Simple",CNT0001465$Classification),]
+HPLC <- data
+NovoCyte <- labkey.selectRows(
+	baseUrl="https://optides-prod.fhcrc.org",
+	folderPath="/Optides/HTProduction/Assays",
+	schemaName="assay.General.Novocyte",
+	queryName="Data",
+	colSelect=c("RowId", "HTProductionID", "PlateID","M3_Percent_Parent", "P1_percent_All", "M3_Median_FITC_H"),
+	colNameOpt="fieldname",
+	showHidden=TRUE,
+	colFilter=makeFilter(c("Type", "EQUALS", "Standard"))
+)
+NovoCyte <- NovoCyte[-grep("HTP|HT0100", NovoCyte$HTProductionID),]
+data <- merge(HPLC, NovoCyte, by="HTProductionID")
+library(ggplot2)
+ggplot(data, aes(x=M3_Percent_Parent,y=MaxPeakNR)) + geom_point(color="red", size=1) + xlab("M3_Percent_Parent") + ylab("MaxPeakNR")+geom_smooth(method = "lm", se=TRUE, level=0.99)
+ggplot(data, aes(x=M3_Median_FITC_H,y=MaxPeakNR)) + geom_point(color="red", size=1) + xlab("M3_Median_FITC_H") + ylab("MaxPeakNR")+geom_smooth(method = "lm", se=TRUE, level=0.99)
+ggplot(data, aes(x=P1_percent_All,y=MaxPeakNR)) + geom_point(color="red", size=1) + xlab("P1_percent_All") + ylab("MaxPeakNR")+geom_smooth(method = "lm", se=TRUE, level=0.99)
 
 

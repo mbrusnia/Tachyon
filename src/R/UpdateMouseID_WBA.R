@@ -1,5 +1,7 @@
 library(Rlabkey)
-
+# Before you run
+# Remove the following Transformation from design and put it back after the code is done.
+# C:\labkey\labkey\files\Optides\@files\WBAStandardTransformation.R
 # enter the whole pathname if you like
 outputFileName <- "WBA_out.tsv"
 
