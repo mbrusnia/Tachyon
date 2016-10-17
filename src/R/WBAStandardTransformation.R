@@ -7,7 +7,7 @@ rpPath<- "${runInfo}"
 
 getRunPropsList<- function(rpPath, baseUrl) 
 {
-	rpIn<- read.table(rpPath,  col.names=c("name", "val1", "val2", "val3"),              #########
+	rpIn<- read.table(rpPath,  col.names=c("name", "val1", "val2", "val3"),          #########
 		header=FALSE, check.names=FALSE,                                             ##  1  ##  
 		stringsAsFactors=FALSE, sep="\t", quote="", fill=TRUE, na.strings="");       ######### 
 
