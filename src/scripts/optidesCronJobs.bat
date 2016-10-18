@@ -9,6 +9,6 @@ set BLAST_DB_program="C:/Program Files/NCBI/blast-2.5.0+/bin/makeblastdb.exe"
 set blastOutFile="C:/labkey/tomcat-temp/temp/OptideProdConstruct.db"
 
 
-REM %R_program% %c2f_R_script% %fastaOutFile%
+%R_program% %c2f_R_script% %fastaOutFile%
 
 %BLAST_DB_program%  -in %fastaOutFile% -parse_seqids -dbtype prot -title "Optides Constructs BLAST Database" -out %blastOutFile%
