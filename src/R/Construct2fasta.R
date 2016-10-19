@@ -17,13 +17,11 @@ mydata <- labkey.selectRows(
 )
 
 args = commandArgs(trailingOnly=TRUE)
-filename <-paste0("OptideConstruct_", Sys.Date(), ".fasta")
+filename <-paste0("/Users/mbrusnia/Desktop/OptideConstruct_", Sys.Date(), ".fasta")
 if(length(args) == 1){
 	filename <- args[1]
 }
 
-
-filename <-paste0("/Users/mbrusnia/Desktop/OptideConstruct_", Sys.Date(), ".fasta")
 sink(filename)
 for(i in 1:length(mydata$ID)){
 	#cat(paste0(">", mydata$ID[i], ",", mydata$ParentID[i], ",", mydata$AlternateName[i], "\n", mydata$AASeq[i], "\n"))
