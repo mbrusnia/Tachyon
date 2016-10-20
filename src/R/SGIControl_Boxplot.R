@@ -6,8 +6,12 @@ data <- labkey.selectRows(
     queryName="Data"
 )
 
-SGIControl <- data[grep("A01|A07|E01|E07",data[, "HTProduction ID"]),]
+SGIControl <- data[grep("A01|A07|E01|E07",data$HTProductionID),]
+SGIControl <- SGIControl[-grep("HTP",SGIControl$HTProductionID),]
 
-boxplot(SGIControl[,"Max Peak NR"]~SGIControl[,"HTPlate ID"], main="SGI Control",col="blue",  
-  	xlab="HT Plate ID", ylab="Max Peak NR")
+y <- SGIControl[,"Max Peak NR"]
+x <- factor(SGIControl[,"HTPlateID"])
+
+boxplot(y ~ x, main="SGI Control",col="blue",  
+  	xlab="HT Plate ID", ylab="Max Peak NR", las=2)
 
