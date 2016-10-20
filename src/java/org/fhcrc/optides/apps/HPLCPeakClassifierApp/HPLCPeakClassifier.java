@@ -444,19 +444,19 @@ public class HPLCPeakClassifier {
 
 	protected void loadLCAUdata() throws IOException {
 		for (HashMap.Entry<String, HPLCPeakList> entry : peakLists.entrySet()) {
-			 /*default encoding ***
+			 /*default encoding **/
 			// FileReader reads text files in the default encoding.
 	        FileReader fileReader = new FileReader(entry.getKey());
 	
 	        // Always wrap FileReader in BufferedReader.
 	        BufferedReader bufferedReader = new BufferedReader(fileReader);
-	        **/
+
 			
-			/* UTF-16 encoding*/
+			/* UTF-16 encoding
 			File f = new File(entry.getKey());
 	        FileInputStream stream = new FileInputStream(f);
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-16")));
-			
+			*/
 			
 	        String line = null;
 	        String[] rt_au = null;
