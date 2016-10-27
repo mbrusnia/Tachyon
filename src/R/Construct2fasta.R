@@ -7,12 +7,11 @@
 library(Rlabkey)
 options(stringsAsFactors = FALSE)
 
-mydata <- labkey.selectRows(
+const <- labkey.selectRows(
 	baseUrl="http://optides-prod.fhcrc.org",
 	folderPath="/Optides/CompoundsRegistry/Samples",
 	schemaName="samples",
-	queryName="Construct",
-	colSelect=c("ID", "ParentID", "AlternateName", "AASeq"),
+	queryName="ConstructHTPIDHTPAssay",
 	colNameOpt="fieldname"
 )
 
@@ -23,8 +22,12 @@ if(length(args) == 1){
 }
 
 sink(filename)
-for(i in 1:length(mydata$ID)){
-	#cat(paste0(">", mydata$ID[i], ",", mydata$ParentID[i], ",", mydata$AlternateName[i], "\n", mydata$AASeq[i], "\n"))
-	cat(paste0(">", mydata$ID[i], "\n", mydata$AASeq[i], "\n"))
+for(i in 1:nrow(const)){
+	cat(paste0(">", const$ID[i], " ", const$ParentID[i], " "))
+	if(!is.na(const$AlternateName[i])){
+		cat(paste0(const$AlternateName[i], " "))
+	}
+	cat(paste0(const$HTProductID[i], " ", const$classification[i], "\n", const$AASeq[i], "\n"))
+	#cat(paste0(">", const$ID[i], "\n", const$AASeq[i], "\n"))
 }
 sink()
