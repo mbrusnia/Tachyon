@@ -11,7 +11,7 @@ const <- labkey.selectRows(
 	baseUrl="http://optides-prod.fhcrc.org",
 	folderPath="/Optides/CompoundsRegistry/Samples",
 	schemaName="samples",
-	queryName="ConstructHTPIDHTPAssay",
+	queryName="ConstructHTIDHTAssay",
 	colNameOpt="fieldname"
 )
 
