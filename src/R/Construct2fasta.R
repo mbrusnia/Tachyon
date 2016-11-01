@@ -22,12 +22,27 @@ if(length(args) == 1){
 }
 
 sink(filename)
+# Make sure control was inserted only once.
+CNT0001396 <- 0
 for(i in 1:nrow(const)){
-	cat(paste0(">", const$ID[i], " ", const$ParentID[i], " "))
-	if(!is.na(const$AlternateName[i])){
-		cat(paste0(const$AlternateName[i], " "))
+    if(const$ID[i] == "CNT0001396"){
+      if(CNT0001396 == 0){
+		cat(paste0(">", const$ID[i], " ", const$ParentID[i], " "))
+		if(!is.na(const$AlternateName[i])){
+			cat(paste0(const$AlternateName[i], " "))
+		}
+		cat(paste0(const$HTProductID[i], " ", const$classification[i], "\n", const$AASeq[i], "\n"))
+		#cat(paste0(">", const$ID[i], "\n", const$AASeq[i], "\n"))
+		CNT0001396 <- 1
+      }
+    }
+    else{
+		cat(paste0(">", const$ID[i], " ", const$ParentID[i], " "))
+		if(!is.na(const$AlternateName[i])){
+			cat(paste0(const$AlternateName[i], " "))
+		}
+		cat(paste0(const$HTProductID[i], " ", const$classification[i], "\n", const$AASeq[i], "\n"))
+		#cat(paste0(">", const$ID[i], "\n", const$AASeq[i], "\n"))
 	}
-	cat(paste0(const$HTProductID[i], " ", const$classification[i], "\n", const$AASeq[i], "\n"))
-	#cat(paste0(">", const$ID[i], "\n", const$AASeq[i], "\n"))
 }
 sink()
