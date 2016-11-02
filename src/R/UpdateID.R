@@ -126,4 +126,100 @@ htpUpdate <- labkey.updateRows(
 	toUpdate=htp
 )
 
+###########################################
+######update HTProduction SGIIDs#####
+###########################################
+source("C:/Users/Hector/Documents/HRInternetConsulting/Clients/FHCRC/Tachyon/src/R/xlsxToR.R")
+
+###
+### which machine to run this on?
+###
+HOST_NAME = "http://optides-stage.fhcrc.org"
+
+###
+### In which folder are the files found?
+###
+xlsxFilesDirectory <- "C:/Users/Hector/Documents/HRInternetConsulting/Clients/FHCRC/Project13 - SGI_DNA_pipeline/"
+
+
+htp <- labkey.selectRows(
+	baseUrl=HOST_NAME,
+	folderPath="/Optides/CompoundsRegistry/Samples",
+	schemaName="samples",
+	queryName="HTProduction",
+	colNameOpt="fieldname",
+	showHidden=TRUE,
+	colSort="+SGIID"
+)
+htp <- cbind(htp, labkey.selectRows(
+	baseUrl=HOST_NAME,
+	folderPath="/Optides/CompoundsRegistry/Samples",
+	schemaName="samples",
+	queryName="HTProduction",
+	colNameOpt="fieldname",
+	colSort="+SGIID",
+	colSelect="Flag/Comment"
+))
+htp$Flag <- htp[,"Flag/Comment"]
+htp$Flag[is.na(htp$Flag)] <- ""
+
+for(i in 1:nrow(htp)){ if(!is.na(htp$SGIID[i])){break}}
+sgiPlateIdsNeeded <- unique(htp$SGIPlateID[1:(i-1)])
+
+dirFiles <- dir(xlsxFilesDirectory)
+curFile  <- ""
+
+for(i in 1:length(sgiPlateIdsNeeded)){
+	curHTP <- htp[htp$SGIPlateID == sgiPlateIdsNeeded[i],]
+	
+	if(nrow(curHTP) == 96){
+		##find the correct filename
+		for(j in 1:length(dirFiles)){
+			if(grepl(sgiPlateIdsNeeded[i], dirFiles[j])){
+				curFile <- dirFiles[j]
+				break
+			}
+		}
+
+		## read the input
+		inputDF <- xlsxToR(paste0(xlsxFilesDirectory, curFile), header=FALSE)
+	
+		##
+		## Extract only the plate data and its column headers from the file 
+		##
+		mynames <- inputDF[17, 1:11]
+		inputDF <- inputDF[18:(18 - 1 + 96),1:11]
+		names(inputDF) <- mynames
+	
+		colHeaders <- names(inputDF)
+		if(grepl("Construct.*ID", colHeaders[1]) && grepl("Construct.*Name", colHeaders[2]) && grepl("Plate.*ID", colHeaders[3])
+			&& grepl("Well.*Location", colHeaders[4]) && grepl("Concentration.*ng/uL", colHeaders[5])
+			&& grepl("Volume.*uL", colHeaders[6]) && grepl("Total.*DNA.*ng", colHeaders[7])
+			&& grepl("Vector", colHeaders[8]) && grepl("Resistance", colHeaders[9])
+			&& grepl("Flanking.*Restriction.*Site", colHeaders[10]) && grepl("Sequence.*Verification", colHeaders[11])){	
+			1==1
+		}else{
+			stop("This file does not conform to the expected format.  Please contact the administrator.")
+		}
+
+		#change SGI headers to FHCRC Optides labkey sampleset headers
+		names(inputDF)[1:7] <- c("SGIID", "ConstructID", "SGIPlateID", "WellLocation", "Concentration_ngPeruL", "Volume_uL", "TotalDNA_ng") 
+	
+		for(j in 1:nrow(curHTP)){
+			curHTP$SGIID[j] <- inputDF$SGIID[inputDF$ConstructID == curHTP$ParentID[j]][1]
+		}
+
+		curHTP$ParentID[is.na(curHTP$ParentID)] <- ""
+		curHTP$ConstructID[is.na(curHTP$ConstructID)] <- ""
+		curHTP$SGIID[is.na(curHTP$SGIID)] <- ""
+
+		htpU <- labkey.updateRows( 
+		   baseUrl=HOST_NAME, 
+		   folderPath="/Optides/CompoundsRegistry/Samples", 
+		   schemaName="samples", 
+ 		   queryName="HTProduction", 
+ 		   toUpdate=curHTP
+		)
+	}
+}
 
