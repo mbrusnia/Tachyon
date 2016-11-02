@@ -14,6 +14,13 @@ const <- labkey.selectRows(
 	queryName="ConstructHTIDHTAssay",
 	colNameOpt="fieldname"
 )
+AllConst <- labkey.selectRows(
+	baseUrl="http://optides-prod.fhcrc.org",
+	folderPath="/Optides/CompoundsRegistry/Samples",
+	schemaName="samples",
+	queryName="Construct",
+	colNameOpt="fieldname"
+)
 
 args = commandArgs(trailingOnly=TRUE)
 filename <-paste0("/Users/mbrusnia/Desktop/OptideConstruct_", Sys.Date(), ".fasta")
@@ -58,4 +65,30 @@ for(i in 1:nrow(const)){
 		#cat(paste0(">", const$ID[i], "\n", const$AASeq[i], "\n"))
 	}
 }
+
+# Append Construct that is not in HT Assay
+NoHTConst <- AllConst[-match(const$ID, AllConst$ID),]
+SortedSeq <- NoHTConst[order(NoHTConst$AASeq),]
+currSeq <- ""
+for(i in 1:nrow(SortedSeq)){
+    if(i == 1){
+    	currSeq <- SortedSeq$AASeq[i]
+		cat(paste0(">", SortedSeq$ID[i], " ", SortedSeq$ParentID[i], " "))
+		if(!is.na(SortedSeq$AlternateName[i])){
+			cat(paste0(SortedSeq$AlternateName[i], " "))
+		}
+		cat(paste0("\n", SortedSeq$AASeq[i], "\n"))
+    }
+    else{
+    	if(currSeq != SortedSeq$AASeq[i]){
+    		currSeq = SortedSeq$AASeq[i]
+			cat(paste0(">", SortedSeq$ID[i], " ", SortedSeq$ParentID[i], " "))
+			if(!is.na(SortedSeq$AlternateName[i])){
+				cat(paste0(SortedSeq$AlternateName[i], " "))
+			}
+			cat(paste0("\n", SortedSeq$AASeq[i], "\n"))
+		}
+	}
+}
+
 sink()
