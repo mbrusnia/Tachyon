@@ -21,7 +21,7 @@ getRunPropsList<- function(rpPath, baseUrl) {
 		runPropsOutputPath = rpIn$val1[rpIn$name=="transformedRunPropertiesFile"],
 		sampleSetId = as.integer(rpIn$val1[rpIn$name=="sampleSet"]),
 		probeSourceId = as.integer(rpIn$val1[rpIn$name=="probeSource"]),
-		calibrationFactor = as.numeric(rpIn$val1[rpIn$name=="CalibrationFactor"]),
+		calibrationFactor = as.numeric(rpIn$val1[rpIn$name=="StandardCurve"]),
 		errorsFile = rpIn$val1[rpIn$name=="errorsFile"])
 	return (params)
 
@@ -56,7 +56,7 @@ if(grepl("MouseID", names(inputDF)[1]) && grepl("CompoundID", names(inputDF)[2])
 
 #names(inputDF) = c("PlateID", "WellID", "Specimen", "Sample", "M3_Percent_Parent", "M3_Median_FITC_H", "P1_percent_All", "R2_percent_Parent", "Run_Time", "R2_Abs_Count")
 inputDF$pCi <- params$calibrationFactor * as.numeric(inputDF$CPM)
-inputDF$Loaded_mg <- as.numeric(inputDF$Loaded_Volume_uL) / as.numeric(inputDF$mg_per_ul)
+inputDF$Loaded_mg <- as.numeric(inputDF$Loaded_Volume_uL) * as.numeric(inputDF$mg_per_ul)
 inputDF$pCi_per_uL <- as.numeric(inputDF$pCi) / as.numeric(inputDF$Loaded_Volume_uL)
 
 
