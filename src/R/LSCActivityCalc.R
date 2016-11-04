@@ -1,5 +1,4 @@
 options(stringsAsFactors = FALSE)
-library(Rlabkey)
 
 baseUrl<-"http://optides-prod.fhcrc.org/"
 ${rLabkeySessionId}
