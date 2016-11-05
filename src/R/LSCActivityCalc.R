@@ -48,10 +48,10 @@ if(grepl("MouseID", names(inputDF)[1]) && grepl("CompoundID", names(inputDF)[2])
 	&& grepl("Tissue_mg", names(inputDF)[5]) && grepl("mg_per_ul", names(inputDF)[6])
 	&& grepl("Loaded_Volume_uL", names(inputDF)[7]) && grepl("CPM", names(inputDF)[8])
 	&& grepl("Loading_mg", names(inputDF)[9]) && grepl("pCi", names(inputDF)[10])
-	&& grepl("pCi_per_uL", names(inputDF)[11])	){	
+	&& grepl("pCi_per_uL", names(inputDF)[11]) && grepl("Flag", names(inputDF)[12])	){	
 	1==1
 }else{
-	stop("This file does not conform to the expected format.  These are the expected column headers (in this order): MouseID	CompoundID	Tissue	Date	Tissue_mg	mg_per_ul	Loaded_Volume_uL	CPM	Loaded_mg	pCi	pCi_per_uL")
+	stop("This file does not conform to the expected format.  These are the expected column headers (in this order): MouseID	CompoundID	Tissue	Date	Tissue_mg	mg_per_ul	Loaded_Volume_uL	CPM	Loaded_mg	pCi	pCi_per_uL	Flag")
 }
 
 #
