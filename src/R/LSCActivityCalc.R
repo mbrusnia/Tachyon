@@ -1,3 +1,6 @@
+#This is a Labkey Tranformation script to be added to the LSC assay
+#in the folder: /Optides/VIVOAssay/Sample/
+
 options(stringsAsFactors = FALSE)
 library(Rlabkey)
 
