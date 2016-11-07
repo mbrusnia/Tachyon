@@ -58,7 +58,7 @@ pathToInputFile <- "${input.xlsx}"
 BASE_URL = "http://optides-stage.fhcrc.org/"
 
 SAMPLE_SETS_SCHEMA_NAME = "Samples"
-HT_PRODUCTION_QUERY_NAME = "HTProduction"
+HT_stageUCTION_QUERY_NAME = "HTstageuction"
 SAMPLE_SETS_FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
 
 ## read the input
@@ -88,7 +88,7 @@ names(inputDF)[1:7] <- c("SGIID", "ConstructID", "SGIPlateID", "WellLocation", "
 
 
 #
-#now prepare data for insertion into HTProduction
+#now prepare data for insertion into HTstageuction
 #
 
 #added 10/13/16 to include new column: ParentID.  this is a lookup field which goes direcly to Construct
@@ -102,17 +102,17 @@ ssHTP <- labkey.selectRows(
 	baseUrl=BASE_URL,
 	folderPath=SAMPLE_SETS_FOLDER_PATH,
 	schemaName=SAMPLE_SETS_SCHEMA_NAME,
-	queryName=HT_PRODUCTION_QUERY_NAME,
+	queryName=HT_stageUCTION_QUERY_NAME,
 	colNameOpt="fieldname",
 	colSelect=c("HTQuadPlateID")
 )
 
-reproductionPlate <- "${reproduction-plate-bool}"
-reproductionPlateID <- "${reproduction-plate-id}"
+restageuctionPlate <- "${restageuction-plate-bool}"
+restageuctionPlateID <- "${restageuction-plate-id}"
 
 newHTPlateID <- 100
 quadOffset = 0
-if(reproductionPlateID == "" || reproductionPlate == "false"){ 
+if(restageuctionPlateID == "" || restageuctionPlate == "false"){ 
 	if(length(ssHTP$HTQuadPlateID) > 0){
 		newHTPlateID <- max(as.numeric(substr(ssHTP$HTQuadPlateID, 3, 6))) + 1
 	}
@@ -122,12 +122,15 @@ if(reproductionPlateID == "" || reproductionPlate == "false"){
 	}
 	newHTPlateID <- paste0("HT", newHTPlateID)
 }else{
-	newHTPlateID = reproductionPlateID
+	newHTPlateID = restageuctionPlateID
 	
 	#make sure the quadrant is valid (i.e. mod 4 == 0)
-	quadOffset = max(as.numeric(substr(ssHTP[substr(ssHTP$HTQuadPlateID, 0, 6) == newHTPlateID, "HTQuadPlateID"], 6, 7)))
-	if(quadOffset == 9){
-		quadOffset = max(as.numeric(substr(ssHTP[substr(ssHTP$HTQuadPlateID, 0, 6) == newHTPlateID, "HTQuadPlateID"], 6, 8)))
+	quadOffset = max(substr(ssHTP[substr(ssHTP$HTQuadPlateID, 0, 6) == newHTPlateID, "HTQuadPlateID"], 7, 7))
+	if(is.na(as.numeric(quadOffset))){
+		reverseKeyLookup = list(A=10, B=11, C=12, D=13, E=14, F=15, G=16, H=17, I=18, J=19, K=20, L=21, M=22, N=23, O=24, P=25, Q=26, R=27, S=28)
+		quadOffset = reverseKeyLookup[[quadOffset]]
+	}else{
+		quadOffset = as.numeric(quadOffset)
 	}
 	
 	if(quadOffset %% 4 > 0){
@@ -135,53 +138,56 @@ if(reproductionPlateID == "" || reproductionPlate == "false"){
 	}
 }
 
-htProductsToInsert <- data.frame(cbind(HTProductID = newHTPlateID, HTQuadPlateID = newHTPlateID, ConstructID = inputDF[, "ConstructID"], WellLocation = inputDF[, "WellLocation"], SGIID = inputDF[, "SGIID"], SGIPlateID = inputDF[, "SGIPlateID"], ParentID = inputDF[, "ParentID"]))
+htstageuctsToInsert <- data.frame(cbind(HTstageuctID = newHTPlateID, HTQuadPlateID = newHTPlateID, ConstructID = inputDF[, "ConstructID"], WellLocation = inputDF[, "WellLocation"], SGIID = inputDF[, "SGIID"], SGIPlateID = inputDF[, "SGIPlateID"], ParentID = inputDF[, "ParentID"]))
 
 #now calculate quadrant and update/complete Specimen value
-for(i in 1:length(htProductsToInsert$HTProductID)){
-	wid <- htProductsToInsert$WellLocation[i]
+#since our format only allows for one digit in the Quadrant specification, we need to map double digits to letters:
+quadrantMap <- c(1,2,3,4,5,6,7,8,9,"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W")
+for(i in 1:length(htstageuctsToInsert$HTstageuctID)){
+	wid <- htstageuctsToInsert$WellLocation[i]
 	letter <- substr(wid, 1,1)
 	num    <- as.numeric(substr(wid, 2,3))
 
 	quadrant <- 0
 	if(letter == "A" || letter == "B" || letter == "C" || letter == "D"){
 		if(num < 7){
-			quadrant = 1 + quadOffset 
+			quadrant = quadrantMap[1 + quadOffset ]
 		}else{
-			quadrant = 2 + quadOffset
+			quadrant = quadrantMap[2 + quadOffset]
 		}
 	}else{
 		if(num < 7){
-			quadrant = 3 + quadOffset
+			quadrant = quadrantMap[3 + quadOffset]
 		}else{
-			quadrant = 4 + quadOffset
+			quadrant = quadrantMap[4 + quadOffset]
 		}
 	}
-	htProductsToInsert$HTQuadPlateID[i] <- paste0(htProductsToInsert$HTQuadPlateID[i], quadrant)
-	htProductsToInsert$HTProductID[i] <- paste0(htProductsToInsert$HTProductID[i], quadrant, htProductsToInsert$WellLocation[i])
+	htstageuctsToInsert$HTQuadPlateID[i] <- paste0(htstageuctsToInsert$HTQuadPlateID[i], quadrant)
+	htstageuctsToInsert$HTstageuctID[i] <- paste0(htstageuctsToInsert$HTstageuctID[i], quadrant, htstageuctsToInsert$WellLocation[i])
 
-	if(htProductsToInsert$ConstructID[i] == "Construct.Blank"){
-		#WAS: htProductsToInsert$ConstructID[i] = "${blanks-replacement}", but now, since this col is a ParentID col, we have to:
-		htProductsToInsert$ConstructID[i] = "Construct.CNT000000"
+	if(htstageuctsToInsert$ConstructID[i] == "Construct.Blank"){
+		#WAS: htstageuctsToInsert$ConstructID[i] = "${blanks-replacement}", but now, since this col is a ParentID col, we have to:
+		htstageuctsToInsert$ConstructID[i] = "Construct.CNT000000"
 	}
 }
 
 #take a peak at what we're about to insert
-head(htProductsToInsert)
+#head(htstageuctsToInsert)
+#sort(htstageuctsToInsert$HTstageuctID)
 
 ##insert data into HTP_Specimen sampleset database
 ssHTP_insert <- labkey.importRows(
 	baseUrl=BASE_URL,
 	folderPath=SAMPLE_SETS_FOLDER_PATH,
 	schemaName=SAMPLE_SETS_SCHEMA_NAME,
-	queryName=HT_PRODUCTION_QUERY_NAME,
-	toImport=htProductsToInsert
+	queryName=HT_stageUCTION_QUERY_NAME,
+	toImport=htstageuctsToInsert
 )
 
 if(!exists("ssHTP_insert")){
 	stop("There was a problem with the plate generation.  Please contact the Administrator.")
 }else{
 	#completed
-	cat(ssHTP_insert$rowsAffected, "ROWS HAVE BEEN INSERTED INTO HTProduction.\n")
+	cat(ssHTP_insert$rowsAffected, "ROWS HAVE BEEN INSERTED INTO HTstageuction.\n")
 }
 
