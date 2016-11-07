@@ -4,6 +4,10 @@
 options(stringsAsFactors = FALSE)
 library(Rlabkey)
 
+# Constants
+LOD <- 30.0
+LOQ <- 340.0
+
 BASE_URL <- "http://optides-prod.fhcrc.org/"
 ${rLabkeySessionId}
 rpPath<- "${runInfo}"
@@ -47,14 +51,14 @@ if(tools::file_ext(params$inputPathUploadedFile) == "xlsx"){
 ## 1) Format column headers
 ###################################################################
 if(grepl("MouseID", names(inputDF)[1]) && grepl("CompoundID", names(inputDF)[2])
-	&& grepl("Tissue", names(inputDF)[3]) && grepl("Date", names(inputDF)[4])
+	&& grepl("Tissue", names(inputDF)[3]) && grepl("AcquisitionDate", names(inputDF)[4])
 	&& grepl("Tissue_mg", names(inputDF)[5]) && grepl("mg_per_ul", names(inputDF)[6])
 	&& grepl("Loaded_Volume_uL", names(inputDF)[7]) && grepl("CPM", names(inputDF)[8])
 	&& grepl("Loading_mg", names(inputDF)[9]) && grepl("pCi", names(inputDF)[10])
 	&& grepl("pCi_per_uL", names(inputDF)[11]) && grepl("Flag", names(inputDF)[12])	){	
 	1==1
 }else{
-	stop("This file does not conform to the expected format.  These are the expected column headers (in this order): MouseID	CompoundID	Tissue	Date	Tissue_mg	mg_per_ul	Loaded_Volume_uL	CPM	Loaded_mg	pCi	pCi_per_uL	Flag")
+	stop("This file does not conform to the expected format.  These are the expected column headers (in this order): MouseID	CompoundID	Tissue	AcquisitionDate	Tissue_mg	mg_per_ul	Loaded_Volume_uL	CPM	Loaded_mg	pCi	pCi_per_uL	Flag")
 }
 
 #
@@ -69,6 +73,13 @@ standardsList <- labkey.selectRows(
 inputDF$pCi <- as.numeric(standardsList[standardsList[,"Version"] == params$standardCurve, "Slope"]) * as.numeric(inputDF$CPM) + as.numeric(standardsList[standardsList[,"Version"] == params$standardCurve, "YIntercept"])
 inputDF$Loading_mg <- as.numeric(inputDF$Loaded_Volume_uL) * as.numeric(inputDF$mg_per_ul)
 inputDF$pCi_per_uL <- as.numeric(inputDF$pCi) / as.numeric(inputDF$Loaded_Volume_uL)
+for(i in 1:length(inputDF$CPM)){
+	if(as.numeric(inputDF$CPM[i]) <= LOD){
+   		inputDF$Flag[i] <- "lower than LOD"
+	} else if (as.numeric(inputDF$CPM[i]) <= LOQ){
+   		inputDF$Flag[i] <- "lower than LOQ"
+	}
+}
 
 ###################################################################
 ## 2) Insert data to Database
