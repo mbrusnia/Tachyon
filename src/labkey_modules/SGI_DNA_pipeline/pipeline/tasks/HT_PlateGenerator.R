@@ -63,6 +63,7 @@ SAMPLE_SETS_FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
 
 ## read the input
 inputDF <- xlsxToR(pathToInputFile, header=FALSE)
+# inputDF <- xlsxToR(file.choose(), header=FALSE)
 
 ##
 ## Extract only the plate data and its column headers from the file 
@@ -105,18 +106,36 @@ ssHTP <- labkey.selectRows(
 	colNameOpt="fieldname",
 	colSelect=c("HTQuadPlateID")
 )
+
+reproductionPlate <- "${reproduction-plate-bool}"
+reproductionPlateID <- "${reproduction-plate-id}"
+
 newHTPlateID <- 100
-if(length(ssHTP$HTQuadPlateID) > 0){
-	newHTPlateID <- max(as.numeric(substr(ssHTP$HTQuadPlateID, 3, 6))) + 1
+quadOffset = 0
+if(reproductionPlateID == "" || reproductionPlate == "false"){ 
+	if(length(ssHTP$HTQuadPlateID) > 0){
+		newHTPlateID <- max(as.numeric(substr(ssHTP$HTQuadPlateID, 3, 6))) + 1
+	}
+
+	if(nchar(newHTPlateID) == 3){
+		newHTPlateID = paste0("0", newHTPlateID)
+	}
+	newHTPlateID <- paste0("HT", newHTPlateID)
+}else{
+	newHTPlateID = reproductionPlateID
+	
+	#make sure the quadrant is valid (i.e. mod 4 == 0)
+	quadOffset = max(as.numeric(substr(ssHTP[substr(ssHTP$HTQuadPlateID, 0, 6) == newHTPlateID, "HTQuadPlateID"], 6, 7)))
+	if(quadOffset == 9){
+		quadOffset = max(as.numeric(substr(ssHTP[substr(ssHTP$HTQuadPlateID, 0, 6) == newHTPlateID, "HTQuadPlateID"], 6, 8)))
+	}
+	
+	if(quadOffset %% 4 > 0){
+		stop(paste0("Something is seriously wrong.  The last quadrant entered for plateID ", newHTPlateID, " is ", quadOffset , ", which is not a multiple of 4.  Please contact the administrator."))
+	}
 }
 
-if(nchar(newHTPlateID) == 3){
-	newHTPlateID = paste0("0", newHTPlateID)
-}
-newHTPlateID <- paste0("HT", newHTPlateID)
-
-htProductsToInsert <- data.frame(cbind(HTProductID = newHTPlateID, HTQuadPlateID = newHTPlateID, 
-	ConstructID = inputDF[, "ConstructID"], WellLocation = inputDF[, "WellLocation"], SGIID = inputDF[, "SGIID"], SGIPlateID = inputDF[, "SGIPlateID"], ParentID = inputDF[, "ParentID"]))
+htProductsToInsert <- data.frame(cbind(HTProductID = newHTPlateID, HTQuadPlateID = newHTPlateID, ConstructID = inputDF[, "ConstructID"], WellLocation = inputDF[, "WellLocation"], SGIID = inputDF[, "SGIID"], SGIPlateID = inputDF[, "SGIPlateID"], ParentID = inputDF[, "ParentID"]))
 
 #now calculate quadrant and update/complete Specimen value
 for(i in 1:length(htProductsToInsert$HTProductID)){
@@ -127,15 +146,15 @@ for(i in 1:length(htProductsToInsert$HTProductID)){
 	quadrant <- 0
 	if(letter == "A" || letter == "B" || letter == "C" || letter == "D"){
 		if(num < 7){
-			quadrant = 1
+			quadrant = 1 + quadOffset 
 		}else{
-			quadrant = 2
+			quadrant = 2 + quadOffset
 		}
 	}else{
 		if(num < 7){
-			quadrant = 3
+			quadrant = 3 + quadOffset
 		}else{
-			quadrant = 4
+			quadrant = 4 + quadOffset
 		}
 	}
 	htProductsToInsert$HTQuadPlateID[i] <- paste0(htProductsToInsert$HTQuadPlateID[i], quadrant)
@@ -143,7 +162,7 @@ for(i in 1:length(htProductsToInsert$HTProductID)){
 
 	if(htProductsToInsert$ConstructID[i] == "Construct.Blank"){
 		#WAS: htProductsToInsert$ConstructID[i] = "${blanks-replacement}", but now, since this col is a ParentID col, we have to:
-		htProductsToInsert$ConstructID[i] = ""
+		htProductsToInsert$ConstructID[i] = "Construct.CNT000000"
 	}
 }
 
@@ -159,6 +178,10 @@ ssHTP_insert <- labkey.importRows(
 	toImport=htProductsToInsert
 )
 
-#completed
-cat(ssHTP_insert$rowsAffected, "ROWS HAVE BEEN INSERTED INTO HTProduction.\n")
+if(!exists("ssHTP_insert")){
+	stop("There was a problem with the plate generation.  Please contact the Administrator.")
+}else{
+	#completed
+	cat(ssHTP_insert$rowsAffected, "ROWS HAVE BEEN INSERTED INTO HTProduction.\n")
+}
 

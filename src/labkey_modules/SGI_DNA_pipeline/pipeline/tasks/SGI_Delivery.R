@@ -62,6 +62,7 @@ if(!file.exists(filename)){
 
 ## read the input
 inputDF <- xlsxToR(pathToInputFile, header=FALSE)
+#inputDF <- xlsxToR(file.choose(), header=FALSE)
 
 ##
 ## Extract only the plate data and its column headers from the file 
@@ -101,9 +102,10 @@ ss <- labkey.selectRows(
 	schemaName=SAMPLE_SETS_SCHEMA_NAME,
 	queryName=SGI_DNA_QUERY_NAME,
 	colNameOpt="fieldname",
-	colSelect=c("Name", "SGIID", "ConstructID", "SGIPlateID", "WellLocation", "Concentration_ngPeruL", "Volume_uL", "TotalDNA_ng"),
+	showHidden=TRUE,
+	colSelect=c("Name", "SGIID", "ConstructID", "SGIPlateID", "WellLocation", "Concentration_ngPeruL", "Volume_uL", "TotalDNA_ng", "AASeq"),
 	colFilter=makeFilter(c("ConstructID", "IN", filterS))
-)
+)	
 
 ##make sure all of currently inputed Construct ID's were found in the database. if not, throw error
 matches <- match(filterArr, ss$ConstructID)
@@ -136,5 +138,9 @@ ssu <- labkey.updateRows(
 	toUpdate=ss
 )
 
-#completed
-cat(length(ss$SGIID), "RECORDS HAVE BEEN UPDATED IN SGI_DNA.\n")
+if(!exists("ssu")){
+	stop("There was a problem with the database update.  Please contact the administrator.")
+}else{
+	#completed
+	cat(length(ss$SGIID), "RECORDS HAVE BEEN UPDATED IN SGI_DNA.\n")
+}

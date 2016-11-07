@@ -22,6 +22,20 @@
     </tr>
 
     <tr>
+      <td class='labkey-form-label'>Is This a Reproduction Plate?</td>
+      <td>
+        <input id='reproductionPlate' name='reproductionPlate' type='checkbox' onChange="toggleReproDD()">
+      </td>
+    </tr>
+
+    <tr>
+      <td class='labkey-form-label'>Reproduction PlateID:</td>
+      <td>
+        <select id='reproductionPlateID' name='reproductionPlateID' disabled=true>
+      </td>
+    </tr>
+
+    <tr>
       <td>&nbsp;</td>
       <td>
         <a class='labkey-button' href='#' onclick='startAnalysis(); return false;'>
@@ -37,6 +51,7 @@
 <script>
 var path = null;
 var files = [];
+var htData = null;
 
 LABKEY.requiresExt3ClientAPI(function() {
     Ext.onReady(function () {
@@ -56,8 +71,41 @@ LABKEY.requiresExt3ClientAPI(function() {
         }
 
         fileStatus();
+		
+		//fill in the reproduction plate id drop down
+		function onFailure(errorInfo, options, responseObj)
+			{
+				if (errorInfo && errorInfo.exception)
+					alert("Failure: " + errorInfo.exception);
+				else
+					alert("Failure: " + responseObj.statusText);
+			}
 
-    });
+		function onSuccess(data)
+		{
+			htData = data;
+			var hash = {};
+			var ddList=document.getElementById('reproductionPlateID');
+			var selectHTML="<option value=''></option>";
+			for(i=0; i < htData.rowCount; i=i+1){
+				var htpid = htData.rows[i]["HTQuadPlateID"].substring(0,6);
+				if(!(htpid in hash)){
+					selectHTML+= "<option value='"+htpid+"'>"+htpid+"</option>";
+					hash[htpid] = 1;
+				}
+			}
+			ddList.innerHTML= selectHTML;
+		}
+
+		LABKEY.Query.selectRows({
+				schemaName: 'samples',
+				queryName: 'HTProduction',
+				columns: ['HTQuadPlateID'],
+				success: onSuccess,
+				failure: onFailure
+		});
+
+	});
 });
 
 function fileStatus()
@@ -87,6 +135,13 @@ function startAnalysis()
     alert("Replacement value for Blank values required.");
     return;
   }
+  
+  var reproductionPlate = document.getElementById("reproductionPlate").checked;
+  var reproductionPlateID = document.getElementById("reproductionPlateID").value;
+  if (reproductionPlate && reproductionPlateID == "") {
+    alert("You have identified this as a reproduction plate.  Please select which plate you wish to reproduce.");
+    return;
+  }
 
   LABKEY.Pipeline.startAnalysis({
     taskId: "SGI_DNA_pipeline:pipeline:ht_plate_generator",
@@ -96,7 +151,9 @@ function startAnalysis()
     protocolName: protocolName,
     //protocolDescription: "",
     jsonParameters: {
-      'blanks-replacement': replacementForBlanks
+      'blanks-replacement': replacementForBlanks,
+      'reproduction-plate-id': reproductionPlateID,
+	  'reproduction-plate-bool': reproductionPlate
     },
     saveProtocol: false,
     success: function() {
@@ -105,5 +162,12 @@ function startAnalysis()
   });
 }
 
+function toggleReproDD(){
+	var reproDD = document.getElementById("reproductionPlateID");
+	if (reproDD) { // reproDD found
+		reproDD.disabled = !reproDD.disabled; // invert the boolean attribute
+	}
+	return false; // prevent default action
+}
 </script>
 

@@ -72,6 +72,7 @@ Vector_hash <- list(VCR010="VCR010", VCR011="VCR011", VCR012="VCR012", VCR020 ="
 ## read the input
 inputDF <- xlsxToR(pathToInputFile, header=TRUE)
 
+
 colHeaders <- names(inputDF)
 if(colHeaders[1] != "Name" || colHeaders[2] != "Sample Set" ||
 	colHeaders[3] != "Flag" || colHeaders[4] != "ID" ||
@@ -97,15 +98,15 @@ for(i in 1:length(inputDF[,SEQUENCE_COL_NAME])){
 previousSGI_DNASequenceContents <- labkey.selectRows(BASE_URL, SAMPLE_SETS_FOLDER_PATH, 
 		SAMPLE_SETS_SCHEMA_NAME, SGI_DNA_QUERY_NAME, colSelect =c(CONSTRUCT_ID_COL_NAME, SEQUENCE_COL_NAME), colNameOpt="fieldname")
 
-#find duplicates
-matches <- match(inputDF[,SEQUENCE_COL_NAME], previousSGI_DNASequenceContents[,SEQUENCE_COL_NAME])
+#find duplicate ConstructIDs
+matches <- match(inputDF[,"ID"], previousSGI_DNASequenceContents[,CONSTRUCT_ID_COL_NAME])
 rowsWithDuplicates <- which(!is.na(matches))
 if(length(rowsWithDuplicates) > 0){
-	cat("ERROR: No duplicate sequences allowed. The following sequences have previously been uploaded into the repository: \n")
+	cat("ERROR: No duplicate constructIDs allowed. The following sequences have previously been uploaded into the repository: \n")
 	for(i in 1:length(rowsWithDuplicates)){
-		cat("Row ", rowsWithDuplicates[i] + 2, " - ID: ", inputDF[rowsWithDuplicates[i],CONSTRUCT_ID_COL_NAME], " - AASeq: ", inputDF[rowsWithDuplicates[i],SEQUENCE_COL_NAME], "\n")
+		cat("Row ", rowsWithDuplicates[i] + 2, " - ID: ", inputDF[rowsWithDuplicates[i],"ID"], "\n")
 	}
-	stop("Please remove the duplicate sequences from your input file and try again.")
+	stop("Please remove the duplicate Construct IDs from your input file and try again.")
 }
 
 ##prepare the table for insertion into the assay
@@ -134,5 +135,9 @@ ssi <- labkey.insertRows(
 	toInsert=inputDF
 )
 
-#completed
-cat(length(inputDF$AASeq), " RECORDS HAVE BEEN inserted.\n")
+if(!exists("ssi")){
+	stop("The insertion into the database failed.  Please contact the administrator.")
+}else{
+	#completed
+	cat(length(inputDF$AASeq), " RECORDS HAVE BEEN INSERTED.\n")
+}
