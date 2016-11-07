@@ -102,7 +102,7 @@ if(fail){
 ##
 #######################################################################################
 filename <- paste0(Sys.getenv()["HOME"], .Platform$file.sep, "_netrc")
-machine_name <- "machine optides-prod.fhcrc.org"
+machine_name <- "machine optides-stage.fhcrc.org"
 user_name <- "login brusniak.computelifesci@gmail.com"
 pwd <- "password Kn0ttin10K"
 if(!file.exists(filename)){
@@ -142,8 +142,8 @@ if(!file.exists(filename)){
 
 
 bprops <- list("HTPlateID"=HTPlateID)
-bpl <- list(name=paste("Batch ", as.character(date())),properties=bprops)
-rpl <- list(name=paste("Assay Run ", as.character(date())))
+bpl <- list(name=paste("HPLC_", HTPlateID),properties=bprops)
+rpl <- list(name=paste("HPLC_", HTPlateID))
 if(!is.na(CONTEXT_PATH)){
 	BASE_URL <- paste0(BASE_URL, CONTEXT_PATH)
 }
@@ -155,3 +155,7 @@ assayInfo<- labkey.saveBatch(
 	batchPropertyList=bpl,
 	runPropertyList=rpl
 )
+
+if(!exists("assayInfo")){
+	stop("There was a problem with the insertion.  Please contact administrator.")
+}
