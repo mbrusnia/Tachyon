@@ -17,7 +17,7 @@ source("C:/labkey/labkey/files/Optides/@files/xlsxToR.R")
 ##
 #######################################################################################
 filename <- paste0(Sys.getenv()["HOME"], .Platform$file.sep, "_netrc")
-machineName <- "optides-stage.fhcrc.org"
+machineName <- "optides-prod.fhcrc.org"
 login <- "brusniak.computelifesci@gmail.com"
 password <- "Kn0ttin10K"
 if(!file.exists(filename)){
@@ -55,7 +55,7 @@ if(!file.exists(filename)){
 pathToInputFile <- "${input.xlsx}"
 
 #Parameters for this script (login script: _netrc)
-BASE_URL = "http://optides-stage.fhcrc.org/"
+BASE_URL = "http://optides-prod.fhcrc.org/"
 
 SAMPLE_SETS_SCHEMA_NAME = "Samples"
 HT_stageUCTION_QUERY_NAME = "HTstageuction"

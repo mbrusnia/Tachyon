@@ -12,7 +12,7 @@ pathToInputFile <- "${input.xlsx}"
 source("C:/labkey/labkey/files/Optides/@files/xlsxToR.R")
 
 #Parameters for this script (login script: _netrc)
-BASE_URL = "http://optides-stage.fhcrc.org/"
+BASE_URL = "http://optides-prod.fhcrc.org/"
 
 SEQUENCE_COL_NAME = "AASeq"
 CONSTRUCT_ID_COL_NAME = "ConstructID"
@@ -27,7 +27,7 @@ SAMPLE_SETS_FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
 ##
 #######################################################################################
 filename <- paste0(Sys.getenv()["HOME"], .Platform$file.sep, "_netrc")
-machineName <- "optides-stage.fhcrc.org"
+machineName <- "optides-prod.fhcrc.org"
 login <- "brusniak.computelifesci@gmail.com"
 password <- "Kn0ttin10K"
 if(!file.exists(filename)){
