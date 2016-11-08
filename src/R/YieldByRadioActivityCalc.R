@@ -80,7 +80,7 @@ for(i in 1:nrow(inputDF)){
 	#Recovered_Mg = InputProtein_mg * Elute_Peak_Area  * Elute_mL / (Reaction_Peak_Area_mV * Input_mL)
 	#Specific_Activity_CiPerMol = CPM * CiPerCPM_Calibration_Factor * Yield_Vol_mL * Dilution * MW/ (CPM_Vol_mL * Recovered_Mg)
 
-	inputDF$Recovered_Mg[i] <- as.numeric(inputDF$InputProtein_mg[i]) * as.numeric(inputDF$Elute_Peak_Area[i]) * as.numeric(inputDF$Elute_mL[i]) / (as.numeric(inputDF$Reaction_Peak_Area_mV[i]) / as.numeric(inputDF$Input_mL[i]))
+	inputDF$Recovered_Mg[i] <- (as.numeric(inputDF$InputProtein_mg[i]) * as.numeric(inputDF$Elute_Peak_Area[i]) * as.numeric(inputDF$Elute_mL[i])) / (as.numeric(inputDF$Reaction_Peak_Area_mV[i])*as.numeric(inputDF$Input_mL[i]))
 	
 	inputDF$Specific_Activity_CiPerMol[i] <- as.numeric(inputDF$CPM[i]) * as.numeric(inputDF$CiPerCPM_Calibration_Factor[i]) * as.numeric(inputDF$Yield_Vol_mL[i])  * as.numeric(inputDF$Dilution[i]) * avgMW
 	inputDF$Specific_Activity_CiPerMol[i] <- inputDF$Specific_Activity_CiPerMol[i] / (as.numeric(inputDF$Recovered_Mg[i]) * as.numeric(inputDF$CPM_Vol_mL[i]))
