@@ -58,12 +58,11 @@ pathToInputFile <- "${input.xlsx}"
 BASE_URL = "http://optides-prod.fhcrc.org/"
 
 SAMPLE_SETS_SCHEMA_NAME = "Samples"
-HT_stageUCTION_QUERY_NAME = "HTstageuction"
+HT_PRODUCTION_QUERY_NAME = "HTProduction"
 SAMPLE_SETS_FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
 
 ## read the input
 inputDF <- xlsxToR(pathToInputFile, header=FALSE)
-# inputDF <- xlsxToR(file.choose(), header=FALSE)
 
 ##
 ## Extract only the plate data and its column headers from the file 
@@ -88,7 +87,7 @@ names(inputDF)[1:7] <- c("SGIID", "ConstructID", "SGIPlateID", "WellLocation", "
 
 
 #
-#now prepare data for insertion into HTstageuction
+#now prepare data for insertion into HTProduction
 #
 
 #added 10/13/16 to include new column: ParentID.  this is a lookup field which goes direcly to Construct
@@ -102,17 +101,17 @@ ssHTP <- labkey.selectRows(
 	baseUrl=BASE_URL,
 	folderPath=SAMPLE_SETS_FOLDER_PATH,
 	schemaName=SAMPLE_SETS_SCHEMA_NAME,
-	queryName=HT_stageUCTION_QUERY_NAME,
+	queryName=HT_PRODUCTION_QUERY_NAME,
 	colNameOpt="fieldname",
 	colSelect=c("HTQuadPlateID")
 )
 
-restageuctionPlate <- "${restageuction-plate-bool}"
-restageuctionPlateID <- "${restageuction-plate-id}"
+reproductionPlate <- "${reproduction-plate-bool}"
+reproductionPlateID <- "${reproduction-plate-id}"
 
 newHTPlateID <- 100
 quadOffset = 0
-if(restageuctionPlateID == "" || restageuctionPlate == "false"){ 
+if(reproductionPlateID == "" || reproductionPlate == "false"){ 
 	if(length(ssHTP$HTQuadPlateID) > 0){
 		newHTPlateID <- max(as.numeric(substr(ssHTP$HTQuadPlateID, 3, 6))) + 1
 	}
@@ -122,7 +121,7 @@ if(restageuctionPlateID == "" || restageuctionPlate == "false"){
 	}
 	newHTPlateID <- paste0("HT", newHTPlateID)
 }else{
-	newHTPlateID = restageuctionPlateID
+	newHTPlateID = reproductionPlateID
 	
 	#make sure the quadrant is valid (i.e. mod 4 == 0)
 	quadOffset = max(substr(ssHTP[substr(ssHTP$HTQuadPlateID, 0, 6) == newHTPlateID, "HTQuadPlateID"], 7, 7))
@@ -138,13 +137,13 @@ if(restageuctionPlateID == "" || restageuctionPlate == "false"){
 	}
 }
 
-htstageuctsToInsert <- data.frame(cbind(HTstageuctID = newHTPlateID, HTQuadPlateID = newHTPlateID, ConstructID = inputDF[, "ConstructID"], WellLocation = inputDF[, "WellLocation"], SGIID = inputDF[, "SGIID"], SGIPlateID = inputDF[, "SGIPlateID"], ParentID = inputDF[, "ParentID"]))
+htproductsToInsert <- data.frame(cbind(HTProductID = newHTPlateID, HTQuadPlateID = newHTPlateID, ConstructID = inputDF[, "ConstructID"], WellLocation = inputDF[, "WellLocation"], SGIID = inputDF[, "SGIID"], SGIPlateID = inputDF[, "SGIPlateID"], ParentID = inputDF[, "ParentID"]))
 
 #now calculate quadrant and update/complete Specimen value
 #since our format only allows for one digit in the Quadrant specification, we need to map double digits to letters:
 quadrantMap <- c(1,2,3,4,5,6,7,8,9,"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W")
-for(i in 1:length(htstageuctsToInsert$HTstageuctID)){
-	wid <- htstageuctsToInsert$WellLocation[i]
+for(i in 1:length(htproductsToInsert$HTProductID)){
+	wid <- htproductsToInsert$WellLocation[i]
 	letter <- substr(wid, 1,1)
 	num    <- as.numeric(substr(wid, 2,3))
 
@@ -162,32 +161,33 @@ for(i in 1:length(htstageuctsToInsert$HTstageuctID)){
 			quadrant = quadrantMap[4 + quadOffset]
 		}
 	}
-	htstageuctsToInsert$HTQuadPlateID[i] <- paste0(htstageuctsToInsert$HTQuadPlateID[i], quadrant)
-	htstageuctsToInsert$HTstageuctID[i] <- paste0(htstageuctsToInsert$HTstageuctID[i], quadrant, htstageuctsToInsert$WellLocation[i])
+	htproductsToInsert$HTQuadPlateID[i] <- paste0(htproductsToInsert$HTQuadPlateID[i], quadrant)
+	htproductsToInsert$HTProductID[i] <- paste0(htproductsToInsert$HTProductID[i], quadrant, htproductsToInsert$WellLocation[i])
 
-	if(htstageuctsToInsert$ConstructID[i] == "Construct.Blank"){
-		#WAS: htstageuctsToInsert$ConstructID[i] = "${blanks-replacement}", but now, since this col is a ParentID col, we have to:
-		htstageuctsToInsert$ConstructID[i] = "Construct.CNT000000"
+	if(htproductsToInsert$ConstructID[i] == "Construct.Blank"){
+		#WAS: htproductsToInsert$ConstructID[i] = "${blanks-replacement}", but now, since this col is a ParentID col, we have to:
+		htproductsToInsert$ConstructID[i] = paste0("Construct.", "${blanks-replacement}")
+		htproductsToInsert$ParentID[i] = "${blanks-replacement}"
 	}
 }
 
 #take a peak at what we're about to insert
-#head(htstageuctsToInsert)
-#sort(htstageuctsToInsert$HTstageuctID)
+#head(htproductsToInsert)
+#sort(htproductsToInsert$HTProductID)
 
 ##insert data into HTP_Specimen sampleset database
 ssHTP_insert <- labkey.importRows(
 	baseUrl=BASE_URL,
 	folderPath=SAMPLE_SETS_FOLDER_PATH,
 	schemaName=SAMPLE_SETS_SCHEMA_NAME,
-	queryName=HT_stageUCTION_QUERY_NAME,
-	toImport=htstageuctsToInsert
+	queryName=HT_PRODUCTION_QUERY_NAME,
+	toImport=htproductsToInsert
 )
 
 if(!exists("ssHTP_insert")){
 	stop("There was a problem with the plate generation.  Please contact the Administrator.")
 }else{
 	#completed
-	cat(ssHTP_insert$rowsAffected, "ROWS HAVE BEEN INSERTED INTO HTstageuction.\n")
+	cat(ssHTP_insert$rowsAffected, "ROWS HAVE BEEN INSERTED INTO HTProduction.\n")
 }
 
