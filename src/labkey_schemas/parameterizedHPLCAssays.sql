@@ -1,10 +1,8 @@
 PARAMETERS
 (
-    cID1 VARCHAR(32),
-    cID2 VARCHAR(32),
-    cID3 VARCHAR(32)
+    constructIDsLookupKey VARCHAR(32)
 
 )
-SELECT HTProductID, Replace(ConstructID, 'Construct.', '') AS ConstructID
-from "/Optides/CompoundsRegistry/Samples/".samples.HTProduction
-where Replace(ConstructID, 'Construct.', '') in (cID1, cID2, cID3)
+SELECT *
+from "/Optides/HTProduction/Assays/".assay.General."HPLC Assays".Data
+where HTProductionID in (select HTProductID from "/Optides/CompoundsRegistry/Samples".samples.HTProduction where ParentID in (select ConstructID from lists.constructTmpLookupTable where LookupKey=constructIDsLookupKey))

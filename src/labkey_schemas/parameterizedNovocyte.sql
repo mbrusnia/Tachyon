@@ -1,10 +1,8 @@
 PARAMETERS
 (
-    htID1 VARCHAR(32),
-    htID2 VARCHAR(32),
-    htID3 VARCHAR(32)
+    constructIDsLookupKey VARCHAR(32)
 
 )
 SELECT *
 from "/Optides/HTProduction/Assays/".assay.General.Novocyte.Data
-where HTProductionID in (htID1, htID2, htID3)
+where HTProductionID in (select HTProductID from "/Optides/CompoundsRegistry/Samples".samples.HTProduction where ParentID in (select ConstructID from lists.constructTmpLookupTable where LookupKey=constructIDsLookupKey))
