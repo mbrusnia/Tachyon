@@ -5,4 +5,4 @@ PARAMETERS
 )
 SELECT *
 from "/Optides/HTProduction/Assays/".assay.General."HPLC Assays".Data
-where HTProductionID in (select HTProductID from "/Optides/CompoundsRegistry/Samples".samples.HTProduction where ParentID in (select ConstructID from lists.constructTmpLookupTable where LookupKey=constructIDsLookupKey))
+where HTProductionID in (select HTProductID from "/Optides/CompoundsRegistry/Samples".samples.HTProduction where ParentID in (select ConstructID from lists.constructQueryLookupTable where LookupKey=constructIDsLookupKey))

@@ -5,4 +5,4 @@ PARAMETERS
 )
 SELECT *
 FROM "/Optides/FreezerPro/".samples.FreezerProVialSummary
-WHERE constructID in (select ConstructID from lists.constructTmpLookupTable where LookupKey=constructIDsLookupKey)
+WHERE constructID in (select ConstructID from lists.constructQueryLookupTable where LookupKey=constructIDsLookupKey)

@@ -5,4 +5,4 @@ PARAMETERS
 )
 SELECT Name, ParentID, AlternateName, AASeq, Vector
 from "/Optides/CompoundsRegistry/Samples/".samples.Construct
-where Name in (select ConstructID from lists.constructTmpLookupTable where LookupKey=constructIDsLookupKey)
+where Name in (select ConstructID from lists.constructQueryLookupTable where LookupKey=constructIDsLookupKey)
