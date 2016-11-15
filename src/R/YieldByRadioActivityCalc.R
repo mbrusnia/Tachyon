@@ -50,8 +50,7 @@ if(tools::file_ext(params$inputPathUploadedFile) == "xlsx"){
 if(grepl("ChemProductionID", names(inputDF)[1]) && grepl("InputProtein_mg", names(inputDF)[2])
 	&& grepl("Input_mL", names(inputDF)[3]) && grepl("Wash_mL", names(inputDF)[4])
 	&& grepl("Reaction_Peak_Area_mV", names(inputDF)[5]) && grepl("Elute_mL", names(inputDF)[6])
-	&& grepl("Elute_Peak_Area_mV", names(inputDF)[7]) && grepl("CPM_Vol_mL", names(inputDF)[8])
-	&& grepl("Yield_Vol_mL", names(inputDF)[9]) && grepl("Dilution", names(inputDF)[10])
+	&& grepl("Elute_Peak_Area_mV", names(inputDF)[7])
 	&& grepl("CPM", names(inputDF)[11]) && grepl("CiPerCPM_Calibration_Factor", names(inputDF)[12])
 	&& grepl("Specific_Activity_CiPerMol", names(inputDF)[13])	){	
 	1==1
@@ -73,17 +72,15 @@ chemProd <- labkey.selectRows(
 )
 inputDF$Recovered_Mg = ""
 #Then calculate the Specific_Activity_CiPerMol value using the following formula.
+# Protocol based constant values mL volumne for CPM meaurement, Dilution volumn
+CPM_VOL_ML = 0.01
+DILUTION = 100.0
 for(i in 1:nrow(inputDF)){
 	avgMW = as.numeric(chemProd$AverageMW[chemProd$CHEMProductionID == inputDF$ChemProductionID[i]][1])
-
-	#simplified equations:
-	#Recovered_Mg = InputProtein_mg * Elute_Peak_Area  * Elute_mL / (Reaction_Peak_Area_mV * Input_mL)
-	#Specific_Activity_CiPerMol = CPM * CiPerCPM_Calibration_Factor * Yield_Vol_mL * Dilution * MW/ (CPM_Vol_mL * Recovered_Mg)
-
 	inputDF$Recovered_Mg[i] <- (as.numeric(inputDF$InputProtein_mg[i]) * as.numeric(inputDF$Elute_Peak_Area[i]) * as.numeric(inputDF$Elute_mL[i])) / (as.numeric(inputDF$Reaction_Peak_Area_mV[i])*as.numeric(inputDF$Input_mL[i]))
-	
-	inputDF$Specific_Activity_CiPerMol[i] <- as.numeric(inputDF$CPM[i]) * as.numeric(inputDF$CiPerCPM_Calibration_Factor[i]) * as.numeric(inputDF$Yield_Vol_mL[i])  * as.numeric(inputDF$Dilution[i]) * avgMW
-	inputDF$Specific_Activity_CiPerMol[i] <- inputDF$Specific_Activity_CiPerMol[i] / (as.numeric(inputDF$Recovered_Mg[i]) * as.numeric(inputDF$CPM_Vol_mL[i]))
+	inputDF$Recovered_Mg[i] <- 1.0E9*inputDF$Recovered_Mg[i] # mg to pg conversion
+	inputDF$Specific_Activity_CiPerMol[i] <- as.numeric(inputDF$CPM[i]) * as.numeric(inputDF$CiPerCPM_Calibration_Factor[i]) * as.numeric(inputDF$Elute_mL[i])/CPM_VOL_ML  * DILUTION
+	inputDF$Specific_Activity_CiPerMol[i] <- inputDF$Specific_Activity_CiPerMol[i] / (as.numeric(inputDF$Recovered_Mg[i])/avgMW)
 }
 
 ###################################################################
