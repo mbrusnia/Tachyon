@@ -169,11 +169,16 @@ for(i in 1:length(htproductsToInsert$HTProductID)){
 		htproductsToInsert$ConstructID[i] = paste0("Construct.", "${blanks-replacement}")
 		htproductsToInsert$ParentID[i] = "${blanks-replacement}"
 	}
+	if(htproductsToInsert$WellLocation[i] == "H06"){
+		htproductsToInsert$ConstructID[i] = "CNT0000000"
+		htproductsToInsert$ParentID[i] = "CNT0000000"
+	}
 }
 
 #take a peak at what we're about to insert
 #head(htproductsToInsert)
 #sort(htproductsToInsert$HTProductID)
+3
 
 ##insert data into HTP_Specimen sampleset database
 ssHTP_insert <- labkey.importRows(
