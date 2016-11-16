@@ -25,7 +25,7 @@ getRunPropsList<- function(rpPath, BASE_URL) {
 		runPropsOutputPath = rpIn$val1[rpIn$name=="transformedRunPropertiesFile"],
 		sampleSetId = as.integer(rpIn$val1[rpIn$name=="sampleSet"]),
 		probeSourceId = as.integer(rpIn$val1[rpIn$name=="probeSource"]),
-		calibrationFactor = as.numeric(rpIn$val1[rpIn$name=="CalibrationFactor"]),
+		standardCurve = rpIn$val1[rpIn$name=="StandardCurve"],
 		errorsFile = rpIn$val1[rpIn$name=="errorsFile"])
 	return (params)
 
@@ -51,8 +51,8 @@ if(grepl("ChemProductionID", names(inputDF)[1]) && grepl("InputProtein_mg", name
 	&& grepl("Input_mL", names(inputDF)[3]) && grepl("Wash_mL", names(inputDF)[4])
 	&& grepl("Reaction_Peak_Area_mV", names(inputDF)[5]) && grepl("Elute_mL", names(inputDF)[6])
 	&& grepl("Elute_Peak_Area_mV", names(inputDF)[7])
-	&& grepl("CPM", names(inputDF)[11]) && grepl("CiPerCPM_Calibration_Factor", names(inputDF)[12])
-	&& grepl("Specific_Activity_CiPerMol", names(inputDF)[13])	){	
+	&& grepl("CPM", names(inputDF)[8]) && grepl("CiPerCPM_Calibration_Factor", names(inputDF)[9])
+	&& grepl("Specific_Activity_CiPerMol", names(inputDF)[10])	){	
 	1==1
 }else{
 	stop("This file does not conform to the expected format.  These are the expected column headers (in this order): ChemProductionID	InputProtein_mg	Input_mL	Wash_mL	Reaction_Peak_Area_mV	Elute_mL	Elute_Peak_Area_mV	CPM_Vol_mL	Yield_Vol_mL	Dilution	CPM	CiPerCPM_Calibration_Factor	Specific_Activity_CiPerMol")
@@ -61,7 +61,16 @@ if(grepl("ChemProductionID", names(inputDF)[1]) && grepl("InputProtein_mg", name
 ###################################################################
 ## 2) Do Calculations
 ###################################################################
+#
 #First step get AverageMW value from ChemProductionID = MW
+standardsList <- labkey.selectRows(
+    baseUrl=BASE_URL,
+    folderPath="/Optides/VIVOAssay/Sample",
+    schemaName="lists",
+    queryName="LSCpCiConversionFactor"
+)
+
+#Next, step get AverageMW value from ChemProductionID = MW
 chemProd <- labkey.selectRows(
     baseUrl=BASE_URL,
     folderPath="/Optides/CompoundsRegistry/Samples",
@@ -70,17 +79,22 @@ chemProd <- labkey.selectRows(
 	colNameOpt="fieldname",    
     colSelect=c("CHEMProductionID", "AverageMW")
 )
-inputDF$Recovered_Mg = ""
 #Then calculate the Specific_Activity_CiPerMol value using the following formula.
 # Protocol based constant values mL volumne for CPM meaurement, Dilution volumn
 CPM_VOL_ML = 0.01
 DILUTION = 100.0
+inputDF$Recovered_Mg = -1.0
 for(i in 1:nrow(inputDF)){
 	avgMW = as.numeric(chemProd$AverageMW[chemProd$CHEMProductionID == inputDF$ChemProductionID[i]][1])
-	inputDF$Recovered_Mg[i] <- (as.numeric(inputDF$InputProtein_mg[i]) * as.numeric(inputDF$Elute_Peak_Area[i]) * as.numeric(inputDF$Elute_mL[i])) / (as.numeric(inputDF$Reaction_Peak_Area_mV[i])*as.numeric(inputDF$Input_mL[i]))
-	inputDF$Recovered_Mg[i] <- 1.0E9*inputDF$Recovered_Mg[i] # mg to pg conversion
-	inputDF$Specific_Activity_CiPerMol[i] <- as.numeric(inputDF$CPM[i]) * as.numeric(inputDF$CiPerCPM_Calibration_Factor[i]) * as.numeric(inputDF$Elute_mL[i])/CPM_VOL_ML  * DILUTION
-	inputDF$Specific_Activity_CiPerMol[i] <- inputDF$Specific_Activity_CiPerMol[i] / (as.numeric(inputDF$Recovered_Mg[i])/avgMW)
+	inputDF$CiPerCPM_Calibration_Factor[i] = standardsList[standardsList[,"Version"] == params$standardCurve, "Slope"] * as.numeric(inputDF$CPM) + as.numeric(standardsList[standardsList[,"Version"] == params$standardCurve, "YIntercept"])
+	
+	#Recovered_Mg = InputProtein_mg * ((Elute_Peak_Area*Elute_mL)/(Reaction_Peak_Area_mV*Input_mL))
+	inputDF$Recovered_Mg[i] <-(as.numeric(inputDF$InputProtein_mg[i]) * as.numeric(inputDF$Elute_Peak_Area[i]) * as.numeric(inputDF$Elute_mL[i])) / (as.numeric(inputDF$Reaction_Peak_Area_mV[i])*as.numeric(inputDF$Input_mL[i]))
+	inputDF$Recovered_Mg[i] <- 1.0E9 * inputDF$Recovered_Mg[i] # mg to pg conversion
+
+	#Specific_Activity_CiPerMol  = (CPM*CiPerCPM_Calibration_Factor*(Elute_Vol_mL/CPM_VOL_ML)*DILUTION)/(Recovered_Mg/MW)
+	inputDF$Specific_Activity_CiPerMol[i] <- as.numeric(inputDF$CPM[i]) * as.numeric(inputDF$CiPerCPM_Calibration_Factor[i]) * (as.numeric(inputDF$Elute_mL[i]) / CPM_VOL_ML)  * DILUTION
+	inputDF$Specific_Activity_CiPerMol[i] <- inputDF$Specific_Activity_CiPerMol[i] / (as.numeric(inputDF$Recovered_Mg[i]) / avgMW)
 }
 
 ###################################################################
