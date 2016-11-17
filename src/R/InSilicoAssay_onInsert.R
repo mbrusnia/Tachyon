@@ -109,17 +109,19 @@ names(inputDF)[grepl("[Aa]lternate.[Nn]ame", names(inputDF))] <- ALTERNATE_NAME_
 
 ##############################################################
 ## 1) Check for duplicates in input data. if so, list the row and sequence, then throw error
+## MYB No sequence duplicate check due to vector differences
 ##############################################################
-duplicates = duplicated(inputDF[,SEQUENCE_COL_NAME])
-if(length(duplicates[duplicates == TRUE]) > 0){
-	cat("ERROR: No duplicates allowed. Your input file contains the following duplicate sequences: \n")
-	for(i in 1:length(duplicates)){
-		if(duplicates[i]){
-			cat("ID: ", inputDF[i,COMPOUND_ID_COL_NAME], ": ", inputDF[i,SEQUENCE_COL_NAME], "\n")
-		}
-	}
-	stop("Please remove the duplicates from your input list or file and try again.")
-}
+#duplicates = duplicated(inputDF[,SEQUENCE_COL_NAME])
+#duplicates_vec = duplicate(inputDF[,
+#if(length(duplicates[duplicates == TRUE]) > 0){
+#	cat("ERROR: No duplicates allowed. Your input file contains the following duplicate sequences: \n")
+#	for(i in 1:length(duplicates)){
+#		if(duplicates[i]){
+#			cat("ID: ", inputDF[i,COMPOUND_ID_COL_NAME], ": ", inputDF[i,SEQUENCE_COL_NAME], "\n")
+#		}
+#	}
+#	stop("Please remove the duplicates from your input list or file and try again.")
+#}
 
 
 ##
@@ -127,9 +129,9 @@ if(length(duplicates[duplicates == TRUE]) > 0){
 ##
 ##  removed.
 
-############################################################################
-## 2) calculate average mass, monoisotopic mass, pI and netcharge at pH=7.4
-############################################################################
+#####################################################################################################
+## 2) calculate average mass, monoisotopic mass, pI, netcharge at pH=7.4 and hydrophobicity at pH=7.5
+#####################################################################################################
 if(!"AverageMass" %in% names(inputDF)){
 	inputDF <- cbind(inputDF, AverageMass = vector(length=length(inputDF[,COMPOUND_ID_COL_NAME])))
 	inputDF$AverageMass[] <- NA
@@ -146,6 +148,10 @@ if(!"NetChargeAtpH7_4" %in% names(inputDF)){
 	inputDF <- cbind(inputDF, NetChargeAtpH7_4 = vector(length=length(inputDF[,COMPOUND_ID_COL_NAME])))
 	inputDF$NetChargeAtpH7_4[] <- NA
 }
+if(!"HydrophobicityAtpH7_5" %in% names(inputDF)){
+	inputDF <- cbind(inputDF, HydrophobicityAtpH7_5 = vector(length=length(inputDF[,COMPOUND_ID_COL_NAME])))
+	inputDF$HydrophobicityAtpH7_5[] <- NA
+}
 for (i in 1:length(inputDF[,SEQUENCE_COL_NAME])){
 	#if it's a chemical formula...
 	if(str_detect(inputDF[i,SEQUENCE_COL_NAME], "[1-9]+")){
@@ -156,7 +162,7 @@ for (i in 1:length(inputDF[,SEQUENCE_COL_NAME])){
 		inputDF$MonoisotopicMass[i] <- mymw(inputDF[i, SEQUENCE_COL_NAME], monoisotopic=TRUE)
 		inputDF$ReducedForm_pI[i] <- pI(inputDF[i, SEQUENCE_COL_NAME], pKscale="EMBOSS")
         inputDF$NetChargeAtpH7_4[i]<-round(charge(inputDF[i, SEQUENCE_COL_NAME], pH=7.4, pKscale="Sillero"), digit=2)
-
+		inputDF$HydrophobicityAtpH7_5[i] <- round(hydrophobicity(inputDF[i, SEQUENCE_COL_NAME], scale="Cowan7.5"), digit=2)
 	}
 }
 ###################################################################
