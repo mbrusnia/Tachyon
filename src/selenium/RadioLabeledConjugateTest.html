@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://optides-stage.fhcrc.org/" />
-<title>HT Production Image Files Upload</title>
+<title>RadioLabeledConjugateTest</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Novocyte Transformation Script Test</td></tr>
+<tr><td rowspan="1" colspan="3">RadioLabeledConjugateTest</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -23,77 +23,77 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=HTProduction</td>
+	<td>link=ChemProduction</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Assays</td>
+	<td>link=Assay</td>
 	<td></td>
 </tr>
 <tr>
-	<td>doubleClick</td>
-	<td>//div/div/span[text()=&quot;HPLC_Assay_Images&quot;]</td>
+	<td>clickAndWait</td>
+	<td>link=RadioLabeledConjugate</td>
 	<td></td>
 </tr>
 <tr>
-	<td>doubleClick</td>
-	<td>//div/div/span[text()=&quot;HT0100&quot;]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div/div/span[text()=&quot;HT01001A01_Complex_80.37.jpg&quot;]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>shiftKeyDown</td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div/div/span[text()=&quot;HT01003H06_Perfect_5.93.jpg&quot;]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>shiftKeyUp</td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
+	<td>clickAndWait</td>
 	<td>link=Import Data</td>
 	<td></td>
 </tr>
 <tr>
+	<td>select</td>
+	<td>name=standardCurve</td>
+	<td>label=STD_2016_0928</td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
-	<td>link=Import</td>
+	<td>link=Next</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=name</td>
+	<td>TEST0001</td>
+</tr>
+<tr>
+	<td>selectWindow</td>
+	<td>null</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=TextAreaDataCollector.textArea</td>
+	<td>ChemProductionID	InputProtein_mg	Input_mL	Wash_mL	Reaction_Peak_Area_mV	Elute_mL	Elute_Peak_Area_mV	CPM	CiPerCPM_Calibration_Factor	Specific_Activity_CiPerMol<br />CHC0000001	9	4.6	3	8765	4	12820	25602	0.8	<br /></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Save and Finish</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Analyze</td>
+	<td>link=TEST0001</td>
 	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[5]/td[10]</td>
+	<td>847207.0</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[5]/td[11]</td>
+	<td>11.0</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Pipeline</td>
+	<td>link=view runs</td>
 	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=All</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertNotText</td>
-	<td>//tr/td/a[text()=&quot;Error&quot;]</td>
-	<td>Error</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>name=.toggle</td>
+	<td>//table/tbody/tr/td/a[text()=&quot;TEST0001&quot;]/parent::td/preceding-sibling::td/input</td>
 	<td></td>
 </tr>
 <tr>
@@ -107,29 +107,9 @@
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>link=Assays</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=HPLC Assays</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//tr/td[text()=&quot;HT0100&quot;]/preceding-sibling::td/input</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Delete</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Confirm Delete</td>
-	<td></td>
+	<td>assertTextNotPresent</td>
+	<td>TEST0001</td>
+	<td>TEST0001</td>
 </tr>
 </tbody></table>
 </body>

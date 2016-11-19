@@ -59,7 +59,137 @@
 <tr>
 	<td>type</td>
 	<td>id=toReplaceBlanks</td>
-	<td>parentalCells</td>
+	<td>CNT0001396</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Generate HT Plate</td>
+	<td></td>
+</tr>
+<tr>
+	<td>store</td>
+	<td>TRUE</td>
+	<td>is_running</td>
+</tr>
+<tr>
+	<td>while</td>
+	<td>storedVars['is_running']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeTextPresent</td>
+	<td>ht_plate_generator RUNNING</td>
+	<td>is_running</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>4000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>endWhile</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>ERROR</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=All</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>ERROR</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>COMPLETE</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=.toggle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Confirm Delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/project/home/begin.view?</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div/a/span[text()='Optides']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=CompundsRegistry</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Samples</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>4000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//span[text()='TESTING_SGI_Delivery_Input.xlsx']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Import Data</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table/tbody/tr/td/table/tbody/tr/td[2]/label[text()='Generate HT Plates info from SGI Delivery form']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Import</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=toReplaceBlanks</td>
+	<td>CNT0001396</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=reproductionPlate</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=reproductionPlateID</td>
+	<td>label=HT0105</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
