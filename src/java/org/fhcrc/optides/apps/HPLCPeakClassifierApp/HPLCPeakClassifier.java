@@ -100,6 +100,8 @@ public class HPLCPeakClassifier {
 		double sn_ratio = .10; 
 		int classification = 0; 
 		double maxRTForPeak = 11.0;
+		int chartDefaultYmax = 500;
+		
 		//get input params
 		String[] curParam = null;
 		for(int i = 0; i < args.length; i++){
@@ -120,6 +122,8 @@ public class HPLCPeakClassifier {
 				maxRTForPeak = Double.parseDouble(curParam[1]);
 			else if(curParam[0].equals("--Classification"))
 				classification = Integer.parseInt(curParam[1]);
+			else if(curParam[0].equals("--MaxMAUForPeak"))
+				chartDefaultYmax = Integer.parseInt(curParam[1]);			
 			else if(curParam[0].equals("--outdir"))
 				outDir = curParam[1];
 			else{
@@ -142,6 +146,7 @@ public class HPLCPeakClassifier {
 			System.out.println("--SN: " + sn_ratio + "   (default: 0.10)"); 
 			System.out.println("--Classification: " + classification);
 			System.out.println("--MaxRTForPeak: " + maxRTForPeak);
+			System.out.println("--MaxMAUForPeak: " + chartDefaultYmax);
 			System.out.println(""); 
 			printUsage();
 			return;
@@ -207,7 +212,7 @@ public class HPLCPeakClassifier {
 			System.out.println("Chart Title: " + chartName);
 			System.out.println("Filename: " + fileName);
 			
-			hpc.drawHPLCsAsJPG(chartName, outDir + fileName.replace(" ",  ""), 800, 600);
+			hpc.drawHPLCsAsJPG(chartName, outDir + fileName.replace(" ",  ""), 800, 600, chartDefaultYmax);
 		
 			//append stats to log file
 			/*
@@ -292,7 +297,7 @@ public class HPLCPeakClassifier {
 	/*
 	 * using JFreeChart, draw the jpg of the LC runs
 	 */
-	private void drawHPLCsAsJPG(String chartTitle, String outputFilename, int width, int height) {
+	private void drawHPLCsAsJPG(String chartTitle, String outputFilename, int width, int height, int defaultYmax) {
 		XYDataset ds = createDataset(peakLists.get(rCsvFilepath), peakLists.get(nrCsvFilepath));
 		//ds = createDataset(rpp, nrpp);
 		
@@ -303,7 +308,7 @@ public class HPLCPeakClassifier {
 		//domain1.setRange(lowerMz, higherMz);
 		domain1.setRange(0, 15);
 		ValueAxis range1 = new NumberAxis("mAU (214nm wavelength)");
-		int yMax = 500;
+		int yMax = defaultYmax;
 		int yNRpp = maxAUvalue(rpp, nrpp);
 		if(yNRpp > yMax){
 			yMax = yNRpp + 20;
@@ -484,8 +489,9 @@ public class HPLCPeakClassifier {
 	}
 
 	private static void printUsage() {
-		System.out.println("USAGE: HPLCPeakClassifier --NR=pathToNRcsvFile --R=pathToRcsvFile --BLANK_NR=pathToBlankNRCsvFile --BLANK_R=pathToBlankRCsvFile --sampleInfo=pathToSampleInfoXmlFile --outdir=pathToOutputDir --SN=sn_ratio_decimal --Classification=NumOfPeaksForClassification --MaxRTForPeak=maxRTtoConsider");
+		System.out.println("USAGE: HPLCPeakClassifier --NR=pathToNRcsvFile --R=pathToRcsvFile --BLANK_NR=pathToBlankNRCsvFile --BLANK_R=pathToBlankRCsvFile --sampleInfo=pathToSampleInfoXmlFile --outdir=pathToOutputDir --SN=sn_ratio_decimal --Classification=NumOfPeaksForClassification --MaxRTForPeak=maxRTtoConsider --MaxMAUForPeak=upperYvalueOnChart");
 		System.out.println("");
+		System.out.println("note: MaxMAUForPeak is defaulted to 500 if not entered.");
 		System.out.println("note: if SN parameter is set to greater than 1, then it will be used as an absolute intensity threshold cuttoff for peak finding.");
 	}
 
