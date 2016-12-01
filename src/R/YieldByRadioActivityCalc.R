@@ -90,7 +90,7 @@ for(i in 1:nrow(inputDF)){
 	inputDF$Recovered_Mg[i] <-round(as.numeric(inputDF$InputProtein_mg[i]) * as.numeric(inputDF$Elute_Peak_Area[i]) * as.numeric(inputDF$Elute_mL[i]) / (as.numeric(inputDF$Reaction_Peak_Area_mV[i])*as.numeric(inputDF$Input_mL[i])), digits=1)
 	inputDF$Specific_Activity_CiPerMol[i] <- as.numeric(inputDF$CiPerCPM_Calibration_Factor[i]) * (as.numeric(inputDF$Elute_mL[i]) / CPM_VOL_ML) * DILUTION
 	inputDF$Specific_Activity_CiPerMol[i] <- round(inputDF$Specific_Activity_CiPerMol[i] / (1.0E12 * (as.numeric(inputDF$Recovered_Mg[i]*1.0E-3) / avgMW)), digits=0)
-	inputDF$Recovered_uMol[i] <- prettyNum(inputDF$Recovered_Mg[i] * 1E-3 / (avgMW * 1E6), digits=4)
+	inputDF$Recovered_uMol[i] <- prettyNum(((inputDF$Recovered_Mg[i] * 1E-3) /avgMW) * 1E6), digits=4)
 }
 
 ###################################################################
