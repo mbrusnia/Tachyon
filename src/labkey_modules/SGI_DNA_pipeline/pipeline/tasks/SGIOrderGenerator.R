@@ -122,7 +122,7 @@ for(i in 1:length(inputDF[,1])){
 #	if(is.null(Vector_hash[[inputDF[i, "Vector"]]])){
 #		stop(paste("An invalid Vector has been specified in your input.  This Vector value is invalid: ", inputDF[i, "Vector"]))
 #	}
-	inputDF[i, "Vector"] <- [inputDF[i, "Vector"]]
+	inputDF[i, "Vector"] <- inputDF[i, "Vector"]
 }
 
 
