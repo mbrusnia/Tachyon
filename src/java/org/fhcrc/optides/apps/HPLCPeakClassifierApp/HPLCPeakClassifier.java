@@ -120,6 +120,8 @@ public class HPLCPeakClassifier {
 				sn_ratio = Double.parseDouble(curParam[1]);
 			else if(curParam[0].equals("--MaxRTForPeak"))
 				maxRTForPeak = Double.parseDouble(curParam[1]);
+			else if(curParam[0].equals("--MinRTForPeak"))
+				minRTForPeak = Double.parseDouble(curParam[1]);
 			else if(curParam[0].equals("--Classification"))
 				classification = Integer.parseInt(curParam[1]);
 			else if(curParam[0].equals("--MaxMAUForPeak"))

@@ -66,7 +66,7 @@ if(!file.exists(filename)){
 
 #a hash to look up vector ids to vector names  #this list will grow
 #Vector_hash <- list(VCR010="RKS017", VCR011="RSK056", VCR012="RKS017", VCR020 ="JMO084", VCR21="JMO084", VCR30="JMO300", VCR040="MDT208", VCR050="Elafin", VCR000="Unavailable")
-Vector_hash <- list(VCR010="VCR010", VCR011="VCR011", VCR012="VCR012", VCR020 ="VCR020", VCR21="VCR21", VCR30="VCR30", VCR040="VCR040", VCR050="VCR050", VCR000="Unavailable")
+#Vector_hash <- list(VCR010="VCR010", VCR011="VCR011", VCR012="VCR012", VCR020 ="VCR020", VCR21="VCR21", VCR30="VCR30", VCR040="VCR040", VCR050="VCR050", VCR000="Unavailable")
 
 
 ## read the input
@@ -119,10 +119,10 @@ for(i in 1:length(inputDF[,1])){
 		cat("There is a blank value entered for a Vector value on row ", i, ".  This is not allowed.  Please fix this and try again.")
 		stop()
 	}
-	if(is.null(Vector_hash[[inputDF[i, "Vector"]]])){
-		stop(paste("An invalid Vector has been specified in your input.  This Vector value is invalid: ", inputDF[i, "Vector"]))
-	}
-	inputDF[i, "Vector"] <- Vector_hash[[inputDF[i, "Vector"]]]
+#	if(is.null(Vector_hash[[inputDF[i, "Vector"]]])){
+#		stop(paste("An invalid Vector has been specified in your input.  This Vector value is invalid: ", inputDF[i, "Vector"]))
+#	}
+	inputDF[i, "Vector"] <- [inputDF[i, "Vector"]]
 }
 
 
