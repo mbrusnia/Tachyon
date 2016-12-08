@@ -115,10 +115,11 @@ public class FilterFasta {
 		}
 		fastaBufferedReader.close();
 		outputFastaFile.close();
+		System.out.println("number of proteins that are filtered:" + map.size());
 		return 0;
 	}
 
 	static void printUsage(){
-		System.out.println("USAGE: java FilterFasta -input_fasta=input.fasta -filter_criteria_col_name=percIdntity -filter_input=Blast.csv -celling_value=10.0 -floor_value=-1 --output_fasta=filtered.fasta");
+		System.out.println("USAGE: java FilterFasta -input_fasta=input.fasta -filter_criteria_col_name=percIdntity -filter_input=Blast.csv -celling_value=10.0 -floor_value=-1 -output_fasta=filtered.fasta");
 	}
 }
