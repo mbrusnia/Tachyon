@@ -14,7 +14,7 @@ public class FilterFasta {
 
 	public static void main(String[] args) {
 		//FilterFasta.java -input_fasta=input.fasta -filter_criteria_col_name=percIdntity 
-		//-filter_input=Blast.csv -celling_value=10.0 -floor_value=-1 -output_fasta=filtered.fasta
+		//-filter_input=Blast.csv -ceiling_value=10.0 -floor_value=-1 -output_fasta=filtered.fasta
 
 		String inputFasta = "";
 		String outputFasta = "";
@@ -38,7 +38,7 @@ public class FilterFasta {
 				filterCriteriaColName = curParam[1];
 			else if(curParam[0].equals("-filter_input"))
 				filterInput = curParam[1];
-			else if(curParam[0].equals("-celling_value"))
+			else if(curParam[0].equals("-ceiling_value"))
 				ceilingValue = Double.parseDouble(curParam[1]);
 			else if(curParam[0].equals("-floor_value"))
 				floorValue = Double.parseDouble(curParam[1]);
@@ -115,11 +115,11 @@ public class FilterFasta {
 		}
 		fastaBufferedReader.close();
 		outputFastaFile.close();
-		System.out.println("number of proteins that are filtered:" + map.size());
+		System.out.println("Number of proteins that are filtered: " + map.size());
 		return 0;
 	}
 
 	static void printUsage(){
-		System.out.println("USAGE: java FilterFasta -input_fasta=input.fasta -filter_criteria_col_name=percIdntity -filter_input=Blast.csv -celling_value=10.0 -floor_value=-1 -output_fasta=filtered.fasta");
+		System.out.println("USAGE: java FilterFasta -input_fasta=input.fasta -filter_criteria_col_name=percIdntity -filter_input=Blast.csv -ceiling_value=10.0 -floor_value=-1 -output_fasta=filtered.fasta");
 	}
 }
