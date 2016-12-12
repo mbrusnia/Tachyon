@@ -250,6 +250,11 @@ public class HPLCPeakClassifier {
 			DecimalFormat df = new DecimalFormat("#.00");
 			df.setRoundingMode(RoundingMode.HALF_UP);
 			df.setMinimumIntegerDigits(1);
+			
+			if(hpc.isARW()){
+				df = new DecimalFormat("0.000000");
+				df.setMinimumIntegerDigits(1);
+			}
 			if(nrpeaks == 0){
 				fileName += "_0.00";
 			}else{
