@@ -64,8 +64,11 @@ public class HPLCPeakClassifier {
 	//path to Logging output file
 	private static String loggingFilepath = "C:/Program Files/OptidesSoftware/Optide-Hunter.log";
 	
+	//are the files we are dealing with arw files?
+	boolean isARW = false;
 	
-	public HPLCPeakClassifier(double sn_ratio, int classification, String blankRCsv, String blankNRCsv, String nrCsv, String rCsv, String sampleInfoXmlFile, double maxRTForPeak, String outDir) throws ParserConfigurationException, SAXException, IOException {
+	
+	public HPLCPeakClassifier(double sn_ratio, int classification, String blankRCsv, String blankNRCsv, String nrCsv, String rCsv, String sampleInfoXmlFile, double maxRTForPeak, String outDir) throws Exception {
 		this.sn_ratio = sn_ratio;
 		this.classification = classification;
 		this.blankRCsvFilepath = blankRCsv;
@@ -76,6 +79,12 @@ public class HPLCPeakClassifier {
 		this.maxRTForPeak = maxRTForPeak;
 		this.outDir = outDir;
 		
+		//are we dealing with arw files?
+		if(this.rCsvFilepath.substring(rCsvFilepath.lastIndexOf('.') + 1).equalsIgnoreCase("arw") &&
+				this.nrCsvFilepath.substring(nrCsvFilepath.lastIndexOf('.') + 1).equalsIgnoreCase("arw")){
+			this.isARW = true;
+		}
+		
 		//initiate peakLists HashMap:
 		peakLists = new HashMap<String, HPLCPeakList>();
 		peakLists.put(blankRCsvFilepath, new HPLCPeakList());
@@ -83,13 +92,48 @@ public class HPLCPeakClassifier {
 		peakLists.put(nrCsvFilepath, new HPLCPeakList());
 		peakLists.put(rCsvFilepath, new HPLCPeakList());
 		
-		//parse the Sample Info XML
-		File inputFile = new File(sampleInfoXmlFile);
-		DocumentBuilderFactory factory =DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		sampleInfoXmlDoc = builder.parse(inputFile);
+		//New (12/8/16): make sure the filenames and sample names match up
+		if(isARW){
+			BufferedReader br = getBufferedReader(this.nrCsvFilepath);
+			String firstSampleName = "";
+			String secondSampleName = "";
+			String line = br.readLine();
+			//The second line contains the sample name
+			line = br.readLine();  
+			firstSampleName = line.replace("\"", "").split("\t")[0];
+			br.close();
+			
+			br = getBufferedReader(this.rCsvFilepath);
+			line = br.readLine();
+			line = br.readLine();  
+			secondSampleName = line.replace("\"", "").split("\t")[0];
+			br.close();
+			
+			System.out.println("arw files detected.  SampleName1: " + firstSampleName + "   sampleName2: " + secondSampleName);
+			if(!firstSampleName.equals(secondSampleName)){
+				throw new Error("The sample name of R and NR do not match!  Something is wrong.");
+			}
+			sampleName = firstSampleName;
+		}else{
+			File inputFile = new File(sampleInfoXmlFile);
+			DocumentBuilderFactory factory =DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			sampleInfoXmlDoc = builder.parse(inputFile);
+			NodeList nl = sampleInfoXmlDoc.getElementsByTagName("Name");
+			if(nl.getLength() != 1)
+				throw new Exception("More or less than one Sample Name was given in the Sample Info Xml file.  Please correct this and try again.");
+			sampleName = nl.item(0).getTextContent();	
+			
+			if(nrCsvFilepath.subSequence(nrCsvFilepath.lastIndexOf("/")+1, nrCsvFilepath.lastIndexOf('_')) != rCsvFilepath.subSequence(rCsvFilepath.lastIndexOf('/') + 1, rCsvFilepath.lastIndexOf('_')) ||
+					nrCsvFilepath.subSequence(nrCsvFilepath.lastIndexOf("/")+1, nrCsvFilepath.lastIndexOf('_')) != sampleName){
+				throw new Error("The sample name and file names do not match up.  Something is wrong.");
+			}
+		}
+		
 	}
 
+	public boolean isARW(){return isARW;}
+	
 	public static void main(String[] args) {
 		String blankRCsv = "";
 		String blankNRCsv = "";
@@ -100,7 +144,7 @@ public class HPLCPeakClassifier {
 		double sn_ratio = .10; 
 		int classification = 0; 
 		double maxRTForPeak = 11.0;
-		int chartDefaultYmax = 500;
+		double chartDefaultYmax = 500;
 		
 		//get input params
 		String[] curParam = null;
@@ -125,7 +169,7 @@ public class HPLCPeakClassifier {
 			else if(curParam[0].equals("--Classification"))
 				classification = Integer.parseInt(curParam[1]);
 			else if(curParam[0].equals("--MaxMAUForPeak"))
-				chartDefaultYmax = Integer.parseInt(curParam[1]);			
+				chartDefaultYmax = Double.parseDouble(curParam[1]);			
 			else if(curParam[0].equals("--outdir"))
 				outDir = curParam[1];
 			else{
@@ -147,6 +191,7 @@ public class HPLCPeakClassifier {
 			System.out.println("--outdir: " + outDir);
 			System.out.println("--SN: " + sn_ratio + "   (default: 0.10)"); 
 			System.out.println("--Classification: " + classification);
+			System.out.println("--MinRTForPeak: " + minRTForPeak);
 			System.out.println("--MaxRTForPeak: " + maxRTForPeak);
 			System.out.println("--MaxMAUForPeak: " + chartDefaultYmax);
 			System.out.println(""); 
@@ -157,13 +202,14 @@ public class HPLCPeakClassifier {
 			System.out.println("BLANK_R and BLANK_NR files cannot be set to the same value!");
 			return;
 		}
-		
+
 		try {
 			HPLCPeakClassifier hpc = new HPLCPeakClassifier(sn_ratio, classification, blankRCsv, blankNRCsv, nrCsv, rCsv, sampleInfoXmlFile, maxRTForPeak, outDir);
 			String sampleName = hpc.getSampleName();
 			hpc.loadLCAUdata();
 			hpc.initialRtAlignmentCheck();
-			hpc.trimHPLCPeakListsByRT(1.0, 14.0);
+			if(!hpc.isARW())
+				hpc.trimHPLCPeakListsByRT(1.0, 14.0);
 			hpc.subtractBackgroundAUsfromR();
 			//hpc.printPeaks("R");
 			hpc.subtractBackgroundAUsfromNR();
@@ -203,6 +249,7 @@ public class HPLCPeakClassifier {
 			fileName += "_" + classificationOutput;
 			DecimalFormat df = new DecimalFormat("#.00");
 			df.setRoundingMode(RoundingMode.HALF_UP);
+			df.setMinimumIntegerDigits(1);
 			if(nrpeaks == 0){
 				fileName += "_0.00";
 			}else{
@@ -287,19 +334,19 @@ public class HPLCPeakClassifier {
 	}
 	public void peakPickingR(double sn_ratio, double lowerRT, double upperRT) {
 		HPLCPeakList pl = peakLists.get(rCsvFilepath);
-		rpp = pl.peakPick(sn_ratio, lowerRT, upperRT);
+		rpp = pl.peakPick(sn_ratio, lowerRT, upperRT, isARW);
 	}
 	
 	public void peakPickingNR(double sn_ratio, double lowerRT, double upperRT) {
 		HPLCPeakList pl = peakLists.get(nrCsvFilepath);
-		nrpp = pl.peakPick(sn_ratio, lowerRT, upperRT);
+		nrpp = pl.peakPick(sn_ratio, lowerRT, upperRT, isARW);
 	}
 	
 	
 	/*
 	 * using JFreeChart, draw the jpg of the LC runs
 	 */
-	private void drawHPLCsAsJPG(String chartTitle, String outputFilename, int width, int height, int defaultYmax) {
+	private void drawHPLCsAsJPG(String chartTitle, String outputFilename, int width, int height, double defaultYmax) {
 		XYDataset ds = createDataset(peakLists.get(rCsvFilepath), peakLists.get(nrCsvFilepath));
 		//ds = createDataset(rpp, nrpp);
 		
@@ -310,8 +357,8 @@ public class HPLCPeakClassifier {
 		//domain1.setRange(lowerMz, higherMz);
 		domain1.setRange(0, 15);
 		ValueAxis range1 = new NumberAxis("mAU (214nm wavelength)");
-		int yMax = defaultYmax;
-		int yNRpp = maxAUvalue(rpp, nrpp);
+		double yMax = defaultYmax;
+		double yNRpp = maxAUvalue(rpp, nrpp);
 		if(yNRpp > yMax){
 			yMax = yNRpp + 20;
 		}
@@ -451,42 +498,48 @@ public class HPLCPeakClassifier {
 
 	protected void loadLCAUdata() throws IOException {
 		for (HashMap.Entry<String, HPLCPeakList> entry : peakLists.entrySet()) {
-			 /*default encoding **/
-			// FileReader reads text files in the default encoding.
-	        FileReader fileReader = new FileReader(entry.getKey());
-	
 	        // Always wrap FileReader in BufferedReader.
-	        BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-			
-			/* UTF-16 encoding
-			File f = new File(entry.getKey());
-	        FileInputStream stream = new FileInputStream(f);
-			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-16")));
-			*/
+	        BufferedReader bufferedReader = getBufferedReader(entry.getKey());
 			
 	        String line = null;
 	        String[] rt_au = null;
+	        
+	        //New on 12/8/16: if this is a arw file, skip the first 2 lines
+	        if(isARW){
+	        	bufferedReader.readLine();
+	        	bufferedReader.readLine();
+	        }
 	        while((line = bufferedReader.readLine()) != null) {
-	        	if(line.contains(",")){
-	        		rt_au = line.split("\\w?,\\w?");
-		        	entry.getValue().add(new HPLCPeak(Double.parseDouble(rt_au[0]), Double.parseDouble(rt_au[1])));
-	        	}
-	        }   
-	
+		        if(isARW)
+	        		rt_au = line.split("\t");
+		        else if(line.contains(","))
+		        	rt_au = line.split("\\w?,\\w?");
+			    	
+		        entry.getValue().add(new HPLCPeak(Double.parseDouble(rt_au[0]), Double.parseDouble(rt_au[1])));       	
+	        }
 	        // Always close files.
 	        bufferedReader.close(); 
 		}
 	}
 
+	private BufferedReader getBufferedReader(String filename) throws FileNotFoundException {
+		/*default encoding **/
+		// FileReader reads text files in the default encoding.
+        FileReader fileReader = new FileReader(filename);
+
+        // Always wrap FileReader in BufferedReader.
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+		
+		/* UTF-16 encoding
+		File f = new File(entry.getKey());
+        FileInputStream stream = new FileInputStream(f);
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-16")));
+		*/
+		return bufferedReader;
+	}
+
 	private String getSampleName() throws Exception {
-		NodeList nl = null;
-		if(sampleName == null){
-			nl = sampleInfoXmlDoc.getElementsByTagName("Name");
-			if(nl.getLength() != 1)
-				throw new Exception("More or less than one Sample Name was given in the Sample Info Xml file.  Please correct this and try again.");
-			sampleName = nl.item(0).getTextContent();
-		}
 		return sampleName;
 	}
 

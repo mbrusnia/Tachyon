@@ -8,14 +8,14 @@ public class HPLCPeakList extends ArrayList<HPLCPeak> {
 	//If there are no AU values above this value, we will not count any peaks (in peakPick())
 	public static double peakAbsoluteAUThreshold = 20.0;
 	
-	protected HPLCPeakList peakPick(double sn_ratio, double lowerRT, double upperRT){
+	protected HPLCPeakList peakPick(double sn_ratio, double lowerRT, double upperRT, boolean isARW){
 		HPLCPeakList retVal = new HPLCPeakList();
 		
 		//find max AU value
 		double max = this.getMaxAU(lowerRT, upperRT);
 		
 		//if max au is not greater than peakAbsoluteAUThreshold, then forget it, we wont count any peaks at all
-		if(max < peakAbsoluteAUThreshold)
+		if(!isARW && max < peakAbsoluteAUThreshold)
 			return retVal;
 				
 		//find the peaks of the ones that pass  the s/n ratio
@@ -29,7 +29,7 @@ public class HPLCPeakList extends ArrayList<HPLCPeak> {
 			if(this.get(i).getRt() >= lowerRT 
 					&& this.get(i).getRt() <= upperRT 
 					&& this.get(i).getAu() >= threshold){
-				if(direction.equals("down") && this.get(i).getAu() > prev_au +.1){
+				if(direction.equals("down") && this.get(i).getAu() > prev_au){
 					direction = "up";
 				}
 				if(direction.equals("up")){
