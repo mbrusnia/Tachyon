@@ -251,10 +251,6 @@ public class HPLCPeakClassifier {
 			df.setRoundingMode(RoundingMode.HALF_UP);
 			df.setMinimumIntegerDigits(1);
 			
-			if(hpc.isARW()){
-				df = new DecimalFormat("0.000000");
-				df.setMinimumIntegerDigits(1);
-			}
 			if(nrpeaks == 0){
 				fileName += "_0.00";
 			}else{
@@ -515,12 +511,14 @@ public class HPLCPeakClassifier {
 	        	bufferedReader.readLine();
 	        }
 	        while((line = bufferedReader.readLine()) != null) {
-		        if(isARW)
+	        	double multiplicationFactor = 1.0;
+		        if(isARW){
 	        		rt_au = line.split("\t");
-		        else if(line.contains(","))
+	        		multiplicationFactor = 1000;
+		        }else if(line.contains(","))
 		        	rt_au = line.split("\\w?,\\w?");
 			    	
-		        entry.getValue().add(new HPLCPeak(Double.parseDouble(rt_au[0]), Double.parseDouble(rt_au[1])));       	
+		        entry.getValue().add(new HPLCPeak(Double.parseDouble(rt_au[0]), Double.parseDouble(rt_au[1]) * multiplicationFactor));       	
 	        }
 	        // Always close files.
 	        bufferedReader.close(); 
