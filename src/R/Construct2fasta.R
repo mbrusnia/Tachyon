@@ -32,6 +32,7 @@ sink(filename)
 # Make sure control was inserted only once.
 CNT0001396 <- 0
 CNT0001465 <- 0
+currSeq <- ""
 for(i in 1:nrow(const)){
     if(const$ID[i] == "CNT0001396"){
       if(CNT0001396 == 0){
@@ -55,15 +56,26 @@ for(i in 1:nrow(const)){
 		CNT0001465 <- 1
       }
     }
-
-    else{
-		cat(paste0(">", const$ID[i], " ", const$ParentID[i], " "))
-		if(!is.na(const$AlternateName[i])){
-			cat(paste0(const$AlternateName[i], " "))
+    else{  # Remove duplicate sequences due to two different vector
+    	if(i == 1){
+    		currSeq <- const$ID[i]
+			cat(paste0(">", const$ID[i], " ", const$ParentID[i], " "))
+			if(!is.na(const$AlternateName[i])){
+				cat(paste0(const$AlternateName[i], " "))
+			}
+			cat(paste0(const$HTProductID[i], " ", const$classification[i], "\n", const$AASeq[i], "\n"))
+    	}
+    	else{
+    		if(currSeq != const$ID[i]){
+    			currSeq = const$ID[i]
+				cat(paste0(">", const$ID[i], " ", const$ParentID[i], " "))
+				if(!is.na(const$AlternateName[i])){
+					cat(paste0(const$AlternateName[i], " "))
+				}
+				cat(paste0(const$HTProductID[i], " ", const$classification[i], "\n", const$AASeq[i], "\n"))
+			}
 		}
-		cat(paste0(const$HTProductID[i], " ", const$classification[i], "\n", const$AASeq[i], "\n"))
-		#cat(paste0(">", const$ID[i], "\n", const$AASeq[i], "\n"))
-	}
+    }
 }
 
 # Append Construct that is not in HT Assay
