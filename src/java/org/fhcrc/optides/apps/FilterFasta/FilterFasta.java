@@ -11,23 +11,28 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class FilterFasta {
-
+	
 	public static void main(String[] args) {
 		//FilterFasta.java -input_fasta=input.fasta -filter_criteria_col_name=percIdntity 
 		//-filter_input=Blast.csv -ceiling_value=10.0 -floor_value=-1 -output_fasta=filtered.fasta
+		//-stats_output_file=full.path.to.desired.output.file
 
 		String inputFasta = "";
 		String outputFasta = "";
 		String filterInput = "";
+		String outputStats = "";
 		String filterCriteriaColName = "";
 		Double ceilingValue = 0.0;
 		Double floorValue = 0.0;
 		boolean max=false;
 		boolean min=false;
 		
-		if(args.length < 6 || args.length > 7){
+		if(args.length < 7 || args.length > 8){
 			System.out.println("This program requires six parameters to Run.  Please see the following USAGE:");
 			printUsage();
 			return;
@@ -48,6 +53,8 @@ public class FilterFasta {
 				floorValue = Double.parseDouble(curParam[1]);
 			else if(curParam[0].equals("-output_fasta"))
 				outputFasta = curParam[1];
+			else if(curParam[0].equals("-stats_output_file"))
+				outputStats = curParam[1];
 			else if(curParam[0].equals("-max")){
 				if(min==true){
 					System.out.println("You just blew my mind.  I cannot do both 'min' and 'max' at the same time.  Please choose one or the other and try again.");
@@ -68,7 +75,7 @@ public class FilterFasta {
 		}
 		
 		try {
-			FilterFasta.doFilter(inputFasta, outputFasta, filterInput, filterCriteriaColName, ceilingValue, floorValue, max, min);
+			FilterFasta.doFilter(inputFasta, outputFasta, filterInput, outputStats, filterCriteriaColName, ceilingValue, floorValue, max, min);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,7 +86,7 @@ public class FilterFasta {
 	}
 	
 	
-	static int doFilter(String inputFasta,	String outputFasta, String filterInput, String filterCriteriaColName, Double ceilingValue, Double floorValue, boolean max, boolean min) throws IOException{
+	static int doFilter(String inputFasta,	String outputFasta, String filterInput, String outputStats, String filterCriteriaColName, Double ceilingValue, Double floorValue, boolean max, boolean min) throws IOException{
 		//prepare the reading
 		FileReader filterReader = new FileReader(filterInput);
 		BufferedReader filterInputBufferedReader = new BufferedReader(filterReader);
@@ -157,7 +164,7 @@ public class FilterFasta {
         				}
         				curQueryStore.add(new String[] {a[1], filterVal.toString()});
         			}
-    			}else{
+    			}else if(!a[1].equals(a[0])){
 	            	if(!subjectIdMap.containsKey(a[1])){
 	            		subjectIdMap.put(a[1], new ArrayList<String>());
 	            	}
@@ -208,6 +215,21 @@ public class FilterFasta {
 		fastaBufferedReader.close();
 		outputFastaFile.close();
 		System.out.println("Number of proteins that are filtered: " + subjectIdMap.size());
+		
+		//now write out the stats
+		File fout2 = new File(outputStats);
+		FileOutputStream fos2 = new FileOutputStream(fout2);
+		BufferedWriter outputStatsFile = new BufferedWriter(new OutputStreamWriter(fos2));
+		Iterator<Entry<String, ArrayList<String>>> it = subjectIdMap.entrySet().iterator();
+    	outputStatsFile.write("subjectId\t" + filterCriteriaColName + "\n");
+	    while (it.hasNext()) {
+	        Map.Entry<String, ArrayList<String>> pair = it.next();
+	        ArrayList<String> filterColValues = pair.getValue();
+	        for(int i = 0; i < filterColValues.size(); i++)
+	        	outputStatsFile.write(pair.getKey() + "\t" + filterColValues.get(i) + "\n");
+	        it.remove(); // avoids a ConcurrentModificationException
+	    }
+		outputStatsFile.close();
 		return 0;
 	}
 
