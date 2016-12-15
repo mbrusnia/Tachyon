@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class FilterFasta {
@@ -22,8 +24,10 @@ public class FilterFasta {
 		String filterCriteriaColName = "";
 		Double ceilingValue = 0.0;
 		Double floorValue = 0.0;
+		boolean max=false;
+		boolean min=false;
 		
-		if(args.length != 6){
+		if(args.length < 6 || args.length > 7){
 			System.out.println("This program requires six parameters to Run.  Please see the following USAGE:");
 			printUsage();
 			return;
@@ -44,7 +48,19 @@ public class FilterFasta {
 				floorValue = Double.parseDouble(curParam[1]);
 			else if(curParam[0].equals("-output_fasta"))
 				outputFasta = curParam[1];
-			else{
+			else if(curParam[0].equals("-max")){
+				if(min==true){
+					System.out.println("You just blew my mind.  I cannot do both 'min' and 'max' at the same time.  Please choose one or the other and try again.");
+					return;
+				}
+				max = true;
+			}else if(curParam[0].equals("-min")){
+				if(max==true){
+					System.out.println("You just blew my mind.  I cannot do both 'min' and 'max' at the same time.  Please choose one or the other and try again.");
+					return;
+				}
+				min = true;
+			}else{
 				System.out.println("Unrecognized command line parameter: " + curParam[0]);
 				printUsage();
 				return;
@@ -52,7 +68,7 @@ public class FilterFasta {
 		}
 		
 		try {
-			FilterFasta.doFilter(inputFasta, outputFasta, filterInput, filterCriteriaColName, ceilingValue, floorValue);
+			FilterFasta.doFilter(inputFasta, outputFasta, filterInput, filterCriteriaColName, ceilingValue, floorValue, max, min);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,19 +79,12 @@ public class FilterFasta {
 	}
 	
 	
-	static int doFilter(String inputFasta,	String outputFasta, String filterInput, String filterCriteriaColName, Double ceilingValue, Double floorValue) throws IOException{
+	static int doFilter(String inputFasta,	String outputFasta, String filterInput, String filterCriteriaColName, Double ceilingValue, Double floorValue, boolean max, boolean min) throws IOException{
 		//prepare the reading
-		FileReader fastaReader = new FileReader(inputFasta);
-		BufferedReader fastaBufferedReader = new BufferedReader(fastaReader);
 		FileReader filterReader = new FileReader(filterInput);
 		BufferedReader filterInputBufferedReader = new BufferedReader(filterReader);
 		
 		String line = null;
-		  
-		//prepare the writing
-		File fout1 = new File(outputFasta);
-		FileOutputStream fos1 = new FileOutputStream(fout1);
-		BufferedWriter outputFastaFile = new BufferedWriter(new OutputStreamWriter(fos1));
 		
 		//get the index of filterCriteriaColName
 		line = filterInputBufferedReader.readLine();
@@ -85,26 +94,109 @@ public class FilterFasta {
 			if(a[colFilterIdx].equals(filterCriteriaColName))
 				break;
 		
+		if(colFilterIdx == a.length){
+			filterInputBufferedReader.close();
+			throw new Error("The specified filter_criteria_col_name (" + filterCriteriaColName + ") was not found in the Blast output table heading.");
+		}
+		
 		//find all BLAST matches that pass given filter
-		HashMap<String, String> map = new HashMap<String, String>();
+		//prepare the reading
+		FileReader fastaReader = new FileReader(inputFasta);
+		BufferedReader fastaBufferedReader = new BufferedReader(fastaReader);
+		
+		HashMap<String, ArrayList<String>> subjectIdMap = new HashMap<String, ArrayList<String>>();
+		String curQueryId = "";
+		Double maxValue = Double.MIN_VALUE;
+		Double minValue = Double.MAX_VALUE;
+		Double filterVal = null;
+		ArrayList<String[]> curQueryStore = new ArrayList<String[]>();
 		while ((line = filterInputBufferedReader.readLine()) != null) {
 			a = line.split(",");
-			Double filterVal = Double.parseDouble(a[colFilterIdx]);
+			filterVal = Double.parseDouble(a[colFilterIdx]);
+			
             if(		(floorValue==-1 && filterVal <= ceilingValue) ||
             		(ceilingValue == -1 && filterVal >= floorValue) ||
             		(filterVal >= floorValue && filterVal <= ceilingValue)
-            	)
-            	map.put(a[0], a[colFilterIdx]);
+            	){
+
+    			if(max || min){
+    				if(!a[0].equals(curQueryId)){
+    					for(int i = 0; i < curQueryStore.size(); i++){
+    						String id = curQueryStore.get(i)[0];
+    						Double val = Double.parseDouble(curQueryStore.get(i)[1]);
+    					
+	    					if(min && val.equals(minValue)){
+	    						if(subjectIdMap.containsKey(id))
+	    							subjectIdMap.get(id).add(val.toString());
+	    						else
+	    							subjectIdMap.put(id, new ArrayList<String>(Arrays.asList(val.toString())));
+	    					}else if(max && val.equals(maxValue)){
+	    						if(subjectIdMap.containsKey(id))
+	    							subjectIdMap.get(id).add(val.toString());
+	    						else
+	    							subjectIdMap.put(id, new ArrayList<String>(Arrays.asList(val.toString())));
+	        				}
+    					}
+    					
+	    				curQueryId = a[0];
+	    				curQueryStore = new ArrayList<String[]>();
+	    				maxValue = Double.MIN_VALUE;
+	    				minValue = Double.MAX_VALUE;
+	    				if(!a[1].equals(a[0])){ //make sure we do not have the identical match being counted as a match
+	    					if(min)
+		    					minValue = filterVal;
+		    				else if(max)
+		    					maxValue = filterVal;
+		    				curQueryStore.add(new String[] {a[1], filterVal.toString()});
+	    				}
+        			}else if(!a[1].equals(a[0])){  //make sure we do not have the identical match being counted as a match
+        				if(max && maxValue < filterVal){
+        					maxValue = filterVal;
+        				}else if(min && minValue > filterVal){
+        					minValue = filterVal;
+        				}
+        				curQueryStore.add(new String[] {a[1], filterVal.toString()});
+        			}
+    			}else{
+	            	if(!subjectIdMap.containsKey(a[1])){
+	            		subjectIdMap.put(a[1], new ArrayList<String>());
+	            	}
+	            	subjectIdMap.get(a[1]).add(a[colFilterIdx]);
+    			}
+            }
         }
+		//take care of the last queryId, which didn't get a chance to finish above because EOF
+		if(curQueryStore.size() > 0){
+			for(int i = 0; i < curQueryStore.size(); i++){
+				String id = curQueryStore.get(i)[0];
+				Double val = Double.parseDouble(curQueryStore.get(i)[1]);
+			
+				if(min && val.equals(minValue)){
+					if(subjectIdMap.containsKey(id))
+						subjectIdMap.get(id).add(val.toString());
+					else
+						subjectIdMap.put(id, new ArrayList<String>(Arrays.asList(val.toString())));
+				}else if(max && val.equals(maxValue)){
+					if(subjectIdMap.containsKey(id))
+						subjectIdMap.get(id).add(val.toString());
+					else
+						subjectIdMap.put(id, new ArrayList<String>(Arrays.asList(val.toString())));
+				}
+			}
+		}
 		filterInputBufferedReader.close();
 		
 		//now print all the matching records in the inputFasta file
+		//prepare the writing
+		File fout1 = new File(outputFasta);
+		FileOutputStream fos1 = new FileOutputStream(fout1);
+		BufferedWriter outputFastaFile = new BufferedWriter(new OutputStreamWriter(fos1));
 		boolean writing = false;
 		while ((line = fastaBufferedReader.readLine()) != null) {
 			if(line.startsWith(">")){
 				a = line.split(" ");
 				//">" is the first character, so substring starting at second character
-				if(map.containsKey(a[0].substring(1)))
+				if(subjectIdMap.containsKey(a[0].substring(1)))
 					writing = true;
 				else
 					writing = false;
@@ -115,7 +207,7 @@ public class FilterFasta {
 		}
 		fastaBufferedReader.close();
 		outputFastaFile.close();
-		System.out.println("Number of proteins that are filtered: " + map.size());
+		System.out.println("Number of proteins that are filtered: " + subjectIdMap.size());
 		return 0;
 	}
 
