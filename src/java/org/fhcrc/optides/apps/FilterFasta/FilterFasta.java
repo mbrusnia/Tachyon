@@ -20,11 +20,12 @@ public class FilterFasta {
 	public static void main(String[] args) {
 		//FilterFasta.java -input_fasta=input.fasta -filter_criteria_col_name=percIdntity 
 		//-filter_input=Blast.csv -ceiling_value=10.0 -floor_value=-1 -output_fasta=filtered.fasta
-		//-stats_output_file=full.path.to.desired.output.file
+		//-exclude_fasta=path/to/exclusionList -stats_output_file=full.path.to.desired.output.file
 
 		String inputFasta = "";
 		String outputFasta = "";
 		String filterInput = "";
+		String excludeFasta = "";
 		String outputStats = "";
 		String filterCriteriaColName = "";
 		Double ceilingValue = 0.0;
@@ -32,8 +33,8 @@ public class FilterFasta {
 		boolean max=false;
 		boolean min=false;
 		
-		if(args.length < 7 || args.length > 8){
-			System.out.println("This program requires six parameters to Run.  Please see the following USAGE:");
+		if(args.length < 7 || args.length > 9){
+			System.out.println("This program requires six to eight parameters to Run.  Please see the following USAGE:");
 			printUsage();
 			return;
 		}
@@ -55,6 +56,8 @@ public class FilterFasta {
 				outputFasta = curParam[1];
 			else if(curParam[0].equals("-stats_output_file"))
 				outputStats = curParam[1];
+			else if(curParam[0].equals("-excludeFasta"))
+				excludeFasta = curParam[1];
 			else if(curParam[0].equals("-max")){
 				if(min==true){
 					System.out.println("You just blew my mind.  I cannot do both 'min' and 'max' at the same time.  Please choose one or the other and try again.");
@@ -75,7 +78,7 @@ public class FilterFasta {
 		}
 		
 		try {
-			FilterFasta.doFilter(inputFasta, outputFasta, filterInput, outputStats, filterCriteriaColName, ceilingValue, floorValue, max, min);
+			FilterFasta.doFilter(inputFasta, outputFasta, filterInput, excludeFasta, outputStats, filterCriteriaColName, ceilingValue, floorValue, max, min);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,7 +89,7 @@ public class FilterFasta {
 	}
 	
 	
-	static int doFilter(String inputFasta,	String outputFasta, String filterInput, String outputStats, String filterCriteriaColName, Double ceilingValue, Double floorValue, boolean max, boolean min) throws IOException{
+	static int doFilter(String inputFasta,	String outputFasta, String filterInput, String excludeFasta, String outputStats, String filterCriteriaColName, Double ceilingValue, Double floorValue, boolean max, boolean min) throws IOException{
 		//prepare the reading
 		FileReader filterReader = new FileReader(filterInput);
 		BufferedReader filterInputBufferedReader = new BufferedReader(filterReader);
@@ -193,6 +196,18 @@ public class FilterFasta {
 		}
 		filterInputBufferedReader.close();
 		
+		//prepare exclusion list from exclude_fasta option
+		HashMap<String, String> exclusionMap = new HashMap<String, String>();
+		if(!excludeFasta.equals("")){
+			FileReader fastaReader2 = new FileReader(excludeFasta);
+			BufferedReader fastaBufferedReader2 = new BufferedReader(fastaReader2);
+			
+			while ((line = fastaBufferedReader2.readLine()) != null) {
+				exclusionMap.put(line, line);		
+			}
+			fastaBufferedReader2.close();
+		}
+		
 		//now print all the matching records in the inputFasta file
 		//prepare the writing
 		File fout1 = new File(outputFasta);
@@ -203,7 +218,7 @@ public class FilterFasta {
 			if(line.startsWith(">")){
 				a = line.split(" ");
 				//">" is the first character, so substring starting at second character
-				if(subjectIdMap.containsKey(a[0].substring(1)))
+				if(subjectIdMap.containsKey(a[0].substring(1)) && !exclusionMap.containsKey(a[0].substring(1)))
 					writing = true;
 				else
 					writing = false;
@@ -234,6 +249,6 @@ public class FilterFasta {
 	}
 
 	static void printUsage(){
-		System.out.println("USAGE: java FilterFasta -input_fasta=input.fasta -filter_criteria_col_name=percIdntity -filter_input=Blast.csv -ceiling_value=10.0 -floor_value=-1 -output_fasta=filtered.fasta");
+		System.out.println("USAGE: java FilterFasta -input_fasta=input.fasta -filter_criteria_col_name=percIdntity -filter_input=Blast.csv -ceiling_value=10.0 -floor_value=-1 -output_fasta=filtered.fasta -exclude_fasta=path/to/exclusionList -stats_output_file=full.path.to.desired.output.file");
 	}
 }
