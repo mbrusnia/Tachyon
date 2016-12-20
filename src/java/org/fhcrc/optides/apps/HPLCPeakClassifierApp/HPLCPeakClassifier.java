@@ -525,7 +525,7 @@ public class HPLCPeakClassifier {
 		}
 	}
 
-	private BufferedReader getBufferedReader(String filename) throws FileNotFoundException {
+	private BufferedReader getBufferedReader(String filename) throws IOException {
 		/*default encoding **/
 		// FileReader reads text files in the default encoding.
         FileReader fileReader = new FileReader(filename);
@@ -533,13 +533,33 @@ public class HPLCPeakClassifier {
         // Always wrap FileReader in BufferedReader.
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-		
-		/* UTF-16 encoding
-		File f = new File(entry.getKey());
-        FileInputStream stream = new FileInputStream(f);
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-16")));
-		*/
-		return bufferedReader;
+		//a test to see if this is a UTF-16 encoded file
+        String line = bufferedReader.readLine();
+        line = bufferedReader.readLine();
+        line = bufferedReader.readLine();
+        String number = "";
+        boolean changeEncoding = false;
+        try{
+        	if(isARW)
+    		number = line.split("\t")[1];
+        else if(line.contains(","))
+        	number = line.split("\\w?,\\w?")[1];
+        }catch(ArrayIndexOutOfBoundsException e){
+        	changeEncoding = true;
+        }
+
+    	bufferedReader.close();
+    	
+        if(changeEncoding){
+		/* UTF-16 encoding */
+			File f = new File(filename);
+	        FileInputStream stream = new FileInputStream(f);
+			bufferedReader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-16")));
+        }else{
+        	fileReader = new FileReader(filename);
+        	bufferedReader = new BufferedReader(fileReader);
+        }
+        return bufferedReader;
 	}
 
 	private String getSampleName() throws Exception {
