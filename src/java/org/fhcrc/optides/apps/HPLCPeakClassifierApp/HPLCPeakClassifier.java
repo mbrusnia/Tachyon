@@ -123,9 +123,8 @@ public class HPLCPeakClassifier {
 			if(nl.getLength() != 1)
 				throw new Exception("More or less than one Sample Name was given in the Sample Info Xml file.  Please correct this and try again.");
 			sampleName = nl.item(0).getTextContent();	
-			
-			if(nrCsvFilepath.subSequence(nrCsvFilepath.lastIndexOf("/")+1, nrCsvFilepath.lastIndexOf('_')) != rCsvFilepath.subSequence(rCsvFilepath.lastIndexOf('/') + 1, rCsvFilepath.lastIndexOf('_')) ||
-					nrCsvFilepath.subSequence(nrCsvFilepath.lastIndexOf("/")+1, nrCsvFilepath.lastIndexOf('_')) != sampleName){
+			if(!nrCsvFilepath.subSequence(nrCsvFilepath.lastIndexOf("/")+1, nrCsvFilepath.indexOf('_')).equals(rCsvFilepath.subSequence(rCsvFilepath.lastIndexOf('/') + 1, rCsvFilepath.indexOf('_')))
+			   || !nrCsvFilepath.subSequence(nrCsvFilepath.lastIndexOf("/")+1, nrCsvFilepath.indexOf('_')).equals(sampleName)){
 				throw new Error("The sample name and file names do not match up.  Something is wrong.");
 			}
 		}
@@ -517,8 +516,7 @@ public class HPLCPeakClassifier {
 	        		multiplicationFactor = 1000;
 		        }else if(line.contains(","))
 		        	rt_au = line.split("\\w?,\\w?");
-			    	
-		        entry.getValue().add(new HPLCPeak(Double.parseDouble(rt_au[0]), Double.parseDouble(rt_au[1]) * multiplicationFactor));       	
+		        entry.getValue().add(new HPLCPeak(Double.parseDouble(rt_au[0]), Double.parseDouble(rt_au[1]) * multiplicationFactor));
 	        }
 	        // Always close files.
 	        bufferedReader.close(); 
