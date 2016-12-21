@@ -56,7 +56,7 @@ public class FilterFasta {
 				outputFasta = curParam[1];
 			else if(curParam[0].equals("-stats_output_file"))
 				outputStats = curParam[1];
-			else if(curParam[0].equals("-excludeFasta"))
+			else if(curParam[0].equals("-exclude_fasta"))
 				excludeFasta = curParam[1];
 			else if(curParam[0].equals("-max")){
 				if(min==true){
@@ -203,7 +203,11 @@ public class FilterFasta {
 			BufferedReader fastaBufferedReader2 = new BufferedReader(fastaReader2);
 			
 			while ((line = fastaBufferedReader2.readLine()) != null) {
-				exclusionMap.put(line, line);		
+				if(line.startsWith(">")){
+					a = line.split(" ");
+					//">" is the first character, so substring starting at second character
+					exclusionMap.put(a[0].substring(1), a[0].substring(1));
+				}		
 			}
 			fastaBufferedReader2.close();
 		}
