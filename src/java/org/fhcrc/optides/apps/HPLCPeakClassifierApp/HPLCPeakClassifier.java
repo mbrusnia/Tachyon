@@ -122,9 +122,9 @@ public class HPLCPeakClassifier {
 			NodeList nl = sampleInfoXmlDoc.getElementsByTagName("Name");
 			if(nl.getLength() != 1)
 				throw new Exception("More or less than one Sample Name was given in the Sample Info Xml file.  Please correct this and try again.");
-			sampleName = nl.item(0).getTextContent();	
-			if(!nrCsvFilepath.subSequence(nrCsvFilepath.lastIndexOf("/")+1, nrCsvFilepath.indexOf('_')).equals(rCsvFilepath.subSequence(rCsvFilepath.lastIndexOf('/') + 1, rCsvFilepath.indexOf('_')))
-			   || !nrCsvFilepath.subSequence(nrCsvFilepath.lastIndexOf("/")+1, nrCsvFilepath.indexOf('_')).equals(sampleName)){
+			sampleName = nl.item(0).getTextContent().substring(0, nl.item(0).getTextContent().indexOf('_'));;
+			if(!nrCsvFilepath.subSequence(nrCsvFilepath.lastIndexOf("/")+1, nrCsvFilepath.indexOf("_", + nrCsvFilepath.lastIndexOf("/") + 1)).equals(rCsvFilepath.subSequence(rCsvFilepath.lastIndexOf('/') + 1, rCsvFilepath.indexOf("_", + rCsvFilepath.lastIndexOf("/") + 1)))
+			   || !nrCsvFilepath.subSequence(nrCsvFilepath.lastIndexOf("/")+1, nrCsvFilepath.indexOf("_", + nrCsvFilepath.lastIndexOf("/") + 1)).equals(sampleName)){
 				throw new Error("The sample name and file names do not match up.  Something is wrong.");
 			}
 		}
