@@ -65,7 +65,6 @@ public class MHCII_Processor {
 		//these are actually BindLevels, not alleles.  but we are using them in the same way
 		//to calculate the score, so we put them in this map for convenience
 		AllelesAndWeights.put("SB", 1.0);
-		AllelesAndWeights.put("SW", 1.0);
 		AllelesAndWeights.put("WB", 1.0);
 		AllelesAndWeights.put("", 1.0);
 	}
