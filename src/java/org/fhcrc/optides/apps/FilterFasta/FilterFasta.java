@@ -106,7 +106,10 @@ public class FilterFasta {
 			BufferedReader proteinListBufferedReader = new BufferedReader(proteinListFile);
 			
 			while((line = proteinListBufferedReader.readLine()) != null){
-				subjectIdMap.put(line, new ArrayList<String>(Arrays.asList("100")));
+				a = line.split("\\|");
+				for(int i = 0; i < a.length; i++)
+					if(a[i].length() > 2)
+						subjectIdMap.put(a[i], new ArrayList<String>(Arrays.asList("100")));
 			}
 			
 			proteinListFile.close();
@@ -240,11 +243,23 @@ public class FilterFasta {
 		
 		int proteinsPassingFilter = 0;
 		boolean writing = false;
+		String id = "";
 		while ((line = fastaBufferedReader.readLine()) != null) {
 			if(line.startsWith(">")){
 				a = line.split(" ");
 				//">" is the first character, so substring starting at second character
-				if(subjectIdMap.containsKey(a[0].substring(1)) && !exclusionMap.containsKey(a[0].substring(1))){
+				id = a[0].substring(1);
+				if(!proteinNameFilterFile.equals("")){
+					a = id.split("\\|");
+					for(int i = 0; i < a.length; i++)
+						if(subjectIdMap.containsKey(a[i])){
+							id = a[i];
+							subjectIdMap.get(id).set(0, "");
+							break;
+						}
+				}
+
+				if(subjectIdMap.containsKey(id) && !exclusionMap.containsKey(id)){
 					writing = true;
 					proteinsPassingFilter++;
 				}else
@@ -263,13 +278,20 @@ public class FilterFasta {
 		FileOutputStream fos2 = new FileOutputStream(fout2);
 		BufferedWriter outputStatsFile = new BufferedWriter(new OutputStreamWriter(fos2));
 		Iterator<Entry<String, ArrayList<String>>> it = subjectIdMap.entrySet().iterator();
-    	outputStatsFile.write("subjectId\t" + filterCriteriaColName + "\n");
+    	outputStatsFile.write("subjectId");
+    	if(proteinNameFilterFile.equals(""))
+    		outputStatsFile.write("\t" + filterCriteriaColName);
+    	outputStatsFile.write("\n");
 	    while (it.hasNext()) {
 	        Map.Entry<String, ArrayList<String>> pair = it.next();
 	        ArrayList<String> filterColValues = pair.getValue();
 	        for(int i = 0; i < filterColValues.size(); i++)
-	        	if(!exclusionMap.containsKey(pair.getKey()))
-	        		outputStatsFile.write(pair.getKey() + "\t" + filterColValues.get(i) + "\n");
+	        	if((!exclusionMap.containsKey(pair.getKey()) && proteinNameFilterFile.equals("")) || (!proteinNameFilterFile.equals("") && filterColValues.get(i).equals(""))){
+	        		outputStatsFile.write(pair.getKey());
+	            	if(proteinNameFilterFile.equals(""))
+	            		outputStatsFile.write("\t" + filterCriteriaColName);
+	            	outputStatsFile.write("\n");
+	        	}
 	        it.remove(); // avoids a ConcurrentModificationException
 	    }
 		outputStatsFile.close();
