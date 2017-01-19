@@ -1,0 +1,34 @@
+{
+ "selectedColumns": [
+{
+"schemaName": "samples",
+ "queryName": "HTProduction",
+ "name": "Name",
+ "type": "VARCHAR"
+ } ,
+{
+ "folderPath":"/Optides/HTProduction/Assays", 
+     "schemaName": "assay.general.HPLC Assays", 
+     "queryName": "Data", 
+     "name": "MaxPeakNR", 
+     "type": "DOUBLE", 
+         "sampleIdColumnName": "HTProductionID"
+ },
+{
+ "folderPath":"/Optides/HTProduction/Assays", 
+     "schemaName": "assay.general.HPLC Assays", 
+     "queryName": "Data", 
+     "name": "Classification", 
+     "type": "VARCHAR", 
+         "sampleIdColumnName": "HTProductionID"
+ },
+{
+ "folderPath":"/Optides/HTProduction/Assays", 
+     "schemaName": "assay.general.Novocyte", 
+     "queryName": "Data", 
+     "name": "R2_Abs_Count", 
+     "type": "VARCHAR", 
+         "sampleIdColumnName": "HTProductionID"
+ }
+ ]
+ }
