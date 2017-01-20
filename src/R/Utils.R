@@ -22,3 +22,9 @@ getRunPropsList<- function(rpPath, baseUrl)
 		errorsFile = rpIn$val1[rpIn$name=="errorsFile"])
 	return (params)
 }
+
+machineNameFromBaseURL <- function(baseUrl){
+	a = strsplit(baseUrl, "/")[[1]]
+	gsub("www.", "", a[3])
+	
+}
