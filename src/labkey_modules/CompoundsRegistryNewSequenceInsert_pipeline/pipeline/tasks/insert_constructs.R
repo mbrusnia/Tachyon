@@ -12,6 +12,7 @@ library(Rlabkey)
 library(stringr)
 
 source("C:/labkey/labkey/files/Optides/@files/xlsxToR.R")
+source("C:/labkey/labkey/files/Optides/@files/Utils.R")
 
 jobInfoFile <- sub("..", "../", "${pipeline, taskInfo}", perl=TRUE)
 jobInfo <- read.table(jobInfoFile,
@@ -42,7 +43,7 @@ VECTOR_COL_NAME <- "Vector"
 ##
 #######################################################################################
 filename <- paste0(Sys.getenv()["HOME"], .Platform$file.sep, "_netrc")
-machineName <- "optides-stage.fhcrc.org"
+machineName <- machineNameFromBaseURL(BASE_URL)
 login <- "brusniak.computelifesci@gmail.com"
 password <- "Kn0ttin10K"
 if(!file.exists(filename)){
