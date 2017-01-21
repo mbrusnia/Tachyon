@@ -7,15 +7,17 @@
 library(Rlabkey)
 options(stringsAsFactors = FALSE)
 
+BASE_URL = "http://optides-prod.fhcrc.org"
+
 const <- labkey.selectRows(
-	baseUrl="http://optides-prod.fhcrc.org",
+	baseUrl=BASE_URL,
 	folderPath="/Optides/CompoundsRegistry/Samples",
 	schemaName="samples",
 	queryName="ConstructHTIDHTAssay",
 	colNameOpt="fieldname"
 )
 AllConst <- labkey.selectRows(
-	baseUrl="http://optides-prod.fhcrc.org",
+	baseUrl=BASE_URL,
 	folderPath="/Optides/CompoundsRegistry/Samples",
 	schemaName="samples",
 	queryName="Construct",

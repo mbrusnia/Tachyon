@@ -15,13 +15,6 @@ suppressWarnings(suppressMessages(require(stringr)))
 
 source("${srcDirectory}/Utils.R")
 
-#Parameters for this script (login script: _netrc)
-BASE_URL = "http://optides-prod.fhcrc.org/"
-SEQUENCE_COL_NAME = "AASeq"
-COMPOUND_ID_COL_NAME = "ID"
-PARENT_ID_COL_NAME = "ParentID"
-ALTERNATE_NAME_COL_NAME = "AlternateName"
-
 ########################################
 # FUNCTIONS
 ########################################
@@ -88,12 +81,20 @@ calc_formula_monomass <- function(formula){
 #END FUNCTIONS
 ###############
 
+
 ${rLabkeySessionId}
 
 rpPath <- "${runInfo}"
 
 ## read the file paths etc out of the runProperties.tsv file
-params <- getRunPropsList(rpPath, BASE_URL)
+params <- getRunPropsList(rpPath)
+
+#Parameters for this script (login script: _netrc)
+BASE_URL = params$baseUrl
+SEQUENCE_COL_NAME = "AASeq"
+COMPOUND_ID_COL_NAME = "ID"
+PARENT_ID_COL_NAME = "ParentID"
+ALTERNATE_NAME_COL_NAME = "AlternateName"
 
 ## read the input data frame. Is xlsx or tsv?
 if(tools::file_ext(params$inputPathUploadedFile) == "xlsx"){

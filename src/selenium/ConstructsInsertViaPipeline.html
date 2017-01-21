@@ -23,77 +23,92 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=ChemProduction</td>
+	<td>link=CompundsRegistry</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Assay</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=RadioLabeledConjugate</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Import Data</td>
-	<td></td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>name=standardCurve</td>
-	<td>label=STD_2016_0928</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Next</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>name=name</td>
-	<td>TEST0001</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=TextAreaDataCollector.textArea</td>
-	<td>ChemProductionID	InputProtein_mg	Input_mL	Wash_mL	Reaction_Peak_Area_mV	Elute_mL	Elute_Peak_Area_mV	CPM	CiPerCPM_Calibration_Factor	Specific_Activity_CiPerMol<br />CHC0000001	9	4.6	3	8765	4	12820	25602	0.8	<br /></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Save and Finish</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=TEST0001</td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertText</td>
-	<td>//tr[5]/td[10]</td>
-	<td>817.0</td>
-</tr>
-<tr>
-	<td>assertText</td>
-	<td>//tr[5]/td[11]</td>
-	<td>11.4</td>
-</tr>
-<tr>
-	<td>assertText</td>
-	<td>//tr[5]/td[12]</td>
-	<td>2.867</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=view runs</td>
+	<td>link=Samples</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//table/tbody/tr/td/a[text()=&quot;TEST0001&quot;]/parent::td/preceding-sibling::td/input</td>
+	<td>//div/div/span[text()=&quot;TEST_insertConstructsThroughPipeline.xlsx&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Import Data</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table/tbody/tr/td/table/tbody/tr/td[2]/label[text()='Insert New Construct Sequences']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Import</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Analyze</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Pipeline</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Samples</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Construct</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//td/div[text()=&quot;AASeq&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div/a/span[text()=&quot;Filter...&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=value_1</td>
+	<td>TTEESSTT</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//button[text()=&quot;OK&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table/tbody/tr/td[2]/div</td>
+	<td>1 - 95 of 95</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=.toggle</td>
 	<td></td>
 </tr>
 <tr>
@@ -105,11 +120,6 @@
 	<td>clickAndWait</td>
 	<td>link=Confirm Delete</td>
 	<td></td>
-</tr>
-<tr>
-	<td>assertTextNotPresent</td>
-	<td>TEST0001</td>
-	<td>TEST0001</td>
 </tr>
 </tbody></table>
 </body>

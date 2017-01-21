@@ -4,38 +4,19 @@
 options(stringsAsFactors = FALSE)
 library(Rlabkey)
 
+source("${srcDirectory}/Utils.R")
+
 # Constants
 LOD <- 30.0
 LOQ <- 340.0
 
-BASE_URL <- "http://optides-prod.fhcrc.org/"
 ${rLabkeySessionId}
 rpPath<- "${runInfo}"
 
-getRunPropsList<- function(rpPath, baseUrl) {
-	rpIn<- read.table(rpPath,  col.names=c("name", "val1", "val2", "val3"),          #########
-		header=FALSE, check.names=FALSE,                                             ##  1  ##  
-		stringsAsFactors=FALSE, sep="\t", quote="", fill=TRUE, na.strings="");       ######### 
-
-	## pull out the run properties
-	params<- list(inputPathUploadedFile = rpIn$val1[rpIn$name=="runDataUploadedFile"],
-		inputPathValidated = rpIn$val1[rpIn$name=="runDataFile"],
-		
-		##a little strange.  AssayRunTSVData is the one we need to output to
-		outputPath = rpIn$val3[rpIn$name=="runDataFile"],
-	
-		containerPath = rpIn$val1[rpIn$name=="containerPath"], 
-		runPropsOutputPath = rpIn$val1[rpIn$name=="transformedRunPropertiesFile"],
-		sampleSetId = as.integer(rpIn$val1[rpIn$name=="sampleSet"]),
-		probeSourceId = as.integer(rpIn$val1[rpIn$name=="probeSource"]),
-		standardCurve = rpIn$val1[rpIn$name=="StandardCurve"],
-		errorsFile = rpIn$val1[rpIn$name=="errorsFile"])
-	return (params)
-
-}
-
 ## read the file paths etc out of the runProperties.tsv file
-params <- getRunPropsList(rpPath, BASE_URL)
+params <- getRunPropsList(rpPath)
+
+BASE_URL <- params$baseUrl
 
 ## read the input data frame. Is xlsx or tsv?
 if(tools::file_ext(params$inputPathUploadedFile) == "xlsx"){

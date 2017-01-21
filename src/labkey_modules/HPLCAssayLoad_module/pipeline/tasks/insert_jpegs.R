@@ -12,6 +12,8 @@ options(stringsAsFactors = FALSE)
 library(Rlabkey)
 library(stringr)
 
+source("C:/labkey/labkey/files/Optides/@files/Utils.R")
+
 jobInfoFile <- sub("..", "../", "${pipeline, taskInfo}", perl=TRUE)
 jobInfo <- read.table(jobInfoFile,
                       col.names=c("name", "value", "type"),
@@ -101,41 +103,12 @@ if(fail){
 ## Make the _netrc file we need in order to connect to the database through rlabkey
 ##
 #######################################################################################
-filename <- paste0(Sys.getenv()["HOME"], .Platform$file.sep, "_netrc")
-machine_name <- "machine optides-stage.fhcrc.org"
-user_name <- "login brusniak.computelifesci@gmail.com"
-pwd <- "password Kn0ttin10K"
-if(!file.exists(filename)){
-	f = file(description=filename, open="w")
-	cat(file=f, sep="", machine_name, "\n")
-	cat(file=f, sep="", user_name, "\n")
-	cat(file=f, sep="", pwd, "\n")
-	flush(con=f)
-	close(con=f)
-}else{
-	txtFile <- readLines(filename)
-	counter <- 0
-	for(i in 1:length(txtFile)){
-		if(txtFile[i] == machine_name){
-			counter <- counter + 1
-		}
-		if(txtFile[i] == user_name){
-			counter <- counter + 1
-		}
-		if(txtFile[i] == pwd){
-			counter <- counter + 1
-		}
-	}
-	if(counter != 3){
-		write(machine_name,file=filename,append=TRUE)
-		write("\n",file=filename,append=TRUE)
-		write(user_name,file=filename,append=TRUE)
-		write("\n",file=filename,append=TRUE)
-		write(pwd,file=filename,append=TRUE)
-		write("\n",file=filename,append=TRUE)
-	}
+machineName <- machineNameFromBaseURL(BASE_URL)
+login <- "brusniak.computelifesci@gmail.com"
+password <- "Kn0ttin10K"
 
-}
+write_NetRC_file(machineName, login, password)
+
 ######################################
 ## end
 ######################################

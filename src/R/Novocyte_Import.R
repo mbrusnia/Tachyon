@@ -9,15 +9,16 @@ options(stringsAsFactors = FALSE)
 
 source("${srcDirectory}/Utils.R")
 
-#Parameters for this script (login script: _netrc)
-BASE_URL = "http://optides-prod.fhcrc.org/"
 
 ${rLabkeySessionId}
 
 rpPath <- "${runInfo}"
 
 ## read the file paths etc out of the runProperties.tsv file
-params <- getRunPropsList(rpPath, BASE_URL)
+params <- getRunPropsList(rpPath)
+
+#Parameters for this script (login script: _netrc)
+BASE_URL = params$baseUrl
 
 ## read the input data frame. Is xlsx or tsv?
 if(tools::file_ext(params$inputPathUploadedFile) == "xlsx"){

@@ -42,38 +42,12 @@ VECTOR_COL_NAME <- "Vector"
 ## Make the _netrc file we need in order to connect to the database through rlabkey
 ##
 #######################################################################################
-filename <- paste0(Sys.getenv()["HOME"], .Platform$file.sep, "_netrc")
 machineName <- machineNameFromBaseURL(BASE_URL)
 login <- "brusniak.computelifesci@gmail.com"
 password <- "Kn0ttin10K"
-if(!file.exists(filename)){
-	f = file(description=filename, open="w")
-	cat(file=f, sep="", "machine ", machineName, "\n")
-	cat(file=f, sep="", "login ", login, "\n")
-	cat(file=f, sep="", "password ", password, "\n")
-	flush(con=f)
-	close(con=f)
-}else{
-	txtFile <- readLines(filename)
-	counter <- 0
-	for(i in 1:length(txtFile)){
-		if(txtFile[i] == paste0("machine ", machineName)){
-			counter <- counter + 1
-		}
-		if(txtFile[i] == paste0("login ", login)){
-			counter <- counter + 1
-		}
-		if(txtFile[i] == paste0("password ", password)){
-			counter <- counter + 1
-		}
-	}
-	if(counter != 3){
-		write(paste0("\nmachine ", machineName),file=filename,append=TRUE)
-		write(paste0("login ", login),file=filename,append=TRUE)
-		write(paste0("password ", password),file=filename,append=TRUE)
-	}
 
-}
+write_NetRC_file(machineName, login, password)
+
 ######################################
 ## end
 ######################################

@@ -1,17 +1,19 @@
 #this script copies all data from prod to stage.  it assumes the DB schemas are the same
 library(Rlabkey)
 
+BASE_URL_FROM = "http://optides-prod.fhcrc.org"
+BASE_URL_TO = "http://optides-stage.fhcrc.org"
 
-sampleSetCopyData <- function(FOLDER_PATH, SAMPLESET){
+sampleSetCopyData <- function(FOLDER_PATH, SAMPLESET, BASE_URL_FROM, BASE_URL_TO){
 	thisSampleSet <- labkey.selectRows( 
-	    baseUrl="http://optides-prod.fhcrc.org", 
+	    baseUrl=BASE_URL_FROM, 
 	    folderPath=FOLDER_PATH, 
 	    schemaName="samples", 
 	    queryName=SAMPLESET, 
 	    colNameOpt="fieldname" 
 	) 
 	thisSampleSet <- cbind(thisSampleSet, labkey.selectRows( 
-	    baseUrl="http://optides-prod.fhcrc.org", 
+	    baseUrl=BASE_URL_FROM, 
 	    folderPath=FOLDER_PATH, 
 	    schemaName="samples", 
 	    queryName=SAMPLESET, 
@@ -24,7 +26,7 @@ sampleSetCopyData <- function(FOLDER_PATH, SAMPLESET){
 	thisSampleSet <- thisSampleSet[is.na(thisSampleSet$Flag),]
 
 	pCI <- labkey.insertRows( 
-	   baseUrl="http://optides-stage.fhcrc.org", 
+	   baseUrl=BASE_URL_TO, 
 	   folderPath=FOLDER_PATH, 
 	   schemaName="samples", 
  	   queryName=SAMPLESET, 
@@ -32,7 +34,7 @@ sampleSetCopyData <- function(FOLDER_PATH, SAMPLESET){
 	)
 	for (index in 1:nrow(thisSampleSetB)) {
 		pCI <- labkey.insertRows( 
-		   baseUrl="http://optides-stage.fhcrc.org", 
+		   baseUrl=BASE_URL_TO, 
 		   folderPath=FOLDER_PATH, 
 		   schemaName="samples", 
  		   queryName=SAMPLESET, 
@@ -43,26 +45,26 @@ sampleSetCopyData <- function(FOLDER_PATH, SAMPLESET){
 
 
 ###insert everything from optide-prod.Homologue, Variant, and Construct
-sampleSetCopyData("/Optides/CompoundsRegistry/Samples", "Homologue")
-sampleSetCopyData("/Optides/CompoundsRegistry/Samples", "Variant")
-sampleSetCopyData("/Optides/CompoundsRegistry/Samples", "Construct")
+sampleSetCopyData("/Optides/CompoundsRegistry/Samples", "Homologue", BASE_URL_FROM, BASE_URL_TO)
+sampleSetCopyData("/Optides/CompoundsRegistry/Samples", "Variant", BASE_URL_FROM, BASE_URL_TO)
+sampleSetCopyData("/Optides/CompoundsRegistry/Samples", "Construct", BASE_URL_FROM, BASE_URL_TO)
 
 ###insert everything from optide-prod.HTProduction
-sampleSetCopyData("/Optides/CompoundsRegistry/Samples", "HTProduction")
+sampleSetCopyData("/Optides/CompoundsRegistry/Samples", "HTProduction", BASE_URL_FROM, BASE_URL_TO)
 
 ###insert everything from optide-prod.SGI_DNA
-sampleSetCopyData("/Optides/CompoundsRegistry/Samples", "SGI_DNA")
+sampleSetCopyData("/Optides/CompoundsRegistry/Samples", "SGI_DNA", BASE_URL_FROM, BASE_URL_TO)
 
 ###insert everything from optide-prod.OTDProduction
 prodOTDProduction <- labkey.selectRows(
-	baseUrl="http://optides-prod.fhcrc.org",
+	baseUrl=BASE_URL_FROM,
 	folderPath="/Optides/CompoundsRegistry/Samples",
 	schemaName="samples",
 	queryName="OTDProduction",
 	colNameOpt="fieldname"
 )
 prodOTDProduction <- cbind(prodOTDProduction , labkey.selectRows( 
-	    baseUrl="http://optides-prod.fhcrc.org", 
+	    baseUrl=BASE_URL_FROM, 
 	    folderPath="/Optides/CompoundsRegistry/Samples", 
 	    schemaName="samples", 
 	    queryName="OTDProduction", 
@@ -81,7 +83,7 @@ prodOTDProductionB <- prodOTDProduction[!is.na(prodOTDProduction$Flag),]
 prodOTDProduction<- prodOTDProduction[is.na(prodOTDProduction$Flag),]
 
 pOTDPI <- labkey.insertRows(
-	baseUrl="http://optides-stage.fhcrc.org",
+	baseUrl=BASE_URL_TO,
 	folderPath="/Optides/CompoundsRegistry/Samples",
 	schemaName="samples",
 	queryName="OTDProduction",
@@ -89,7 +91,7 @@ pOTDPI <- labkey.insertRows(
 )
 for (index in 1:nrow(prodOTDProductionB)) {
 		pCI <- labkey.insertRows( 
-		   baseUrl="http://optides-stage.fhcrc.org", 
+		   baseUrl=BASE_URL_TO, 
 		   folderPath="/Optides/CompoundsRegistry/Samples", 
 		   schemaName="samples", 
  		   queryName="OTDProduction", 
