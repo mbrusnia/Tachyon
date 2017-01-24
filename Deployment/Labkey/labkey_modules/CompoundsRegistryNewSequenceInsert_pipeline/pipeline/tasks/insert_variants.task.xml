@@ -1,0 +1,13 @@
+<task xmlns="http://labkey.org/pipeline/xml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:type="ScriptTaskType"
+      name="insert_variants" version="0.0">
+    <description>Insert New Variant Sequences</description>
+    <inputs>
+		<file name="input.xlsx"/>
+	</inputs>
+	<outputs>
+		<file name="output.xxx"/>
+	</outputs>
+	<script file="insert_variants.R"/>
+</task>
