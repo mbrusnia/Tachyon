@@ -1,8 +1,0 @@
-<pipeline xmlns="http://labkey.org/pipeline/xml"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      name="sgi_delivery_data_class" version="0.0">
-    <description>Data Class: Upload SGI Delivery info into the Database</description>
-    <tasks>
-		<taskref ref="SGI_DNA_DataClass_pipeline:task:sgi_delivery"/>
-    </tasks>
-</pipeline>

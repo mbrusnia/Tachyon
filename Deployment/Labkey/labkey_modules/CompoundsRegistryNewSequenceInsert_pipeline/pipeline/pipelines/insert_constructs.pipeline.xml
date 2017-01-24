@@ -1,8 +1,0 @@
-<pipeline xmlns="http://labkey.org/pipeline/xml"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      name="insert_constructs" version="0.0">
-    <description>Insert New Construct Sequences</description>
-    <tasks>
-		<taskref ref="CompoundsRegistryNewSequenceInsert_pipeline:task:insert_constructs"/>
-    </tasks>
-</pipeline>

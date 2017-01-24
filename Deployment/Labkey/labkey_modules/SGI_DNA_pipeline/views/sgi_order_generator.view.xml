@@ -1,7 +1,0 @@
-<view xmlns="http://labkey.org/data/xml/view" title="Upload a spreadsheet of orders for SGI" frame="none">
-    <dependencies>
-        <dependency path="clientapi"/>
-    </dependencies>
-</view>
-
-
