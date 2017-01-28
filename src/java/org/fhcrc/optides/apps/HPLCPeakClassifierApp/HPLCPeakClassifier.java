@@ -11,6 +11,7 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 import java.nio.charset.Charset;
 
 import javax.xml.parsers.*;
