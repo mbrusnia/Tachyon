@@ -2,6 +2,7 @@ package org.fhcrc.optides.apps.HPLCPeakClassifierApp;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 public class HPLCPeakList extends ArrayList<HPLCPeak> {
 	protected HPLCPeak majorPeak = null;
 	
