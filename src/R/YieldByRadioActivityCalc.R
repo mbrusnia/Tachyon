@@ -66,7 +66,7 @@ inputDF$Recovered_uMol = -1.0
 DILUTION = 100
 for(i in 1:nrow(inputDF)){
 	avgMW = as.numeric(chemProd$AverageMW[chemProd$CHEMProductionID == inputDF$ChemProductionID[i]][1])
-	inputDF$CiPerCPM_Calibration_Factor[i] = standardsList[standardsList[,"Version"] == params$standardCurve, "Slope"] * as.numeric(inputDF$CPM) + as.numeric(standardsList[standardsList[,"Version"] == params$standardCurve, "YIntercept"])
+	inputDF$CiPerCPM_Calibration_Factor[i] = standardsList[standardsList[,"Version"] == params$standardCurve, "Slope"] * as.numeric(inputDF$CPM[i]) + as.numeric(standardsList[standardsList[,"Version"] == params$standardCurve, "YIntercept"])
 	inputDF$Recovered_Mg[i] <-round(as.numeric(inputDF$InputProtein_mg[i]) * as.numeric(inputDF$Elute_Peak_Area[i]) * as.numeric(inputDF$Elute_mL[i]) / (as.numeric(inputDF$Reaction_Peak_Area_mV[i])*as.numeric(inputDF$Input_mL[i])), digits=1)
 	inputDF$Specific_Activity_CiPerMol[i] <- as.numeric(inputDF$CiPerCPM_Calibration_Factor[i]) * (as.numeric(inputDF$Elute_mL[i]) / CPM_VOL_ML) * DILUTION
 	inputDF$Specific_Activity_CiPerMol[i] <- round(inputDF$Specific_Activity_CiPerMol[i] / (1.0E12 * (as.numeric(inputDF$Recovered_Mg[i]*1.0E-3) / avgMW)), digits=0)
