@@ -10,9 +10,9 @@ public class BatFileCreator {
 		//--classification=2 --MaxMAUForPeak=500 --outdir="C:/user/mbrusniak/output"
 
 		String fileType = "";
-		Integer fileStartingNumber = 3570;
-		String inputDir = "C:\\HT_UPLC_ExportFiles";
-		String outDir = "C:\\HT_UPLC_Report";
+		Integer fileStartingNumber = 0;
+		String inputDir = "C:\\Users\\Admin\\Desktop\\";
+		String outDir = "C:\\Users\\Admin\\Desktop\\";
 		Double sn_ratio = 0.2;
 		Double minRTForPeak = 0.8;
 		Double maxRTForPeak = 2.7;
