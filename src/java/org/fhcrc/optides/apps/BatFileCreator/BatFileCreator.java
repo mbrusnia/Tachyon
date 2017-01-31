@@ -11,13 +11,14 @@ public class BatFileCreator {
 
 		String fileType = "";
 		Integer fileStartingNumber = 3570;
-		String inputDir = "";
-		String outDir = "";
-		Double sn_ratio = 0.0;
-		Double maxRTForPeak = 0.0;
-		Double maxMAUForPeak = 0.0;
+		String inputDir = "C:\\HT_UPLC_ExportFiles";
+		String outDir = "C:\\HT_UPLC_Report";
+		Double sn_ratio = 0.2;
+		Double minRTForPeak = 0.8;
+		Double maxRTForPeak = 2.7;
+		Double maxMAUForPeak = 1.0;
 		Integer classification = 0;
-		
+
 		
 		
 		if(args.length != 8){
@@ -38,6 +39,8 @@ public class BatFileCreator {
 				inputDir = curParam[1];
 			else if(curParam[0].equals("--SN"))
 				sn_ratio = Double.parseDouble(curParam[1]);
+			else if(curParam[0].equals("--MinRTForPeak"))
+				minRTForPeak = Double.parseDouble(curParam[1]);
 			else if(curParam[0].equals("--MaxRTForPeak"))
 				maxRTForPeak = Double.parseDouble(curParam[1]);
 			else if(curParam[0].equals("--MaxMAUForPeak"))
