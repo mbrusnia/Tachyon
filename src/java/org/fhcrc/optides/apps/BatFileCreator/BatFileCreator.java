@@ -17,7 +17,7 @@ public class BatFileCreator {
 		Double minRTForPeak = 0.8;
 		Double maxRTForPeak = 2.7;
 		Double maxMAUForPeak = 1.0;
-		Integer classification = 0;
+		Integer classification = 2;
 
 		
 		
