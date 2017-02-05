@@ -4,7 +4,9 @@ open( my $fh, '<', "C:/Users/Hector/Documents/HRInternetConsulting/Clients/FHCRC
 my $i = 0;
     while ( my $protID = <$fh>) {
 		chomp $protID;
-		$content = get("http://www.uniprot.org/uniprot/" . $protID . ".txt\n");
+		my $link = "http://www.uniprot.org/uniprot/" . $protID . ".txt";
+		#print $link . "\n";
+		$content = get($link);
 			die "Couldn't get it!" unless defined $content;
 		
 		my $id;
@@ -13,12 +15,15 @@ my $i = 0;
 		my $signalPep = "false";
 		my $isSeq = "false";
 		my $seq;
+		my $organism;
 		@a = split(/\n/, $content);
 		for ($j=0; $j < scalar(@a); $j++){
 			my $ln = $a[$j];
 			#<feature type="signal peptide"> 
 			#<feature type="chain"> with id starting with “PRO”,
-			if ( $ln =~ /^FT   SIGNAL/) {
+			if ( $ln =~ /^OS   (\w+ \w+).*$/) {
+				$organism = $1;
+			}elsif ( $ln =~ /^FT   SIGNAL/) {
 				$signalPep = "true";
 			}elsif ( $ln =~ /^FT   CHAIN/) {
 				$j++;
@@ -48,9 +53,11 @@ my $i = 0;
 			if($chain eq "true"){
 				print "PRO";
 			}
+			print "," . $organism;
 			print "\n" . $seq . "\n";
-		} #else{
-			print "---NO--------\n" . "http://www.uniprot.org/uniprot/" . $protID . ".txt\n\n";
+		} 
+		#else{
+		#	print "---NO--------\n" . "http://www.uniprot.org/uniprot/" . $protID . ".txt\n\n";
 		#}
     }
 close $fh;
