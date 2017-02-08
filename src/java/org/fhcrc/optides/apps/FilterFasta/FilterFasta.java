@@ -21,6 +21,10 @@ public class FilterFasta {
 		//FilterFasta.java -input_fasta=input.fasta -filter_criteria_col_name=percIdntity 
 		//-filter_input=Blast.csv -ceiling_value=10.0 -floor_value=-1 -output_fasta=filtered.fasta
 		//-exclude_fasta=path/to/exclusionList -stats_output_file=full.path.to.desired.output.file
+		// Or simple Protein Name based filtering
+		//-input_fasta=/Users/mbrusnia/Documents/HTLibrary/uniprot_trembl.fasta
+		//-proteinName_filter=/Users/mbrusnia/Documents/HTLibrary/3K_v2/2017_0105_3610_ProteinNameList.txt
+		//-output_fasta=/Users/mbrusnia/Documents/HTLibrary/3K_v2/2016_3610_fullLength.fasta
 
 		String inputFasta = "";
 		String outputFasta = "";
@@ -34,11 +38,6 @@ public class FilterFasta {
 		boolean max=false;
 		boolean min=false;
 		
-		if(args.length < 7 || args.length > 10){
-			System.out.println("This program requires six to nine parameters to Run.  Please see the following USAGE:");
-			printUsage();
-			return;
-		}
 		//get input params
 		String[] curParam = null;
 		for(int i = 0; i < args.length; i++){
@@ -79,7 +78,12 @@ public class FilterFasta {
 				return;
 			}			
 		}
-		
+		if(proteinNameFilterFile.equals("") && (args.length < 7 || args.length > 10)){
+			System.out.println("This program requires six to nine parameters to Run.  Please see the following USAGE:");
+			printUsage();
+			return;
+		}
+
 		try {
 			FilterFasta.doFilter(inputFasta, outputFasta, filterInput, excludeFasta, outputStats, filterCriteriaColName, ceilingValue, floorValue, proteinNameFilterFile, max, min);
 		} catch (FileNotFoundException e) {
