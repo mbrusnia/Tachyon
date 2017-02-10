@@ -110,10 +110,10 @@ public class HPLCPeakClassifier {
 			br.close();
 			
 			System.out.println("arw files detected.  SampleName1: " + firstSampleName + "   sampleName2: " + secondSampleName);
-			if(!firstSampleName.equals(secondSampleName)){
+			if(!firstSampleName.replace("_DTT", "").replace("_NR", "").equals(secondSampleName.replace("_DTT", "").replace("_NR", ""))){
 				throw new Error("The sample name of R and NR do not match!  Something is wrong.");
 			}
-			sampleName = firstSampleName;
+			sampleName = firstSampleName.replace("_DTT", "").replace("_NR", "").replaceAll("_", "-");
 		}else{
 			File inputFile = new File(sampleInfoXmlFile);
 			DocumentBuilderFactory factory =DocumentBuilderFactory.newInstance();

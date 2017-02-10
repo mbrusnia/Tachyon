@@ -1,14 +1,14 @@
 package org.fhcrc.optides.apps.BatFileCreator;
 
 public class BatFileCreator {
-	public static String fileSeparator = "\\";
+	public static String fileSeparator = "/";
 	public static String jarLocation = "C:" + fileSeparator + "Program Files" + fileSeparator + "OptidesSoftware" + fileSeparator;
 	
-
 	public static void main(String[] args) {
 		//BatFileCreator --lef.FileType="arw" --FileStartingNumber=3570 
 		//--inputdir="C:/user/mbrusniak/input" --SN=.2 --MaxRTForPeak=11 
 		//--classification=2 --MaxMAUForPeak=500 --outdir="C:/user/mbrusniak/output"
+		// --filenamePrefix="HT_UPLC_Export"
 
 		Integer fileStartingNumber = 0;
 		String fileType = "arw";
@@ -19,13 +19,13 @@ public class BatFileCreator {
 		Double maxRTForPeak = 2.7;
 		Double maxMAUForPeak = 1.0;
 		Integer classification = 2;
+		String filenamePrefix = "HT_UPLC_Export";
 
-		
 		
 		if(args.length < 1){
 			System.out.println("This program REQUIRES 1 parameter to run, and up to 8 other OPTIONAL parameters:");
-			printUsage(fileStartingNumber, fileType = "arw", inputDir = "C:\\Users\\Admin\\Desktop\\",
-					outDir, sn_ratio = 0.2, minRTForPeak, maxRTForPeak, maxMAUForPeak, classification);
+			printUsage(fileStartingNumber, fileType, inputDir, outDir, sn_ratio = 0.2, minRTForPeak, 
+					maxRTForPeak, maxMAUForPeak, classification, filenamePrefix);
 			return;
 		}
 		
@@ -49,20 +49,22 @@ public class BatFileCreator {
 				maxMAUForPeak = Double.parseDouble(curParam[1]);		
 			else if(curParam[0].equals("--outdir"))
 				outDir = curParam[1];	
+			else if(curParam[0].equals("--filenamePrefix"))
+				filenamePrefix = curParam[1];	
 			else if(curParam[0].equals("--classification")) 
 				classification = Integer.parseInt(curParam[1]);
 			else{
 				System.out.println("Unrecognized command line parameter: " + curParam[0]);
-				printUsage(fileStartingNumber, fileType = "arw", inputDir = "C:\\Users\\Admin\\Desktop\\",
-						outDir, sn_ratio = 0.2, minRTForPeak, maxRTForPeak, maxMAUForPeak, classification);
+				printUsage(fileStartingNumber, fileType, inputDir, outDir, sn_ratio = 0.2, 
+						minRTForPeak, maxRTForPeak, maxMAUForPeak, classification, filenamePrefix);
 				return;
 			}
 		}
 		
 		if(fileStartingNumber == 0){
 			System.out.println("Required Parameter \"FileStartingNumber\" missing:");
-			printUsage(fileStartingNumber, fileType = "arw", inputDir = "C:\\Users\\Admin\\Desktop\\",
-					outDir, sn_ratio = 0.2, minRTForPeak, maxRTForPeak, maxMAUForPeak, classification);
+			printUsage(fileStartingNumber, fileType, inputDir, outDir, sn_ratio = 0.2, minRTForPeak, 
+					maxRTForPeak, maxMAUForPeak, classification, filenamePrefix);
 			return;
 		}
 		
@@ -78,7 +80,7 @@ public class BatFileCreator {
 		
 		int curOffset = 0;
 		for(int i = 0; i < (8 * 12 + 8*2) * 2 ;i++){
-			System.out.println("\"C:/Program Files/OptidesSoftware/dos2unix.exe\" \"" + inputDir + (fileStartingNumber + curOffset) + "." + fileType + "\"");
+			System.out.println("\"C:/Program Files/OptidesSoftware/dos2unix.exe\" \"" + inputDir + filenamePrefix + (fileStartingNumber + curOffset) + "." + fileType + "\"");
 
 			if(i == 0)
 				curOffset += 5;
@@ -97,16 +99,17 @@ public class BatFileCreator {
 				h2o1 = fileStartingNumber + curOffset;				
 			}else{
 				System.out.println("java -jar \"" + jarLocation + "HPLCPeakClassifier.jar\" ^");
-				System.out.println("--BLANK_R=\"" + inputDir + ((i % 2 == 0) ? h2o0:h2o1) + "." + fileType + "\" ^");
-				System.out.println("--R=\"" + inputDir + (fileStartingNumber + curOffset) + "." + fileType + "\" ^");
-				System.out.println("--BLANK_NR=\"" + inputDir + (((i % 2 == 0) ? h2o0:h2o1) + r_nr_offset + ((i % 2 == 0 && i < 14) ? 1:0)) + "." + fileType + "\" ^");
-				System.out.println("--NR=\"" + inputDir + (fileStartingNumber + curOffset + r_nr_offset) + "." + fileType + "\" ^");
+				System.out.println("--BLANK_R=\"" + inputDir + filenamePrefix + ((i % 2 == 0) ? h2o0:h2o1) + "." + fileType + "\" ^");
+				System.out.println("--R=\"" + inputDir + filenamePrefix + (fileStartingNumber + curOffset) + "." + fileType + "\" ^");
+				System.out.println("--BLANK_NR=\"" + inputDir + filenamePrefix + (((i % 2 == 0) ? h2o0:h2o1) + r_nr_offset + ((i % 2 == 0 && i < 14) ? 1:0)) + "." + fileType + "\" ^");
+				System.out.println("--NR=\"" + inputDir + filenamePrefix + (fileStartingNumber + curOffset + r_nr_offset) + "." + fileType + "\" ^");
 				System.out.println("--outdir=\"" + outDir + "\" ^");
 				System.out.println("--SN=" + sn_ratio + " ^");
 				System.out.println("--Classification=" + classification + " ^");
 				System.out.println("--MaxRTForPeak=" + maxRTForPeak + " ^");
 				System.out.println("--MinRTForPeak=" + minRTForPeak + " ^");
-				System.out.println("--MaxMAUForPeak=" + maxMAUForPeak);
+				System.out.println("--MaxMAUForPeak=" + maxMAUForPeak + " ^");
+				System.out.println("--sampleInfo=specifiedInFiles");
 				
 				System.out.println();
 			}
@@ -118,8 +121,8 @@ public class BatFileCreator {
 		}
 	}
 
-	private static void printUsage(Integer fileStartingNumber, String fileType, String inputDir, String outDir, Double sn_ratio, Double minRTForPeak, Double maxRTForPeak, Double maxMAUForPeak, Integer classification) {
-		System.out.println("BatFileCreator --lef.FileType=\"awr\" --FileStartingNumber=3570 --inputdir=path.to.input.dir --SN=.2 --MaxRTForPeak=11 --MinRTForPeak=11 --classification=2 --MaxMAUForPeak=500 --outdir=path.to.out.dir");
+	private static void printUsage(Integer fileStartingNumber, String fileType, String inputDir, String outDir, Double sn_ratio, Double minRTForPeak, Double maxRTForPeak, Double maxMAUForPeak, Integer classification, String filenamePrefix) {
+		System.out.println("BatFileCreator --lef.FileType=awr --FileStartingNumber=3570 --inputdir=path.to.input.dir --SN=.2 --MaxRTForPeak=11 --MinRTForPeak=11 --classification=2 --MaxMAUForPeak=500 --outdir=path.to.out.dir --filenamePrefix=XYZ");
 		System.out.println();
 		System.out.println("Only --FileStartingNumber is REQUIRED.  All other parameters are optional and have default values.  These are the currently set values:");
 		System.out.println("--FileStartingNumber:\t"+fileStartingNumber);
@@ -131,6 +134,7 @@ public class BatFileCreator {
 		System.out.println("--MaxRTForPeak:\t"+maxRTForPeak);
 		System.out.println("--MaxMAUForPeak:\t"+maxMAUForPeak);
 		System.out.println("--Classification:\t"+classification);
+		System.out.println("--filenamePrefix:\t"+filenamePrefix);
 		System.out.println();
 		
 	}
