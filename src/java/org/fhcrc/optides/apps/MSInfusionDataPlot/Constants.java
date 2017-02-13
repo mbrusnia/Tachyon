@@ -18,7 +18,7 @@ public class Constants {
 
 	//when we are peak picking a spectrum, we cut out all intensities below
 	//peakPickingIntensityCuttoff * highestIntensity of that spectrum
-	public final static double peakPickingIntensityCuttoff = .05; 
+	public final static double peakPickingIntensityCuttoff = .05;
 	
 	//the program's output of averaged monoisotopic peaks across several spectrum
 	//only reports peaks that are finalIntensityCuttoff*HighestIntensityOfAllSpectra
