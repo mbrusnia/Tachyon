@@ -44,7 +44,7 @@ public class HPLCPeakClassifier {
 	//max and min RTs to use in all calculations
 	private double maxRTForPeak = 11.0; 
 	private static double minRTForPeak = 2.0; 
-	
+	private double defaultXmax = 15;
 	//when checking for r and nr peak overlap, this is the RT tolerance for the window
 	private static double peakOverlapTolerance = .1;
 	
@@ -144,7 +144,7 @@ public class HPLCPeakClassifier {
 		int classification = 0; 
 		double maxRTForPeak = 11.0;
 		double chartDefaultYmax = 500;
-		
+
 		//get input params
 		String[] curParam = null;
 		for(int i = 0; i < args.length; i++){
@@ -261,7 +261,7 @@ public class HPLCPeakClassifier {
 			System.out.println("Chart Title: " + chartName);
 			System.out.println("Filename: " + fileName);
 			
-			hpc.drawHPLCsAsJPG(chartName, outDir + fileName.replace(" ",  ""), 800, 600, chartDefaultYmax);
+			hpc.drawHPLCsAsJPG(chartName, outDir + fileName.replace(" ",  ""), 800, 600,chartDefaultYmax);
 		
 			//append stats to log file
 			/*
@@ -355,7 +355,7 @@ public class HPLCPeakClassifier {
 
 		ValueAxis domain1 = new NumberAxis("Retention Time (min)");
 		//domain1.setRange(lowerMz, higherMz);
-		domain1.setRange(0, 15);
+		domain1.setRange(0, defaultXmax);
 		ValueAxis range1 = new NumberAxis("mAU (214nm wavelength)");
 		double yMax = defaultYmax;
 		double yNRpp = maxAUvalue(rpp, nrpp);
@@ -508,6 +508,7 @@ public class HPLCPeakClassifier {
 	        if(isARW){
 	        	bufferedReader.readLine();
 	        	bufferedReader.readLine();
+				defaultXmax=4;
 	        }
 	        while((line = bufferedReader.readLine()) != null) {
 	        	double multiplicationFactor = 1.0;
