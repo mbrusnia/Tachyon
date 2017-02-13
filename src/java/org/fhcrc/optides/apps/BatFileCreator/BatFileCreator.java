@@ -51,7 +51,7 @@ public class BatFileCreator {
 				outDir = curParam[1];	
 			else if(curParam[0].equals("--filenamePrefix"))
 				filenamePrefix = curParam[1];	
-			else if(curParam[0].equals("--classification")) 
+			else if(curParam[0].equals("--Classification"))
 				classification = Integer.parseInt(curParam[1]);
 			else{
 				System.out.println("Unrecognized command line parameter: " + curParam[0]);
