@@ -110,10 +110,22 @@ public class HPLCPeakClassifier {
 			br.close();
 			
 			System.out.println("arw files detected.  SampleName1: " + firstSampleName + "   sampleName2: " + secondSampleName);
-			if(!firstSampleName.replace("_DTT", "").replace("_NR", "").equals(secondSampleName.replace("_DTT", "").replace("_NR", ""))){
+
+			if(firstSampleName.indexOf("_DTT") > 0)
+				firstSampleName = firstSampleName.substring(0, firstSampleName.indexOf("_DTT"));
+			if(firstSampleName.indexOf("_NR") > 0)
+				firstSampleName = firstSampleName.substring(0, firstSampleName.indexOf("_NR"));
+			if(secondSampleName.indexOf("_DTT") > 0)
+				secondSampleName = secondSampleName.substring(0, secondSampleName.indexOf("_DTT"));
+			if(secondSampleName.indexOf("_NR") > 0)
+				secondSampleName = secondSampleName.substring(0, secondSampleName.indexOf("_NR"));
+			
+			System.out.println("Parsed sampleNames:  SampleName1: " + firstSampleName + "   sampleName2: " + secondSampleName);
+
+			if(!firstSampleName.equals(secondSampleName)){
 				throw new Error("The sample name of R and NR do not match!  Something is wrong.");
 			}
-			sampleName = firstSampleName.replace("_DTT", "").replace("_NR", "").replaceAll("_", "-");
+			sampleName = firstSampleName.replaceAll("_", "-");
 		}else{
 			File inputFile = new File(sampleInfoXmlFile);
 			DocumentBuilderFactory factory =DocumentBuilderFactory.newInstance();
@@ -128,7 +140,6 @@ public class HPLCPeakClassifier {
 				throw new Error("The sample name and file names do not match up.  Something is wrong.");
 			}
 		}
-		
 	}
 
 	public boolean isARW(){return isARW;}
