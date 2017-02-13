@@ -122,7 +122,7 @@ public class BatFileCreator {
 	}
 
 	private static void printUsage(Integer fileStartingNumber, String fileType, String inputDir, String outDir, Double sn_ratio, Double minRTForPeak, Double maxRTForPeak, Double maxMAUForPeak, Integer classification, String filenamePrefix) {
-		System.out.println("BatFileCreator --lef.FileType=awr --FileStartingNumber=3570 --inputdir=path.to.input.dir --SN=.2 --MaxRTForPeak=11 --MinRTForPeak=11 --classification=2 --MaxMAUForPeak=500 --outdir=path.to.out.dir --filenamePrefix=XYZ");
+		System.out.println("BatFileCreator --lef.FileType=arw --FileStartingNumber=3570 --inputdir=path.to.input.dir --SN=.2 --MaxRTForPeak=11 --MinRTForPeak=11 --classification=2 --MaxMAUForPeak=500 --outdir=path.to.out.dir --filenamePrefix=XYZ");
 		System.out.println();
 		System.out.println("Only --FileStartingNumber is REQUIRED.  All other parameters are optional and have default values.  These are the currently set values:");
 		System.out.println("--FileStartingNumber:\t"+fileStartingNumber);
