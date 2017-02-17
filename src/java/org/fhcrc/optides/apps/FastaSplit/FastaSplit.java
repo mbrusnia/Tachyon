@@ -85,7 +85,7 @@ public class FastaSplit {
     			
     			//unless we match a keyword
             	for(int i = 0; i < keywords.size(); i++){
-            		if(line.contains(keywords.get(i))){
+            		if(line.toLowerCase().contains(keywords.get(i).toLowerCase())){
             			curWriter = bw1;
             			break;
             		}
