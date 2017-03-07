@@ -29,7 +29,6 @@ inputDF <- xlsxToR(inputFile, header=TRUE)
 ##Parameters for this script (login script: _netrc)
 ##
 BASE_URL <- jobInfo$value[ grep("baseUrl", jobInfo$name)]
-BASE_URL <- gsub("https", "http", BASE_URL)
 CONTAINER_PATH <- jobInfo$value[ grep("containerPath", jobInfo$name)]
 SAMPLE_SETS_SCHEMA_NAME <- "samples"
 SAMPLESET_NAME <- "Construct"
