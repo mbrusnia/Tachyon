@@ -2,7 +2,7 @@ package org.fhcrc.optides.apps.BatFileCreator;
 
 public class BatFileCreator {
 	public static String fileSeparator = "/";
-	public static String optidesSoftwareDir = "C:" + fileSeparator + "Program Files" + fileSeparator + "OptidesSoftware" + fileSeparator;
+	public static String optidesSoftwareDir = "C:" + fileSeparator + "Users" + fileSeparator + "Admin" + fileSeparator + "Desktop" + fileSeparator + "OptidesSoftware" + fileSeparator;
 	
 	public static void main(String[] args) {
 		//BatFileCreator --lef.FileType="arw" --FileStartingNumber=3570 
@@ -12,8 +12,8 @@ public class BatFileCreator {
 
 		Integer fileStartingNumber = 0;
 		String fileType = "arw";
-		String inputDir = "C:\\Users\\Admin\\Desktop\\";
-		String outDir = "C:\\Users\\Admin\\Desktop\\";
+		String inputDir = "C:\\Users\\Admin\\Desktop\\HT_UPLC_Export";
+		String outDir = "C:\\Users\\Admin\\Desktop\\HT_UPLC_Reports";
 		Double sn_ratio = 0.2;
 		Double minRTForPeak = 0.8;
 		Double maxRTForPeak = 2.7;

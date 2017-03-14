@@ -15,7 +15,7 @@ public class HPLCPeakList extends ArrayList<HPLCPeak> {
 		double max = this.getMaxAU(lowerRT, upperRT);
 		
 		//if max au is not greater than peakAbsoluteAUThreshold, then forget it, we wont count any peaks at all
-		if(!isARW && max < peakAbsoluteAUThreshold)
+		if(max < peakAbsoluteAUThreshold)
 			return retVal;
 				
 		//find the peaks of the ones that pass  the s/n ratio

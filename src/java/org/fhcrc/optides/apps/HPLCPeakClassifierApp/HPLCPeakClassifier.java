@@ -62,7 +62,7 @@ public class HPLCPeakClassifier {
 	private HPLCPeakList nrpp = null;
 	
 	//path to Logging output file
-	private static String loggingFilepath = "C:/Program Files/OptidesSoftware/Optide-Hunter.log";
+	private static String loggingFilepath = "C:/Users/Admin/Desktop/OptidesSoftware/Optide-Hunter.log";
 	
 	//are the files we are dealing with arw files?
 	boolean isARW = false;
