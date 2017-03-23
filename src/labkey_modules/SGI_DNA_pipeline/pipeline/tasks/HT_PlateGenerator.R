@@ -25,7 +25,6 @@ pathToInputFile <- "${input.xlsx}"
 
 #Parameters for this script (login script: _netrc)
 BASE_URL <- jobInfo$value[ grep("baseUrl", jobInfo$name)]
-BASE_URL <- gsub("https", "http", BASE_URL)
 
 #######################################################################################
 ##
