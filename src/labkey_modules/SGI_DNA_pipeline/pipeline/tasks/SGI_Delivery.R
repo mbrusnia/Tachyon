@@ -22,7 +22,6 @@ jobInfo <- read.table(jobInfoFile,
 					  
 #Parameters for this script (login script: _netrc)
 BASE_URL <- jobInfo$value[ grep("baseUrl", jobInfo$name)]
-BASE_URL <- gsub("https", "http", BASE_URL)
 
 SAMPLE_SETS_SCHEMA_NAME = "Samples"
 SGI_DNA_QUERY_NAME = "SGI_DNA"

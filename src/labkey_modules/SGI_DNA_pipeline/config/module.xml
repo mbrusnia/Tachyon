@@ -6,7 +6,7 @@
     <bean id="moduleBean" class="org.labkey.api.module.SimpleModule">
         <property name="name" value="SGI_DNA_pipeline"/>
         <property name="version" value="0.0"/>
-        <property name="requiredServerVersion" value="0.0"/>
+        <property name="requiredServerVersion" value="1.01"/>
         <property name="moduleDependencies" value=""/>
 
         <property name="label" value=""/>
