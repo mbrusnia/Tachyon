@@ -144,6 +144,7 @@ public class HPLCPeakClassifier {
 		int classification = 0; 
 		double maxRTForPeak = 11.0;
 		double chartDefaultYmax = 500;
+		double chartDefaultYmin = 0;
 
 		//get input params
 		String[] curParam = null;
@@ -168,7 +169,9 @@ public class HPLCPeakClassifier {
 			else if(curParam[0].equals("--Classification"))
 				classification = Integer.parseInt(curParam[1]);
 			else if(curParam[0].equals("--MaxMAUForPeak"))
-				chartDefaultYmax = Double.parseDouble(curParam[1]);			
+				chartDefaultYmax = Double.parseDouble(curParam[1]);
+			else if(curParam[0].equals("--MinMAUForPeak"))
+				chartDefaultYmin = Double.parseDouble(curParam[1]);
 			else if(curParam[0].equals("--outdir"))
 				outDir = curParam[1];
 			else{
@@ -193,6 +196,7 @@ public class HPLCPeakClassifier {
 			System.out.println("--MinRTForPeak: " + minRTForPeak);
 			System.out.println("--MaxRTForPeak: " + maxRTForPeak);
 			System.out.println("--MaxMAUForPeak: " + chartDefaultYmax);
+			System.out.println("--MinMAUForPeak: " + chartDefaultYmin);
 			System.out.println(""); 
 			printUsage();
 			return;
@@ -261,7 +265,7 @@ public class HPLCPeakClassifier {
 			System.out.println("Chart Title: " + chartName);
 			System.out.println("Filename: " + fileName);
 			
-			hpc.drawHPLCsAsJPG(chartName, outDir + fileName.replace(" ",  ""), 800, 600,chartDefaultYmax);
+			hpc.drawHPLCsAsJPG(chartName, outDir + fileName.replace(" ",  ""), 800, 600,chartDefaultYmax,chartDefaultYmin);
 		
 			//append stats to log file
 			/*
@@ -346,11 +350,10 @@ public class HPLCPeakClassifier {
 	/*
 	 * using JFreeChart, draw the jpg of the LC runs
 	 */
-	private void drawHPLCsAsJPG(String chartTitle, String outputFilename, int width, int height, double defaultYmax) {
+	private void drawHPLCsAsJPG(String chartTitle, String outputFilename, int width, int height, double defaultYmax, double defaultYmin) {
 		XYDataset ds = createDataset(peakLists.get(rCsvFilepath), peakLists.get(nrCsvFilepath));
 		//ds = createDataset(rpp, nrpp);
-		
-		XYItemRenderer renderer1 = new XYLineAndShapeRenderer(true, false);  
+		XYItemRenderer renderer1 = new XYLineAndShapeRenderer(true, false);
 		renderer1.setBaseItemLabelsVisible(true);
 
 		ValueAxis domain1 = new NumberAxis("Retention Time (min)");
@@ -362,7 +365,7 @@ public class HPLCPeakClassifier {
 		if(yNRpp > yMax){
 			yMax = yNRpp + 20;
 		}
-		range1.setRange(0, yMax);
+		range1.setRange(defaultYmin, yMax);
 		//range1.setRange(0, 100);
 
 		XYPlot plot = new XYPlot();
