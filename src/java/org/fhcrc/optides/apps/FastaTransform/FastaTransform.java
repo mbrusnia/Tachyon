@@ -19,9 +19,13 @@ import org.fhcrc.optides.apps.FilterFasta.FilterFasta;
 
 public class FastaTransform {
 
+	private ArrayList<String> regularExpressions = null;
+	private Map<String, Integer> positionCutoffMap = null;
+	private ArrayList<String> endOfLogSummary = null;
+	
 	public static void main(String[] args) {
 		//--input=/fullpath/input.fasta --position_cutoff=position_cutoff_location.txt
-		//--regular_expression= "C[A-Z]{0,15}C[A-Z]{0,15}C[A-Z]{0,15}C[A-Z]{0,15}C[A-Z]{0,15}C"
+		//--regular_expression=path.to.multi.reg.ex.file
 		//--output=/fullpath/output.fasta --logfile=/fullpath/transformFasta.log
 		//--prefix_length and --sufix_length
 		
@@ -79,7 +83,8 @@ public class FastaTransform {
 		}
 		
 		try {
-			FastaTransform.doTransform(inputFasta, positionCutoffFile, regularExpression, outputFile, logFile, prefix_length, sufix_length);
+			FastaTransform ft = new FastaTransform();
+			ft.doTransform(inputFasta, positionCutoffFile, regularExpression, outputFile, logFile, prefix_length, sufix_length);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -90,22 +95,28 @@ public class FastaTransform {
 		System.out.println("End.");
 	}
 
-	private static void doTransform(String inputFasta, String positionCutoffFile, String regularExpression, String outputFile,
-			String logFile, int prefix_length, int sufix_length) throws Exception {
+	private void readRegularExpressions(String regularExpressionsFile) throws IOException {
+		regularExpressions = new ArrayList<String>();
+		FileReader reReader = new FileReader(regularExpressionsFile);
+		BufferedReader regexBufferedReader = new BufferedReader(reReader);
 
-		Map<String, Integer> positionCutoffMap = null;
-		FileReader inputFastaFile = null;
-		BufferedReader inputFastaBufferedReader = null;
-		
-		FileReader PCReader = null;
-		BufferedReader positionCutoffBufferedReader = null;
+		String line;
+		while((line = regexBufferedReader.readLine()) != null){
+			if(line.equals(""))
+				continue;
+			regularExpressions.add(line);
+		}	
+		regexBufferedReader.close();
+	}
 
+	private void readPositionCutoffMap(String file) throws Exception{
+		positionCutoffMap = new HashMap<String, Integer>();
 		String line = null;
 		String[] a = null;
-		if(!positionCutoffFile.equals("")){
+		if(!file.equals("")){
 			positionCutoffMap = new HashMap<String, Integer>();
-			PCReader = new FileReader(positionCutoffFile);
-			positionCutoffBufferedReader = new BufferedReader(PCReader);
+			FileReader PCReader = new FileReader(file);
+			BufferedReader positionCutoffBufferedReader = new BufferedReader(PCReader);
 			while((line = positionCutoffBufferedReader.readLine()) != null){
 				a = line.split("\\s+");
 				if(a.length != 2)
@@ -115,7 +126,16 @@ public class FastaTransform {
 			PCReader.close();
 			positionCutoffBufferedReader.close();
 		}
-
+		
+	}
+	private  void doTransform(String inputFasta, String positionCutoffFile, String regularExpressionsFile, String outputFile,
+			String logFile, int prefix_length, int sufix_length) throws Exception {
+		endOfLogSummary = new ArrayList<String>();
+		FileReader inputFastaFile = null;
+		BufferedReader inputFastaBufferedReader = null;
+		
+		readRegularExpressions(regularExpressionsFile);
+		readPositionCutoffMap(positionCutoffFile);
 
 		//prepare the writing
 		File fout1 = new File(outputFile);
@@ -132,6 +152,8 @@ public class FastaTransform {
 		String header_line = "";
 		int starting_idx = 0;
 		int ending_idx = 0;
+		String line;
+		String[] a;
 		while((line = inputFastaBufferedReader.readLine()) != null){
 			if(line.startsWith(">")){
 				a = line.split(" ");
@@ -145,9 +167,17 @@ public class FastaTransform {
 					sequence = line.substring(starting_idx);
 				}
 				
-				Pattern pattern = Pattern.compile(regularExpression);
-			    Matcher matcher = pattern.matcher(sequence);
-			    if(matcher.find()){
+				Pattern pattern = null;
+			    Matcher matcher = null;
+				int i = 0;
+				for(; i < regularExpressions.size(); i++){
+					pattern = Pattern.compile(regularExpressions.get(i));
+				    matcher = pattern.matcher(sequence);
+				    if(matcher.find())
+				    	break;
+				}
+				boolean matchedRegEx = i < regularExpressions.size();
+				if(matchedRegEx){
 					outputFastaFile.write(header_line + "\n");
 					if(prefix_length > -1 || sufix_length > -1){
 						if(prefix_length == -1 || prefix_length > matcher.start())
@@ -159,15 +189,25 @@ public class FastaTransform {
 							ending_idx = sequence.length();
 						else
 							ending_idx = matcher.end() + sufix_length;
-						outputFastaFile.write(sequence.substring(starting_idx, ending_idx) + "\n");
-					}else
-						outputFastaFile.write(sequence + "\n");
-					logFileWriter.write(curId + "\t" + matcher.start() + "\t" + (sequence.length() - matcher.end()) + "\n");
+						sequence = sequence.substring(starting_idx, ending_idx);
+					    matcher = pattern.matcher(sequence); //regenerate starting and ending indices
+					    matcher.find();
+					}
+					outputFastaFile.write(sequence + "\n");
+					logFileWriter.write(curId + ", " + matcher.start() + ", " + (sequence.length() - matcher.end()) + ", " + regularExpressions.get(i) + ", " + (matcher.end() - matcher.start()) +"\n");
+			    	endOfLogSummary.add(curId + ", matched");
 					//logFileWriter.write(newSeq.substring(0, matcher.start()) + "--" + newSeq.substring(matcher.start(), matcher.end())+ "--" +  newSeq.substring(matcher.end()) + "\n");
+			    }else{
+			    	logFileWriter.write(curId + ", unmatched\n");
+			    	endOfLogSummary.add(curId + ", unmatched");
 			    }
 			}
 			starting_idx = 0;
-		}		
+		}
+		
+		logFileWriter.write("\nSummary State:\n");
+		for(int i = 0; i < endOfLogSummary.size(); i++)
+			logFileWriter.write(endOfLogSummary.get(i) + "\n");
 		outputFastaFile.close();
 		logFileWriter.close();
 		
@@ -176,7 +216,7 @@ public class FastaTransform {
 	}
 
 	private static void printUsage() {
-		System.out.println("USAGE: java FastaTransform --input=pathToInputFasta --position_cutoff=pathToCutoffFile --regular_expression=\"regularExpression\" --output=pathToOutputFastaFile --logfile=pathToLogFile [--prefix_length=-1 --sufix_length=-1]");
+		System.out.println("USAGE: java FastaTransform --input=pathToInputFasta --position_cutoff=pathToCutoffFile --regular_expression=path.to.multi.reg.exp.file --output=pathToOutputFastaFile --logfile=pathToLogFile [--prefix_length=-1 --sufix_length=-1]");
 		System.out.println("");
 		System.out.println("The argument --position_cutoff cannot be used in conjunction with --prefix_length AND/OR --sufix_length.");
 	}
