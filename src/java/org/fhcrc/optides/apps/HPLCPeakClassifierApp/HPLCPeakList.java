@@ -4,13 +4,17 @@ import java.util.ArrayList;
 
 public class HPLCPeakList extends ArrayList<HPLCPeak> {
 	protected HPLCPeak majorPeak = null;
-	
-	//If there are no AU values above this value, we will not count any peaks (in peakPick())
-	public static double peakAbsoluteAUThreshold = 20.0;
-	
+
 	protected HPLCPeakList peakPick(double sn_ratio, double lowerRT, double upperRT, boolean isARW){
 		HPLCPeakList retVal = new HPLCPeakList();
-		
+		double peakAbsoluteAUThreshold;
+		if(isARW){
+			//If there are no AU values above this value, we will not count any peaks (in peakPick())
+			peakAbsoluteAUThreshold = 15.0;
+		}
+		else{
+			peakAbsoluteAUThreshold = 20.0;
+		}
 		//find max AU value
 		double max = this.getMaxAU(lowerRT, upperRT);
 		

@@ -569,7 +569,7 @@ public class HPLCPeakClassifier {
 	}
 
 	private static void printUsage() {
-		System.out.println("USAGE: HPLCPeakClassifier --NR=pathToNRcsvFile --R=pathToRcsvFile --BLANK_NR=pathToBlankNRCsvFile --BLANK_R=pathToBlankRCsvFile --sampleInfo=pathToSampleInfoXmlFile --outdir=pathToOutputDir --SN=sn_ratio_decimal --Classification=NumOfPeaksForClassification --MaxRTForPeak=maxRTtoConsider --MaxMAUForPeak=upperYvalueOnChart");
+		System.out.println("USAGE: HPLCPeakClassifier --NR=pathToNRcsvFile --R=pathToRcsvFile --BLANK_NR=pathToBlankNRCsvFile --BLANK_R=pathToBlankRCsvFile --sampleInfo=pathToSampleInfoXmlFile --outdir=pathToOutputDir --SN=sn_ratio_decimal --Classification=NumOfPeaksForClassification --MaxRTForPeak=maxRTtoConsider --MaxMAUForPeak=upperYvalueOnChart --MinMAUForPeak=lowerYvalueOnChart");
 		System.out.println("");
 		System.out.println("note: MaxMAUForPeak is defaulted to 500 if not entered.");
 		System.out.println("note: if SN parameter is set to greater than 1, then it will be used as an absolute intensity threshold cuttoff for peak finding.");
