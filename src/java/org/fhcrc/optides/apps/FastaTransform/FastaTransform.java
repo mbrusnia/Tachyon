@@ -1,5 +1,6 @@
 package org.fhcrc.optides.apps.FastaTransform;
 
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,17 +10,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.fhcrc.optides.apps.FilterFasta.FilterFasta;
 
 public class FastaTransform {
 
 	private ArrayList<String> regularExpressions = null;
+	private Map<String, ArrayList<Integer>> matchedRegexAAspreadStats = null; // needs to hold 1) regex 2)how many matches 3) sum of length of all matches
 	private Map<String, Integer> positionCutoffMap = null;
 	private ArrayList<String> endOfLogSummary = null;
 	
@@ -128,9 +128,14 @@ public class FastaTransform {
 		}
 		
 	}
+	
 	private  void doTransform(String inputFasta, String positionCutoffFile, String regularExpressionsFile, String outputFile,
 			String logFile, int prefix_length, int sufix_length) throws Exception {
 		endOfLogSummary = new ArrayList<String>();
+		matchedRegexAAspreadStats = new HashMap<String, ArrayList<Integer>>();
+
+		ArrayList<String> matchedRegularExpressions = null;
+		
 		FileReader inputFastaFile = null;
 		BufferedReader inputFastaBufferedReader = null;
 		
@@ -160,8 +165,9 @@ public class FastaTransform {
 				//">" is the first character, so substring starting at second character
 				curId = a[0].substring(1);
 				header_line = line;
-			}else if(!line.equals("")){
+			}else if(!line.equals("")){  //sequence
 				String sequence = line;
+				matchedRegularExpressions = new ArrayList<String>();
 				if(positionCutoffMap != null && positionCutoffMap.containsKey(curId)){
 					starting_idx = positionCutoffMap.get(curId);
 					sequence = line.substring(starting_idx);
@@ -169,37 +175,75 @@ public class FastaTransform {
 				
 				Pattern pattern = null;
 			    Matcher matcher = null;
-				int i = 0;
-				for(; i < regularExpressions.size(); i++){
+				for(int i = 0; i < regularExpressions.size(); i++){
 					pattern = Pattern.compile(regularExpressions.get(i));
 				    matcher = pattern.matcher(sequence);
 				    if(matcher.find())
-				    	break;
+				    	if(matchedRegularExpressions.size() == 0)  //first regex match
+					    	matchedRegularExpressions.add(regularExpressions.get(i));
+				    	else	//not first regex match
+				    		for(int j = 0; j < matchedRegularExpressions.size(); j++)
+				    			//if curRegex has been matched or a more specific (longer) regex has been previously matched, do nothing
+				    			if(matchedRegularExpressions.get(j).contains(regularExpressions.get(i)))
+				    				break; // do nothing
+				    			//if curRexEx is a longer/more specific version of one we've matched already, replace the old one with the new one
+				    			else if(regularExpressions.get(i).contains(matchedRegularExpressions.get(j))){
+				    				matchedRegularExpressions.set(j, regularExpressions.get(i));
+				    				break;
+				    			//if we've gotten to the end and neither of the two preceeding cases were true, simply add the regex to our collection of matched regexs
+				    			}else if(j == matchedRegularExpressions.size() - 1)
+				    				matchedRegularExpressions.add(regularExpressions.get(i));
 				}
-				boolean matchedRegEx = i < regularExpressions.size();
-				if(matchedRegEx){
-					outputFastaFile.write(header_line + "\n");
-					if(prefix_length > -1 || sufix_length > -1){
-						if(prefix_length == -1 || prefix_length > matcher.start())
-							starting_idx = 0;
-						else
-							starting_idx = matcher.start() - prefix_length;
 
-						if(sufix_length == -1 || sufix_length + matcher.end() > sequence.length())
-							ending_idx = sequence.length();
-						else
-							ending_idx = matcher.end() + sufix_length;
-						sequence = sequence.substring(starting_idx, ending_idx);
-					    matcher = pattern.matcher(sequence); //regenerate starting and ending indices
-					    matcher.find();
-					}
-					outputFastaFile.write(sequence + "\n");
-					logFileWriter.write(curId + ", " + matcher.start() + ", " + (sequence.length() - matcher.end()) + ", " + regularExpressions.get(i) + ", " + (matcher.end() - matcher.start()) +"\n");
-			    	endOfLogSummary.add(curId + ", matched");
-					//logFileWriter.write(newSeq.substring(0, matcher.start()) + "--" + newSeq.substring(matcher.start(), matcher.end())+ "--" +  newSeq.substring(matcher.end()) + "\n");
-			    }else{
+				if(matchedRegularExpressions.size() == 0){
 			    	logFileWriter.write(curId + ", unmatched\n");
 			    	endOfLogSummary.add(curId + ", unmatched");
+			    }else{
+			    	int match_leftmost_idx = Integer.MAX_VALUE;
+			    	int match_rightmost_idx = Integer.MIN_VALUE;
+			    	for(int i = 0; i < matchedRegularExpressions.size(); i++){
+						pattern = Pattern.compile(matchedRegularExpressions.get(i));
+					    matcher = pattern.matcher(sequence);
+					    matcher.find();
+					    if(matcher.start() < match_leftmost_idx)
+					    	match_leftmost_idx = matcher.start();
+					    if(matcher.end() > match_rightmost_idx)
+					    	match_rightmost_idx = matcher.end();
+			    	}
+					outputFastaFile.write(header_line + "\n");
+					if(prefix_length > -1 || sufix_length > -1){
+						if(prefix_length == -1 || prefix_length > match_leftmost_idx)
+							starting_idx = 0;
+						else
+							starting_idx = match_leftmost_idx - prefix_length;
+
+						if(sufix_length == -1 || sufix_length + match_rightmost_idx > sequence.length())
+							ending_idx = sequence.length();
+						else
+							ending_idx = match_rightmost_idx + sufix_length;
+						sequence = sequence.substring(starting_idx, ending_idx);
+					}
+					outputFastaFile.write(sequence + "\n");
+
+			    	for(int i = 0; i < matchedRegularExpressions.size(); i++){
+			    		String regex = matchedRegularExpressions.get(i);
+						pattern = Pattern.compile(regex);
+					    matcher = pattern.matcher(sequence);
+					    matcher.find();
+						logFileWriter.write(curId + ", " + matcher.start() + ", " + (sequence.length() - matcher.end()) + ", " + matchedRegularExpressions.get(i) + ", " + (matcher.end() - matcher.start()) +"\n");
+				    	endOfLogSummary.add(curId + ", matched");
+				    	
+				    	//collect stats for average spread between regex specific AAs
+						if(!matchedRegexAAspreadStats.containsKey(regex)){
+							ArrayList<Integer> tmp = new ArrayList<Integer>();
+							tmp.add(0);
+							matchedRegexAAspreadStats.put(regex, tmp);
+						}
+						ArrayList<Integer> curValues = matchedRegexAAspreadStats.get(regex);
+						curValues.set(0, curValues.get(0) + 1);
+						curValues.addAll(getAAgapCollection(sequence.substring(matcher.start(), matcher.end()), regex));  // += matcher.end() - matcher.start() - countAAs(regex);
+						matchedRegexAAspreadStats.put(regex, curValues);
+			    	}	
 			    }
 			}
 			starting_idx = 0;
@@ -208,11 +252,72 @@ public class FastaTransform {
 		logFileWriter.write("\nSummary State:\n");
 		for(int i = 0; i < endOfLogSummary.size(); i++)
 			logFileWriter.write(endOfLogSummary.get(i) + "\n");
+
+		logFileWriter.write("\nRegEx AA Pair Average Distance:\n");
+		for(String regex : matchedRegexAAspreadStats.keySet()){
+			ArrayList<Integer> values = matchedRegexAAspreadStats.get(regex);
+			logFileWriter.write(regex + " ");
+			for(int i = 1; i < values.size(); i++){
+				if(i > 1)
+					logFileWriter.write(", ");
+				logFileWriter.write(values.get(i).toString());
+			}
+			logFileWriter.write("\n");
+		}
+		
 		outputFastaFile.close();
 		logFileWriter.close();
 		
 		inputFastaFile.close();
 		inputFastaBufferedReader.close();
+	}
+
+	private ArrayList<Integer> getAAgapCollection(String sequence, String regex) {
+		ArrayList<Integer> retVal = new ArrayList<Integer>();
+		String anchorAAs = getRegexAnchorAAs(regex);
+		int counter = 0;
+		int anchor_cur_idx = 0;
+		for(int i = 0; i < sequence.length(); i++){
+			String seqChar = sequence.substring(i,  i + 1);
+			String regexChar = anchorAAs.substring(anchor_cur_idx,  anchor_cur_idx + 1);
+			if(i == 0)
+				if (!seqChar.equals(regexChar))
+					throw new Error("The first character of the sequence string does not match the first character of the regex!");
+				else 
+					anchor_cur_idx++;
+			else if (!seqChar.equals(regexChar))
+				counter++;
+			else if (seqChar.equals(regexChar)){
+				retVal.add(counter);
+				counter = 0;
+				anchor_cur_idx++;
+			}
+		}
+		return retVal;
+	}
+
+	//strip a regex of all [A-Z]'s and {1,15}'s, etc.  leave only the specified AAs
+	private String getRegexAnchorAAs(String regex) {
+		String retVal = null;
+		boolean inBrackets = false;
+		boolean inCurlyBrackets = false;
+		for(int i = 0; i < regex.length(); i++){
+			String curChar = regex.substring(i, i + 1);
+			if(curChar.equals("[") && !inBrackets)
+				inBrackets = true;
+			else if(curChar.equals("]") && inBrackets)
+				inBrackets = false;
+			else if(curChar.equals("{") && !inCurlyBrackets)
+				inCurlyBrackets = true;
+			else if(curChar.equals("}") && inCurlyBrackets)
+				inCurlyBrackets = false;
+			else if(!inBrackets && !inCurlyBrackets)
+				if(retVal == null)
+					retVal = curChar;
+				else
+					retVal += curChar;
+		}
+		return retVal;
 	}
 
 	private static void printUsage() {
