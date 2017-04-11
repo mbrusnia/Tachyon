@@ -67,7 +67,7 @@ write_NetRC_file <- function(machineName, login, password){
 }
 
 #calculate molecular weight of a peptide string ("ACPKGGS", for example)
-DSBMWCalc <-function(AASeq, monoisotopic = FALSE){
+DSBMWCalc <-function(seq, monoisotopic = FALSE){
 	seq <- gsub("[\r\n ]", "", seq)
 
 	## Hydrogen's mass needed for mass calculations
