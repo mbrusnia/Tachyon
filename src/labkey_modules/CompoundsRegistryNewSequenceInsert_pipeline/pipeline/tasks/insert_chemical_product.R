@@ -107,12 +107,16 @@ for(i in 1:length(inputDF[,ID_COL_NAME])){
 			stop(paste0("The OTDProductionID: ", otdProdID, " is not found in the OTDProduction Sampleset!  Please correct this issue and try again."))
 		}
 		constructID = gsub("Construct.", "", constructIDs$ParentID[1])
+
+		#get sequence
 		sequence <- labkey.selectRows(BASE_URL, CONTAINER_PATH, 
 			SAMPLE_SETS_SCHEMA_NAME, "Construct", colSelect = c("ID", "AASeq"), 
 			colFilter=makeFilter(c("ID", "EQUAL", constructID)), colNameOpt="fieldname")$AASeq[1]
 
 		#calculate Molecular Weight
-		inputDF[i, AVG_MOL_WEIGHT_COL_NAME] = DSBMWCalc(sequence) + (number of Lysines in the sequences+2)*(CH2)
+		inputDF[i, AVG_MOL_WEIGHT_COL_NAME] = DSBMWCalc(sequence) + (length(gsub("[^L]", "", sequence))+2) * calc_formula_monomass("C1H2")
+	
+	#else, the value given in the input file is fine
 	}else{
 		if(inputDF[i, AVG_MOL_WEIGHT_COL_NAME] == "" || is.null(inputDF[i, AVG_MOL_WEIGHT_COL_NAME]) || is.na(inputDF[i, AVG_MOL_WEIGHT_COL_NAME])){
 			Stop(paste0("Row ", i, " is not C14 reductive animation, yet has no given Average Molecular Weight.  Please add the Average Moleculare Weight and try again."))
