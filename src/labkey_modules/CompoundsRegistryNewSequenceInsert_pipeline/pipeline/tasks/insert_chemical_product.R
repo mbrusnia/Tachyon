@@ -96,7 +96,7 @@ for(i in 1:length(inputDF[,ID_COL_NAME])){
 	if(inputDF[i, CONJUGATION_METHOD_COL_NAME] == "C14 reductive amination"){
 		#get sequence in order to calculate weight
 		otdProdID = inputDF[i, OTDPRODUCTIONID_COL_NAME]
-		if(is.null(otdProdID) || otdProdID == ""){
+		if(is.null(otdProdID) || is.na(otdProdID) || otdProdID == ""){
 			stop(paste0("Row ", i, " is C14 reductive animation, yet has no given OTDProductionID.  Please add the OTDProductionID and try again."))
 		}
 		#get ConstructID
@@ -112,19 +112,28 @@ for(i in 1:length(inputDF[,ID_COL_NAME])){
 		sequence <- labkey.selectRows(BASE_URL, CONTAINER_PATH, 
 			SAMPLE_SETS_SCHEMA_NAME, "Construct", colSelect = c("ID", "AASeq"), 
 			colFilter=makeFilter(c("ID", "EQUAL", constructID)), colNameOpt="fieldname")$AASeq[1]
-
+#inputDF$sequence[i] = sequence
 		#calculate Molecular Weight
-		inputDF[i, AVG_MOL_WEIGHT_COL_NAME] = DSBMWCalc(sequence) + (length(gsub("[^L]", "", sequence))+2) * calc_formula_monomass("C1H2")
+		inputDF[i, AVG_MOL_WEIGHT_COL_NAME] = DSBMWCalc(sequence) + (length(gsub("[^L]", "", sequence))+2) * calc_formula_mass("C1H2")
 	
 	#else, the value given in the input file is fine
 	}else{
 		if(inputDF[i, AVG_MOL_WEIGHT_COL_NAME] == "" || is.null(inputDF[i, AVG_MOL_WEIGHT_COL_NAME]) || is.na(inputDF[i, AVG_MOL_WEIGHT_COL_NAME])){
-			Stop(paste0("Row ", i, " is not C14 reductive animation, yet has no given Average Molecular Weight.  Please add the Average Moleculare Weight and try again."))
+			stop(paste0("Row ", i, " is not C14 reductive animation, yet has no given Average Molecular Weight.  Please add the Average Moleculare Weight and try again."))
 		}
 	}
 }
 
 
+
+#mydata <- labkey.selectRows(
+#    baseUrl="https://optides-prod.fhcrc.org",
+#    folderPath="/Optides/CompoundsRegistry/Samples",
+#    schemaName="samples",
+#    queryName="CHEMProduction",
+#    colSelect = c("CHEMProductionID",  "ConjugationMethod", "OTDProductionID",   "AverageMW"),
+#    colNameOpt="fieldname"
+#)
 ##
 ##insert into DB
 ##

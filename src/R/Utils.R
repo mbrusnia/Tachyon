@@ -92,8 +92,8 @@ DSBMWCalc <-function(seq, monoisotopic = FALSE){
 }
 
 #calculate mass of formula with format: C12H6N3, etc.
-calc_formula_monomass <- function(formula){
-	weight <- c(H = 1.0078250, O = 15.9949146, C = 12.0000000, N = 14.0030740, P = 30.9737633, S = 31.9720718, F = 18.998403)
+calc_formula_mass <- function(formula){
+	weights <- c(H = 1.0078250, O = 15.9949146, C = 12.0000000, N = 14.0030740, P = 30.9737633, S = 31.9720718, F = 18.998403)
 	letters <- str_split(formula, "[0-9]+")[[1]]
 	counts <- str_split(formula, "[A-Za-z]+")[[1]]
 	letters <- letters[!letters == ""]
@@ -105,11 +105,11 @@ calc_formula_monomass <- function(formula){
 
 	weight_total = 0
 	for(i in 1:length(letters)){
-		if (!letters[i] %in% names(weight)){
+		if (!letters[i] %in% names(weights)){
 			stop(paste("This formula: ", formula, " contains the invalid character '", letters[i], ".  Valid characters are: CHONPSF.  Please fix and try again."))
 		}
 		#cat(letters[i], " ", weight[letters[i]], " ", counts[i], " ", as.numeric(counts[i]), "\t", weight[letters[i]] * as.numeric(counts[i]), "\n")
-		weight_total = weight_total + as.numeric(weight[letters[i]]) * as.numeric(counts[i])
+		weight_total = weight_total + as.numeric(weights[letters[i]]) * as.numeric(counts[i])
 	}
 	weight_total
 }
