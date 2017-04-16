@@ -47,33 +47,31 @@ public class FastaTransform {
 		String logFile = "";
 		int prefix_length = -1;
 		int sufix_length = -1;
-		boolean distanceAA = false;
+		String distanceAA = "-Z";
 		
 		String[] curParam = null;
 		for(int i = 0; i < args.length; i++){
-			if(args[i].equals("--DistanceAA"))
-				distanceAA = true;
+			curParam = args[i].split("=");
+			if(curParam[0].equals("--input"))
+				inputFasta = curParam[1];
+			else if(curParam[0].equals("--position_cutoff"))
+				positionCutoffFile = curParam[1];
+			else if(curParam[0].equals("--regular_expression"))
+				regularExpression = curParam[1];
+			else if(curParam[0].equals("--output"))
+				outputFile = curParam[1];
+			else if(curParam[0].equals("--logfile"))
+				logFile = curParam[1];
+			else if(curParam[0].equals("--prefix_length"))
+				prefix_length = Integer.parseInt(curParam[1]);
+			else if(curParam[0].equals("--sufix_length"))
+				sufix_length = Integer.parseInt(curParam[1]);
+			else if(curParam[0].equals("--DistanceAA"))
+				distanceAA = curParam[1];
 			else{
-				curParam = args[i].split("=");
-				if(curParam[0].equals("--input"))
-					inputFasta = curParam[1];
-				else if(curParam[0].equals("--position_cutoff"))
-					positionCutoffFile = curParam[1];
-				else if(curParam[0].equals("--regular_expression"))
-					regularExpression = curParam[1];
-				else if(curParam[0].equals("--output"))
-					outputFile = curParam[1];
-				else if(curParam[0].equals("--logfile"))
-					logFile = curParam[1];
-				else if(curParam[0].equals("--prefix_length"))
-					prefix_length = Integer.parseInt(curParam[1]);
-				else if(curParam[0].equals("--sufix_length"))
-					sufix_length = Integer.parseInt(curParam[1]);
-				else{
-					System.out.println("Unrecognized command line parameter: " + curParam[0]);
-					printUsage();
-					return;
-				}
+				System.out.println("Unrecognized command line parameter: " + curParam[0]);
+				printUsage();
+				return;
 			}
 		}
 		if(inputFasta.equals("") || (positionCutoffFile.equals("") && prefix_length == -1 && prefix_length == -1) || regularExpression.equals("") 
@@ -110,10 +108,25 @@ public class FastaTransform {
 		}
 		System.out.println("End.");
 	}
+	
+	
+	/**
+	 * @param inputFasta - fasta file to transform
+	 * @param positionCutoffFile - a file with id-position pairs; used to trim the starting sequences
+	 * @param regularExpressionsFile - a file containing all the regular expressions to be used as a filter for the inputFasta
+	 * @param outputFile
+	 * @param logFile - contains info about what was observed and done
+	 * @param prefix_length - the number of AAs to keep before the regex match in the original sequence
+	 * @param sufix_length- the number of AAs to keep after the regex match in the original sequence
+	 * @param distanceAA - for stats, the AA to use for measuring of the gaps in between this AA
+	 * @throws Exception
+	 */
 	private  void doTransform(String inputFasta, String positionCutoffFile, String regularExpressionsFile, String outputFile,
-			String logFile, int prefix_length, int sufix_length, boolean distanceAA) throws Exception {
+			String logFile, int prefix_length, int sufix_length, String distanceAA) throws Exception {
 		endOfLogSummary = new ArrayList<String>();
 		matchedRegexAAspreadStats = new HashMap<String, ArrayList<Integer>>();
+    	int sequencesCounter = 0;  //count given sequences inside input.fasta
+    	int matchedCounter = 0;  //count sequence -> regex matches
 
 		ArrayList<String> matchedRegularExpressions = null;
 		
@@ -139,85 +152,70 @@ public class FastaTransform {
 		inputFastaBufferedReader = new BufferedReader(inputFastaFile);
 		String curId = "";
 		String header_line = "";
-		int starting_idx = 0;
+		int position_cutoff_starting_idx = 0;
 		int ending_idx = 0;
 		String line;
 		String[] a;
+		logFileWriter.write("Matches:\n");
 		while((line = inputFastaBufferedReader.readLine()) != null){
 			if(line.startsWith(">")){
 				a = line.split(" ");
 				//">" is the first character, so substring starting at second character
 				curId = a[0].substring(1);
 				header_line = line;
+				sequencesCounter++;
 			}else if(!line.equals("")){  //sequence
 				String sequence = line;
 				matchedRegularExpressions = new ArrayList<String>();
 				if(positionCutoffMap != null && positionCutoffMap.containsKey(curId)){
-					starting_idx = positionCutoffMap.get(curId);
-					sequence = line.substring(starting_idx);
+					position_cutoff_starting_idx = positionCutoffMap.get(curId);
+					sequence = line.substring(position_cutoff_starting_idx);
 				}
 				
+				//find all matching regexs for this sequence
 				Pattern pattern = null;
 			    Matcher matcher = null;
 				for(int i = 0; i < regularExpressions.size(); i++){
 					pattern = Pattern.compile(regularExpressions.get(i));
 				    matcher = pattern.matcher(sequence);
 				    if(matcher.find())
-				    	if(matchedRegularExpressions.size() == 0)  //first regex match
-					    	matchedRegularExpressions.add(regularExpressions.get(i));
-				    	else	//not first regex match
-				    		for(int j = 0; j < matchedRegularExpressions.size(); j++)
-				    			//if curRegex has been matched or a more specific (longer) regex has been previously matched, do nothing
-				    			if(matchedRegularExpressions.get(j).contains(regularExpressions.get(i)))
-				    				break; // do nothing
-				    			//if curRexEx is a longer/more specific version of one we've matched already, replace the old one with the new one
-				    			else if(regularExpressions.get(i).contains(matchedRegularExpressions.get(j))){
-				    				matchedRegularExpressions.set(j, regularExpressions.get(i));
-				    				break;
-				    			//if we've gotten to the end and neither of the two preceeding cases were true, simply add the regex to our collection of matched regexs
-				    			}else if(j == matchedRegularExpressions.size() - 1)
-				    				matchedRegularExpressions.add(regularExpressions.get(i));
+					    matchedRegularExpressions.add(regularExpressions.get(i));
 				}
 
+				//print output
 				if(matchedRegularExpressions.size() == 0){
-			    	logFileWriter.write(curId + ", unmatched\n");
-			    	endOfLogSummary.add(curId + ", unmatched");
+			    	//logFileWriter.write(curId + ", unmatched\n");
+			    	endOfLogSummary.add(curId + ", unmatched and ommitted from output file");
 			    }else{
-			    	int match_leftmost_idx = Integer.MAX_VALUE;
-			    	int match_rightmost_idx = Integer.MIN_VALUE;
-			    	for(int i = 0; i < matchedRegularExpressions.size(); i++){
-						pattern = Pattern.compile(matchedRegularExpressions.get(i));
-					    matcher = pattern.matcher(sequence);
-					    matcher.find();
-					    if(matcher.start() < match_leftmost_idx)
-					    	match_leftmost_idx = matcher.start();
-					    if(matcher.end() > match_rightmost_idx)
-					    	match_rightmost_idx = matcher.end();
-			    	}
-					outputFastaFile.write(header_line + "\n");
-					if(prefix_length > -1 || sufix_length > -1){
-						if(prefix_length == -1 || prefix_length > match_leftmost_idx)
-							starting_idx = 0;
-						else
-							starting_idx = match_leftmost_idx - prefix_length;
-
-						if(sufix_length == -1 || sufix_length + match_rightmost_idx > sequence.length())
-							ending_idx = sequence.length();
-						else
-							ending_idx = match_rightmost_idx + sufix_length;
-						sequence = sequence.substring(starting_idx, ending_idx);
-					}
-					outputFastaFile.write(sequence + "\n");
-
+					matchedCounter++;
+			    	//write fasta output
 			    	for(int i = 0; i < matchedRegularExpressions.size(); i++){
 			    		String regex = matchedRegularExpressions.get(i);
 						pattern = Pattern.compile(regex);
 					    matcher = pattern.matcher(sequence);
 					    matcher.find();
-						logFileWriter.write(curId + ", " + matcher.start() + ", " + (sequence.length() - matcher.end()) + ", " + matchedRegularExpressions.get(i) + ", " + (matcher.end() - matcher.start()) +"\n");
-				    	endOfLogSummary.add(curId + ", matched");
+						outputFastaFile.write(modifyHeaderLine(header_line, regex, 1) + "\n");
+						String trimmedSeq = sequence;
+						if(prefix_length > -1 || sufix_length > -1){
+				    		int prefix_starting_idx = 0;
+				    		int sufix_ending_idx = sequence.length();
+							if(!(prefix_length == -1) && !(prefix_length > matcher.start()))
+								prefix_starting_idx = matcher.start() - prefix_length;
+	
+							if(!(sufix_length == -1) && !(sufix_length + matcher.end() > sequence.length()))
+								sufix_ending_idx = matcher.end() + sufix_length;
+							
+							trimmedSeq = sequence.substring(prefix_starting_idx, sufix_ending_idx);
+						}
+						outputFastaFile.write(trimmedSeq + "\n");
+						
+						//write log info
+					    matcher = pattern.matcher(trimmedSeq);
+					    matcher.find();
+						logFileWriter.write(curId + ", " + matcher.start() + ", " + (trimmedSeq.length() - matcher.end()) + ", " + matchedRegularExpressions.get(i) + ", " + (matcher.end() - matcher.start()) +"\n");
+				    	endOfLogSummary.add(curId + ", matched with " + regex);
 				    	
-				    	//collect stats for average spread between regex specific AAs
+				    	//collect stats for average spread between regex specific AA given in --DistanceAA
 						if(!matchedRegexAAspreadStats.containsKey(regex)){
 							ArrayList<Integer> tmp = new ArrayList<Integer>();
 							tmp.add(0);
@@ -225,21 +223,21 @@ public class FastaTransform {
 						}
 						ArrayList<Integer> curValues = matchedRegexAAspreadStats.get(regex);
 						curValues.set(0, curValues.get(0) + 1);
-						curValues.addAll(getAAgapCollection(sequence.substring(matcher.start(), matcher.end()), regex));  // += matcher.end() - matcher.start() - countAAs(regex);
+						curValues.addAll(getAAgapCollection(trimmedSeq.substring(matcher.start(), matcher.end()), distanceAA));  // += matcher.end() - matcher.start() - countAAs(regex);
 						matchedRegexAAspreadStats.put(regex, curValues);
 			    	}	
 			    }
 			}
-			starting_idx = 0;
+			position_cutoff_starting_idx = 0;
 		}
-		
+		System.out.println(matchedCounter + " of " + sequencesCounter + " sequences matched 1 or more given regular Expressions.");
 		logFileWriter.write("\nSummary State:\n");
 		for(int i = 0; i < endOfLogSummary.size(); i++)
 			logFileWriter.write(endOfLogSummary.get(i) + "\n");
 
 		//histograms of distances between Anchor AAs of each regex
-		if(distanceAA){
-			logFileWriter.write("\nRegEx AA Pair Average Distance:\n");
+		if("ABRNDCQEGHILKMFPSTWYVZ".contains(distanceAA)){
+			logFileWriter.write("\nDistances Observed Between " + distanceAA + "'s in the Given Regular Expressions:\n");
 			for(String regex : matchedRegexAAspreadStats.keySet()){
 				ArrayList<Integer> values = matchedRegexAAspreadStats.get(regex);
 				logFileWriter.write(regex + " ");
@@ -249,7 +247,7 @@ public class FastaTransform {
 					logFileWriter.write(values.get(i).toString());
 				}
 				logFileWriter.write("\n");
-				drawHistogram(regex, values);
+				drawHistogram(regex, distanceAA, values);
 			}
 		}
 		
@@ -260,7 +258,18 @@ public class FastaTransform {
 		inputFastaBufferedReader.close();
 	}
 
-	private void drawHistogram(String regex, ArrayList<Integer> values) {
+	//to a fasta header line, add the matching regex to the line, plus the match  number
+	private String modifyHeaderLine(String header_line, String regex, int matchNum) {
+		String retVal = "";
+		String[] tmp = header_line.split("\\s+");
+		retVal = tmp[0] + "|" + regex + "_match" + matchNum;
+		for(int i = 1; i < tmp.length; i++)
+			retVal += " " + tmp[i];
+		return retVal;
+	}
+
+
+	private void drawHistogram(String regex, String AA, ArrayList<Integer> values) {
 		Integer[] arr = (Integer[])values.toArray(new Integer[values.size()]);
 		double [] dValues = new double[values.size() - 1];
 		for(int i = 1; i < values.size(); i++) {
@@ -269,7 +278,7 @@ public class FastaTransform {
        HistogramDataset dataset = new HistogramDataset();
        int bins = getMaxValue(dValues);
        dataset.addSeries("Histogram", dValues, bins);
-       String plotTitle = "Histogram for AA gaps in the regex " + regex + " which had " + values.get(0) + " matches"; 
+       String plotTitle = "Histogram for gaps between " + AA + " in the regex " + regex + " which had " + values.get(0) + " matches"; 
        String xaxis = "number";
        String yaxis = "value"; 
        PlotOrientation orientation = PlotOrientation.VERTICAL; 
@@ -281,7 +290,7 @@ public class FastaTransform {
        int width = 700;
        int height = 400; 
         try {
-        	ChartUtilities.saveChartAsPNG(new File(outputDir + "histogram-" + getRegexAnchorAAs(regex) + ".PNG"), chart, width, height);
+        	ChartUtilities.saveChartAsPNG(new File(outputDir + "histogram-" + AA + "--" + getRegexAnchorAAs(regex) + ".PNG"), chart, width, height);
         } catch (IOException e) {
         }
 		
@@ -329,25 +338,19 @@ public class FastaTransform {
 		}
 	}
 	
-	private ArrayList<Integer> getAAgapCollection(String sequence, String regex) {
+	private ArrayList<Integer> getAAgapCollection(String sequence, String AA) {
 		ArrayList<Integer> retVal = new ArrayList<Integer>();
-		String anchorAAs = getRegexAnchorAAs(regex);
 		int counter = 0;
-		int anchor_cur_idx = 0;
 		for(int i = 0; i < sequence.length(); i++){
 			String seqChar = sequence.substring(i,  i + 1);
-			String regexChar = anchorAAs.substring(anchor_cur_idx,  anchor_cur_idx + 1);
-			if(i == 0)
-				if (!seqChar.equals(regexChar))
-					throw new Error("The first character of the sequence string does not match the first character of the regex!");
-				else 
-					anchor_cur_idx++;
-			else if (!seqChar.equals(regexChar))
+			if(i == 0){
+				if (!seqChar.equals(AA))
+					throw new Error("The first character of the sequence matching string (" + sequence + ") does not match the letter given for --DistanceAA (" + AA + ")!");
+			}else if (!seqChar.equals(AA))
 				counter++;
-			else if (seqChar.equals(regexChar)){
+			else if (seqChar.equals(AA)){
 				retVal.add(counter);
 				counter = 0;
-				anchor_cur_idx++;
 			}
 		}
 		return retVal;
@@ -378,7 +381,7 @@ public class FastaTransform {
 	}
 
 	private static void printUsage() {
-		System.out.println("USAGE: java FastaTransform --input=pathToInputFasta --position_cutoff=pathToCutoffFile --regular_expression=path.to.multi.reg.exp.file --output=pathToOutputFastaFile --logfile=pathToLogFile [--prefix_length=-1 --sufix_length=-1 --DistanceAA]");
+		System.out.println("USAGE: java FastaTransform --input=pathToInputFasta --position_cutoff=pathToCutoffFile --regular_expression=path.to.multi.reg.exp.file --output=pathToOutputFastaFile --logfile=pathToLogFile [--prefix_length=-1 --sufix_length=-1 --DistanceAA=C]");
 		System.out.println("");
 		System.out.println("The argument --position_cutoff cannot be used in conjunction with --prefix_length AND/OR --sufix_length.");
 	}
