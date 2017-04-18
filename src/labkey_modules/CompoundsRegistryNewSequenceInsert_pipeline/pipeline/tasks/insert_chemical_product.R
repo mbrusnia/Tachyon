@@ -92,6 +92,7 @@ for(i in 1:length(inputDF[,ID_COL_NAME])){
 ##############################################
 ## 2) Calculate Molecular Weights
 ################################################
+DeltaC14 = 2.0
 for(i in 1:length(inputDF[,ID_COL_NAME])){
 	if(inputDF[i, CONJUGATION_METHOD_COL_NAME] == "C14 reductive amination"){
 		#get sequence in order to calculate weight
@@ -114,7 +115,7 @@ for(i in 1:length(inputDF[,ID_COL_NAME])){
 			colFilter=makeFilter(c("ID", "EQUAL", constructID)), colNameOpt="fieldname")$AASeq[1]
 #inputDF$sequence[i] = sequence
 		#calculate Molecular Weight
-		inputDF[i, AVG_MOL_WEIGHT_COL_NAME] = DSBMWCalc(sequence) + (str_count(sequence, "K")+1) * 2.0 * calc_formula_mass("C1H2")
+		inputDF[i, AVG_MOL_WEIGHT_COL_NAME] = DSBMWCalc(sequence) + (str_count(sequence, "K")+1) * 2.0 * (calc_formula_mass("C1H2")+ DeltaC14)
 	
 	#else, the value given in the input file is fine
 	}else{
