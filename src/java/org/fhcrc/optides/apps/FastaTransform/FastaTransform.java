@@ -45,8 +45,8 @@ public class FastaTransform {
 		String regularExpression = "";
 		String outputFile = "";
 		String logFile = "";
-		int prefix_length = -1;
-		int sufix_length = -1;
+		int prefix_length = -100;
+		int sufix_length = -100;
 		String distanceAA = "-Z";
 		
 		String[] curParam = null;
@@ -74,7 +74,7 @@ public class FastaTransform {
 				return;
 			}
 		}
-		if(inputFasta.equals("") || (positionCutoffFile.equals("") && prefix_length == -1 && prefix_length == -1) || regularExpression.equals("") 
+		if(inputFasta.equals("") || (positionCutoffFile.equals("") && prefix_length == -100 && prefix_length == -100) || regularExpression.equals("")
 				|| outputFile.equals("") || logFile.equals("")){
 			
 			System.out.println("One or more parameters are missing from the command line: ");
