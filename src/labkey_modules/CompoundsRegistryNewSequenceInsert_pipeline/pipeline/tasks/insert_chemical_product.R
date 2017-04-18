@@ -114,7 +114,7 @@ for(i in 1:length(inputDF[,ID_COL_NAME])){
 			colFilter=makeFilter(c("ID", "EQUAL", constructID)), colNameOpt="fieldname")$AASeq[1]
 #inputDF$sequence[i] = sequence
 		#calculate Molecular Weight
-		inputDF[i, AVG_MOL_WEIGHT_COL_NAME] = DSBMWCalc(sequence) + (str_count(sequence, "K")+2) * calc_formula_mass("C1H2")
+		inputDF[i, AVG_MOL_WEIGHT_COL_NAME] = DSBMWCalc(sequence) + (str_count(sequence, "K")+1) * 2.0 * calc_formula_mass("C1H2")
 	
 	#else, the value given in the input file is fine
 	}else{
