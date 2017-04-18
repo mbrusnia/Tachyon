@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -87,6 +88,7 @@ public class FastaTransform {
 			System.out.println("--DistanceAA: " + distanceAA);
 			System.out.println("");
 			printUsage();
+			return;
 		}
 		
 		if(!positionCutoffFile.equals("") && (prefix_length > -1 || sufix_length > -1)){
@@ -290,7 +292,9 @@ public class FastaTransform {
        int width = 700;
        int height = 400; 
         try {
-        	ChartUtilities.saveChartAsPNG(new File(outputDir + "histogram-" + AA + "--" + getRegexAnchorAAs(regex) + ".PNG"), chart, width, height);
+        	Random r = new Random();
+        	String filename = outputDir + "histogram-" + AA + "--" + getRegexAnchorAAs(regex) + "--" + r.nextInt(100000) + ".PNG";
+        	ChartUtilities.saveChartAsPNG(new File(filename), chart, width, height);
         } catch (IOException e) {
         }
 		
