@@ -108,13 +108,13 @@ if(!"HydrophobicityAtpH7_5" %in% names(inputDF)){
 for (i in 1:length(inputDF[,SEQUENCE_COL_NAME])){
 	#if it's a chemical formula...
 	if(str_detect(inputDF[i,SEQUENCE_COL_NAME], "[1-9]+")){
-		inputDF$MonoisotopicMass[i] <- calc_formula_monomass(inputDF[i, SEQUENCE_COL_NAME])
+		inputDF$MonoisotopicMass[i] <- calc_formula_mass(inputDF[i, SEQUENCE_COL_NAME], monoisotopic=TRUE)
 	}else{
 		#if it's a peptide sequence...
 		inputDF$AverageMass[i] <- DSBMWCalc(inputDF[i, SEQUENCE_COL_NAME], monoisotopic=FALSE)
 		inputDF$MonoisotopicMass[i] <- DSBMWCalc(inputDF[i, SEQUENCE_COL_NAME], monoisotopic=TRUE)
 		inputDF$ReducedForm_pI[i] <- pI(inputDF[i, SEQUENCE_COL_NAME], pKscale="EMBOSS")
-        inputDF$NetChargeAtpH7_4[i]<-round(charge(inputDF[i, SEQUENCE_COL_NAME], pH=7.4, pKscale="Sillero"), digit=2)
+        	inputDF$NetChargeAtpH7_4[i]<-round(charge(inputDF[i, SEQUENCE_COL_NAME], pH=7.4, pKscale="Sillero"), digit=2)
 		inputDF$HydrophobicityAtpH7_5[i] <- round(hydrophobicity(inputDF[i, SEQUENCE_COL_NAME], scale="Cowan7.5"), digit=2)
 	}
 }

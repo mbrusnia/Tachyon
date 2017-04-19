@@ -92,8 +92,13 @@ DSBMWCalc <-function(seq, monoisotopic = FALSE){
 }
 
 #calculate mass of formula with format: C12H6N3, etc.
-calc_formula_mass <- function(formula){
-	weights <- c(H = 1.0078250, O = 15.9949146, C = 12.0000000, N = 14.0030740, P = 30.9737633, S = 31.9720718, F = 18.998403)
+calc_formula_mass <- function(formula, monoisotopic=FALSE){
+	weights <- c(H = 1.008, O = 15.9994, C = 12.011, N = 14.0067, P = 30.9737633, S = 32.065, F = 18.998403)
+
+	if(monoisotopic){
+		weights <- c(H = 1.0078250, O = 15.9949146, C = 12.0000000, N = 14.0030740, P = 30.9737633, S = 31.9720718, F = 18.998403)
+	}
+
 	letters <- str_split(formula, "[0-9]+")[[1]]
 	counts <- str_split(formula, "[A-Za-z]+")[[1]]
 	letters <- letters[!letters == ""]
