@@ -14,6 +14,7 @@
 <tr><td><a href="HTPlateGeneratorPipelineTest.html">HTProduction Pipeline Test</a></td></tr>
 <tr><td><a href="HTProductionImageFilesUpload.html">HTProduction Image Assay Upload Test</a></td></tr>
 <tr><td><a href="DataClassTest.html">DataClassTests</a></td></tr>
+<tr><td><a href="InSilicoAssayTest.html">InSilicoAssay Transformation Script Test</a></td></tr>
 <tr><td><a href="NovocyteTransformationScriptTest.html">Novocyte Transformation Script Test</a></td></tr>
 <tr><td><a href="RadioLabeledConjugateTest.html">RadioLabeledConjugateTest</a></td></tr>
 <tr><td><a href="LSCActivityCalc.html">LSCActivityCalc</a></td></tr>
