@@ -259,26 +259,27 @@ public class FastaTransform {
 			regex = matchedRegularExpressions.get(i);
 			Pattern pattern = Pattern.compile(regex);
 		    Matcher matcher = pattern.matcher(sequence);
-		    matcher.find();
-			outputFastaFile.write(modifyHeaderLine(header_line, regex, i + 1) + "\n");
-			trimmedSeq = sequence;
-			if(prefix_length > -1 || sufix_length > -1){
-	    		int prefix_starting_idx = 0;
-	    		int sufix_ending_idx = sequence.length();
-				if(!(prefix_length == -1) && !(prefix_length > matcher.start()))
-					prefix_starting_idx = matcher.start() - prefix_length;
-	
-				if(!(sufix_length == -1) && !(sufix_length + matcher.end() > sequence.length()))
-					sufix_ending_idx = matcher.end() + sufix_length;
-				
-				trimmedSeq = sequence.substring(prefix_starting_idx, sufix_ending_idx);
-			}
-			outputFastaFile.write(trimmedSeq + "\n");
-			
-			//write log info
-		    writeLogInfo(curId, trimmedSeq, regex, logFileWriter);
-		}
+		    int j = 1;
+		    while (matcher.find()) {
+				outputFastaFile.write(modifyHeaderLine(header_line, regex, j++) + "\n");
+				trimmedSeq = sequence;
+				if(prefix_length > -1 || sufix_length > -1){
+		    		int prefix_starting_idx = 0;
+		    		int sufix_ending_idx = sequence.length();
+					if(!(prefix_length == -1) && !(prefix_length > matcher.start()))
+						prefix_starting_idx = matcher.start() - prefix_length;
 		
+					if(!(sufix_length == -1) && !(sufix_length + matcher.end() > sequence.length()))
+						sufix_ending_idx = matcher.end() + sufix_length;
+					
+					trimmedSeq = sequence.substring(prefix_starting_idx, sufix_ending_idx);
+				}
+				outputFastaFile.write(trimmedSeq + "\n");
+				
+				//write log info
+			    writeLogInfo(curId, trimmedSeq, regex, logFileWriter);
+		      }
+		}
 	}
 
 
