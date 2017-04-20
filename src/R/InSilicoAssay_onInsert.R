@@ -108,6 +108,7 @@ if(!"HydrophobicityAtpH7_5" %in% names(inputDF)){
 for (i in 1:length(inputDF[,SEQUENCE_COL_NAME])){
 	#if it's a chemical formula...
 	if(str_detect(inputDF[i,SEQUENCE_COL_NAME], "[1-9]+")){
+		inputDF$AverageMass[i] <- calc_formula_mass(inputDF[i, SEQUENCE_COL_NAME], monoisotopic=FALSE)
 		inputDF$MonoisotopicMass[i] <- calc_formula_mass(inputDF[i, SEQUENCE_COL_NAME], monoisotopic=TRUE)
 	}else{
 		#if it's a peptide sequence...
