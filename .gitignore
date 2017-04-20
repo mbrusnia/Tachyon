@@ -1,1 +1,9 @@
 src/resources/Thumbs.db
+src/labkey_modules/CompoundsRegistryNewSequenceInsert_pipeline/module.properties.bak
+src/labkey_modules/CompoundsRegistryNewSequenceInsert_pipeline/pipeline/tasks/insert_chemical_product.R.bak
+src/labkey_modules/HPLCAssayLoad_module/config/module.xml.bak
+src/labkey_modules/HPLCAssayLoad_module/module.properties.bak
+src/labkey_modules/SGI_DNA_pipeline/config/module.xml.bak
+src/labkey_modules/SGI_DNA_pipeline/module.properties.bak
+src/labkey_modules/CompoundsRegistryNewSequenceInsert_pipeline/config/module.xml.bak
+src/selenium/ConstructsInsertViaPipeline.html.bak
