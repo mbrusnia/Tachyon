@@ -56,6 +56,7 @@ public class FastaTransform {
 		String regularExpression = "";
 		String outputFile = "";
 		String logFile = "";
+		int max_matches = -100;
 		int prefix_length = -100;
 		int sufix_length = -100;
 		String distanceAA = "-Z";
@@ -73,6 +74,8 @@ public class FastaTransform {
 				outputFile = curParam[1];
 			else if(curParam[0].equals("--logfile"))
 				logFile = curParam[1];
+			else if(curParam[0].equals("--MaxMatch"))
+				max_matches = Integer.parseInt(curParam[1]);
 			else if(curParam[0].equals("--prefix_length"))
 				prefix_length = Integer.parseInt(curParam[1]);
 			else if(curParam[0].equals("--sufix_length"))
@@ -95,6 +98,9 @@ public class FastaTransform {
 			System.out.println("--regular_expression: " + regularExpression);
 			System.out.println("--output: " + outputFile);
 			System.out.println("--logfile: " + logFile);
+			System.out.println("--MaxMatch: " + max_matches);
+			System.out.println("--prefix_length: " + prefix_length);
+			System.out.println("--sufix_length: " + sufix_length);
 			System.out.println("--DistanceAA: " + distanceAA);
 			System.out.println("");
 			printUsage();
@@ -110,7 +116,7 @@ public class FastaTransform {
 		
 		try {
 			FastaTransform ft = new FastaTransform(distanceAA, prefix_length, sufix_length);
-			ft.doTransform(inputFasta, positionCutoffFile, regularExpression, outputFile, logFile);
+			ft.doTransform(inputFasta, positionCutoffFile, regularExpression, max_matches, outputFile, logFile);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -130,7 +136,7 @@ public class FastaTransform {
 	 * @param logFile - contains info about what was observed and done
 	 * @throws Exception
 	 */
-	private  void doTransform(String inputFasta, String positionCutoffFile, String regularExpressionsFile, String outputFile,
+	private  void doTransform(String inputFasta, String positionCutoffFile, String regularExpressionsFile, int max_matches, String outputFile,
 			String logFile) throws Exception {
 		endOfLogSummary = new ArrayList<String>();
 		matchedRegexAAspreadStats = new HashMap<String, ArrayList<Integer>>();
@@ -178,7 +184,7 @@ public class FastaTransform {
 				    }else{
 						matchedCounter++;
 				    	//write fasta output and log output (log output is written within the printOutput function
-				    	writeOutput(matchedRegularExpressions, curId, sequence, header_line, outputFastaFile, logFileWriter);
+				    	writeOutput(matchedRegularExpressions, curId, sequence, header_line, max_matches, outputFastaFile, logFileWriter);
 				    }
 				}
 				header_line = line;
@@ -206,7 +212,7 @@ public class FastaTransform {
 	    }else{
 			matchedCounter++;
 	    	//write fasta output and log output (log output is written within the printOutput function
-	    	writeOutput(matchedRegularExpressions, curId, sequence, header_line, outputFastaFile, logFileWriter);
+	    	writeOutput(matchedRegularExpressions, curId, sequence, header_line, max_matches, outputFastaFile, logFileWriter);
 	    }
 		/**** end P1  ****/
 		
@@ -248,20 +254,21 @@ public class FastaTransform {
 	 * @param curId
 	 * @param sequence
 	 * @param header_line
+	 * @param max_matches
 	 * @param outputFastaFile
 	 * @param logFileWriter
 	 * @throws IOException
 	 */
-	private void writeOutput(ArrayList<String> matchedRegularExpressions, String curId, String sequence, String header_line, BufferedWriter outputFastaFile, BufferedWriter logFileWriter) throws IOException {
+	private void writeOutput(ArrayList<String> matchedRegularExpressions, String curId, String sequence, String header_line, int max_matches, BufferedWriter outputFastaFile, BufferedWriter logFileWriter) throws IOException {
 		String regex = null;
 		String trimmedSeq = null;
+		int printed_matches = 0;
 		for(int i = 0; i < matchedRegularExpressions.size(); i++){
 			regex = matchedRegularExpressions.get(i);
 			Pattern pattern = Pattern.compile(regex);
 		    Matcher matcher = pattern.matcher(sequence);
 		    int j = 1;
 		    while (matcher.find()) {
-				outputFastaFile.write(modifyHeaderLine(header_line, regex, j++) + "\n");
 				trimmedSeq = sequence;
 				if(prefix_length > -1 || sufix_length > -1){
 		    		int prefix_starting_idx = 0;
@@ -274,10 +281,14 @@ public class FastaTransform {
 					
 					trimmedSeq = sequence.substring(prefix_starting_idx, sufix_ending_idx);
 				}
-				outputFastaFile.write(trimmedSeq + "\n");
-				
-				//write log info
-			    writeLogInfo(curId, trimmedSeq, regex, logFileWriter);
+				if(max_matches < 0 || printed_matches < max_matches){
+					outputFastaFile.write(modifyHeaderLine(header_line, regex, j++) + "\n");
+					outputFastaFile.write(trimmedSeq + "\n");
+					
+					//write log info
+				    writeLogInfo(curId, trimmedSeq, regex, logFileWriter);
+				    printed_matches++;
+				}
 		      }
 		}
 	}
@@ -450,7 +461,7 @@ public class FastaTransform {
 	}
 
 	private static void printUsage() {
-		System.out.println("USAGE: java FastaTransform --input=pathToInputFasta --position_cutoff=pathToCutoffFile --regular_expression=path.to.multi.reg.exp.file --output=pathToOutputFastaFile --logfile=pathToLogFile [--prefix_length=-1 --sufix_length=-1 --DistanceAA=C]");
+		System.out.println("USAGE: java FastaTransform --input=pathToInputFasta --position_cutoff=pathToCutoffFile --regular_expression=path.to.multi.reg.exp.file --output=pathToOutputFastaFile --logfile=pathToLogFile [--prefix_length=-1 --sufix_length=-1 --DistanceAA=C --MaxMatch=-1]");
 		System.out.println("");
 		System.out.println("The argument --position_cutoff cannot be used in conjunction with --prefix_length AND/OR --sufix_length.");
 	}
