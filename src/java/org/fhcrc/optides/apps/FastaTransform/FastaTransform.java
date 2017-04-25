@@ -340,7 +340,7 @@ public class FastaTransform {
 	private String modifyHeaderLine(String header_line, String regex, int matchNum) {
 		String retVal = "";
 		String[] tmp = header_line.split("\\s+");
-		retVal = tmp[0] + "|" + regex + "_match" + matchNum;
+		retVal = tmp[0] + "|" + "match" + matchNum + "|" + regex;
 		for(int i = 1; i < tmp.length; i++)
 			retVal += " " + tmp[i];
 		return retVal;
