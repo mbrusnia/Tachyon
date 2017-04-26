@@ -321,7 +321,8 @@ public class FastaTransform {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(sequence);
 	    matcher.find();
-		logFileWriter.write(curId + ", " + matcher.start() + ", " + (sequence.length() - matcher.end()) + ", " + regex + ", " + (matcher.end() - matcher.start()) +"\n");
+		logFileWriter.write(curId + ", " + matcher.start() + ", " + (sequence.length() - matcher.end()) + ", ");
+		logFileWriter.write(regex + ", " + (matcher.end() - matcher.start()) + ", " + sequence.substring(matcher.start(), matcher.end()).replaceAll("[^"+distanceAA+"]",  "").length() +"\n");
     	endOfLogSummary.add(curId + ", matched with " + regex);
     	
     	//collect stats for average spread between regex specific AA given in --DistanceAA
