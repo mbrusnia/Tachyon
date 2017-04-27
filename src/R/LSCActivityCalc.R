@@ -51,7 +51,7 @@ standardsList <- labkey.selectRows(
     queryName="LSCpCiConversionFactor"
 )
 
-inputDF$pCi <- as.numeric(standardsList[standardsList[,"Version"] == params$standardCurve, "Slope"]) * as.numeric(inputDF$CPM) + as.numeric(standardsList[standardsList[,"Version"] == params$standardCurve, "YIntercept"])
+inputDF$pCi <- (as.numeric(inputDF$CPM) - as.numeric(standardsList[standardsList[,"Version"] == params$standardCurve, "YIntercept"]))/as.numeric(standardsList[standardsList[,"Version"] == params$standardCurve, "Slope"])
 inputDF$Loading_mg <- as.numeric(inputDF$Loaded_Volume_uL) * as.numeric(inputDF$mg_per_ul)
 inputDF$pCi_per_uL <- as.numeric(inputDF$pCi) / as.numeric(inputDF$Loaded_Volume_uL)
 for(i in 1:length(inputDF$CPM)){
