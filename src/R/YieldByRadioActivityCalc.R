@@ -64,6 +64,7 @@ CPM_VOL_ML = 0.01
 inputDF$Recovered_Mg = -1.0
 inputDF$Recovered_uMol = -1.0
 DILUTION = 100
+# Note that Calibration will generate pCi from measured CPM. Thus final pCi/pMol should be in inputDF$Specific_Activity_CiPerMol, Thus, converting mw to pMol
 for(i in 1:nrow(inputDF)){
 	avgMW = as.numeric(chemProd$AverageMW[chemProd$CHEMProductionID == inputDF$ChemProductionID[i]][1])
 	inputDF$CiPerCPM_Calibration_Factor[i] = (as.numeric(inputDF$CPM[i]) - as.numeric(standardsList[standardsList[,"Version"] == params$standardCurve, "YIntercept"]))/standardsList[standardsList[,"Version"] == params$standardCurve, "Slope"]
