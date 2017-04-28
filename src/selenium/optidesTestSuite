@@ -20,6 +20,7 @@
 <tr><td><a href="LSCActivityCalc.html">LSCActivityCalc</a></td></tr>
 <tr><td><a href="testCleanup.html">testCleanup</a></td></tr>
 <tr><td><a href="ConstructsInsertViaPipeline.html">ConstructsInsertViaPipeline</a></td></tr>
+<tr><td><a href="VariantsInsertViaPipeline.html">VariantsInsertViaPipeline</a></td></tr>
 <tr><td><a href="HomologuesInsertViaPipeline.html">HomologuesInsertViaPipeline</a></td></tr>
 <tr><td><a href="InsertChemProductTest.html">CHEMProductInsertViaPipeline</a></td></tr>
 </tbody></table>
