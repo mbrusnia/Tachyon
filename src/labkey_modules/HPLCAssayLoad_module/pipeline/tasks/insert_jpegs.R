@@ -98,22 +98,6 @@ if(fail){
 ###################################################################
 ## 4) Insert data to Database
 ###################################################################
-#######################################################################################
-##
-## Make the _netrc file we need in order to connect to the database through rlabkey
-##
-#######################################################################################
-machineName <- machineNameFromBaseURL(BASE_URL)
-login <- "brusniak.computelifesci@gmail.com"
-password <- "Kn0ttin10K"
-
-write_NetRC_file(machineName, login, password)
-
-######################################
-## end
-######################################
-
-
 bprops <- list("HTPlateID"=HTPlateID)
 bpl <- list(name=paste("HPLC_", HTPlateID),properties=bprops)
 rpl <- list(name=paste("HPLC_", HTPlateID))

@@ -29,22 +29,6 @@ SAMPLE_SETS_SCHEMA_NAME = "Samples"
 SGI_DNA_QUERY_NAME = "SGI_DNA"
 SAMPLE_SETS_FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
 
-#######################################################################################
-##
-## Make the _netrc file we need in order to connect to the database through rlabkey
-##
-#######################################################################################
-machineName <- machineNameFromBaseURL(BASE_URL)
-login <- "brusniak.computelifesci@gmail.com"
-password <- "Kn0ttin10K"
-
-write_NetRC_file(machineName, login, password)
-
-######################################
-## end
-######################################
-
-
 
 #a hash to look up vector ids to vector names  #this list will grow
 #Vector_hash <- list(VCR010="RKS017", VCR011="RSK056", VCR012="RKS017", VCR020 ="JMO084", VCR21="JMO084", VCR30="JMO300", VCR040="MDT208", VCR050="Elafin", VCR000="Unavailable")

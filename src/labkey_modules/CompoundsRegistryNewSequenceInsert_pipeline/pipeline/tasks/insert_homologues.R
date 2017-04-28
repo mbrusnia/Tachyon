@@ -35,22 +35,6 @@ SAMPLESET_NAME <- "Homologue"
 ID_COL_NAME <- "ID"
 SEQUENCE_COL_NAME <- "AASeq"
 
-#######################################################################################
-##
-## Make the _netrc file we need in order to connect to the database through rlabkey
-##
-#######################################################################################
-machineName <- machineNameFromBaseURL(BASE_URL)
-login <- "brusniak.computelifesci@gmail.com"
-password <- "Kn0ttin10K"
-
-write_NetRC_file(machineName, login, password)
-
-######################################
-## end
-######################################
-
-
 ## get all previously uploaded sequences
 previousHomologueSequenceContents <- labkey.selectRows(BASE_URL, CONTAINER_PATH, 
 		SAMPLE_SETS_SCHEMA_NAME, SAMPLESET_NAME, colSelect =c(ID_COL_NAME, SEQUENCE_COL_NAME), colNameOpt="fieldname")

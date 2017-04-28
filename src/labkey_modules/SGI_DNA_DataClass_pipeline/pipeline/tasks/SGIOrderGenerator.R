@@ -19,46 +19,6 @@ DATA_CLASSES_SCHEMA_NAME = "exp.data"
 SGI_DNA_QUERY_NAME = "SGI_DNA"
 DATA_CLASSES_FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
 
-#######################################################################################
-##
-## Make the _netrc file we need in order to connect to the database through rlabkey
-##
-#######################################################################################
-filename <- paste0(Sys.getenv()["HOME"], .Platform$file.sep, "_netrc")
-if(!file.exists(filename)){
-	f = file(description=filename, open="w")
-	cat(file=f, sep="", "machine optides-stage.fhcrc.org", "\n")
-	cat(file=f, sep="", "login brusniak.computelifesci@gmail.com", "\n")
-	cat(file=f, sep="", "password Kn0ttin10K", "\n")
-	flush(con=f)
-	close(con=f)
-}else{
-	txtFile <- readLines(filename)
-	counter <- 0
-	for(i in 1:length(txtFile)){
-		if(txtFile[i] == "machine optides-stage.fhcrc.org"){
-			counter <- counter + 1
-		}
-		if(txtFile[i] == "login brusniak.computelifesci@gmail.com"){
-			counter <- counter + 1
-		}
-		if(txtFile[i] == "password Kn0ttin10K"){
-			counter <- counter + 1
-		}
-	}
-	if(counter != 3){
-		write("\nmachine optides-stage.fhcrc.org",file=filename,append=TRUE)
-		write("login brusniak.computelifesci@gmail.com",file=filename,append=TRUE)
-		write("password Kn0ttin10K",file=filename,append=TRUE)
-	}
-
-}
-######################################
-## end
-######################################
-
-
-
 #a hash to look up vector ids to vector names  #this list will grow
 Vector_hash <- list(VCR010="RKS017", VCR011="RSK056", VCR012="RKS017", VCR020 ="JMO084", VCR21="JMO084", VCR30="JMO300", VCR040="MDT208", VCR050="Elafin", VCR000="Unavailable")  
 

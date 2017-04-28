@@ -46,22 +46,6 @@ OTDPRODUCTION_SAMPESET_NAME = "OTDProduction"
 SEQUENCE_COL_NAME <- "AASeq"
 VECTOR_COL_NAME <- "Vector"
 
-#######################################################################################
-##
-## Make the _netrc file we need in order to connect to the database through rlabkey
-##
-#######################################################################################
-machineName <- machineNameFromBaseURL(BASE_URL)
-login <- "brusniak.computelifesci@gmail.com"
-password <- "Kn0ttin10K"
-
-write_NetRC_file(machineName, login, password)
-
-######################################
-## end
-######################################
-
-
 
 ######################################
 ## 1) Calculate new IDs
