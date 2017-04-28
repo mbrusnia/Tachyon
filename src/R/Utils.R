@@ -22,8 +22,6 @@ getRunPropsList<- function(rpPath)
 		runPropsOutputPath = rpIn$val1[rpIn$name=="transformedRunPropertiesFile"],
 		standardCurve = rpIn$val1[rpIn$name=="StandardCurve"],
 		errorsFile = rpIn$val1[rpIn$name=="errorsFile"])
-		
-	params$baseUrl = gsub("https:", "http:", params$baseUrl)
 	
 	return (params)
 }
