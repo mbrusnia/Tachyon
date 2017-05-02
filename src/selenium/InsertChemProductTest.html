@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="https://optides-stage.fhcrc.org" />
-<title>InsertConstructsViaPipelineTest</title>
+<title>Insert New CHEM Product Test</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">InsertConstructsViaPipelineTest</td></tr>
+<tr><td rowspan="1" colspan="3">Insert New CHEM Product Test</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -32,8 +32,13 @@
 	<td></td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>4000</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
-	<td>//div/div/span[text()=&quot;TEST_insertConstructsThroughPipeline.xlsx&quot;]</td>
+	<td>//span[text()='newChemProducts_input.xlsx']</td>
 	<td></td>
 </tr>
 <tr>
@@ -43,7 +48,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//table/tbody/tr/td/table/tbody/tr/td[2]/label[text()='Insert New Construct Sequences']</td>
+	<td>//table/tbody/tr/td/table/tbody/tr/td[2]/label[text()='Insert New Chemical Product']</td>
 	<td></td>
 </tr>
 <tr>
@@ -62,8 +67,68 @@
 	<td></td>
 </tr>
 <tr>
+	<td>store</td>
+	<td>TRUE</td>
+	<td>is_running</td>
+</tr>
+<tr>
+	<td>while</td>
+	<td>storedVars['is_running']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeTextPresent</td>
+	<td>insert_chemical_product RUNNING</td>
+	<td>is_running</td>
+</tr>
+<tr>
 	<td>pause</td>
-	<td>10000</td>
+	<td>4000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>endWhile</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>ERROR</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=All</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>ERROR</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>COMPLETE</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=.toggle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Confirm Delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
 	<td></td>
 </tr>
 <tr>
@@ -72,13 +137,18 @@
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>link=Construct</td>
+	<td>pause</td>
+	<td>4000</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//td/div[text()=&quot;AASeq&quot;]</td>
+	<td>link=CHEMProduction</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//td/div[text()=&quot;Received By&quot;]</td>
 	<td></td>
 </tr>
 <tr>
@@ -89,12 +159,17 @@
 <tr>
 	<td>pause</td>
 	<td>1500</td>
+	<td>1500</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=[All]</td>
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>id=value_1</td>
-	<td>TTEESSTT</td>
+	<td>click</td>
+	<td>//td/div/span[text()=&quot;TESTTEST&quot;]</td>
+	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -102,9 +177,19 @@
 	<td></td>
 </tr>
 <tr>
-	<td>assertText</td>
-	<td>//table/tbody/tr/td[2]/div</td>
-	<td>1 - 95 of 95</td>
+	<td>assertTextPresent</td>
+	<td>Filter: (ReceivedBy = TESTTEST)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>4333</td>
+	<td>4333</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>3996</td>
+	<td>3996</td>
 </tr>
 <tr>
 	<td>click</td>

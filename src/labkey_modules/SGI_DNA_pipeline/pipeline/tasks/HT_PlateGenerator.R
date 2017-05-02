@@ -25,22 +25,6 @@ pathToInputFile <- "${input.xlsx}"
 
 #Parameters for this script (login script: _netrc)
 BASE_URL <- jobInfo$value[ grep("baseUrl", jobInfo$name)]
-
-#######################################################################################
-##
-## Make the _netrc file we need in order to connect to the database through rlabkey
-##
-#######################################################################################
-machineName <- machineNameFromBaseURL(BASE_URL)
-login <- "brusniak.computelifesci@gmail.com"
-password <- "Kn0ttin10K"
-
-write_NetRC_file(machineName, login, password)
-
-######################################
-## end
-######################################
-
 SAMPLE_SETS_SCHEMA_NAME = "Samples"
 HT_PRODUCTION_QUERY_NAME = "HTProduction"
 SAMPLE_SETS_FOLDER_PATH = "Optides/CompoundsRegistry/Samples"
