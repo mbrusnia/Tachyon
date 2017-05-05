@@ -106,7 +106,10 @@ public class DatFileMining {
 				passesMapFilter(curRecord, "OR", orMap) &&
 				passesMapFilter(curRecord, "NOT", notMap)){
 
-				outputFile.write(curRecord[1] + "\n");
+				String outputString = curRecord[1].substring(5);
+				String [] outputArr = outputString.split(";");
+				for(int i = 0; i < outputArr.length; i++)
+					outputFile.write(outputArr[i].trim() + "\n");
 				
 				if(debug){
 					System.out.println("ID: " + getFieldDataFromDatRecord("ID", curRecord));
