@@ -142,17 +142,14 @@ public class DatFileMining {
 			boolean innerMatchFlag = false;
 			String fieldData = getFieldDataFromDatRecord(fieldID, record);
 			for(String keyphrase : map.get(fieldID)){
-				if(fieldData.toUpperCase().matches(".*\\b" + keyphrase.toUpperCase() + "\\b.*")){
-					innerMatchFlag = true;
-					if(operator.equals("NOT"))
-						return false;
-					break;
-				}
+				innerMatchFlag = fieldData.toUpperCase().matches(".*\\b" + keyphrase.toUpperCase() + "\\b.*");
+				if(operator.equals("NOT"))
+					return false;
+				else if(operator.equals("AND"))
+						retVal = retVal && innerMatchFlag;
+				else if(operator.equals("OR"))
+						retVal = retVal || innerMatchFlag;
 			}
-			if(operator.equals("AND"))
-				retVal = retVal && innerMatchFlag;
-			else if(operator.equals("OR"))
-				retVal = retVal || innerMatchFlag;
 		}
 		return retVal;
 	}
@@ -160,7 +157,9 @@ public class DatFileMining {
 	// Field: Key     Field will be one of the following TaxID, GO, SUBCELLULAR, FUNCTION, ANYFIELD
 	private String getFieldDataFromDatRecord(String fieldID, String[] record) {
 		StringBuilder retVal = new StringBuilder();
-		boolean readingSubcellularOrFunction = false;
+		boolean readingSubcellular = false;
+		boolean readingFunction = false;
+		boolean readingGeneName = false;
 
 		for(int i = 0; i < record.length; i++){
 			switch (fieldID){
@@ -169,10 +168,14 @@ public class DatFileMining {
 						retVal.append(record[i].substring(5, 5 + record[i].substring(5).indexOf(' ')));
 					break;
 				case "GENE":
-					if(record[i].startsWith("GN   Name="))
-						retVal.append(record[i].substring(10, 10 + record[i].substring(10).indexOf(';')));
+					if(record[i].startsWith("GN   Name=")){
+						retVal.append(record[i].substring(10));
+						readingGeneName = true;
+					}else if(readingGeneName && record[i].startsWith("GN   "))
+							retVal.append(record[i].substring(5));
+					else
+						readingGeneName = false;
 					break;
-
 				case "ORGANISM":
 					if(record[i].startsWith("OS   "))
 						retVal.append(record[i].substring(5));
@@ -191,20 +194,20 @@ public class DatFileMining {
 				case "SUBCELLULAR":
 					if(record[i].startsWith("CC   -!- SUBCELLULAR LOCATION:")){
 						retVal.append(record[i].substring(31));
-						readingSubcellularOrFunction = true;
-					}else if(readingSubcellularOrFunction && record[i].startsWith("CC       "))
+						readingSubcellular = true;
+					}else if(readingSubcellular && record[i].startsWith("CC       "))
 							retVal.append(record[i].substring(8));
 					else
-						readingSubcellularOrFunction = false;
+						readingSubcellular = false;
 					break;
 				case "FUNCTION":
 					if(record[i].startsWith("CC   -!- FUNCTION:")){
 						retVal.append(record[i].substring(18));
-						readingSubcellularOrFunction = true;
-					}else if(readingSubcellularOrFunction && record[i].startsWith("CC       "))
+						readingFunction = true;
+					}else if(readingFunction && record[i].startsWith("CC       "))
 							retVal.append(record[i].substring(8));
 					else
-						readingSubcellularOrFunction = false;
+						readingFunction = false;
 					break;
 			}
 		}
