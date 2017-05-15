@@ -16,9 +16,14 @@ public class LogicFunction extends AbsCondition {
 
 	@Override
 	public boolean passesConditions(DatFileRecord record) {
+		boolean retValue = false;
 		// TODO order of op: NOT AND OR
-		if(conditions.size() == 1 && operators.size() == 0)
-			return conditions.get(0).passesConditions(record);
+		if(conditions.size() == 1 && operators.size() == 0){
+			retValue = conditions.get(0).passesConditions(record);
+			if(invertResult)
+				return !retValue;
+			return retValue;
+		}
 		
 		ArrayList<AbsCondition> tmpConditions = new ArrayList<AbsCondition>();
 		ArrayList<String> tmpOperators = new ArrayList<String>();
@@ -39,9 +44,11 @@ public class LogicFunction extends AbsCondition {
 		tmpConditions.add(conditions.get(i));
 		
 		if(tmpOperators.size() == 0){ //all operations were ANDs
-			boolean retValue = true;
+			retValue = true;
 			for(i=0; i < tmpConditions.size(); i++)
 				retValue = retValue && tmpConditions.get(i).passesConditions(record);
+			if(invertResult)
+				return !retValue;
 			return retValue;
 		}
 		
@@ -58,13 +65,12 @@ public class LogicFunction extends AbsCondition {
 		tmpConditions2.add(tmpConditions.get(i));
 
 		assert(tmpOperators2.size() == 0);
-		boolean retValue = true;
+		retValue = true;
 		for(i=0; i < tmpConditions2.size(); i++)
 			retValue = retValue && tmpConditions2.get(i).passesConditions(record);
 		
 		if(invertResult)
 			return !retValue;
-		
 		return retValue;
 	}
 	

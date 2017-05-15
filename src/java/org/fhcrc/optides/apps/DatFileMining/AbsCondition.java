@@ -1,8 +1,5 @@
 package org.fhcrc.optides.apps.DatFileMining;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public abstract class AbsCondition {
 	protected LogicFunction parent;
 	protected boolean invertResult = false;
@@ -16,7 +13,7 @@ public abstract class AbsCondition {
 	}
 	
 	// Field: Key     Field will be one of the following TaxID, GO, SUBCELLULAR, FUNCTION, ANYFIELD
-		protected static String getFieldDataFromDatRecord(String fieldID, String[] record) {
+	protected static String getFieldDataFromDatRecord(String fieldID, String[] record) {
 			StringBuilder retVal = new StringBuilder();
 			boolean readingSubcellular = false;
 			boolean readingFunction = false;
