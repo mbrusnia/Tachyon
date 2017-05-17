@@ -3,15 +3,12 @@ package org.fhcrc.optides.apps.DatFileMining;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
@@ -22,21 +19,14 @@ public class DatFileMining {
 	private String miningKey = null;
 	private boolean debug = false;
 	
-	private Map<String, ArrayList<String>> firstMap = null;
-	private Map<String, ArrayList<String>> andMap = null;
-	private Map<String, ArrayList<String>> orMap = null;
-	private Map<String, ArrayList<String>> notMap = null;
+	private LogicFunction topLevelLogicFunction; 
 
 	public DatFileMining(String inputFile, String outputFile, String miningKey, boolean debug) {
 		this.inputFile = inputFile;
 		this.outputFile = outputFile;
 		this.miningKey = miningKey;
 		this.debug = debug;
-
-		firstMap = new HashMap<String, ArrayList<String>>();
-		andMap = new HashMap<String, ArrayList<String>>();
-		orMap = new HashMap<String, ArrayList<String>>();
-		notMap = new HashMap<String, ArrayList<String>>();
+		topLevelLogicFunction = new LogicFunction(null, false);
 	}
 
 	public static void main(String[] args) {
@@ -83,7 +73,6 @@ public class DatFileMining {
 			dfm.doFilter();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -91,7 +80,7 @@ public class DatFileMining {
 	private void doFilter() throws IOException {
 		LineIterator it = null;
 		it = FileUtils.lineIterator(new File(inputFile), "UTF-8");
-		String [] curRecord = null;
+		DatFileRecord curRecord = null;
 		int matchCounter = 0;
 		
 		//prepare the writing
@@ -99,29 +88,37 @@ public class DatFileMining {
 		FileOutputStream fos1 = new FileOutputStream(fout1);
 		BufferedWriter outputFile = new BufferedWriter(new OutputStreamWriter(fos1));
 		
+		int j = 0;
 		while(it.hasNext()){
-			curRecord = getNextRecord(it);
+			String[] rec = getNextRecord(it);
+			//curRecord = new DatFileRecord(rec);
 				
-			if(passesMapFilter(curRecord, "AND", andMap) &&
-				passesMapFilter(curRecord, "OR", orMap) &&
-				passesMapFilter(curRecord, "NOT", notMap)){
-
-				String outputString = curRecord[1].substring(5);
-				String [] outputArr = outputString.split(";");
-				for(int i = 0; i < outputArr.length; i++)
-					outputFile.write(outputArr[i].trim() + "\n");
+			if(topLevelLogicFunction.passesConditions(rec)){
+			/*	for(int i = 0; i < curRecord.accessions.size(); i++)
+					outputFile.write(curRecord.accessions.get(i).trim() + "\n"); */
+				ArrayList<String> accessions = getAccessions(rec);
+				for(int i = 0; i < accessions.size(); i++)
+					outputFile.write(accessions.get(i).trim() + "\n");
 				
 				if(debug){
-					System.out.println("ID: " + getFieldDataFromDatRecord("ID", curRecord));
-					System.out.println("GENE: " + getFieldDataFromDatRecord("GENE", curRecord));
-					System.out.println("TAXID: " + getFieldDataFromDatRecord("TAXID", curRecord));
-					System.out.println("ORGANISM: " + getFieldDataFromDatRecord("ORGANISM", curRecord));
-					System.out.println("GO: " + getFieldDataFromDatRecord("GO", curRecord));
-					System.out.println("SUBCEL: " + getFieldDataFromDatRecord("SUBCELLULAR", curRecord));
-					System.out.println("FUNCTION: " + getFieldDataFromDatRecord("FUNCTION", curRecord));
-					for(int j = 0; j < curRecord.length; j++){
-						System.out.println(curRecord[j]);
-					}
+					System.out.println("ID: " + AbsCondition.getFieldDataFromDatRecord("ID", rec));
+					System.out.println("GENE: " + AbsCondition.getFieldDataFromDatRecord("GENE", rec));
+					System.out.println("TAXID: " + AbsCondition.getFieldDataFromDatRecord("TAXID", rec));
+					System.out.println("ORGANISM: " + AbsCondition.getFieldDataFromDatRecord("ORGANISM", rec));
+					System.out.println("GO: " + AbsCondition.getFieldDataFromDatRecord("GO", rec));
+					System.out.println("SUBCEL: " + AbsCondition.getFieldDataFromDatRecord("SUBCELLULAR", rec));
+					System.out.println("FUNCTION: " + AbsCondition.getFieldDataFromDatRecord("FUNCTION", rec));
+					/*
+					System.out.println("ID: " + curRecord.ID);
+					System.out.println("GENE: " + curRecord.geneName);
+					System.out.println("TAXID: " + curRecord.taxID);
+					System.out.println("ORGANISM: " + curRecord.organism);
+					System.out.println("GO: " + curRecord.GO);
+					System.out.println("SUBCEL: " + curRecord.subcellularLocation);
+					System.out.println("FUNCTION: " + curRecord.function);
+					//for(int j = 0; j < curRecord.length; j++){
+					//	System.out.println(curRecord[j]);
+					//}*/
 					System.out.println("");
 				}
 				matchCounter++;
@@ -132,90 +129,8 @@ public class DatFileMining {
 	    LineIterator.closeQuietly(it);
 	}
 
-	private boolean passesMapFilter(String[] record, String operator, Map<String, ArrayList<String>> map) {
-		boolean retVal = operator.equals("AND") || operator.equals("NOT");  //if "and" or "NOT", we'll start with true, if "or" we'll start with false
-		
-		if(map.size() == 0)
-			return true;
-		
-		for(String fieldID : map.keySet()){
-			boolean innerMatchFlag = false;
-			String fieldData = getFieldDataFromDatRecord(fieldID, record);
-			for(String keyphrase : map.get(fieldID)){
-				innerMatchFlag = fieldData.toUpperCase().matches(".*\\b" + keyphrase.toUpperCase() + "\\b.*");
-				if(operator.equals("NOT"))
-					return false;
-				else if(operator.equals("AND"))
-						retVal = retVal && innerMatchFlag;
-				else if(operator.equals("OR"))
-						retVal = retVal || innerMatchFlag;
-			}
-		}
-		return retVal;
-	}
-
-	// Field: Key     Field will be one of the following TaxID, GO, SUBCELLULAR, FUNCTION, ANYFIELD
-	private String getFieldDataFromDatRecord(String fieldID, String[] record) {
-		StringBuilder retVal = new StringBuilder();
-		boolean readingSubcellular = false;
-		boolean readingFunction = false;
-		boolean readingGeneName = false;
-
-		for(int i = 0; i < record.length; i++){
-			switch (fieldID){
-				case "ID":
-					if(record[i].startsWith("ID   "))
-						retVal.append(record[i].substring(5, 5 + record[i].substring(5).indexOf(' ')));
-					break;
-				case "GENE":
-					if(record[i].startsWith("GN   Name=")){
-						retVal.append(record[i].substring(10));
-						readingGeneName = true;
-					}else if(readingGeneName && record[i].startsWith("GN   "))
-							retVal.append(record[i].substring(5));
-					else
-						readingGeneName = false;
-					break;
-				case "ORGANISM":
-					if(record[i].startsWith("OS   "))
-						retVal.append(record[i].substring(5));
-					break;
-				case "ANYFIELD":
-					retVal.append(" " + record[i].substring(5));
-					break;
-				case "GO":
-					if(record[i].startsWith("DR   GO; "))
-						retVal.append(record[i].substring(8));
-					break;
-				case "TAXID":
-					if(record[i].startsWith("OX   NCBI_TaxID=") || record[i].startsWith("OH   NCBI_TaxID="))
-						retVal.append(" " + record[i].substring(16));
-					break;
-				case "SUBCELLULAR":
-					if(record[i].startsWith("CC   -!- SUBCELLULAR LOCATION:")){
-						retVal.append(record[i].substring(31));
-						readingSubcellular = true;
-					}else if(readingSubcellular && record[i].startsWith("CC       "))
-							retVal.append(record[i].substring(8));
-					else
-						readingSubcellular = false;
-					break;
-				case "FUNCTION":
-					if(record[i].startsWith("CC   -!- FUNCTION:")){
-						retVal.append(record[i].substring(18));
-						readingFunction = true;
-					}else if(readingFunction && record[i].startsWith("CC       "))
-							retVal.append(record[i].substring(8));
-					else
-						readingFunction = false;
-					break;
-			}
-		}
-		return retVal.toString();
-	}
-
 	private String[] getNextRecord(LineIterator it) {
-		ArrayList<String> retVal = new ArrayList();
+		ArrayList<String> retVal = new ArrayList<String>();
 		String line = "";
 	    while (it.hasNext()) {
 	        line = it.nextLine();
@@ -230,48 +145,46 @@ public class DatFileMining {
 	private void readMiningKeyFile() throws IOException {
 		FileReader reReader = new FileReader(miningKey);
 		BufferedReader miningKeyBR = new BufferedReader(reReader);
-
-		String line;
-		Map<String, ArrayList<String>> curMap = firstMap;
-		while((line = miningKeyBR.readLine()) != null){
-			if(line.toUpperCase().equals("AND")){
-				if(firstMap != null){
-					andMap = firstMap;
-					firstMap = null;
-				}
-				curMap = andMap;
-			}else if(line.toUpperCase().equals("OR")){
-				if(firstMap != null){
-					orMap = firstMap;
-					firstMap = null;
-				}
-				curMap = orMap;
-			}else if(line.toUpperCase().equals("NOT")){
-				if(firstMap != null){
-					andMap = firstMap;
-					firstMap = null;
-				}
-				curMap = notMap;
-			}else if(line.equals("")){
-				continue;
-			}else{ // Field: Key     Field will be one of the following TaxID, GO, SUBCELLULAR, FUNCTION, ANYFIELD
-				String[] a = line.split(": ");
-				String colID = a[0].toUpperCase();
-				ArrayList<String> keywordList = new ArrayList<String>(Arrays.asList(a[1]));
-				
-				if(!curMap.containsKey(colID))
-					curMap.put(colID, keywordList);
-				else
-					curMap.get(colID).addAll(keywordList);
-			}
-		}	
-		if(firstMap != null){
-			andMap = firstMap;
-			firstMap = null;
-		}
+		
+		topLevelLogicFunction = makeLogicFunction(miningKeyBR, null, false);
+		
 		miningKeyBR.close();
 	}
+	
+	private LogicFunction makeLogicFunction(BufferedReader miningKeyBR, LogicFunction parentLF, boolean invertResult) throws IOException{
+		LogicFunction retVal = new LogicFunction(parentLF, invertResult);
+		boolean invertNextCondition = false;
+		String line;
+		while((line = miningKeyBR.readLine()) != null){
+			if(line.equals(")")){
+				return retVal;
+			}else if(line.equals("(")){
+				retVal.addCondition(makeLogicFunction(miningKeyBR, retVal, invertNextCondition));
+				invertNextCondition = false;
+			}else if(line.equals("NOT")){
+				invertNextCondition = true;
+			}else if(line.equals("AND")){
+				retVal.addOperator("AND");
+			}else if(line.equals("OR")){
+				retVal.addOperator("OR");
+			}else{
+				String[] a = line.split(": ");
+				retVal.addCondition(new DatFileCondition(parentLF, a[0], a[1], invertNextCondition));
+				invertNextCondition = false;
+			}
+		}
+		return retVal;
+	}
 
+	public static ArrayList<String> getAccessions(String[] rec) {
+		ArrayList<String> accessions = new ArrayList<String>();
+		for(int i=1; i < 5; i++)
+			if(rec[i].startsWith("AC   ")){
+				accessions.addAll(Arrays.asList(rec[i].substring(5).split(";")));
+		}
+		return accessions;
+	}
+	
 	private static void printUsage() {
 		System.out.println("");
 		System.out.println("USAGE: java -jar DatFileMining.jar --inputfile=path/to/uniprot.dat --outputfile=path/to/outputfile.txt --miningKey=path/to/Key.txt [--Debug]");
