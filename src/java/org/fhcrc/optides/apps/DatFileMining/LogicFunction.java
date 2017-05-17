@@ -45,53 +45,22 @@ public class LogicFunction extends AbsCondition {
 
 
 	public boolean passesConditions(String[] rec) {
-		if(conditions.size() == 1 && operators.size() == 0)
-			return conditions.get(0).passesConditions(rec);
-		
-		ArrayList<AbsCondition> tmpConditions = new ArrayList<AbsCondition>();
-		ArrayList<String> tmpOperators = new ArrayList<String>();
-		ArrayList<AbsCondition> tmpConditions2 = new ArrayList<AbsCondition>();
-		ArrayList<String> tmpOperators2 = new ArrayList<String>();
-	
-		int i = 0;
-		for(; i < operators.size(); i++){
-			String curOperator = operators.get(i);
-			if(curOperator.equals("AND")){
-				tmpConditions.add(new DatFileMiningBoolean(conditions.get(i).parent, false, conditions.get(i).passesConditions(rec) && conditions.get(i+1).passesConditions(rec)));
-			}else{
-				tmpConditions.add(conditions.get(i));
-				tmpOperators.add(operators.get(i));
-			}
-		}
-		//always one more condition than operators
-		if(!operators.get(i-1).equals("AND"))
-			tmpConditions.add(conditions.get(i));
-		
-		if(tmpOperators.size() == 0){ //all operations were ANDs
-			boolean retValue = true;
-			for(i=0; i < tmpConditions.size(); i++)
-				retValue = retValue && tmpConditions.get(i).passesConditions(rec);
-			return retValue;
-		}
-		
-		for(i = 0; i < tmpOperators.size(); i++){
-			String curOperator = tmpOperators.get(i);
-			if(curOperator.equals("OR")){
-				tmpConditions2.add(new DatFileMiningBoolean(tmpConditions.get(i).parent, false, tmpConditions.get(i).passesConditions(rec) || tmpConditions.get(i+1).passesConditions(rec)));
-			}else{
-				tmpConditions2.add(tmpConditions.get(i));
-				tmpOperators2.add(tmpOperators.get(i));
-			}
-		}
+		return passesConditions(rec, 0);
+	}
 
-		assert(tmpOperators2.size() == 0);
-		boolean retValue = false;
-		for(i=0; i < tmpConditions2.size(); i++)
-			retValue = retValue || tmpConditions2.get(i).passesConditions(rec);
+	public boolean passesConditions(String[] rec, int opsOffset) {		
+		boolean retValue = conditions.get(opsOffset).passesConditions(rec);
+		for(int i = opsOffset; i < operators.size(); i++){
+			if(operators.get(i).equals("OR")){
+				retValue = retValue || this.passesConditions(rec, i + 1);
+				break;
+			}else{
+				retValue = retValue && conditions.get(i+1).passesConditions(rec);
+			}
+		}
 		
 		if(invertResult)
 			return !retValue;
-		
 		return retValue;
 	}
 	
