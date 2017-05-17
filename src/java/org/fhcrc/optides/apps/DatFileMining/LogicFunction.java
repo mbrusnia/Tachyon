@@ -16,58 +16,19 @@ public class LogicFunction extends AbsCondition {
 
 	@Override
 	public boolean passesConditions(DatFileRecord record) {
-		boolean retValue = false;
-		// TODO order of op: NOT AND OR
-		if(conditions.size() == 1 && operators.size() == 0){
-			retValue = conditions.get(0).passesConditions(record);
-			if(invertResult)
-				return !retValue;
-			return retValue;
-		}
-		
-		ArrayList<AbsCondition> tmpConditions = new ArrayList<AbsCondition>();
-		ArrayList<String> tmpOperators = new ArrayList<String>();
-		ArrayList<AbsCondition> tmpConditions2 = new ArrayList<AbsCondition>();
-		ArrayList<String> tmpOperators2 = new ArrayList<String>();
+		return passesConditions(record, 0);
+	}
 	
-		int i = 0;
-		for(; i < operators.size(); i++){
-			String curOperator = operators.get(i);
-			if(curOperator.equals("AND")){
-				tmpConditions.add(new DatFileMiningBoolean(conditions.get(i).parent, false, conditions.get(i).passesConditions(record) && conditions.get(i+1).passesConditions(record)));
+	public boolean passesConditions(DatFileRecord record, int opsOffset) {
+		boolean retValue = conditions.get(opsOffset).passesConditions(record);
+		for(int i = opsOffset; i < operators.size(); i++){
+			if(operators.get(i).equals("OR")){
+				retValue = retValue || this.passesConditions(record, i + 1);
+				break;
 			}else{
-				tmpConditions.add(conditions.get(i));
-				tmpOperators.add(operators.get(i));
+				retValue = retValue && conditions.get(i+1).passesConditions(record);
 			}
 		}
-		//always one more condition than operators
-		tmpConditions.add(conditions.get(i));
-		
-		if(tmpOperators.size() == 0){ //all operations were ANDs
-			retValue = true;
-			for(i=0; i < tmpConditions.size(); i++)
-				retValue = retValue && tmpConditions.get(i).passesConditions(record);
-			if(invertResult)
-				return !retValue;
-			return retValue;
-		}
-		
-		for(i = 0; i < tmpOperators.size(); i++){
-			String curOperator = tmpOperators.get(i);
-			if(curOperator.equals("OR")){
-				tmpConditions2.add(new DatFileMiningBoolean(tmpConditions.get(i).parent, false, tmpConditions.get(i+1).passesConditions(record) || tmpConditions.get(i).passesConditions(record)));
-			}else{
-				tmpConditions2.add(tmpConditions.get(i));
-				tmpOperators2.add(tmpOperators.get(i));
-			}
-		}
-		//always one more condition than operator
-		tmpConditions2.add(tmpConditions.get(i));
-
-		assert(tmpOperators2.size() == 0);
-		retValue = true;
-		for(i=0; i < tmpConditions2.size(); i++)
-			retValue = retValue && tmpConditions2.get(i).passesConditions(record);
 		
 		if(invertResult)
 			return !retValue;

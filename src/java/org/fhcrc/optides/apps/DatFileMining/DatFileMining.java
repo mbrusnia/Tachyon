@@ -73,7 +73,6 @@ public class DatFileMining {
 			dfm.doFilter();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -94,10 +93,6 @@ public class DatFileMining {
 			String[] rec = getNextRecord(it);
 			//curRecord = new DatFileRecord(rec);
 				
-			if(debug && j++ % 50000 == 0)
-				//System.out.println(j + " ID: " + curRecord.ID);
-				System.out.println(j + " " + rec[0]);
-			//if(rec[0].substring(5,14).equals("DEAF1_RAT"))
 			if(topLevelLogicFunction.passesConditions(rec)){
 			/*	for(int i = 0; i < curRecord.accessions.size(); i++)
 					outputFile.write(curRecord.accessions.get(i).trim() + "\n"); */
