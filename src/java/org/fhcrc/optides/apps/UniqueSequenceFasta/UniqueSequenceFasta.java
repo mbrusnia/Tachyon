@@ -14,13 +14,15 @@ import java.util.HashMap;
 
 
 public class UniqueSequenceFasta {
+
 	public static void main(String[] args) {
-		//UniqueSequenceFasta -input_fasta=input.fasta 
+		//UniqueSequenceFasta -input_fasta=input.fasta --mim_length=13
 		String inputFasta = "";
 		String outputFasta = "";
 		String logFile = "";
 		String outputDir = "";
-		
+		int minLength = 0;
+
 		//get input params
 		String[] curParam = null;
 		for(int i = 0; i < args.length; i++){
@@ -33,7 +35,11 @@ public class UniqueSequenceFasta {
 				outputFasta = outputFasta.replaceAll(".FASTA", "_unique.FASTA");
 				logFile = outputFasta.replaceAll(".fasta", ".log");
 				logFile = logFile.replaceAll(".FASTA", ".log");
-			}else{
+			}
+			else if(curParam[0].equals("--min_length")){
+				minLength =  Integer.parseInt(curParam[1]);
+			}
+			else{
 				System.out.println("Unrecognized command line parameter: " + curParam[0]);
 				printUsage();
 				return;
@@ -46,7 +52,7 @@ public class UniqueSequenceFasta {
 		}
 
 		try {
-			doFilter(inputFasta, outputFasta, logFile);
+			doFilter(inputFasta, outputFasta, logFile, minLength);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,7 +63,7 @@ public class UniqueSequenceFasta {
 
 	}
 
-	private static void doFilter(String inputFasta, String outputFasta, String logFile) throws IOException {
+	private static void doFilter(String inputFasta, String outputFasta, String logFile, int minLength) throws IOException {
 		HashMap<String, Integer> sequences = new HashMap<String, Integer>();
 		String line = null;
 		
@@ -81,7 +87,12 @@ public class UniqueSequenceFasta {
 		while ((line = fastaBufferedReader.readLine()) != null) {
 			if(line.startsWith(">")){
 				if(total_sequences++ > 0){
-					if(sequences.containsKey(curSequence)){
+					if(curSequence.length() < minLength){
+						logFileWriter.write("too small: " + curIdLine + "\n");
+						logFileWriter.write(curSequence + "\n");
+						filtered_out_sequences++;
+					}
+					else if(sequences.containsKey(curSequence)){
 						logFileWriter.write(curIdLine + "\n");
 						logFileWriter.write(curSequence + "\n");
 						sequences.put(curSequence, sequences.get(curSequence) + 1);
@@ -122,7 +133,7 @@ public class UniqueSequenceFasta {
 	}
 
 	private static void printUsage() {
-		System.out.println("USAGE: java UniqueSequenceFasta --input_fasta=path/to/fasta_file.fasta");
+		System.out.println("USAGE: java UniqueSequenceFasta --input_fasta=path/to/fasta_file.fasta --min_length=5");
 		System.out.println("");
 		System.out.println("OUTPUTS: same/path/fasta_file_unique.fasta AND same/path/fasta_file_unique.log");
 	}
