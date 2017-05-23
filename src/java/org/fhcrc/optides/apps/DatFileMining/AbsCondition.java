@@ -69,7 +69,11 @@ public abstract class AbsCondition {
 						break;
 				}
 			}
-			return retVal.toString();
+			//remove the "Note=xyzxyzxyz" part of the field data
+			String retValue = retVal.toString();
+			//if(retValue.contains("Note="))
+			//	retValue = retValue.substring(0, retValue.indexOf("Note="));
+			return retValue;
 		}
 		
 }
