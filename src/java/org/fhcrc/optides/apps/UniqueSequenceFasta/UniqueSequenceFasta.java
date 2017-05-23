@@ -113,7 +113,11 @@ public class UniqueSequenceFasta {
 			}
 		}
 		//there's always one trailing protein...
-		if(sequences.containsKey(curSequence)){
+		if(curSequence.length() < minLength) {
+			logFileWriter.write("too small: " + curIdLine + "\n");
+			logFileWriter.write(curSequence + "\n");
+			filtered_out_sequences++;
+		}else if(sequences.containsKey(curSequence)){
 			logFileWriter.write(curIdLine + "\n");
 			logFileWriter.write(curSequence + "\n");
 			sequences.put(curSequence, sequences.get(curSequence) + 1);
@@ -123,7 +127,7 @@ public class UniqueSequenceFasta {
 			outputFastaFile.write(curSequence + "\n");
 			sequences.put(curSequence, 0);
 		}
-		
+
 		fastaBufferedReader.close();
 		outputFastaFile.close();
 		logFileWriter.close();
