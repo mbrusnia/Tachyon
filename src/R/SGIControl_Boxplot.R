@@ -7,7 +7,7 @@ data <- labkey.selectRows(
 )
 
 SGIControl <- data[grepl("A01|A07|E01|E07",data$HTProductionID),]
-SGIControl <- SGIControl[!grep("HTP",SGIControl$HTProductionID),]
+SGIControl <- SGIControl[!grepl("HTP",SGIControl$HTProductionID),]
 
 y <- SGIControl[,"Max Peak NR"]
 x <- factor(SGIControl[,"HTPlateID"])
