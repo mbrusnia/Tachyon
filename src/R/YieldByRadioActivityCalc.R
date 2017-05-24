@@ -41,7 +41,7 @@ if(grepl("ChemProductionID", names(inputDF)[1]) && grepl("InputProtein_mg", name
 ## 2) Do Calculations
 ###################################################################
 #
-#First step get AverageMW value from ChemProductionID = MW
+#First step get conversion factor
 standardsList <- labkey.selectRows(
     baseUrl=BASE_URL,
     folderPath="/Optides/VIVOAssay/Sample",
@@ -66,7 +66,15 @@ inputDF$Recovered_uMol = -1.0
 DILUTION = 100
 # Note that Calibration will generate pCi from measured CPM. Thus final pCi/pMol should be in inputDF$Specific_Activity_CiPerMol, Thus, converting mw to pMol
 for(i in 1:nrow(inputDF)){
+	if(is.na(chemProd$AverageMW[chemProd$CHEMProductionID == inputDF$ChemProductionID[i]][1])){
+		stop(paste0("The average molecular weight for ", inputDF$ChemProductionID[i], " is not loaded into the CHEMProduction sampleset.  Please fix this and try again."))
+	}
+	
 	avgMW = as.numeric(chemProd$AverageMW[chemProd$CHEMProductionID == inputDF$ChemProductionID[i]][1])
+	
+	if(avgMW < 0){
+		stop(paste0("The loaded (in sample set CHEMProduction) average molecular weight value for ", inputDF$ChemProductionID[i], " is ", avgMW, " which is an invalid value (it's negative).  Please fix this and try again."))
+	}
 	inputDF$CiPerCPM_Calibration_Factor[i] = (as.numeric(inputDF$CPM[i]) - as.numeric(standardsList[standardsList[,"Version"] == params$standardCurve, "YIntercept"]))/standardsList[standardsList[,"Version"] == params$standardCurve, "Slope"]
 	inputDF$Recovered_Mg[i] <-round(as.numeric(inputDF$InputProtein_mg[i]) * as.numeric(inputDF$Elute_Peak_Area[i]) * as.numeric(inputDF$Elute_mL[i]) / (as.numeric(inputDF$Reaction_Peak_Area_mV[i])*as.numeric(inputDF$Input_mL[i])), digits=1)
 	inputDF$Specific_Activity_CiPerMol[i] <- as.numeric(inputDF$CiPerCPM_Calibration_Factor[i]) * (as.numeric(inputDF$Elute_mL[i]) / CPM_VOL_ML) * DILUTION
