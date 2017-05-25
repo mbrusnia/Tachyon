@@ -19,6 +19,7 @@ chemProd <- labkey.selectRows(
 )
 
 DeltaC14 = 2.0
+chemProd$NewAverageMW = ""
 for(i in 1:length(chemProd$OTDProductionID)){
 	if(chemProd$ConjugationMethod[i] == "C14 reductive amination"){
 		#get sequence in order to calculate weight
@@ -44,6 +45,8 @@ for(i in 1:length(chemProd$OTDProductionID)){
 		chemProd$NewAverageMW[i] = DSBMWCalc(sequence) + (str_count(sequence, "K")+1) * 2.0 * (calc_formula_mass("C1H2")+ DeltaC14)
 	
 	#else, the value given in the input file is fine
+	}else{
+		chemProd$NewAverageMW[i] = chemProd$AverageMW[i]
 	}
 }
 
