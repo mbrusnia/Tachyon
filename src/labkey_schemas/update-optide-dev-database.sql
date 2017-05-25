@@ -1,7 +1,8 @@
 --once you've reconstructed the database from production onto your
 --dev server, run this sql script against the new database (usually Optides_Prod)
 UPDATE prop.Properties 
-SET Value = 'https://optides-dev-lk1.fhcrc.org' 
+SET Value = 'https://optides-dev-lk1.fhcrc.org'
+--SET Value = 'https://localhost.fhcrc.org' 
 WHERE Name = 'baseServerURL' 
 AND (SELECT s.Category FROM prop.PropertySets AS s WHERE s.[Set] = prop.Properties.[Set]) = 'SiteConfig' 
 ; 
@@ -14,6 +15,13 @@ WHERE type = 'u'
       AND Name NOT LIKE '%@labkey.com' 
       AND Name NOT IN ('mbrusniak@fhcrc.org', 'hramos@fhcrc.org') 
 ; 
+
+--update the path to R.exe
+--UPDATE prop.Properties
+--SET Value = 'C:\THE-PATH-OF-YOUR-R-EXECUTABLE\R.exe'
+--WHERE Name = 'exePath' AND Value LIKE '%R.exe'
+--;
+
 
 --adds in Hector as a Site Admin
 INSERT INTO core.members (UserId,GroupId)
