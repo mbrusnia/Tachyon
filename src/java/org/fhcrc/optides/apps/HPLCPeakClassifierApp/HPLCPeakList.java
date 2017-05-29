@@ -16,7 +16,7 @@ public class HPLCPeakList extends ArrayList<HPLCPeak> {
 			peakAbsoluteAUThreshold = 20.0;
 		}
 		//find max AU value
-		double max = this.getMaxAU(lowerRT, upperRT);
+		double max = this.getMaxAU(lowerRT, upperRT, "Y");
 		
 		//if max au is not greater than peakAbsoluteAUThreshold, then forget it, we wont count any peaks at all
 		if(max < peakAbsoluteAUThreshold)
@@ -50,17 +50,21 @@ public class HPLCPeakList extends ArrayList<HPLCPeak> {
 		}
 		return retVal;
 	}
-	
-	protected double getMaxAU(double lowerRT, double upperRT) {
+
+	protected double getMaxAU(double lowerRT, double upperRT, String xOrY) {
 		double max = 0.0;
+		double x = 0.0;
 		for(int i=0; i < this.size(); i++){
 			if(this.get(i).getRt() >= lowerRT 
 					&& this.get(i).getRt() <= upperRT 
 					&& this.get(i).getAu() > max){
 				max = this.get(i).getAu();
+				x = this.get(i).getRt();
 				majorPeak = this.get(i);
 			}
 		}
+		if(xOrY.equals("X"))
+			return x;
 		return max;
 	}
 
@@ -83,7 +87,7 @@ public class HPLCPeakList extends ArrayList<HPLCPeak> {
 	}
 	public HPLCPeak getMajorPeak(double lowerRT, double upperRT){
 		if(majorPeak == null)
-			getMaxAU(lowerRT, upperRT);
+			getMaxAU(lowerRT, upperRT, "Y");
 		return majorPeak;
 	}
 }

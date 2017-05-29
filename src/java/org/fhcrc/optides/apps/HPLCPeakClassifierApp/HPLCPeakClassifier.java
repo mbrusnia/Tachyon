@@ -255,17 +255,19 @@ public class HPLCPeakClassifier {
 			df.setMinimumIntegerDigits(1);
 			
 			if(nrpeaks == 0){
-				fileName += "_0.00";
+				fileName += "_0.00_0.00";
 			}else{
-				fileName += "_" + df.format(hpc.getPeakList(nrCsv).getMaxAU(minRTForPeak, maxRTForPeak));
+				fileName += "_" + df.format(hpc.getPeakList(nrCsv).getMaxAU(minRTForPeak, maxRTForPeak, "Y"));
+				fileName += "_" + df.format(hpc.getPeakList(nrCsv).getMaxAU(minRTForPeak, maxRTForPeak, "X"));
 			}
 			fileName +=  ".jpg";
+			fileName = fileName.replace(" ",  "");
 			chartName += " [" + classificationOutput + "]";
 			System.out.println("max peaks found: " + peaks);
 			System.out.println("Chart Title: " + chartName);
 			System.out.println("Filename: " + fileName);
 			
-			hpc.drawHPLCsAsJPG(chartName, outDir + fileName.replace(" ",  ""), 800, 600,chartDefaultYmax,chartDefaultYmin);
+			hpc.drawHPLCsAsJPG(chartName, outDir + fileName, 800, 600,chartDefaultYmax,chartDefaultYmin);
 		
 			//append stats to log file
 			/*
@@ -278,7 +280,7 @@ public class HPLCPeakClassifier {
 			File f = new File(HPLCPeakClassifier.loggingFilepath);
 			PrintWriter logfile = null;
 			if(!f.exists()){
-				Files.write(Paths.get(HPLCPeakClassifier.loggingFilepath), "Date\tBLANK_R\tBLANK_NR\tR\tNR\tClassificationCount\tClassificationOutput\tR_Max\tNR_Max\tR_Total\tNR_Total\tBLANK_R_Max\tBLANK_NR_Max\tBLANK_R_Total\tBLANK_R_Total\n".getBytes(), StandardOpenOption.CREATE_NEW);
+				Files.write(Paths.get(HPLCPeakClassifier.loggingFilepath), "Date\tBLANK_R\tBLANK_NR\tR\tNR\tClassificationCount\tClassificationOutput\tR_Max\tNR_Max\tR_Total\tNR_Total\tBLANK_R_Max\tBLANK_NR_Max\tBLANK_R_Total\tBLANK_R_Total\tNR_Max_rt\n".getBytes(), StandardOpenOption.CREATE_NEW);
 			}
 
 			//append
@@ -289,14 +291,15 @@ public class HPLCPeakClassifier {
 			log_str.append(nrCsv + "\t");
 			log_str.append(classification + "\t");
 			log_str.append(classificationOutput + "\t");
-			log_str.append(df.format(hpc.getPeakList(rCsv).getMaxAU(minRTForPeak, maxRTForPeak)) + "\t");
-			log_str.append(df.format(hpc.getPeakList(nrCsv).getMaxAU(minRTForPeak, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(rCsv).getMaxAU(minRTForPeak, maxRTForPeak, "Y")) + "\t");
+			log_str.append(df.format(hpc.getPeakList(nrCsv).getMaxAU(minRTForPeak, maxRTForPeak, "Y")) + "\t");
 			log_str.append(df.format(hpc.getPeakList(rCsv).getTotalAU(minRTForPeak, maxRTForPeak)) + "\t");
 			log_str.append(df.format(hpc.getPeakList(nrCsv).getTotalAU(minRTForPeak, maxRTForPeak)) + "\t");
-			log_str.append(df.format(hpc.getPeakList(blankRCsv).getMaxAU(minRTForPeak, maxRTForPeak)) + "\t");
-			log_str.append(df.format(hpc.getPeakList(blankNRCsv).getMaxAU(minRTForPeak, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(blankRCsv).getMaxAU(minRTForPeak, maxRTForPeak, "Y")) + "\t");
+			log_str.append(df.format(hpc.getPeakList(blankNRCsv).getMaxAU(minRTForPeak, maxRTForPeak, "Y")) + "\t");
 			log_str.append(df.format(hpc.getPeakList(blankRCsv).getTotalAU(minRTForPeak, maxRTForPeak)) + "\t");
 			log_str.append(df.format(hpc.getPeakList(blankNRCsv).getTotalAU(minRTForPeak, maxRTForPeak)) + "\t");
+			log_str.append(df.format(hpc.getPeakList(nrCsv).getMaxAU(minRTForPeak, maxRTForPeak, "X")));
 			log_str.append("\n");
 			
 			Files.write(Paths.get(HPLCPeakClassifier.loggingFilepath), log_str.toString().getBytes(), StandardOpenOption.APPEND);
