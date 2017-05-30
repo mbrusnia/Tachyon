@@ -12,6 +12,8 @@ BASE_URL = "https://optides-stage.fhcrc.org"
 CONTAINER_PATH = "/Optides/CompoundsRegistry/Samples"
 SAMPLE_SETS_SCHEMA_NAME = "samples"
 
+cat("Updating server: ", BASE_URL)
+
 chemProd <- labkey.selectRows(
     baseUrl=BASE_URL,
     folderPath=CONTAINER_PATH,
