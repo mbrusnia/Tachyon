@@ -542,14 +542,16 @@ public class HPLCPeakClassifier {
         String line = bufferedReader.readLine();
         line = bufferedReader.readLine();
         line = bufferedReader.readLine();
-        String number = "";
+        Double number;
         boolean changeEncoding = false;
         try{
         	if(isARW)
-    		number = line.split("\t")[1];
+    		number = Double.parseDouble(line.split("\t")[1]);
         else if(line.contains(","))
-        	number = line.split("\\w?,\\w?")[1];
+        	number = Double.parseDouble(line.split("\\w?,\\w?")[1]);
         }catch(ArrayIndexOutOfBoundsException e){
+        	changeEncoding = true;
+        }catch(NumberFormatException e1){
         	changeEncoding = true;
         }
 
