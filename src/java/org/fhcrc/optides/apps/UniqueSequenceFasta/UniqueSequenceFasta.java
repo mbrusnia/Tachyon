@@ -22,7 +22,7 @@ public class UniqueSequenceFasta {
 		String logFile = "";
 		String outputDir = "";
 		int minLength = 0;
-
+        Boolean uniprotCheck = false;
 		//get input params
 		String[] curParam = null;
 		for(int i = 0; i < args.length; i++){
@@ -39,6 +39,9 @@ public class UniqueSequenceFasta {
 			else if(curParam[0].equals("--min_length")){
 				minLength =  Integer.parseInt(curParam[1]);
 			}
+			else if(curParam[0].equals("--uniprotCheckOn")){
+				uniprotCheck = true;
+			}
 			else{
 				System.out.println("Unrecognized command line parameter: " + curParam[0]);
 				printUsage();
@@ -52,7 +55,7 @@ public class UniqueSequenceFasta {
 		}
 
 		try {
-			doFilter(inputFasta, outputFasta, logFile, minLength);
+			doFilter(inputFasta, outputFasta, logFile, minLength, uniprotCheck);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,8 +66,8 @@ public class UniqueSequenceFasta {
 
 	}
 
-	private static void doFilter(String inputFasta, String outputFasta, String logFile, int minLength) throws IOException {
-		HashMap<String, Integer> sequences = new HashMap<String, Integer>();
+	private static void doFilter(String inputFasta, String outputFasta, String logFile, int minLength, Boolean uniprotCheck) throws IOException {
+		HashMap<String, String> sequences = new HashMap<String, String>();
 		String line = null;
 		
 		//now print all the matching records in the inputFasta file
@@ -83,6 +86,7 @@ public class UniqueSequenceFasta {
 		
 		String curIdLine = "";
 		String curSequence = "";
+		String stampMarker = "NOCDP: ";
 		int total_sequences = 0, filtered_out_sequences = 0;
 		while ((line = fastaBufferedReader.readLine()) != null) {
 			if(line.startsWith(">")){
@@ -93,14 +97,20 @@ public class UniqueSequenceFasta {
 						filtered_out_sequences++;
 					}
 					else if(sequences.containsKey(curSequence)){
-						logFileWriter.write(curIdLine + "\n");
-						logFileWriter.write(curSequence + "\n");
-						sequences.put(curSequence, sequences.get(curSequence) + 1);
+						if(uniprotCheck && !sequences.get(curSequence).contains(">sp|") && !sequences.get(curSequence).contains(">tr|")){
+							logFileWriter.write(stampMarker + curIdLine + "\n");
+							logFileWriter.write(stampMarker + curSequence + "\n");
+						}
+						else{
+							logFileWriter.write(curIdLine + "\n");
+							logFileWriter.write(curSequence + "\n");
+						}
+						//sequences.put(curSequence, sequences.get(curSequence) + 1);
 						filtered_out_sequences++;
 					}else{
 						outputFastaFile.write(curIdLine + "\n");
 						outputFastaFile.write(curSequence + "\n");
-						sequences.put(curSequence, 0);
+						sequences.put(curSequence, curIdLine);
 					}
 				}
 				curIdLine = line;
@@ -118,14 +128,20 @@ public class UniqueSequenceFasta {
 			logFileWriter.write(curSequence + "\n");
 			filtered_out_sequences++;
 		}else if(sequences.containsKey(curSequence)){
-			logFileWriter.write(curIdLine + "\n");
-			logFileWriter.write(curSequence + "\n");
-			sequences.put(curSequence, sequences.get(curSequence) + 1);
+			if(uniprotCheck && !sequences.get(curSequence).contains(">sp|") && !sequences.get(curSequence).contains(">tr|")){
+				logFileWriter.write(stampMarker + curIdLine + "\n");
+				logFileWriter.write(stampMarker + curSequence + "\n");
+			}
+			else{
+				logFileWriter.write(curIdLine + "\n");
+				logFileWriter.write(curSequence + "\n");
+			}
+			//sequences.put(curSequence, sequences.get(curSequence) + 1);
 			filtered_out_sequences++;
 		}else{
 			outputFastaFile.write(curIdLine + "\n");
 			outputFastaFile.write(curSequence + "\n");
-			sequences.put(curSequence, 0);
+			sequences.put(curSequence, curIdLine);
 		}
 
 		fastaBufferedReader.close();
@@ -137,7 +153,7 @@ public class UniqueSequenceFasta {
 	}
 
 	private static void printUsage() {
-		System.out.println("USAGE: java UniqueSequenceFasta --input_fasta=path/to/fasta_file.fasta --min_length=5");
+		System.out.println("USAGE: java UniqueSequenceFasta --input_fasta=path/to/fasta_file.fasta --min_length=5 --uniprotCheckOn");
 		System.out.println("");
 		System.out.println("OUTPUTS: same/path/fasta_file_unique.fasta AND same/path/fasta_file_unique.log");
 	}
