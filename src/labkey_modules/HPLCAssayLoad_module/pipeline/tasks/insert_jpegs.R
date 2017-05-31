@@ -58,18 +58,20 @@ if(length(HTPlateID) > 1){
 ###########################################################################################################
 
 parseFilename <- function(filename, path){
-	if(length(unlist(strsplit(filename , "[_.]"))) != 5){
+	if(length(unlist(strsplit(filename , "[_]"))) != 4){
 		stop(paste0("The detected format of the filename ", filename, " is incorrect.  This is what we are looking for: HTProductionID_Classification_MaxAUNR.jpg, where MaxAUNR is a double value, with a decimal point.  For example: HT01011A01_Simple_817.61.jpg"))
 	}
-	HTProductionID <- unlist(strsplit(filename , "[_.]"))[1]
-	Classification <- unlist(strsplit(filename , "[_.]"))[2]
-	MaxPeakNR <- paste0(unlist(strsplit(filename , "[_.]"))[3], ".", unlist(strsplit(filename , "[_.]"))[4])
+	HTProductionID <- unlist(strsplit(filename , "[_]"))[1]
+	Classification <- unlist(strsplit(filename , "[_]"))[2]
+	MaxPeakNR <- unlist(strsplit(filename , "[_]"))[3]
+	RetentionTime <- unlist(strsplit(filename , "[_]"))[4]
+	RetentionTime <- gsub(".jpg", "", RetentionTime)
+	RetentionTime <- gsub(".JPG", "", RetentionTime)
 	#HTPlateID <- substr(HTProductionID, 1, 6)
 	Image <- paste0(path, "/", filename)
-	df <- data.frame(HTProductionID, Classification, Image, MaxPeakNR)
+	df <- data.frame(HTProductionID, Classification, Image, MaxPeakNR, RetentionTime)
 	return (df)
 }
-
 outputDF <- parseFilename(imageFiles[1], image_path)
 for(i in 2:length(imageFiles)){
 	outputDF <- rbind(outputDF, parseFilename(imageFiles[i], image_path))
@@ -104,6 +106,11 @@ rpl <- list(name=paste("HPLC_", HTPlateID))
 if(!is.na(CONTEXT_PATH)){
 	BASE_URL <- paste0(BASE_URL, CONTEXT_PATH)
 }
+
+BASE_URL
+CONTAINER_PATH
+ASSAY_NAME
+head(outputDF)
 assayInfo<- labkey.saveBatch(
 	baseUrl=BASE_URL,
 	folderPath=CONTAINER_PATH,
