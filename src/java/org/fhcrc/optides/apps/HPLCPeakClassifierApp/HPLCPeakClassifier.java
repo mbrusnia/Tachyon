@@ -140,7 +140,7 @@ public class HPLCPeakClassifier {
 		String rCsv = "";
 		String sampleInfoXmlFile = "";
 		String outDir = "";
-		double sn_ratio = .10; 
+		double sn_ratio = .15; //MYB: 2017 made decision to use sn_ratio to be 0.15
 		int classification = 0; 
 		double maxRTForPeak = 11.0;
 		double chartDefaultYmax = 500;
@@ -316,6 +316,7 @@ public class HPLCPeakClassifier {
 	/*
 	 * after peak picking, this function tells us what the  num of peaks between r vs. nr to report
 	 * we want to report the most possible, after subtracting overlapping nr and r peaks
+	 * MYB: Classification consider both nr and r by choosing the max of nrpp and rpp and remove overlapping peak
 	 */
 	private int getNumberOfPeaksToReport() {
 		int peaks = nrpp.size();
