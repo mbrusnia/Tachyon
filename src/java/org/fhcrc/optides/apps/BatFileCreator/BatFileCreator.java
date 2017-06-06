@@ -14,9 +14,9 @@ public class BatFileCreator {
 		String fileType = "arw";
 		String inputDir = "C:\\Users\\Admin\\Desktop\\HT_UPLC_Export";
 		String outDir = "C:\\Users\\Admin\\Desktop\\HT_UPLC_Reports";
-		Double sn_ratio = 0.2;
-		Double minRTForPeak = 0.8;
-		Double maxRTForPeak = 2.7;
+		Double sn_ratio = 0.15;
+		Double minRTForPeak = 0.95;
+		Double maxRTForPeak = 3.15;
 		Double maxMAUForPeak = 1.0;
 		Integer classification = 2;
 		String filenamePrefix = "HT_UPLC_Export";
