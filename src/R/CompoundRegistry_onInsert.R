@@ -22,7 +22,7 @@ suppressWarnings(suppressMessages(require(Rlabkey)))
 suppressWarnings(suppressMessages(require(Peptides)))
 suppressWarnings(suppressMessages(require(stringr)))
 
-baseUrl<-"http://optides-stage.fhcrc.org/"
+baseUrl<-"http://optides-prod.fhcrc.org/"
 source("${srcDirectory}/Utils.R")
 
 

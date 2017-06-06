@@ -8,7 +8,7 @@ library(stringr)
 
 source("C:/labkey/labkey/files/Optides/@files/Utils.R")
 
-BASE_URL = "https://optides-stage.fhcrc.org"
+BASE_URL = "https://optides-prod.fhcrc.org"
 CONTAINER_PATH = "/Optides/CompoundsRegistry/Samples"
 SAMPLE_SETS_SCHEMA_NAME = "samples"
 

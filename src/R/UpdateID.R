@@ -10,7 +10,7 @@ outputFileName <- "out.tsv"
 ###################################################################################
 #switch to prod or stage before running
 mReg <- labkey.selectRows(
-	baseUrl="http://optides-stage.fhcrc.org",
+	baseUrl="http://optides-prodfhcrc.org",
 	folderPath="/Optides/VIVOAssay/Sample",
 	schemaName="lists",
 	queryName="MouseRegistry",
