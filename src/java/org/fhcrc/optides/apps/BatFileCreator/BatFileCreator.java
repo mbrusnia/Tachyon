@@ -58,7 +58,7 @@ public class BatFileCreator {
 				classification = Integer.parseInt(curParam[1]);
 			else{
 				System.out.println("Unrecognized command line parameter: " + curParam[0]);
-				printUsage(fileStartingNumber, fileType, inputDir, outDir, sn_ratio = 0.2, 
+				printUsage(fileStartingNumber, fileType, inputDir, outDir, sn_ratio = 0.15,
 						minRTForPeak, maxRTForPeak, maxMAUForPeak, classification, filenamePrefix, sampleInfoFilename);
 				return;
 			}
@@ -66,7 +66,7 @@ public class BatFileCreator {
 		
 		if(fileStartingNumber == 0){
 			System.out.println("Required Parameter \"FileStartingNumber\" missing:");
-			printUsage(fileStartingNumber, fileType, inputDir, outDir, sn_ratio = 0.2, minRTForPeak, 
+			printUsage(fileStartingNumber, fileType, inputDir, outDir, sn_ratio = 0.15, minRTForPeak,
 					maxRTForPeak, maxMAUForPeak, classification, filenamePrefix, sampleInfoFilename);
 			return;
 		}
