@@ -8,11 +8,15 @@ library(stringr)
 
 source("C:/labkey/labkey/files/Optides/@files/Utils.R")
 
-BASE_URL = "https://optides-prod.fhcrc.org"
+#BASE_URL = "https://optides-prod.fhcrc.org"
+BASE_URL = "https://localhost.fhcrc.org"
+
 CONTAINER_PATH = "/Optides/CompoundsRegistry/Samples"
 SAMPLE_SETS_SCHEMA_NAME = "samples"
 
-cat("Updating server: ", BASE_URL)
+cat("\n-------- ", date(), " --------\n")
+cat("updateMWs of CHEMProduction and OTDProductionReport\n")
+cat("Updating server: ", BASE_URL, "\n")
 
 chemProd <- labkey.selectRows(
     baseUrl=BASE_URL,
@@ -68,14 +72,13 @@ ssi <- labkey.updateRows(
 )
 
 if(!exists("ssi")){
-	stop("The insertion into the database failed.  Please contact the administrator.")
+	stop("In CHEMProduction, the insertion into the database failed.  Please contact the administrator.")
 }else{
 	#completed
-	cat(length(chemProd$CHEMProductionID), " RECORDS HAVE BEEN UPDATED.  These are their CHEMProductionID's:\n")
+	cat("In CHEMProduction, ", length(chemProd$CHEMProductionID), " RECORDS HAVE BEEN UPDATED.  These are their CHEMProductionID's:\n")
 	for(i in 1:length(chemProd$CHEMProductionID)){
 		cat(chemProd$CHEMProductionID[i], "\n")
 	}
-
 }
 
 
@@ -130,10 +133,10 @@ ssi2 <- labkey.updateRows(
 )
 
 if(!exists("ssi2")){
-	stop("The insertion into the database failed.  Please contact the administrator.")
+	stop("In OTDProductionReport, the insertion into the database failed.  Please contact the administrator.")
 }else{
 	#completed
-	cat(length(otdProdReport$OTDProductionID), " RECORDS HAVE BEEN UPDATED.  These are their OTDProductionID's:\n")
+	cat("In OTDProductionReport, ", length(otdProdReport$OTDProductionID), " RECORDS HAVE BEEN UPDATED.  These are their OTDProductionID's:\n")
 	for(i in 1:length(otdProdReport$OTDProductionID)){
 		if(!is.na(otdProdReport$MonoisotopicMass[i])){
 			cat(otdProdReport$OTDProductionID[i], "\n")

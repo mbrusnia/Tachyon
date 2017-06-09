@@ -12,6 +12,7 @@ library(Peptides)
 source("C:/labkey/labkey/files/Optides/@files/Utils.R")
 
 BASE_URL = "https://optides-prod.fhcrc.org"
+
 COMPOUND_ID_COL_NAME = "ID"
 SEQUENCE_COL_NAME = "AASeq"
 
@@ -20,7 +21,7 @@ SAMPLE_SETS_SCHEMA_NAME = "samples"
 
 cat("\n-------- ", date(), " --------\n")
 cat("updating InSilicoAssay\n")
-cat("Updating server: ", BASE_URL)
+cat("Updating server: ", BASE_URL, "\n")
 
 
 ###########################################################################
@@ -58,7 +59,10 @@ for(i in 1:length(constructs$ID)){
 		}
 	}
 }
-
+if(!exists("inputDF")){
+	cat("No new constructs found.  Exiting.\n")
+	stop("No new constructs found.\n")
+}
 #####################################################################################################
 ## calculate average mass, monoisotopic mass, pI, netcharge at pH=7.4 and hydrophobicity at pH=7.5
 #####################################################################################################
@@ -119,7 +123,7 @@ if(!exists("assayInfo")){
 }else{
 	cat(length(inputDF$ID), " new constructs inserted into InSilicoAssay.  These are their IDs:\n")
 	for(i in 1:length(inputDF$ID)){
-		if(i %% 3 == 1){ cat("\n")}
+		if(i %% 4 == 1){ cat("\n")}
 		cat(inputDF$ID[i], "\t")
 	}
 	cat("\n")
