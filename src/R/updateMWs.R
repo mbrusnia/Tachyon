@@ -2,14 +2,15 @@
 ## This script updated the molecular weights in /CompoundsRegistry/Samples CHEMProduction
 ## and OTDProduction/Assays/ OTDProductionReport
 ##
+## extension 6/6/17 - m/z validation using monoisotopic mass from InSilicoAssay/MolecularProperties
+##
 options(stringsAsFactors = FALSE)
 library(Rlabkey)
 library(stringr)
 
 source("C:/labkey/labkey/files/Optides/@files/Utils.R")
 
-#BASE_URL = "https://optides-prod.fhcrc.org"
-BASE_URL = "https://localhost.fhcrc.org"
+BASE_URL = "https://optides-prod.fhcrc.org"
 
 CONTAINER_PATH = "/Optides/CompoundsRegistry/Samples"
 SAMPLE_SETS_SCHEMA_NAME = "samples"
@@ -18,6 +19,9 @@ cat("\n-------- ", date(), " --------\n")
 cat("updateMWs of CHEMProduction and OTDProductionReport\n")
 cat("Updating server: ", BASE_URL, "\n")
 
+#############################################
+## update CHEMProduction MWs
+#############################################
 chemProd <- labkey.selectRows(
     baseUrl=BASE_URL,
     folderPath=CONTAINER_PATH,
@@ -83,19 +87,21 @@ if(!exists("ssi")){
 
 
 
-######
-
+#############################################
+## update OTDProductionReport MWs
+#############################################
 CONTAINER_PATH = "/Optides/OTDProduction/Assays"
 SAMPLE_SETS_SCHEMA_NAME = "samples"
+DeltaC14 = 2.0
 
 otdProdReport <- labkey.selectRows(
-    baseUrl=BASE_URL,
-    folderPath=CONTAINER_PATH,
-    schemaName=SAMPLE_SETS_SCHEMA_NAME,
-    queryName="OTDProductionReport",
+	baseUrl=BASE_URL,
+	folderPath=CONTAINER_PATH,
+	schemaName=SAMPLE_SETS_SCHEMA_NAME,
+	queryName="OTDProductionReport",
 	colNameOpt="fieldname", 
 	colFilter=makeFilter(c("OTDProductionID", "NOT_MISSING", "")),  
-    colSelect=c("RowId", "OTDProductionID", "MonoisotopicMass")
+	colSelect=c("RowId", "OTDProductionID", "MonoisotopicMass", "ObservedMz", "MSValidated")
 )
 
 for(i in 1:length(otdProdReport$OTDProductionID)){
@@ -108,7 +114,7 @@ for(i in 1:length(otdProdReport$OTDProductionID)){
 		colFilter=makeFilter(c("OTDProductionID", "EQUAL", otdProdID)), colNameOpt="fieldname")
 	if(length(constructIDs$OTDProductionID) < 1){
 		next
-		#stop(paste0("The OTDProductionID: ", otdProdID, " is not found in the OTDProduction Sampleset!  Please correct this issue and try again."))
+		cat(paste0("The OTDProductionID: ", otdProdID, " is not found in the OTDProduction Sampleset!  Please correct this issue."))
 	}
 	constructID = gsub("Construct.", "", constructIDs$ParentID[1])
 
@@ -116,10 +122,26 @@ for(i in 1:length(otdProdReport$OTDProductionID)){
 	sequence <- labkey.selectRows(BASE_URL, "/Optides/CompoundsRegistry/Samples", 
 		SAMPLE_SETS_SCHEMA_NAME, "Construct", colSelect = c("ID", "AASeq"), 
 		colFilter=makeFilter(c("ID", "EQUAL", constructID)), colNameOpt="fieldname")$AASeq[1]
-	#inputDF$sequence[i] = sequence
+	
 	#calculate Molecular Weight
 	otdProdReport$MonoisotopicMass[i] = round(DSBMWCalc(sequence, monoisotopic=TRUE) + (str_count(sequence, "K")+1) * 2.0 * (calc_formula_mass("C1H2", monoisotopic=TRUE)+ DeltaC14), digit=2)
+	
+	#MSValidation
+	H = calc_formula_mass("H1", monoisotopic=TRUE)
+	otdProdReport$MSValidated[i] = TRUE
+	for(q in 1:6){
+		if(is.na(otdProdReport$ObservedMz[i]) || otdProdReport$ObservedMz[i] == ""){
+			otdProdReport$ObservedMz[i] = ""
+			otdProdReport$MSValidated[i] = FALSE
+		}else if(abs((otdProdReport$MonoisotopicMass[i] + q*H)/q - as.numeric(otdProdReport$ObservedMz[i])) < 2.0)
+			otdProdReport$MSValidated[i] = FALSE
+	}
 }
+
+#set NAs to ""s
+otdProdReport[is.na(otdProdReport$MonoisotopicMass), "MonoisotopicMass"] = ""
+otdProdReport[is.na(otdProdReport$ObservedMz), "ObservedMz"] = ""
+otdProdReport[is.na(otdProdReport$MSValidated), "MSValidated"] = ""
 
 ##
 ##insert into DB
