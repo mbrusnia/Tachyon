@@ -33,7 +33,6 @@ chemProd <- labkey.selectRows(
 )
 
 DeltaC14 = 2.0
-chemProd$AverageMW = ""
 for(i in 1:length(chemProd$OTDProductionID)){
 	if(chemProd$ConjugationMethod[i] == "C14 reductive amination"){
 		#get sequence in order to calculate weight
@@ -124,13 +123,20 @@ for(i in 1:length(otdProdReport$OTDProductionID)){
 	
 	#MSValidation
 	H = calc_formula_mass("H1", monoisotopic=TRUE)
-	otdProdReport$MSValidated[i] = TRUE
+	otdProdReport$MSValidated[i] = "FALSE"
 	for(q in 1:6){
 		if(is.na(otdProdReport$ObservedMz[i]) || otdProdReport$ObservedMz[i] == ""){
 			otdProdReport$ObservedMz[i] = ""
-			otdProdReport$MSValidated[i] = FALSE
+			otdProdReport$MSValidated[i] = ""
 		}else if(abs((otdProdReport$MonoisotopicMass[i] + q*H)/q - as.numeric(otdProdReport$ObservedMz[i])) < 2.0)
-			otdProdReport$MSValidated[i] = FALSE
+			otdProdReport$MSValidated[i] = "TRUE"
+	}
+	#If validation fails, print the q, mz, and diff value of each q:
+	if(otdProdReport$MSValidated[i] == "FALSE"){
+		cat(otdProdID, " with ObservedMz ", otdProdReport$ObservedMz[i], " failed MS/MZ validation.  Here are the q, m/z, and diff. values:\n")
+		for(q in 1:6){
+			cat(q, ": ", (otdProdReport$MonoisotopicMass[i] + q*H)/q, ": ", abs((otdProdReport$MonoisotopicMass[i] + q*H)/q - as.numeric(otdProdReport$ObservedMz[i])), "\n")
+		}
 	}
 }
 
