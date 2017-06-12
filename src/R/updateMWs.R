@@ -33,7 +33,7 @@ chemProd <- labkey.selectRows(
 )
 
 DeltaC14 = 2.0
-chemProd$NewAverageMW = ""
+chemProd$AverageMW = ""
 for(i in 1:length(chemProd$OTDProductionID)){
 	if(chemProd$ConjugationMethod[i] == "C14 reductive amination"){
 		#get sequence in order to calculate weight
@@ -56,11 +56,7 @@ for(i in 1:length(chemProd$OTDProductionID)){
 			colFilter=makeFilter(c("ID", "EQUAL", constructID)), colNameOpt="fieldname")$AASeq[1]
 		#inputDF$sequence[i] = sequence
 		#calculate Molecular Weight
-		chemProd$NewAverageMW[i] = round(DSBMWCalc(sequence) + (str_count(sequence, "K")+1) * 2.0 * (calc_formula_mass("C1H2")+ DeltaC14), digit=2)
-	
-	#else, the value given in the input file is fine
-	}else{
-		chemProd$NewAverageMW[i] = chemProd$AverageMW[i]
+		chemProd$AverageMW[i] = round(DSBMWCalc(sequence) + (str_count(sequence, "K")+1) * 2.0 * (calc_formula_mass("C1H2")+ DeltaC14), digit=2)
 	}
 }
 
