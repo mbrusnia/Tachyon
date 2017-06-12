@@ -113,8 +113,8 @@ for(i in 1:length(otdProdReport$OTDProductionID)){
 		SAMPLE_SETS_SCHEMA_NAME, "OTDProduction", colSelect = c("OTDProductionID", "ParentID"), 
 		colFilter=makeFilter(c("OTDProductionID", "EQUAL", otdProdID)), colNameOpt="fieldname")
 	if(length(constructIDs$OTDProductionID) < 1){
-		next
 		cat(paste0("The OTDProductionID: ", otdProdID, " is not found in the OTDProduction Sampleset!  Please correct this issue."))
+		next
 	}
 	constructID = gsub("Construct.", "", constructIDs$ParentID[1])
 
