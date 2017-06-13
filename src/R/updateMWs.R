@@ -119,7 +119,7 @@ for(i in 1:length(otdProdReport$OTDProductionID)){
 		colFilter=makeFilter(c("ID", "EQUAL", constructID)), colNameOpt="fieldname")$AASeq[1]
 	
 	#calculate Molecular Weight
-	otdProdReport$MonoisotopicMass[i] = round(DSBMWCalc(sequence, monoisotopic=TRUE) + (str_count(sequence, "K")+1) * 2.0 * (calc_formula_mass("C1H2", monoisotopic=TRUE)+ DeltaC14), digit=2)
+	otdProdReport$MonoisotopicMass[i] = round(DSBMWCalc(sequence, monoisotopic=TRUE), digit=2)
 	
 	#MSValidation
 	H = calc_formula_mass("H1", monoisotopic=TRUE)
@@ -135,7 +135,7 @@ for(i in 1:length(otdProdReport$OTDProductionID)){
 	if(otdProdReport$MSValidated[i] == "FALSE"){
 		cat(otdProdID, " with ObservedMz ", otdProdReport$ObservedMz[i], " failed MS/MZ validation.  Here are the q, m/z, and diff. values:\n")
 		for(q in 1:6){
-			cat(q, ": ", (otdProdReport$MonoisotopicMass[i] + q*H)/q, ": ", abs((otdProdReport$MonoisotopicMass[i] + q*H)/q - as.numeric(otdProdReport$ObservedMz[i])), "\n")
+			cat(q, ": ", sequence, ": ", (otdProdReport$MonoisotopicMass[i] + q*H)/q, ": ", abs((otdProdReport$MonoisotopicMass[i] + q*H)/q - as.numeric(otdProdReport$ObservedMz[i])), "\n")
 		}
 	}
 }
