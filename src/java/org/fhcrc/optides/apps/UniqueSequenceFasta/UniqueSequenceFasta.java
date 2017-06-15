@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -69,7 +70,8 @@ public class UniqueSequenceFasta {
 	private static void doFilter(String inputFasta, String outputFasta, String logFile, int minLength, Boolean uniprotCheck) throws IOException {
 		HashMap<String, String> sequences = new HashMap<String, String>();
 		String line = null;
-		
+		float currLength;
+
 		//now print all the matching records in the inputFasta file
 		//prepare the reading
 		FileReader fastaReader = new FileReader(inputFasta);
@@ -82,8 +84,8 @@ public class UniqueSequenceFasta {
 		File fout2 = new File(logFile);
 		FileOutputStream fos2 = new FileOutputStream(fout2);
 		BufferedWriter logFileWriter = new BufferedWriter(new OutputStreamWriter(fos2));
+		float nCystein = 0.0f;
 
-		
 		String curIdLine = "";
 		String curSequence = "";
 		String stampMarker = "NOCDP: ";
@@ -107,10 +109,19 @@ public class UniqueSequenceFasta {
 						}
 						//sequences.put(curSequence, sequences.get(curSequence) + 1);
 						filtered_out_sequences++;
+					}else if(curSequence.contains("U")) {
+						logFileWriter.write("Contain special AA code U:" + curIdLine + "\n");
+						logFileWriter.write(curSequence + "\n");
 					}else{
 						outputFastaFile.write(curIdLine + "\n");
 						outputFastaFile.write(curSequence + "\n");
 						sequences.put(curSequence, curIdLine);
+						currLength = curSequence.length();
+						if(currLength ==81){
+							logFileWriter.write("Maxlength seq:" + curIdLine + "\n");
+						}
+						nCystein = currLength - curSequence.replace("C","").length();
+						logFileWriter.write("Cystein Stat: " + nCystein + " " + nCystein/currLength + "\n");
 					}
 				}
 				curIdLine = line;
@@ -138,10 +149,19 @@ public class UniqueSequenceFasta {
 			}
 			//sequences.put(curSequence, sequences.get(curSequence) + 1);
 			filtered_out_sequences++;
+		}else if(curSequence.contains("U")){
+			logFileWriter.write("Contain special AA code U:" + curIdLine + "\n");
+			logFileWriter.write(curSequence + "\n");
 		}else{
 			outputFastaFile.write(curIdLine + "\n");
 			outputFastaFile.write(curSequence + "\n");
 			sequences.put(curSequence, curIdLine);
+			currLength = curSequence.length();
+			if(currLength ==81){
+				logFileWriter.write("Maxlength seq:" + curIdLine + "\n");
+			}
+			nCystein = currLength - curSequence.replace("C","").length();
+			logFileWriter.write("Cystein Stat: " + nCystein + " " + nCystein/currLength + "\n");
 		}
 
 		fastaBufferedReader.close();
