@@ -27,37 +27,62 @@ chemProd <- labkey.selectRows(
     folderPath=CONTAINER_PATH,
     schemaName=SAMPLE_SETS_SCHEMA_NAME,
     queryName="CHEMProduction",
-	colNameOpt="fieldname", 
-	colFilter=makeFilter(c("OTDProductionID", "NOT_MISSING", "")),  
-    colSelect=c("RowId", "CHEMProductionID", "OTDProductionID", "AverageMW", "ConjugationMethod")
+	colNameOpt="fieldname",  
+    colSelect=c("RowId", "CHEMProductionID", "OTDProductionID", "VariantID", "DrugReagentID", "LinkerReagentID", "AverageMW", "ConjugationMethod")
 )
 
 DeltaC14 = 2.0
-for(i in 1:length(chemProd$OTDProductionID)){
-	if(chemProd$ConjugationMethod[i] == "C14 reductive amination"){
-		#get sequence in order to calculate weight
-		otdProdID = chemProd$OTDProductionID[i]
-		if(is.null(otdProdID) || is.na(otdProdID) || otdProdID == ""){
-			stop(paste0("Row ", i, " is C14 reductive animation, yet has no given OTDProductionID.  Please add the OTDProductionID and try again."))
-		}
-		#get ConstructID
-		constructIDs <- labkey.selectRows(BASE_URL, CONTAINER_PATH, 
-			SAMPLE_SETS_SCHEMA_NAME, "OTDProduction", colSelect = c("OTDProductionID", "ParentID"), 
-			colFilter=makeFilter(c("OTDProductionID", "EQUAL", otdProdID)), colNameOpt="fieldname")
-		if(length(constructIDs$OTDProductionID) < 1){
-			stop(paste0("The OTDProductionID: ", otdProdID, " is not found in the OTDProduction Sampleset!  Please correct this issue and try again."))
-		}
-		constructID = gsub("Construct.", "", constructIDs$ParentID[1])
+for(i in 1:length(chemProd$CHEMProductionID)){
+	#if drug reagent or linker reagents were used, we leave user-entered MW values in place
+	if(!is.na(chemProd$DrugReagentID[i]) || !is.na(chemProd$LinkerReagentID[i])){
+		next
+	}
+	
+	#we recalculate mass only for the C14 reductive amination entries that either have an otdID or variantID
+	if(!is.na(chemProd$ConjugationMethod[i]) && chemProd$ConjugationMethod[i] == "C14 reductive amination"
+		&& (!is.na(chemProd$OTDProductionID[i]) || !is.na(chemProd$VariantID[i]))){
+		
+		#get the sequence via construct, if OTDid is set, or variant if VariantID is set
+		if(!is.na(chemProd$OTDProductionID[i]) && is.na(chemProd$VariantID[i])){
+			#get sequence in order to calculate weight
+			otdProdID = chemProd$OTDProductionID[i]
+			if(is.null(otdProdID) || is.na(otdProdID) || otdProdID == ""){
+				stop(paste0("Row ", i, " is C14 reductive animation, yet has no given OTDProductionID.  Please add the OTDProductionID and try again."))
+			}
+			#get ConstructID
+			constructIDs <- labkey.selectRows(BASE_URL, CONTAINER_PATH, 
+				SAMPLE_SETS_SCHEMA_NAME, "OTDProduction", colSelect = c("OTDProductionID", "ParentID"), 
+				colFilter=makeFilter(c("OTDProductionID", "EQUAL", otdProdID)), colNameOpt="fieldname")
+			if(length(constructIDs$OTDProductionID) < 1){
+				stop(paste0("The OTDProductionID: ", otdProdID, " is not found in the OTDProduction Sampleset!  Please correct this issue and try again."))
+			}
+			constructID = gsub("Construct.", "", constructIDs$ParentID[1])
 
-		#get sequence
-		sequence <- labkey.selectRows(BASE_URL, CONTAINER_PATH, 
-			SAMPLE_SETS_SCHEMA_NAME, "Construct", colSelect = c("ID", "AASeq"), 
-			colFilter=makeFilter(c("ID", "EQUAL", constructID)), colNameOpt="fieldname")$AASeq[1]
-		#inputDF$sequence[i] = sequence
+			#get sequence
+			sequence <- labkey.selectRows(BASE_URL, CONTAINER_PATH, 
+				SAMPLE_SETS_SCHEMA_NAME, "Construct", colSelect = c("ID", "AASeq"), 
+				colFilter=makeFilter(c("ID", "EQUAL", constructID)), colNameOpt="fieldname")$AASeq[1]
+		}else if(is.na(chemProd$OTDProductionID[i]) && !is.na(chemProd$VariantID[i])){
+			#get sequence in order to calculate weight
+			variantID = chemProd$VariantID[i]
+
+			#get sequence
+			sequence <- labkey.selectRows(BASE_URL, CONTAINER_PATH, 
+				SAMPLE_SETS_SCHEMA_NAME, "Variant", colSelect = c("ID", "AASeq"), 
+				colFilter=makeFilter(c("ID", "EQUAL", variantID)), colNameOpt="fieldname")$AASeq[1]
+		}
+
 		#calculate Molecular Weight
 		chemProd$AverageMW[i] = round(DSBMWCalc(sequence) + (str_count(sequence, "K")+1) * 2.0 * (calc_formula_mass("C1H2")+ DeltaC14), digit=2)
 	}
 }
+##set NAs to ""  (required for R -> labkey insertions)
+chemProd$OTDProductionID[is.na(chemProd$OTDProductionID)] = ""
+chemProd$VariantID[is.na(chemProd$VariantID)] = ""
+chemProd$DrugReagentID[is.na(chemProd$DrugReagentID)] = ""
+chemProd$LinkerReagentID[is.na(chemProd$LinkerReagentID)] = ""
+chemProd$AverageMW[is.na(chemProd$AverageMW)] = ""
+chemProd$ConjugationMethod[is.na(chemProd$ConjugationMethod)] = ""
 
 ##
 ##insert into DB
