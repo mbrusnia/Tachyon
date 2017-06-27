@@ -8,8 +8,8 @@
 ## Step 4: iteration of step 2 for i+1
 ## The routine should print out each iteration subset_size and final returnDataFrame size.
 ##
-
-
+library(Biostrings)
+data(blosum50)
 ##temporary score function.  replace this with optides real score function
 tmp_score <- function(cols, colNo, maxVal, size){
 	tmp <- data.frame(replicate(cols,sample(0:maxVal,size,rep=TRUE)))
