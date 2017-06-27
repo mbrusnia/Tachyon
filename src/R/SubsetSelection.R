@@ -17,6 +17,21 @@ tmp_score <- function(cols, colNo, maxVal, size){
 	return(tmp)
 }
 tmp <- tmp_score(5, 2, 100, 700000)
+# step1: Read initial score file
+# step2: Read fasta file to make dataframe.
+InitialScore_Cutoff = -20
+# step3: loop over each sequences that is above of InitialScore_Cutoff, call SubsetSelectionR with SetBoundVal
+# step4: startingID needs to be found from dataframe using proteinID (ex. tr|R7RPX4|R7RPX4_9CLOT)
+# step5: output is returnDataFrame is written in fasta file format.
+SetBoundVal = 0.9
+
+SimpleSubsetSelectionR <- function(startingID, dataframe, colNo, boundVal){
+	returnDataFrame <- dataframe[startingID,]
+	alm <- pairwiseAlignment(dataframe[startingID,2], dataframe$sequence, substitutionMatrix="PAM30", gapOpening=-10, gapExtension=-0.2)
+	score <- as.matrix(score(alm))
+    returnDataFrame <- dataframe[which(score[score > boundVal]), ]
+	return(returnDataFrame)
+}
 
 SubsetSelectionR <- function(startingID, dataframe, colNo, boundVal){
 	returnDataFrame <- dataframe[startingID,]
@@ -27,8 +42,9 @@ SubsetSelectionR <- function(startingID, dataframe, colNo, boundVal){
 		cat("At iteration ", i, " the size of filtered subset is ", dim(subset)[1], ".\n")
 		i <- i + 1
 		returnDataFrame <- rbind(returnDataFrame, subset[1, ])
-		subset <- tmp_score(5, 2, 100, dim(subset)[1])
-		subset <- subset[subset[,colNo] < boundVal, ]
+		alm <- pairwiseAlignment(dataframe[startingID,2], dataframe$sequence, substitutionMatrix="PAM30", gapOpening=-10, gapExtension=-0.2)
+        score <- as.matrix(score(alm))
+		subset <- dataframe[which(score[score < boundVal]), ]
 	}
 	cat("The returned dataframe's length is ", dim(returnDataFrame)[1], "\n")
 	return(returnDataFrame)
