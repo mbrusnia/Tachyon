@@ -102,26 +102,35 @@ public class UniqueSequenceFasta {
 						if(uniprotCheck && !sequences.get(curSequence).contains(">sp|") && !sequences.get(curSequence).contains(">tr|")){
 							logFileWriter.write(stampMarker + curIdLine + "\n");
 							logFileWriter.write(stampMarker + curSequence + "\n");
+							filtered_out_sequences++;
 						}
 						else{
 							logFileWriter.write(curIdLine + "\n");
 							logFileWriter.write(curSequence + "\n");
+							filtered_out_sequences++;
 						}
 						//sequences.put(curSequence, sequences.get(curSequence) + 1);
 						filtered_out_sequences++;
 					}else if(curSequence.contains("U")) {
 						logFileWriter.write("Contain special AA code U:" + curIdLine + "\n");
 						logFileWriter.write(curSequence + "\n");
+						filtered_out_sequences++;
 					}else{
-						outputFastaFile.write(curIdLine + "\n");
-						outputFastaFile.write(curSequence + "\n");
-						sequences.put(curSequence, curIdLine);
 						currLength = curSequence.length();
 						if(currLength ==81){
 							logFileWriter.write("Maxlength seq:" + curIdLine + "\n");
 						}
 						nCystein = currLength - curSequence.replace("C","").length();
-						logFileWriter.write("Cystein Stat: " + nCystein + " " + nCystein/currLength + "\n");
+						if(nCystein >= 6) {
+							outputFastaFile.write(curIdLine + "\n");
+							outputFastaFile.write(curSequence + "\n");
+							sequences.put(curSequence, curIdLine);
+							logFileWriter.write("Cystein Stat: " + nCystein + " " + nCystein / currLength + " " + curIdLine + "\n");
+						}else{
+							logFileWriter.write("Small No C:" + curIdLine + "\n");
+							logFileWriter.write("Small No C:" + curSequence + "\n");
+							filtered_out_sequences++;
+						}
 					}
 				}
 				curIdLine = line;
