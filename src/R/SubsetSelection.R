@@ -9,46 +9,108 @@
 ## The routine should print out each iteration subset_size and final returnDataFrame size.
 ##
 library(Biostrings)
-data(blosum50)
-##temporary score function.  replace this with optides real score function
-tmp_score <- function(cols, colNo, maxVal, size){
-	tmp <- data.frame(replicate(cols,sample(0:maxVal,size,rep=TRUE)))
-	tmp[1, colNo] = maxVal
-	return(tmp)
-}
-tmp <- tmp_score(5, 2, 100, 700000)
-# step1: Read initial score file
-# step2: Read fasta file to make dataframe.
-InitialScore_Cutoff = -20
-# step3: loop over each sequences that is above of InitialScore_Cutoff, call SubsetSelectionR with SetBoundVal
-# step4: startingID needs to be found from dataframe using proteinID (ex. tr|R7RPX4|R7RPX4_9CLOT)
-# step5: output is returnDataFrame is written in fasta file format.
-SetBoundVal = 0.9
+library(pryr)
+data(BLOSUM50)
 
-SimpleSubsetSelectionR <- function(startingID, dataframe, colNo, boundVal){
-	returnDataFrame <- dataframe[startingID,]
-	alm <- pairwiseAlignment(dataframe[startingID,2], dataframe$sequence, substitutionMatrix="PAM30", gapOpening=-10, gapExtension=-0.2)
-	score <- as.matrix(score(alm))
-    returnDataFrame <- dataframe[which(score[score > boundVal]), ]
-	return(returnDataFrame)
+
+##startingID is a string like "tr|R7RPX4|R7RPX4_9CLOT"
+SimpleSubsetSelectionR <- function(startingID, fastaAAStringSet, colNo, boundVal){
+	returnDataFrame <- fastaAAStringSet[substring(names(fastaAAStringSet), 1, nchar(startingID)) == startingID]
+	alm <- pairwiseAlignment(fastaAAStringSet, returnDataFrame, substitutionMatrix="PAM30", gapOpening=-10, gapExtension=-0.2)
+	new_score <- as.matrix(score(alm))
+    	#normalize the score values from 0 to 100
+	new_score = (new_score + abs(min(new_score)))/(max(new_score) + abs(min(new_score)))
+	return(fastaAAStringSet[new_score > boundVal])
 }
 
-SubsetSelectionR <- function(startingID, dataframe, colNo, boundVal){
-	returnDataFrame <- dataframe[startingID,]
-	subset <- dataframe[dataframe[,colNo] < boundVal, ]
+SubsetSelectionR <- function(startingID, fastaAAStringSet, colNo, boundVal){
+	returnDataFrame <- fastaAAStringSet[substring(names(fastaAAStringSet), 1, nchar(startingID)) == startingID]
+	#pairwise score against fasta file #and 
+	alm <- pairwiseAlignment(fastaAAStringSet, returnDataFrame[1], substitutionMatrix="PAM30", gapOpening=-10, gapExtension=-0.2)
+      new_score <- as.matrix(score(alm))
+	#normalize the score values from 0 to 100
+	new_score = (new_score + abs(min(new_score)))/(max(new_score) + abs(min(new_score)))
+	subset <- fastaAAStringSet[new_score < boundVal]
 	i = 1
 
-	while(dim(subset)[1] > 1 ){
-		cat("At iteration ", i, " the size of filtered subset is ", dim(subset)[1], ".\n")
+	while(length(subset) > 0 ){
+		cat("At inner iteration", i, "the size of filtered subset is", length(subset), "\n")
 		i <- i + 1
-		returnDataFrame <- rbind(returnDataFrame, subset[1, ])
-		alm <- pairwiseAlignment(dataframe[startingID,2], dataframe$sequence, substitutionMatrix="PAM30", gapOpening=-10, gapExtension=-0.2)
-        score <- as.matrix(score(alm))
-		subset <- dataframe[which(score[score < boundVal]), ]
+		returnDataFrame = append(returnDataFrame , subset[1])
+		alm <- pairwiseAlignment(subset, subset[1], substitutionMatrix="PAM30", gapOpening=-10, gapExtension=-0.2)
+        	new_score <- as.matrix(score(alm))
+		#normalize the score values from 0 to 100
+		new_score = (new_score + abs(min(new_score)))/(max(new_score) + abs(min(new_score)))
+		subset <- subset[new_score < boundVal]
+		#subset1 <- subset[new_score < boundVal]
+		#gc(subset)
+		#subset = subset1
+		#gc(subset1)
 	}
-	cat("The returned dataframe's length is ", dim(returnDataFrame)[1], "\n")
+	cat("The returned dataframe's length is", length(returnDataFrame), "\n")
 	return(returnDataFrame)
 }
-ttt <- SubsetSelectionR(3, tmp, 2, 60)
+
+# step1: Read initial score file
+initialScoreFile <- "C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Project25 - Research\\Project25_SubsetSelection_RunExample\\Project25_SubsetSelection_RunExample\\Input_initialScore.txt"
+initialScores <- read.table(initialScoreFile, header=TRUE, sep="\t")
+
+# step2: Read fasta file to make dataframe.
+fastaFile <- "C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Project25 - Research\\Project25_SubsetSelection_RunExample\\Project25_SubsetSelection_RunExample\\input.fasta"
+fasta <- readAAStringSet(fastaFile) 
+
+# step3: loop over each sequences that is above of InitialScore_Cutoff, call SubsetSelectionR with SetBoundVal
+InitialScore_Cutoff = -20
+
+##for our test data, this threshold gives us an initial dataset of 36 data points
+#InitialScore_Cutoff = 50
+SetBoundVal = 0.1
+
+initialScoreSubset <- initialScores[initialScores$InitialScore > InitialScore_Cutoff,]
+upperVal <- length(initialScoreSubset$InitialScore)
+start.time <- Sys.time()
+
+#we're running this script with both functions, first with SimpleSubsetSelectionR, then with SubsetSelectionR
+for(j in 1:2){
+	curFun <- SubsetSelectionR
+	if(j == 2)
+		curFun <- SimpleSubsetSelectionR
+	for(i in 1:upperVal){
+		cat("Memory used:", mem_used(), "\n")
+		end.time <- Sys.time()
+		time.taken <- end.time - start.time
+		cat("Time taken:", time.taken, "\n")
+		cat("OUTER LOOP ITERATION", i, "of", upperVal,"\n")
+		# step4: startingID needs to be found from dataframe using proteinID (ex. tr|R7RPX4|R7RPX4_9CLOT)
+		if(i == 1)
+			returnDF  = curFun(as.character(initialScores[i, "fullname"]), fasta, 3, SetBoundVal)
+		else
+			returnDF = append(returnDF, curFun(as.character(initialScores[i, "fullname"]), fasta, 3, SetBoundVal))
+	}
+	#
+	# step5: output is returnDataFrame is written in fasta file format.  first make unique
+	#
+	#remove duplicates
+	returnDF = returnDF[!duplicated(returnDF), ]
+	length(returnDF)
+
+	#write fasta output:
+	if(j==1){
+		outFastaFile <- "C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Project25 - Research\\Project25_SubsetSelection_RunExample\\Project25_SubsetSelection_RunExample\\simpleSubsetSelectionOut.fasta"
+	}else{
+		outFastaFile <- "C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Project25 - Research\\Project25_SubsetSelection_RunExample\\Project25_SubsetSelection_RunExample\\subsetSelectionOut.fasta"
+	}
+
+	sink(outFastaFile)
+	for(i in 1:length(returnDF)){
+		cat(paste0(">", names(returnDF[i]), "\n"))
+		cat(paste0(as.character(returnDF[i]), "\n"))
+	}
+	sink()
+}
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+cat("Time taken:", time.taken, "minutes.\n")
+cat("Final Memory used:", mem_used(), "\n")
 
 
