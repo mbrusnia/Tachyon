@@ -12,6 +12,8 @@ library(Biostrings)
 library(pryr)
 data(BLOSUM50)
 
+#running folder (inputs and outputs)
+runningFolder <- "C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Project25 - Research\\Project25_SubsetSelection_RunExample\\Project25_SubsetSelection_RunExample\\"
 
 ##startingID is a string like "tr|R7RPX4|R7RPX4_9CLOT"
 SimpleSubsetSelectionR <- function(startingID, fastaAAStringSet, colNo, boundVal){
@@ -52,11 +54,11 @@ SubsetSelectionR <- function(startingID, fastaAAStringSet, colNo, boundVal){
 }
 
 # step1: Read initial score file
-initialScoreFile <- "C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Project25 - Research\\Project25_SubsetSelection_RunExample\\Project25_SubsetSelection_RunExample\\Input_initialScore.txt"
+initialScoreFile <- paste0(runningFolder,"Input_initialScore.txt")
 initialScores <- read.table(initialScoreFile, header=TRUE, sep="\t")
 
 # step2: Read fasta file to make dataframe.
-fastaFile <- "C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Project25 - Research\\Project25_SubsetSelection_RunExample\\Project25_SubsetSelection_RunExample\\input.fasta"
+fastaFile <- paste0(runningFolder, "input.fasta")
 fasta <- readAAStringSet(fastaFile) 
 
 # step3: loop over each sequences that is above of InitialScore_Cutoff, call SubsetSelectionR with SetBoundVal
@@ -72,9 +74,9 @@ start.time <- Sys.time()
 
 #we're running this script with both functions, first with SimpleSubsetSelectionR, then with SubsetSelectionR
 for(j in 1:2){
-	curFun <- SubsetSelectionR
+	curFun <- SimpleSubsetSelectionR
 	if(j == 2)
-		curFun <- SimpleSubsetSelectionR
+		curFun <- SubsetSelectionR
 	for(i in 1:upperVal){
 		cat("Memory used:", mem_used(), "\n")
 		end.time <- Sys.time()
@@ -82,6 +84,10 @@ for(j in 1:2){
 		cat("Time taken:", time.taken, "\n")
 		cat("OUTER LOOP ITERATION", i, "of", upperVal,"\n")
 		# step4: startingID needs to be found from dataframe using proteinID (ex. tr|R7RPX4|R7RPX4_9CLOT)
+		if(initialScores$fullname[i] == "missing"){
+			cat("This initialScore ID is missing.  Skipping this iteration.\n")
+			next
+		}
 		if(i == 1)
 			returnDF  = curFun(as.character(initialScores[i, "fullname"]), fasta, 3, SetBoundVal)
 		else
@@ -96,9 +102,9 @@ for(j in 1:2){
 
 	#write fasta output:
 	if(j==1){
-		outFastaFile <- "C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Project25 - Research\\Project25_SubsetSelection_RunExample\\Project25_SubsetSelection_RunExample\\simpleSubsetSelectionOut.fasta"
+		outFastaFile <- paste0(runningFolder, "simpleSubsetSelectionOut.fasta")
 	}else{
-		outFastaFile <- "C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Project25 - Research\\Project25_SubsetSelection_RunExample\\Project25_SubsetSelection_RunExample\\subsetSelectionOut.fasta"
+		outFastaFile <- paste0(runningFolder, "subsetSelectionOut.fasta")
 	}
 
 	sink(outFastaFile)
@@ -110,7 +116,7 @@ for(j in 1:2){
 }
 end.time <- Sys.time()
 time.taken <- end.time - start.time
-cat("Time taken:", time.taken, "minutes.\n")
+time.taken
 cat("Final Memory used:", mem_used(), "\n")
 
 
