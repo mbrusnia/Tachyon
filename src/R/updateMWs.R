@@ -3,7 +3,9 @@
 ## and OTDProduction/Assays/ OTDProductionReport
 ##
 ## extension 6/6/17 - m/z validation using monoisotopic mass from InSilicoAssay/MolecularProperties
+## extension 8/9/17 - in OTDProductioncopy OTDProductionID to OTDNovocyteID
 ##
+
 options(stringsAsFactors = FALSE)
 library(Rlabkey)
 library(stringr)
@@ -121,7 +123,7 @@ otdProdReport <- labkey.selectRows(
 	queryName="OTDProductionReport",
 	colNameOpt="fieldname", 
 	colFilter=makeFilter(c("OTDProductionID", "NOT_MISSING", "")),  
-	colSelect=c("RowId", "OTDProductionID", "MonoisotopicMass", "ObservedMz", "MSValidated")
+	colSelect=c("RowId", "OTDProductionID", "MonoisotopicMass", "ObservedMz", "MSValidated", "OTDNovocyteID")
 )
 
 for(i in 1:length(otdProdReport$OTDProductionID)){
@@ -163,6 +165,7 @@ for(i in 1:length(otdProdReport$OTDProductionID)){
 			cat(q, ": ", sequence, ": ", (otdProdReport$MonoisotopicMass[i] + q*H)/q, ": ", abs((otdProdReport$MonoisotopicMass[i] + q*H)/q - as.numeric(otdProdReport$ObservedMz[i])), "\n")
 		}
 	}
+	otdProdReport$OTDNovocyteID[i] = otdProdReport$OTDProductionID[i]
 }
 
 #set NAs to ""s
