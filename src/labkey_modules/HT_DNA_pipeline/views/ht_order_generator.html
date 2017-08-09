@@ -1,0 +1,152 @@
+<form id='analysis_form'>
+  <table>
+    <tr>
+      <td class='labkey-form-label'>Protocol Name:</td>
+      <td>
+        <input id='protocolNameInput' name='protocolNameInput' type='text' size=40 value="Generate HT Order Form">
+      </td>
+    </tr>
+
+    <tr>
+      <td class='labkey-form-label'>File(s):</td>
+      <td>
+        <div id='fileStatus'></div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class='labkey-form-label'>Linker sequence:</td>
+      <td>
+        <input id='linker_seq_txt' name='linker_seq_txt' type='text'>
+      </td>
+    </tr>
+	
+    <tr>
+      <td class='labkey-form-label'>Vendor Name:</td>
+      <td>
+        <select id='vendor_name_lst' name='vendor_name_lst'>
+      </td>
+    </tr>
+
+    <tr>
+      <td>&nbsp;</td>
+      <td>
+        <a class='labkey-button' href='#' onclick='startAnalysis(); return false;'>
+          <span>Generate HT Order Form</span>
+        </a>
+      </td>
+    </tr>
+
+  </table>
+</form>
+
+
+<script>
+var path = null;
+var files = [];
+
+LABKEY.requiresExt3ClientAPI(function() {
+    Ext.onReady(function () {
+
+        path = LABKEY.ActionURL.getParameter("path");
+        if (!path) {
+            alert("Path parameter required.");
+            window.location = LABKEY.ActionURL.buildURL("pipeline", "browse.view");
+            return;
+        }
+
+        files = LABKEY.ActionURL.getParameterArray("file");
+        if (!files || files.length == 0) {
+            alert("At least one file must be selected.");
+            window.location = LABKEY.ActionURL.buildURL("pipeline", "browse.view");
+            return;
+        }
+
+        fileStatus();
+		fillVendorNameList();
+    });
+});
+
+function fillVendorNameList(){
+	//fill in the vendor name drop down box
+		function onFailure(errorInfo, options, responseObj)
+			{
+				if (errorInfo && errorInfo.exception)
+					alert("Failure: " + errorInfo.exception);
+				else
+					alert("Failure: " + responseObj.statusText);
+			}
+
+		function onSuccess(data)
+		{
+			var ddList=document.getElementById('vendor_name_lst');
+			var selectHTML="<option value=''></option>";
+			for(i=0; i < data.rowCount; i=i+1){
+				selectHTML+= "<option value='"+data.rows[i]["DNAVendor"]+"'>"+data.rows[i]["DNAVendor"]+"</option>";
+			}
+			ddList.innerHTML= selectHTML;
+		}
+
+		LABKEY.Query.selectRows({
+				schemaName: 'lists',
+				queryName: 'DNAVendor',
+				columns: ['DNAVendor'],
+				success: onSuccess,
+				failure: onFailure
+		});
+}
+
+function fileStatus()
+{
+  var html = "<ul>";
+  for (var i = 0; i < files.length; i++)
+  {
+    var file = files[i];
+    html += "<li>" + Ext.util.Format.htmlEncode(file) + "</li>";
+  }
+  html += "</ul>";
+
+  var fileStatusEl = document.getElementById("fileStatus");
+  fileStatusEl.innerHTML = html;
+}
+
+function startAnalysis()
+{
+  var protocolName = document.getElementById("protocolNameInput").value;
+  if (!protocolName) {
+    alert("Protocol name is required");
+    return;
+  }
+
+  var linkerSeqStr = document.getElementById("linker_seq_txt").value;
+  if (linkerSeqStr == "") {
+    alert("A valid Linker sequence is required.");
+    return;
+  }
+
+  var vendorNameStr = document.getElementById("vendor_name_lst").value;
+  if (vendorNameStr == "") {
+    alert("A valid Vendor Name is required.");
+    return;
+  }
+
+  LABKEY.Pipeline.startAnalysis({
+    taskId: "HT_DNA_pipeline:pipeline:ht_order_generator",
+    path: path,
+    files: files,
+    //fileIds: fileIds,
+    protocolName: protocolName,
+    //protocolDescription: "",
+    jsonParameters: {
+      'linkerSequence': linkerSeqStr,
+      'vendorName': vendorNameStr
+    },
+    saveProtocol: false,
+    success: function() {
+      window.location = LABKEY.ActionURL.buildURL("pipeline-status", "showList.view")
+    }
+  });
+}
+
+</script>
+

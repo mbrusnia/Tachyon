@@ -1,0 +1,8 @@
+<pipeline xmlns="http://labkey.org/pipeline/xml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      name="ht_delivery" version="0.0">
+    <description>Upload HT Delivery info into the Database</description>
+    <tasks>
+		<taskref ref="HT_DNA_pipeline:task:ht_delivery"/>
+    </tasks>
+</pipeline>

@@ -1,0 +1,7 @@
+<view xmlns="http://labkey.org/data/xml/view" title="Generate an HT Plate from an HT Delivery file" frame="none">
+    <dependencies>
+        <dependency path="clientapi"/>
+    </dependencies>
+</view>
+
+

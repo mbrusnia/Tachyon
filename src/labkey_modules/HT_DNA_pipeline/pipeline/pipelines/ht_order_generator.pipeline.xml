@@ -1,0 +1,10 @@
+<pipeline xmlns="http://labkey.org/pipeline/xml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      name="ht_order_generator" version="0.0">
+    <description>Upload HT Order Form into the Database</description>
+    <!-- Overrides the default UI, user will see myPage.view instead. -->
+    <analyzeURL>/HT_DNA_pipeline/ht_order_generator.view</analyzeURL>
+    <tasks>
+		<taskref ref="HT_DNA_pipeline:task:ht_order_generator"/>
+    </tasks>
+</pipeline>
