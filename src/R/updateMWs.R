@@ -123,7 +123,7 @@ otdProdReport <- labkey.selectRows(
 	queryName="OTDProductionReport",
 	colNameOpt="fieldname", 
 	colFilter=makeFilter(c("OTDProductionID", "NOT_MISSING", "")),  
-	colSelect=c("RowId", "OTDProductionID", "MonoisotopicMass", "ObservedMz", "MSValidated", "OTDNovocyteID")
+	colSelect=c("RowId", "OTDProductionID", "MonoisotopicMass", "ObservedMz", "MSValidated", "ReporterMedian")
 )
 
 for(i in 1:length(otdProdReport$OTDProductionID)){
@@ -165,13 +165,17 @@ for(i in 1:length(otdProdReport$OTDProductionID)){
 			cat(q, ": ", sequence, ": ", (otdProdReport$MonoisotopicMass[i] + q*H)/q, ": ", abs((otdProdReport$MonoisotopicMass[i] + q*H)/q - as.numeric(otdProdReport$ObservedMz[i])), "\n")
 		}
 	}
-	otdProdReport$OTDNovocyteID[i] = otdProdReport$OTDProductionID[i]
+	otdProdReport$ReporterMedian[i] = labkey.selectRows(BASE_URL, "/Optides/OTDProduction/Assays", 
+		"assay.General.Novocyte_TransductionReport", "Data", colSelect = c("Sample", "ReporterMedian"), colNameOpt="fieldname",
+		colFilter=makeFilter(c("Sample", "EQUAL", otdProdReport$OTDProductionID[i])))$ReporterMedian[1]
+
 }
 
 #set NAs to ""s
 otdProdReport[is.na(otdProdReport$MonoisotopicMass), "MonoisotopicMass"] = ""
 otdProdReport[is.na(otdProdReport$ObservedMz), "ObservedMz"] = ""
 otdProdReport[is.na(otdProdReport$MSValidated), "MSValidated"] = ""
+otdProdReport[is.na(otdProdReport$ReporterMedian), "ReporterMedian"] = ""
 
 ##
 ##insert into DB
