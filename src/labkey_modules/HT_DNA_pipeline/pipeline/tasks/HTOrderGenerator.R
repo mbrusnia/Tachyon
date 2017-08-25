@@ -59,6 +59,7 @@ for(i in 1:length(inputDF[,SEQUENCE_COL_NAME])){
 	inputDF[i, SEQUENCE_COL_NAME] = sub(paste0("^", linker), "", inputDF[i, SEQUENCE_COL_NAME])
 }
 
+
 ##
 ## check if the new sequences have previously been loaded into the database. 
 ## if so, list the rows and sequences of the repeated sequences
@@ -66,18 +67,18 @@ for(i in 1:length(inputDF[,SEQUENCE_COL_NAME])){
 
 ## get all previously uploaded sequences
 previousHT_DNAID_ConstructIDs <- labkey.selectRows(BASE_URL, SAMPLE_SETS_FOLDER_PATH, 
-		SAMPLE_SETS_SCHEMA_NAME, HT_DNA_QUERY_NAME, colSelect =c(CONSTRUCT_ID_COL_NAME, "DNAID"), colNameOpt="fieldname")
+		SAMPLE_SETS_SCHEMA_NAME, HT_DNA_QUERY_NAME, colSelect =c(CONSTRUCT_ID_COL_NAME, "DNAID", "Vector"), colNameOpt="fieldname")
 
-#find duplicate ConstructIDs
-#matches <- match(inputDF[,"ID"], previousSGI_DNASequenceContents[,CONSTRUCT_ID_COL_NAME])
-#rowsWithDuplicates <- which(!is.na(matches))
-#if(length(rowsWithDuplicates) > 0){
-#	cat("ERROR: No duplicate constructIDs allowed. The following sequences have previously been uploaded into the repository: \n")
-#	for(i in 1:length(rowsWithDuplicates)){
-#		cat("Row ", rowsWithDuplicates[i] + 2, " - ID: ", inputDF[rowsWithDuplicates[i],"ID"], "\n")
-#	}
-#	stop("Please remove the duplicate Construct IDs from your input file and try again.")
-#}
+#find duplicate (ConstructID, Vector) pairs
+matches <- match(paste0(inputDF[,"ID"], "_", inputDF[,"Vector"]), paste0(previousHT_DNAID_ConstructIDs[,CONSTRUCT_ID_COL_NAME], "_", previousHT_DNAID_ConstructIDs[,"Vector"]))
+rowsWithDuplicateConstructIDsAndVectors <- which(!is.na(matches))
+if(length(rowsWithDuplicateConstructIDsAndVectors) > 0){
+	cat("ERROR: No duplicate (constructID, Vector) pairs allowed. The following entries have previously been uploaded into the repository: \n")
+	for(i in 1:length(rowsWithDuplicateConstructIDsAndVectors)){
+		cat("Row ", rowsWithDuplicateConstructIDsAndVectors[i] + 2, " - ID: ", inputDF[rowsWithDuplicateConstructIDsAndVectors[i],"ID"], " - Vector: ", inputDF[rowsWithDuplicateConstructIDsAndVectors[i],"Vector"], "\n")
+	}
+	stop("Please remove the duplicate (ConstructID, Vector) pairs from your input file and try again.")
+}
 
 ##prepare the table for insertion into the assay
 names(inputDF) <- c("Name", "Sample Set", "Flag", "ConstructID", "ID", "Parent ID", "Alternate Name", "AASeq", "Vector")

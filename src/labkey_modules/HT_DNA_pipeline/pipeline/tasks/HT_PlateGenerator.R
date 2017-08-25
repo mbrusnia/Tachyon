@@ -35,23 +35,69 @@ inputDF <- xlsxToR(pathToInputFile, header=FALSE)
 ##
 ## Extract only the plate data and its column headers from the file 
 ##
-mynames <- inputDF[17, 1:11]
-inputDF <- inputDF[18:(18 - 1 + 96),1:11]
+mynames <- inputDF[1, 1:5]
+inputDF <- inputDF[2:(1 + 96),1:5]
+
+## set colnames and rownames
 names(inputDF) <- mynames
+rownames(inputDF ) <- seq(length=nrow(inputDF ))
 
 colHeaders <- names(inputDF)
-if(grepl("Construct.*ID", colHeaders[1]) && grepl("Construct.*Name", colHeaders[2]) && grepl("Plate.*ID", colHeaders[3])
-	&& grepl("Well.*Location", colHeaders[4]) && grepl("Concentration.*ng/uL", colHeaders[5])
-	&& grepl("Volume.*uL", colHeaders[6]) && grepl("Total.*DNA.*ng", colHeaders[7])
-	&& grepl("Vector", colHeaders[8]) && grepl("Resistance", colHeaders[9])
-	&& grepl("Flanking.*Restriction.*Site", colHeaders[10]) && grepl("Sequence.*Verification", colHeaders[11])){	
-	1==1
-}else{
+if(!(grepl("Plate", colHeaders[1]) && grepl("Well.*Location", colHeaders[2]) && grepl("Order.*ID", colHeaders[3])
+	&& grepl("name", colHeaders[4]) && grepl("DNA.*amount", colHeaders[5]))){
+
 	stop("This file does not conform to the expected format.  Please contact the administrator.")
 }
 
-#change SGI headers to FHCRC Optides labkey sampleset headers
-names(inputDF)[1:7] <- c("SGIID", "ConstructID", "SGIPlateID", "WellLocation", "Concentration_ngPeruL", "Volume_uL", "TotalDNA_ng") 
+inputDF$name <- gsub("-GFP", "", inputDF$name)
+inputDF$ConstructID <- ""
+inputDF$Vector <- ""
+inputDF$DNAID <- ""
+
+#change HT headers to FHCRC Optides labkey sampleset headers
+names(inputDF)[1:8] <- c("VendorPlateID", "WellLocation", "VendorOrderID", "name", "TotalDNA_ng", "ConstructID", "Vector", "DNAID") 
+
+## separate out ConstructID and Vector; and ensure wellLocations are 3 characters long
+id_vector_list <- strsplit(inputDF$name, "_")
+well_locations_list <- strsplit(inputDF$WellLocation, "")
+for(i in 1:96){
+	#fix Vector field
+	inputDF$ConstructID[i] <- id_vector_list[[i]][1]
+	if(length(id_vector_list[[i]]) > 1){
+		inputDF$Vector[i] <- id_vector_list[[i]][2]
+	}
+	
+	#fix WellLocation
+	if(length(well_locations_list[[i]]) == 2){
+		inputDF$WellLocation[i] <- paste0(well_locations_list[[i]][1], "0", well_locations_list[[i]][2])
+	}
+
+	#fix DNAID
+	ht_dna <- labkey.selectRows(
+		baseUrl=BASE_URL,
+		folderPath=SAMPLE_SETS_FOLDER_PATH,
+		schemaName=SAMPLE_SETS_SCHEMA_NAME,
+		queryName="HT_DNA",
+		colNameOpt="fieldname",
+		colSelect=c("DNAID", "ConstructID", "Vector"),
+		colFilter=makeFilter(c("ConstructID", "EQUALS", inputDF$ConstructID[i]), c("Vector", "EQUALS", inputDF$Vector[i]))
+	)
+	if(length(ht_dna$DNAID) == 1){
+		inputDF$DNAID[i] = ht_dna$DNAID[1]
+	}
+}
+
+#remove units if ng.  if ug, multiply by 1000
+inputDF$TotalDNA_ng <- gsub("ng", "", inputDF$TotalDNA_ng)
+inputDF$TotalDNA_ng <- gsub("empty", "", inputDF$TotalDNA_ng)
+
+ug_matches <- grep("ug", inputDF$TotalDNA_ng)
+if(length(ug_matches) > 0){
+	for(i in 1:length(ug_matches)){
+		inputDF$TotalDNA_ng[ug_matches[i]] <- gsub("ug", "", inputDF$TotalDNA_ng[ug_matches[i]])
+		inputDF$TotalDNA_ng[ug_matches[i]] <- as.numeric(inputDF$TotalDNA_ng[ug_matches[i]]) * 1000
+	}
+}
 
 
 #
@@ -62,7 +108,8 @@ names(inputDF)[1:7] <- c("SGIID", "ConstructID", "SGIPlateID", "WellLocation", "
 inputDF <- cbind(inputDF, ParentID = inputDF$ConstructID)
 
 #added 9/8/16 to correct parentID conflicts between Construct and SGI_DNA
-inputDF$ConstructID <- paste0("Construct.", inputDF$ConstructID)
+#removed 8/24 since new HT_DNA table has it's own DNAID primary key that is not ConstructID, thus it will not conflict with any other sampleset
+#inputDF$ConstructID <- paste0("Construct.", inputDF$ConstructID)
 
 ##find the latest HTPPlateID (we will begin with that + 1 for our new HTPPlate)
 ssHTP <- labkey.selectRows(
@@ -105,7 +152,7 @@ if(reproductionPlateID == "" || reproductionPlate == "false"){
 	}
 }
 
-htproductsToInsert <- data.frame(cbind(HTProductID = newHTPlateID, HTQuadPlateID = newHTPlateID, ConstructID = inputDF[, "ConstructID"], WellLocation = inputDF[, "WellLocation"], SGIID = inputDF[, "SGIID"], SGIPlateID = inputDF[, "SGIPlateID"], ParentID = inputDF[, "ParentID"]))
+htproductsToInsert <- data.frame(cbind(HTProductID = newHTPlateID, HTQuadPlateID = newHTPlateID, ConstructID = inputDF[, "ConstructID"], WellLocation = inputDF[, "WellLocation"], VendorOrderID = inputDF[, "VendorOrderID"], VendorPlateID = inputDF[, "VendorPlateID"], ParentID = inputDF[, "ParentID"], DNAID = inputDF[, "DNAID"]))
 
 #now calculate quadrant and update/complete Specimen value
 #since our format only allows for one digit in the Quadrant specification, we need to map double digits to letters:
@@ -132,21 +179,24 @@ for(i in 1:length(htproductsToInsert$HTProductID)){
 	htproductsToInsert$HTQuadPlateID[i] <- paste0(htproductsToInsert$HTQuadPlateID[i], quadrant)
 	htproductsToInsert$HTProductID[i] <- paste0(htproductsToInsert$HTProductID[i], quadrant, htproductsToInsert$WellLocation[i])
 
-	if(htproductsToInsert$ConstructID[i] == "Construct.Blank"){
-		#WAS: htproductsToInsert$ConstructID[i] = "${blanks-replacement}", but now, since this col is a ParentID col, we have to:
-		htproductsToInsert$ConstructID[i] = paste0("Construct.", "${blanks-replacement}")
+	if(htproductsToInsert$ConstructID[i] == "empty"){
+		htproductsToInsert$ConstructID[i] = "${blanks-replacement}"
 		htproductsToInsert$ParentID[i] = "${blanks-replacement}"
 	}
 	if(htproductsToInsert$WellLocation[i] == "H06"){
-		htproductsToInsert$ConstructID[i] = "Construct.CNT0000000"
+		htproductsToInsert$ConstructID[i] = "CNT0000000"
 		htproductsToInsert$ParentID[i] = "CNT0000000"
 	}
 }
 
+#remove any leftover "empty" strings:
+htproductsToInsert[htproductsToInsert$ConstructID == "empty", "ConstructID"] = ""
+htproductsToInsert[htproductsToInsert$VendorOrderID == "empty", "VendorOrderID"] = ""
+htproductsToInsert[htproductsToInsert$ParentID == "empty", "ParentID"] = ""
+
 #take a peak at what we're about to insert
 #head(htproductsToInsert)
 #sort(htproductsToInsert$HTProductID)
-
 
 ##insert data into HTP_Specimen sampleset database
 ssHTP_insert <- labkey.importRows(
