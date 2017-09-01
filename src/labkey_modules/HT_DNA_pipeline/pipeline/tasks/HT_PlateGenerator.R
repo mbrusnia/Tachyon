@@ -183,7 +183,7 @@ for(i in 1:length(htproductsToInsert$HTProductID)){
 		htproductsToInsert$ConstructID[i] = "${blanks-replacement}"
 		htproductsToInsert$ParentID[i] = "${blanks-replacement}"
 	}
-	if(htproductsToInsert$WellLocation[i] == "H06"){
+	if(htproductsToInsert$WellLocation[i] == "H06" || htproductsToInsert$WellLocation[i] == "D06"){
 		htproductsToInsert$ConstructID[i] = "CNT0000000"
 		htproductsToInsert$ParentID[i] = "CNT0000000"
 	}
