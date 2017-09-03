@@ -33,8 +33,8 @@ inputDF <- xlsxToR(pathToInputFile, header=FALSE)
 ##
 ## Extract only the plate data and its column headers from the file 
 ##
-mynames <- inputDF[1, 1:5]
-inputDF <- inputDF[2:(1 + 96),1:5]
+mynames <- inputDF[1, 1:7]
+inputDF <- inputDF[2:(1 + 96),1:7]
 
 ## set colnames and rownames
 names(inputDF) <- mynames
@@ -42,26 +42,21 @@ rownames(inputDF ) <- seq(length=nrow(inputDF ))
 
 colHeaders <- names(inputDF)
 if(!(grepl("Plate", colHeaders[1]) && grepl("Well.*Location", colHeaders[2]) && grepl("Order.*ID", colHeaders[3])
-	&& grepl("name", colHeaders[4]) && grepl("DNA.*amount", colHeaders[5]))){
+	&& grepl("name", colHeaders[4]) && grepl("Vector", colHeaders[5]) && grepl("Sequence Validation", colHeaders[6])
+	&& grepl("DNA.*amount", colHeaders[7]))){
 	
 	stop("This file does not conform to the expected format.  Please contact the administrator.")
 }
 
-inputDF$name <- gsub("-GFP", "", inputDF$name)
-inputDF$ConstructID <- ""
-inputDF$Vector <- ""
+inputDF$Vector <- gsub("-GFP", "", inputDF$Vector)
+inputDF$Vector[inputDF$Vector == "blank"] = ""
 
 #change HT headers to FHCRC Optides labkey sampleset headers
-names(inputDF)[1:7] <- c("VendorPlateID", "WellLocation", "VendorOrderID", "name", "TotalDNA_ng", "ConstructID", "Vector") 
+names(inputDF)[1:7] <- c("VendorPlateID", "WellLocation", "VendorOrderID", "ConstructID", "Vector", "SequenceValidation", "TotalDNA_ng") 
 
-## separate out ConstructID and Vector; and ensure wellLocations are 3 characters long
-id_vector_list <- strsplit(inputDF$name, "_")
+##ensure wellLocations are 3 characters long
 well_locations_list <- strsplit(inputDF$WellLocation, "")
 for(i in 1:96){
-	inputDF$ConstructID[i] <- id_vector_list[[i]][1]
-	if(length(id_vector_list[[i]]) > 1){
-		inputDF$Vector[i] <- id_vector_list[[i]][2]
-	}
 	if(length(well_locations_list[[i]]) == 2){
 		inputDF$WellLocation[i] <- paste0(well_locations_list[[i]][1], "0", well_locations_list[[i]][2])
 	}
@@ -84,7 +79,9 @@ if(length(ug_matches) > 0){
 filterIDArr = c()
 filterVectorArr = c()
 for(i in 1:length(inputDF[,1])){
-	if(inputDF[i, "ConstructID"] != "empty" && inputDF[i, "ConstructID"] != "Blank" && inputDF[i, "ConstructID"] != "CNT0001396"  && inputDF[i, "ConstructID"] != "TEST0001396" && inputDF[i, "ConstructID"] != "Control"){
+	if(inputDF[i, "ConstructID"] != "empty" && inputDF[i, "ConstructID"] != "Blank" 
+		&& inputDF[i, "ConstructID"] != "CNT0001396"  && inputDF[i, "ConstructID"] != "TEST0001396" 
+		&& inputDF[i, "ConstructID"] != "Control" && inputDF[i, "ConstructID"] != "blank"){
 		filterIDArr <- c(filterIDArr , c(inputDF[i, "ConstructID"]))
 		filterVectorArr <- c(filterVectorArr, c(inputDF[i, "Vector"]))
 	}
