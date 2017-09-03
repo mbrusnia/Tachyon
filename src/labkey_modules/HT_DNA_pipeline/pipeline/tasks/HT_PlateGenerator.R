@@ -35,39 +35,30 @@ inputDF <- xlsxToR(pathToInputFile, header=FALSE)
 ##
 ## Extract only the plate data and its column headers from the file 
 ##
-mynames <- inputDF[1, 1:5]
-inputDF <- inputDF[2:(1 + 96),1:5]
+mynames <- inputDF[1, 1:7]
+inputDF <- inputDF[2:(1 + 96),1:7]
 
 ## set colnames and rownames
 names(inputDF) <- mynames
-rownames(inputDF ) <- seq(length=nrow(inputDF ))
+rownames(inputDF ) <- seq(length=nrow(inputDF )) 
 
 colHeaders <- names(inputDF)
 if(!(grepl("Plate", colHeaders[1]) && grepl("Well.*Location", colHeaders[2]) && grepl("Order.*ID", colHeaders[3])
-	&& grepl("name", colHeaders[4]) && grepl("DNA.*amount", colHeaders[5]))){
-
+	&& grepl("name", colHeaders[4]) && grepl("Vector", colHeaders[5]) && grepl("Sequence Validation", colHeaders[6])
+	&& grepl("DNA.*amount", colHeaders[7]))){
+	
 	stop("This file does not conform to the expected format.  Please contact the administrator.")
 }
 
-inputDF$name <- gsub("-GFP", "", inputDF$name)
-inputDF$ConstructID <- ""
-inputDF$Vector <- ""
-inputDF$DNAID <- ""
+inputDF$Vector <- gsub("-GFP", "", inputDF$Vector)
+inputDF$Vector[inputDF$Vector == "blank"] = ""
 
 #change HT headers to FHCRC Optides labkey sampleset headers
-names(inputDF)[1:8] <- c("VendorPlateID", "WellLocation", "VendorOrderID", "name", "TotalDNA_ng", "ConstructID", "Vector", "DNAID") 
+names(inputDF)[1:7] <- c("VendorPlateID", "WellLocation", "VendorOrderID", "ConstructID", "Vector", "SequenceValidation", "TotalDNA_ng") 
 
-## separate out ConstructID and Vector; and ensure wellLocations are 3 characters long
-id_vector_list <- strsplit(inputDF$name, "_")
+##ensure wellLocations are 3 characters long
 well_locations_list <- strsplit(inputDF$WellLocation, "")
 for(i in 1:96){
-	#fix Vector field
-	inputDF$ConstructID[i] <- id_vector_list[[i]][1]
-	if(length(id_vector_list[[i]]) > 1){
-		inputDF$Vector[i] <- id_vector_list[[i]][2]
-	}
-	
-	#fix WellLocation
 	if(length(well_locations_list[[i]]) == 2){
 		inputDF$WellLocation[i] <- paste0(well_locations_list[[i]][1], "0", well_locations_list[[i]][2])
 	}
@@ -152,7 +143,7 @@ if(reproductionPlateID == "" || reproductionPlate == "false"){
 	}
 }
 
-htproductsToInsert <- data.frame(cbind(HTProductID = newHTPlateID, HTQuadPlateID = newHTPlateID, ConstructID = inputDF[, "ConstructID"], WellLocation = inputDF[, "WellLocation"], VendorOrderID = inputDF[, "VendorOrderID"], VendorPlateID = inputDF[, "VendorPlateID"], ParentID = inputDF[, "ParentID"], DNAID = inputDF[, "DNAID"]))
+htproductsToInsert <- data.frame(cbind(HTProductID = newHTPlateID, HTQuadPlateID = newHTPlateID, ConstructID = inputDF[, "ConstructID"], WellLocation = inputDF[, "WellLocation"], VendorOrderID = inputDF[, "VendorOrderID"], VendorPlateID = inputDF[, "VendorPlateID"], ParentID = inputDF[, "ConstructID"], DNAID = inputDF[, "DNAID"]))
 
 #now calculate quadrant and update/complete Specimen value
 #since our format only allows for one digit in the Quadrant specification, we need to map double digits to letters:
@@ -179,7 +170,7 @@ for(i in 1:length(htproductsToInsert$HTProductID)){
 	htproductsToInsert$HTQuadPlateID[i] <- paste0(htproductsToInsert$HTQuadPlateID[i], quadrant)
 	htproductsToInsert$HTProductID[i] <- paste0(htproductsToInsert$HTProductID[i], quadrant, htproductsToInsert$WellLocation[i])
 
-	if(htproductsToInsert$ConstructID[i] == "empty"){
+	if(htproductsToInsert$ConstructID[i] == "empty" || htproductsToInsert$ConstructID[i] == "blank"){
 		htproductsToInsert$ConstructID[i] = "${blanks-replacement}"
 		htproductsToInsert$ParentID[i] = "${blanks-replacement}"
 	}
@@ -193,9 +184,14 @@ for(i in 1:length(htproductsToInsert$HTProductID)){
 htproductsToInsert[htproductsToInsert$ConstructID == "empty", "ConstructID"] = ""
 htproductsToInsert[htproductsToInsert$VendorOrderID == "empty", "VendorOrderID"] = ""
 htproductsToInsert[htproductsToInsert$ParentID == "empty", "ParentID"] = ""
+htproductsToInsert[htproductsToInsert$ConstructID == "blank", "ConstructID"] = ""
+htproductsToInsert[htproductsToInsert$VendorOrderID == "blank", "VendorOrderID"] = ""
+htproductsToInsert[htproductsToInsert$ParentID == "blank", "ParentID"] = ""
+htproductsToInsert[is.na(htproductsToInsert$DNAID), "DNAID"] = ""
 
 #take a peak at what we're about to insert
 #head(htproductsToInsert)
+#names(htproductsToInsert)
 #sort(htproductsToInsert$HTProductID)
 
 ##insert data into HTP_Specimen sampleset database

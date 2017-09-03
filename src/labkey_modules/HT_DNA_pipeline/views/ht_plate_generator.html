@@ -71,9 +71,43 @@ LABKEY.requiresExt3ClientAPI(function() {
         }
 
         fileStatus();
+		fillReproductionPlateIDDropDown();
 	});
 });
+function fillReproductionPlateIDDropDown(){
+		//fill in the reproduction plate id drop down
+		function onFailure(errorInfo, options, responseObj)
+			{
+				if (errorInfo && errorInfo.exception)
+					alert("Failure: " + errorInfo.exception);
+				else
+					alert("Failure: " + responseObj.statusText);
+			}
 
+		function onSuccess(data)
+		{
+			htData = data;
+			var hash = {};
+			var ddList=document.getElementById('reproductionPlateID');
+			var selectHTML="<option value=''></option>";
+			for(i=0; i < htData.rowCount; i=i+1){
+				var htpid = htData.rows[i]["HTQuadPlateID"].substring(0,6);
+				if(!(htpid in hash)){
+					selectHTML+= "<option value='"+htpid+"'>"+htpid+"</option>";
+					hash[htpid] = 1;
+				}
+			}
+			ddList.innerHTML= selectHTML;
+		}
+
+		LABKEY.Query.selectRows({
+				schemaName: 'samples',
+				queryName: 'HTProduction',
+				columns: ['HTQuadPlateID'],
+				success: onSuccess,
+				failure: onFailure
+		});
+}
 function fileStatus()
 {
   var html = "<ul>";
