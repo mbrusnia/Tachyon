@@ -8,13 +8,14 @@
 <body>
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="InSilicoAssayTest.html">InSilicoAssay weekly cron Script Test</a></td></tr>
+<tr><td><a href="updateMWsTest.html">updateMWs nightly cron Script Test</a></td></tr>
 <tr><td><a href="testPreparations.html">testPreparations</a></td></tr>
 <tr><td><a href="HTOrderGeneratorPipelineTest.html">HT_DNA OrderGenerator Pipeline Test</a></td></tr>
 <tr><td><a href="HTDeliveryPipelineTest.html">HT_DNA Delivery Pipeline Test</a></td></tr>
 <tr><td><a href="HT_HTPlateGeneratorPipelineTest.html">HT_DNA HTProduction Pipeline Test</a></td></tr>
 <tr><td><a href="HTProductionImageFilesUpload.html">HTProduction Image Assay Upload Test</a></td></tr>
 <tr><td><a href="DataClassTest.html">DataClassTests</a></td></tr>
-<tr><td><a href="InSilicoAssayTest.html">InSilicoAssay Transformation Script Test</a></td></tr>
 <tr><td><a href="NovocyteTransformationScriptTest.html">Novocyte Transformation Script Test</a></td></tr>
 <tr><td><a href="RadioLabeledConjugateTest.html">RadioLabeledConjugateTest</a></td></tr>
 <tr><td><a href="LSCActivityCalc.html">LSCActivityCalc</a></td></tr>
