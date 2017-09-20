@@ -4,6 +4,7 @@
 ##
 ## extension 6/6/17 - m/z validation using monoisotopic mass from InSilicoAssay/MolecularProperties
 ## extension 8/9/17 - in OTDProductioncopy OTDProductionID to OTDNovocyteID
+## extension 9/19/17 - update ChemProductionReport Mol Yield %
 ##
 
 options(stringsAsFactors = FALSE)
