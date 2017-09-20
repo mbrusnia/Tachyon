@@ -19,7 +19,11 @@ SAMPLE_SETS_SCHEMA_NAME = "samples"
 
 cat("\n-------- ", date(), " --------\n")
 cat("updateMWs of CHEMProduction and OTDProductionReport\n")
+cat("Also populating ChemProductionReport table 'Mol Yield (%)' value\n")
 cat("Updating server: ", BASE_URL, "\n")
+
+
+DeltaC14 = 2.0
 
 #############################################
 ## update CHEMProduction MWs
@@ -33,7 +37,6 @@ chemProd <- labkey.selectRows(
     colSelect=c("RowId", "CHEMProductionID", "OTDProductionID", "VariantID", "DrugReagentID", "LinkerReagentID", "AverageMW", "ConjugationMethod")
 )
 
-DeltaC14 = 2.0
 for(i in 1:length(chemProd$CHEMProductionID)){
 	#if drug reagent or linker reagents were used, we leave user-entered MW values in place
 	if(!is.na(chemProd$DrugReagentID[i]) || !is.na(chemProd$LinkerReagentID[i])){
@@ -114,7 +117,6 @@ if(!exists("ssi")){
 #############################################
 CONTAINER_PATH = "/Optides/OTDProduction/Assays"
 SAMPLE_SETS_SCHEMA_NAME = "samples"
-DeltaC14 = 2.0
 
 otdProdReport <- labkey.selectRows(
 	baseUrl=BASE_URL,
@@ -199,7 +201,116 @@ if(!exists("ssi2")){
 		}else
 			cat(otdProdReport$OTDProductionID[i], "'s MonoisotopicMass could not be updated properly.", "\n")
 	}
-
 }
 
+
+#############################################
+## update ChemProductionReport Mol Yield %
+#############################################
+CONTAINER_PATH = "/Optides/ChemProduction/Assay"
+SAMPLE_SETS_SCHEMA_NAME = "samples"
+
+chemProdReport <- labkey.selectRows(
+	baseUrl=BASE_URL,
+	folderPath=CONTAINER_PATH,
+	schemaName=SAMPLE_SETS_SCHEMA_NAME,
+	queryName="ChemProductionReport",
+	colNameOpt="fieldname", 
+	showHidden=TRUE,
+	colFilter=makeFilter(c("ChemProductionID", "NOT_MISSING", "")),
+	colSelect=c("RowId", "ChemProductionID", "StartingAmount_mg", "ProductionAmount_mg", "Percent_Yield")
+)
+
+#we already have the necessary records from CHEMProduction in chemProduction (from above)
+
+for(i in 1:length(chemProdReport$ChemProductionID)){
+	#get MW_input -depending on what fields are set, we get this value from different places:
+	curChemProductionRow <- chemProd[chemProd$CHEMProductionID == chemProdReport$ChemProductionID[i],]
+	MW_output = curChemProductionRow$AverageMW
+	MW_input = 0.0
+
+	#find or calculate MW_input:
+	if(!is.na(curChemProductionRow$OTDProductionID)){
+		# 1) if OTDProductionID is set:
+		# get the constructID
+		ConstructID <- labkey.selectRows(
+			baseUrl=BASE_URL,
+			folderPath="/Optides/CompoundsRegistry/Samples",
+			schemaName=SAMPLE_SETS_SCHEMA_NAME,
+			queryName="OTDProduction",
+			colNameOpt="fieldname",
+			colFilter=makeFilter(c("OTDProductionID", "EQUALS", curChemProductionRow$OTDProductionID)),
+			colSelect=c("ParentID"))[1]
+		#lookup weight from InSilicoAssay
+		MW_input <- labkey.selectRows(
+			baseUrl=BASE_URL,
+			folderPath="/Optides/InSilicoAssay/MolecularProperties",
+			schemaName="assay.General.InSilicoAssay",
+			queryName="Data",
+			colNameOpt="fieldname",
+			colFilter=makeFilter(c("ID", "EQUALS", ConstructID)),
+			colSelect=c("AverageMass"))[1]
+	}else if(!is.na(curChemProductionRow$VariantID)){
+		# 2) if VariantID is set:
+		# get the sequence
+		variantSequence <- labkey.selectRows(
+			baseUrl=BASE_URL,
+			folderPath=CONTAINER_PATH,
+			schemaName=SAMPLE_SETS_SCHEMA_NAME,
+			queryName="Variant",
+			colNameOpt="fieldname",
+			colFilter=makeFilter(c("ID", "EQUALS", curChemProductionRow$VariantID)),
+			colSelect=c("AASeq"))[1]
+		#calculate mass from sequence
+		MW_input = DSBMWCalc(variantSequence)
+	}else if(!is.na(curChemProductionRow$DrugReagentID)){
+		# 3) DrugReagent is set. get weight from CompoundsRegistry Reagents table AverageMW.
+		MW_input  <- labkey.selectRows(
+			baseUrl=BASE_URL,
+			folderPath=CONTAINER_PATH,
+			schemaName=SAMPLE_SETS_SCHEMA_NAME,
+			queryName="Reagents",
+			colNameOpt="fieldname",
+			colFilter=makeFilter(c("ReagentID", "EQUALS", curChemProductionRow$DrugReagentID)),
+			colSelect=c("AverageMass"))[1]
+	}
+	
+	if(MW_input == 0.0){
+		#no condition was met, something is wrong
+		chemProdReport$Percent_Yield[i] = NA
+	}else{
+		chemProdReport$Percent_Yield[i] = round(((chemProdReport$ProductionAmount_mg[i] * 0.001/MW_output)/(chemProdReport$StartingAmount_mg[i] *0.001/MW_input))*100.0, digit=2)
+	}
+}
+
+#report problems calculating Mol Yield (%)
+for(i in 1:length(chemProdReport$ChemProductionID)){
+	if(is.na(chemProdReport$Percent_Yield[i])){
+		cat("Something went wrong with the Mol Yield (%) calculation for ", chemProdReport$ChemProductionID[i], "\n") 
+	}
+}
+
+##
+##insert into DB
+##
+ssi3 <- labkey.updateRows(
+	baseUrl=BASE_URL,
+	folderPath=CONTAINER_PATH,
+	schemaName=SAMPLE_SETS_SCHEMA_NAME,
+	queryName="ChemProductionReport",
+	toUpdate=chemProdReport
+)
+
+if(!exists("ssi3")){
+	stop("In ChemProductionReport, the insertion into the database failed.  Please contact the administrator.")
+}else{
+	#completed
+	cat("In ChemProductionReport, ", length(chemProdReport$ChemProductionID), " RECORDS HAVE BEEN UPDATED.  These are their ChemProductionID's:\n")
+	for(i in 1:length(chemProdReport$ChemProductionID)){
+		if(!is.na(chemProdReport$Percent_Yield[i])){
+			cat(chemProdReport$ChemProductionID[i], "\n")
+		}else
+			cat(chemProdReport$ChemProductionID[i], "'s Mol Yield (%) could not be updated properly.", "\n")
+	}
+}
 
