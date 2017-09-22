@@ -13,10 +13,13 @@ library(stringr)
 
 source("C:/labkey/labkey/files/Optides/@files/Utils.R")
 
-BASE_URL = "https://optides-prod.fhcrc.org"
+##put all output into this log file:
+con <- file("C:/Users/tomcat/Programs/OptideCronJobs.log", open="a")
+sink(con, append=TRUE)
+sink(con, append=TRUE, type="message")
 
-CONTAINER_PATH = "/Optides/CompoundsRegistry/Samples"
-SAMPLE_SETS_SCHEMA_NAME = "samples"
+
+BASE_URL = "https://optides-prod.fhcrc.org"
 
 cat("\n-------- ", date(), " --------\n")
 cat("updateMWs of CHEMProduction and OTDProductionReport\n")
@@ -29,6 +32,9 @@ DeltaC14 = 2.0
 #############################################
 ## update CHEMProduction MWs
 #############################################
+CONTAINER_PATH = "/Optides/CompoundsRegistry/Samples"
+SAMPLE_SETS_SCHEMA_NAME = "samples"
+cat("#########   update CHEMProduction MWs  ########\n")
 chemProd <- labkey.selectRows(
     baseUrl=BASE_URL,
     folderPath=CONTAINER_PATH,
@@ -116,6 +122,7 @@ if(!exists("ssi")){
 #############################################
 ## update OTDProductionReport MWs
 #############################################
+cat("#################  update OTDProductionReport MWs  #########\n")
 CONTAINER_PATH = "/Optides/OTDProduction/Assays"
 SAMPLE_SETS_SCHEMA_NAME = "samples"
 
@@ -125,6 +132,7 @@ otdProdReport <- labkey.selectRows(
 	schemaName=SAMPLE_SETS_SCHEMA_NAME,
 	queryName="OTDProductionReport",
 	colNameOpt="fieldname", 
+	showHidden=TRUE,
 	colFilter=makeFilter(c("OTDProductionID", "NOT_MISSING", "")),  
 	colSelect=c("RowId", "OTDProductionID", "MonoisotopicMass", "ObservedMz", "MSValidated", "ReporterMedian")
 )
@@ -208,6 +216,7 @@ if(!exists("ssi2")){
 #############################################
 ## update ChemProductionReport Mol Yield %
 #############################################
+cat("#########   update ChemProductionReport Mol Yield %  ########\n")
 CONTAINER_PATH = "/Optides/ChemProduction/Assay"
 SAMPLE_SETS_SCHEMA_NAME = "samples"
 
@@ -231,55 +240,79 @@ for(i in 1:length(chemProdReport$ChemProductionID)){
 	MW_input = 0.0
 
 	#find or calculate MW_input:
-	if(!is.na(curChemProductionRow$OTDProductionID)){
+	if(!is.na(curChemProductionRow$OTDProductionID) && curChemProductionRow$OTDProductionID != ""){
 		# 1) if OTDProductionID is set:
 		# get the constructID
-		ConstructID <- labkey.selectRows(
+		ConstructIDs <- labkey.selectRows(
 			baseUrl=BASE_URL,
 			folderPath="/Optides/CompoundsRegistry/Samples",
 			schemaName=SAMPLE_SETS_SCHEMA_NAME,
 			queryName="OTDProduction",
 			colNameOpt="fieldname",
 			colFilter=makeFilter(c("OTDProductionID", "EQUALS", curChemProductionRow$OTDProductionID)),
-			colSelect=c("ParentID"))[1]
-		#lookup weight from InSilicoAssay
-		MW_input <- labkey.selectRows(
-			baseUrl=BASE_URL,
-			folderPath="/Optides/InSilicoAssay/MolecularProperties",
-			schemaName="assay.General.InSilicoAssay",
-			queryName="Data",
-			colNameOpt="fieldname",
-			colFilter=makeFilter(c("ID", "EQUALS", ConstructID)),
-			colSelect=c("AverageMass"))[1]
-	}else if(!is.na(curChemProductionRow$VariantID)){
+			colSelect=c("ParentID"))
+		#if no constructID found for the OTDProductionID, skip this iteration
+		if(length(ConstructIDs[,1]) == 0){
+			cat(curChemProductionRow$CHEMProductionID, ": ODTProductionID ", curChemProductionRow$OTDProductionID, " has no associated ParentID (ConstructID).  Skipping this calculation.\n")
+		}else{
+			ConstructID <- ConstructIDs[1, 1]
+			#lookup weight from InSilicoAssay
+			MW_inputs <- labkey.selectRows(
+				baseUrl=BASE_URL,
+				folderPath="/Optides/InSilicoAssay/MolecularProperties",
+				schemaName="assay.General.InSilicoAssay",
+				queryName="Data",
+				colNameOpt="fieldname",
+				colFilter=makeFilter(c("ID", "EQUALS", ConstructID)),
+				colSelect=c("AverageMass"))
+			if(length(MW_inputs[,1]) == 0){
+				cat(curChemProductionRow$CHEMProductionID, ": ConstructID ", ConstructID, ", which mapped from ODTProductionID ", curChemProductionRow$OTDProductionID, " has no associated AverageMass value in InSilicoAssay.  Skipping this calculation.\n")
+			}else{
+				MW_input <- MW_inputs[1, 1]
+			}
+		}
+	}else if(!is.na(curChemProductionRow$VariantID) && curChemProductionRow$VariantID != ""){
 		# 2) if VariantID is set:
 		# get the sequence
-		variantSequence <- labkey.selectRows(
+		variantSequences <- labkey.selectRows(
 			baseUrl=BASE_URL,
-			folderPath=CONTAINER_PATH,
+			folderPath="/Optides/CompoundsRegistry/Samples",
 			schemaName=SAMPLE_SETS_SCHEMA_NAME,
 			queryName="Variant",
 			colNameOpt="fieldname",
 			colFilter=makeFilter(c("ID", "EQUALS", curChemProductionRow$VariantID)),
-			colSelect=c("AASeq"))[1]
-		#calculate mass from sequence
-		MW_input = DSBMWCalc(variantSequence)
-	}else if(!is.na(curChemProductionRow$DrugReagentID)){
+			colSelect=c("AASeq"))
+		if(length(variantSequences[,1]) == 0){
+			cat(curChemProductionRow$CHEMProductionID, ": VariantID ", curChemProductionRow$VariantID, " has no associated sequence value in the Variant SampleSet.  Skipping this calculation.\n")
+		}else{
+			variantSequence <- variantSequences[1, 1]
+			#calculate mass from sequence
+			MW_input = DSBMWCalc(variantSequence)
+		}
+	}else if(!is.na(curChemProductionRow$DrugReagentID) && curChemProductionRow$DrugReagentID != ""){
 		# 3) DrugReagent is set. get weight from CompoundsRegistry Reagents table AverageMW.
-		MW_input  <- labkey.selectRows(
+		MW_inputs  <- labkey.selectRows(
 			baseUrl=BASE_URL,
-			folderPath=CONTAINER_PATH,
+			folderPath="Optides/CompoundsRegistry/Samples",
 			schemaName=SAMPLE_SETS_SCHEMA_NAME,
 			queryName="Reagents",
 			colNameOpt="fieldname",
 			colFilter=makeFilter(c("ReagentID", "EQUALS", curChemProductionRow$DrugReagentID)),
-			colSelect=c("AverageMass"))[1]
+			colSelect=c("AverageMass"))
+		if(length(MW_inputs[,1]) == 0){
+			cat(curChemProductionRow$CHEMProductionID, ": DrugReagentID ", curChemProductionRow$VariantID, " has no associated AverageMass value in the Reagents SampleSet.  Skipping this calculation.\n")
+		}
+		MW_input <- MW_inputs[1, 1]
 	}
 	
 	if(MW_input == 0.0){
 		#no condition was met, something is wrong
 		chemProdReport$Percent_Yield[i] = NA
 	}else{
+		MW_input<- as.numeric(MW_input)
+		MW_output <- as.numeric(MW_output)
+		chemProdReport$ProductionAmount_mg[i] <- as.numeric(chemProdReport$ProductionAmount_mg[i])
+		chemProdReport$StartingAmount_mg[i] <- as.numeric(chemProdReport$StartingAmount_mg[i])
 		chemProdReport$Percent_Yield[i] = round(((chemProdReport$ProductionAmount_mg[i] * 0.001/MW_output)/(chemProdReport$StartingAmount_mg[i] *0.001/MW_input))*100.0, digit=2)
 	}
 }
