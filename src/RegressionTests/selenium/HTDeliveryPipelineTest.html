@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="https://optides-stage.fhcrc.org" />
-<title>InsertVariantsViaPipelineTest</title>
+<title>HT_Delivery Pipeline Test</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">InsertVariantsViaPipelineTest</td></tr>
+<tr><td rowspan="1" colspan="3">HT_Delivery Pipeline Test</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -23,7 +23,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=CompundsRegistry</td>
+	<td>link=CompoundsRegistry</td>
 	<td></td>
 </tr>
 <tr>
@@ -32,8 +32,13 @@
 	<td></td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>4000</td>
+	<td></td>
+</tr>
+<tr>
 	<td>click</td>
-	<td>//div/div/span[text()=&quot;TEST_insertVariantsThroughPipeline.xlsx&quot;]</td>
+	<td>//span[text()='Project13_GeneScript_DNA_Delivery_LatestFile.xlsx']</td>
 	<td></td>
 </tr>
 <tr>
@@ -43,7 +48,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//table/tbody/tr/td/table/tbody/tr/td[2]/label[text()='Insert New Variant Sequences']</td>
+	<td>//table/tbody/tr/td/table/tbody/tr/td[2]/label[text()='Upload HT Delivery info into the Database']</td>
 	<td></td>
 </tr>
 <tr>
@@ -52,8 +57,38 @@
 	<td></td>
 </tr>
 <tr>
+	<td>storeTextPresent</td>
+	<td>Retry</td>
+	<td>is_retry</td>
+</tr>
+<tr>
+	<td>gotoIf</td>
+	<td>${is_retry}</td>
+	<td>retry</td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>link=Analyze</td>
+	<td></td>
+</tr>
+<tr>
+	<td>goto</td>
+	<td>submitted</td>
+	<td>submitted</td>
+</tr>
+<tr>
+	<td>label</td>
+	<td>retry</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Retry</td>
+	<td></td>
+</tr>
+<tr>
+	<td>label</td>
+	<td>submitted</td>
 	<td></td>
 </tr>
 <tr>
@@ -62,49 +97,44 @@
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>10000</td>
+	<td>store</td>
+	<td>TRUE</td>
+	<td>is_running</td>
+</tr>
+<tr>
+	<td>while</td>
+	<td>storedVars['is_running']</td>
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>link=Samples</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Variant</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//td/div[text()=&quot;AASeq&quot;]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div/a/span[text()=&quot;Filter...&quot;]</td>
-	<td></td>
+	<td>storeTextPresent</td>
+	<td>RUNNING</td>
+	<td>is_running</td>
 </tr>
 <tr>
 	<td>pause</td>
-	<td>1500</td>
+	<td>4000</td>
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>id=value_1</td>
-	<td>TTEESSTT</td>
+	<td>endWhile</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>ERROR</td>
+	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//button[text()=&quot;OK&quot;]</td>
+	<td>link=All</td>
 	<td></td>
 </tr>
 <tr>
-	<td>assertText</td>
-	<td>//table/tbody/tr/td[2]/div</td>
-	<td>1 - 95 of 95</td>
+	<td>assertTextNotPresent</td>
+	<td>ERROR</td>
+	<td></td>
 </tr>
 <tr>
 	<td>click</td>

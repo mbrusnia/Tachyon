@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="https://optides-stage.fhcrc.org" />
-<title>Insert New CHEM Product Test</title>
+<title>HT_DNA HTProduction Pipeline Test</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Insert New CHEM Product Test</td></tr>
+<tr><td rowspan="1" colspan="3">HT_DNA HTProduction Pipeline Test</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -23,7 +23,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=CompundsRegistry</td>
+	<td>link=CompoundsRegistry</td>
 	<td></td>
 </tr>
 <tr>
@@ -38,7 +38,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//span[text()='newChemProducts_input.xlsx']</td>
+	<td>//span[text()='Project13_GeneScript_DNA_Delivery_LatestFile.xlsx']</td>
 	<td></td>
 </tr>
 <tr>
@@ -48,7 +48,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//table/tbody/tr/td/table/tbody/tr/td[2]/label[text()='Insert New Chemical Product']</td>
+	<td>//table/tbody/tr/td/table/tbody/tr/td[2]/label[text()='Generate HT Plates info from an HT Delivery form']</td>
 	<td></td>
 </tr>
 <tr>
@@ -57,13 +57,13 @@
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>link=Analyze</td>
-	<td></td>
+	<td>type</td>
+	<td>id=toReplaceBlanks</td>
+	<td>CNT0001396</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Pipeline</td>
+	<td>link=Generate HT Plate</td>
 	<td></td>
 </tr>
 <tr>
@@ -78,7 +78,7 @@
 </tr>
 <tr>
 	<td>storeTextPresent</td>
-	<td>insert_chemical_product RUNNING</td>
+	<td>ht_plate_generator RUNNING</td>
 	<td>is_running</td>
 </tr>
 <tr>
@@ -132,6 +132,21 @@
 	<td></td>
 </tr>
 <tr>
+	<td>open</td>
+	<td>/project/home/begin.view?</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div/a/span[text()='Optides']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=CompoundsRegistry</td>
+	<td></td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>link=Samples</td>
 	<td></td>
@@ -143,53 +158,88 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=CHEMProduction</td>
+	<td>//span[text()='Project13_GeneScript_DNA_Delivery_LatestFile.xlsx']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//td/div[text()=&quot;Received By&quot;]</td>
+	<td>link=Import Data</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div/a/span[text()=&quot;Filter...&quot;]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>1500</td>
-	<td>1500</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>link=[All]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//td/div/span[text()=&quot;TESTTEST&quot;]</td>
+	<td>//table/tbody/tr/td/table/tbody/tr/td[2]/label[text()='Generate HT Plates info from an HT Delivery form']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>//button[text()=&quot;OK&quot;]</td>
+	<td>link=Import</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=toReplaceBlanks</td>
+	<td>CNT0001396</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=reproductionPlate</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=reproductionPlateID</td>
+	<td>label=HT0105</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Generate HT Plate</td>
+	<td></td>
+</tr>
+<tr>
+	<td>store</td>
+	<td>TRUE</td>
+	<td>is_running</td>
+</tr>
+<tr>
+	<td>while</td>
+	<td>storedVars['is_running']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeTextPresent</td>
+	<td>ht_plate_generator RUNNING</td>
+	<td>is_running</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>4000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>endWhile</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>ERROR</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=All</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>ERROR</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertTextPresent</td>
-	<td>Filter: (ReceivedBy = TESTTEST)</td>
+	<td>COMPLETE</td>
 	<td></td>
-</tr>
-<tr>
-	<td>assertTextPresent</td>
-	<td>4333</td>
-	<td>4333</td>
-</tr>
-<tr>
-	<td>assertTextPresent</td>
-	<td>3996</td>
-	<td>3996</td>
 </tr>
 <tr>
 	<td>click</td>

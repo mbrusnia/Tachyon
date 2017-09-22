@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="https://optides-stage.fhcrc.org" />
-<title>HT_DNA Pipeline OrderGenerator Test</title>
+<title>InsertConstructsViaPipelineTest</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">HT_DNA OrderGenerator Pipeline Test</td></tr>
+<tr><td rowspan="1" colspan="3">InsertConstructsViaPipelineTest</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -23,7 +23,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=CompundsRegistry</td>
+	<td>link=CompoundsRegistry</td>
 	<td></td>
 </tr>
 <tr>
@@ -32,13 +32,8 @@
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>4000</td>
-	<td></td>
-</tr>
-<tr>
 	<td>click</td>
-	<td>//span[text()='ht_dna_generateOrder.xlsx']</td>
+	<td>//div/div/span[text()=&quot;TEST_insertConstructsThroughPipeline.xlsx&quot;]</td>
 	<td></td>
 </tr>
 <tr>
@@ -48,7 +43,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//table/tbody/tr/td/table/tbody/tr/td[2]/label[text()='Upload HT Order Form into the Database']</td>
+	<td>//table/tbody/tr/td/table/tbody/tr/td[2]/label[text()='Insert New Construct Sequences']</td>
 	<td></td>
 </tr>
 <tr>
@@ -57,69 +52,59 @@
 	<td></td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>id=linker_seq_txt</td>
-	<td>GS</td>
+	<td>clickAndWait</td>
+	<td>link=Analyze</td>
+	<td></td>
 </tr>
 <tr>
-	<td>selectWindow</td>
-	<td>null</td>
+	<td>clickAndWait</td>
+	<td>link=Pipeline</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Samples</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Construct</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>id=vendor_name_lst</td>
+	<td>//td/div[text()=&quot;AASeq&quot;]</td>
 	<td></td>
 </tr>
 <tr>
-	<td>select</td>
-	<td>id=vendor_name_lst</td>
-	<td>label=GenScript</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Generate HT Order Form</td>
+	<td>click</td>
+	<td>//div/a/span[text()=&quot;Filter...&quot;]</td>
 	<td></td>
-</tr>
-<tr>
-	<td>store</td>
-	<td>TRUE</td>
-	<td>is_running</td>
-</tr>
-<tr>
-	<td>while</td>
-	<td>storedVars['is_running']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>storeTextPresent</td>
-	<td>ht_order_generator RUNNING</td>
-	<td>is_running</td>
 </tr>
 <tr>
 	<td>pause</td>
-	<td>4000</td>
+	<td>1500</td>
 	<td></td>
 </tr>
 <tr>
-	<td>endWhile</td>
-	<td></td>
-	<td></td>
-</tr>
-<tr>
-	<td>assertTextNotPresent</td>
-	<td>ERROR</td>
-	<td></td>
+	<td>type</td>
+	<td>id=value_1</td>
+	<td>TTEESSTT</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=All</td>
+	<td>//button[text()=&quot;OK&quot;]</td>
 	<td></td>
 </tr>
 <tr>
-	<td>assertTextNotPresent</td>
-	<td>ERROR</td>
-	<td></td>
+	<td>assertText</td>
+	<td>//table/tbody/tr/td[2]/div</td>
+	<td>1 - 95 of 95</td>
 </tr>
 <tr>
 	<td>click</td>
