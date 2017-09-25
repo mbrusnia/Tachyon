@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebElementEntity>
+   <description></description>
+   <name>span_Optides</name>
+   <tag></tag>
+   <elementGuidId>6383502f-8ea6-4a91-82c5-70cd4e9515b5</elementGuidId>
+   <useRalativeImagePath>false</useRalativeImagePath>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>tag</name>
+      <type>Main</type>
+      <value>span</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath</name>
+      <type>Main</type>
+      <value>id(&quot;dataview-1087&quot;)/table[1]/tbody[1]/tr[1]/td[@class=&quot;thumb-wrap&quot;]/div[@class=&quot;tool-icon thumb-wrap thumb-wrap-bottom&quot;]/a[1]/span[@class=&quot;thumb-label-bottom&quot;]</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>contains</matchCondition>
+      <name>text</name>
+      <type>Main</type>
+      <value>Optides</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>class</name>
+      <type>Main</type>
+      <value>thumb-label-bottom</value>
+   </webElementProperties>
+</WebElementEntity>

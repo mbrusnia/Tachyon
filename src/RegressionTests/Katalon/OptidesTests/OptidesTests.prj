@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project>
+   <description>Regression tests for the Olson lab's Labkey instance.</description>
+   <name>OptidesTests</name>
+   <tag></tag>
+   <UUID>aed495d1-d7b6-4060-9b18-8a31c79a1aaf</UUID>
+   <pageLoadTimeout>0</pageLoadTimeout>
+</Project>

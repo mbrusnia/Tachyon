@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>remove constructs temporarily inserted for the test to work properly</description>
+   <name>postTest-RemoveTestConstructs</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>337b81e2-8c55-4808-9bfb-487e51ceba29</testCaseGuid>
+</TestCaseEntity>
