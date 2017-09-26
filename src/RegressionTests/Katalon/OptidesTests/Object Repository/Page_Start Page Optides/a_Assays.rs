@@ -1,43 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>span_Import Data</name>
+   <name>a_Assays</name>
    <tag></tag>
-   <elementGuidId>15e88772-0a20-4b2c-8273-7ee8d4c6101e</elementGuidId>
+   <elementGuidId>4938a6a0-233a-4f99-9138-fe3b9233fc62</elementGuidId>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
-      <value>span</value>
+      <value>a</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>id(&quot;iconbtn-1233-btnInnerEl&quot;)</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>false</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>id</name>
-      <type>Main</type>
-      <value>iconbtn-1233-btnInnerEl</value>
+      <value>id(&quot;CustomMenu6-Header_menu&quot;)/table[1]/tbody[1]/tr[1]/td[1]/a[1]</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
-      <name>text</name>
+      <name>href</name>
       <type>Main</type>
-      <value> Import Data</value>
+      <value>/project/Optides/HTProduction/Assays/begin.view?</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>class</name>
+      <isSelected>true</isSelected>
+      <matchCondition>contains</matchCondition>
+      <name>text</name>
       <type>Main</type>
-      <value>iconbtn-label</value>
+      <value>Assays</value>
    </webElementProperties>
 </WebElementEntity>

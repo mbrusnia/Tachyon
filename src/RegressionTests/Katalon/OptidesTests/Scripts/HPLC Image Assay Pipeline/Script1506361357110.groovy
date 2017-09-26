@@ -22,17 +22,37 @@ import internal.GlobalVariable as GlobalVariable
 'use global script for log in with credentials and BASE_URL set there'
 WebUI.callTestCase(findTestCase('OpenAndLogIn'), [:], FailureHandling.STOP_ON_FAILURE)
 
-WebUI.mouseOver(findTestObject('Page_Start Page Optides/a_CompoundsRegistry'))
+WebUI.mouseOver(findTestObject('Page_Start Page Optides/menu_HTProduction'))
 
-WebUI.waitForElementVisible(findTestObject('Page_Start Page Optides/a_Samples_CompReg'), 0)
+WebUI.waitForElementVisible(findTestObject('Page_Start Page Optides/a_Assays'), 0)
 
-WebUI.click(findTestObject('Page_Start Page Optides/a_Samples_CompReg'))
+WebUI.click(findTestObject('Page_Start Page Optides/a_Assays'))
 
-WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/span_test_GenScript_HT_DNA_DeliveryFile.xlsx'))
+WebUI.refresh()
+
+WebUI.delay(3, FailureHandling.STOP_ON_FAILURE)
+
+WebUI.doubleClick(findTestObject('Page_Assay Dashboard HTProduction/file_HPLC_Assay_Images'))
+
+WebUI.waitForElementPresent(findTestObject('Page_Assay Dashboard HTProduction/file_HT0102'), 0)
+
+WebUI.doubleClick(findTestObject('Page_Assay Dashboard HTProduction/file_HT0102'))
+
+WebUI.waitForElementPresent(findTestObject('Page_Assay Dashboard HTProduction/file_HT01021A01_Perfect_etc'), 0)
+
+WebUI.click(findTestObject('Page_Assay Dashboard HTProduction/file_HT01021A01_Perfect_etc'))
+
+WebUI.click(findTestObject('Page_Assay Dashboard HTProduction/file_HT01021A02_Complex_etc'), FailureHandling.STOP_ON_FAILURE)
+
+WebUI.click(findTestObject('Page_Assay Dashboard HTProduction/file_HT01021A03_Simple_etc'), FailureHandling.STOP_ON_FAILURE)
+
+WebUI.click(findTestObject('Page_Assay Dashboard HTProduction/file_HT01021A04_Perfect_523.58_6.53.jpg'), FailureHandling.STOP_ON_FAILURE)
+
+WebUI.click(findTestObject('Page_Assay Dashboard HTProduction/file_HT01021A05'), FailureHandling.STOP_ON_FAILURE)
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/span_Import Data'))
 
-WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/radioBtn_Upload_HT_Delivery'))
+WebUI.click(findTestObject('Page_Assay Dashboard HTProduction/radioBtn_Update HPLC Assay'))
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/button_Import'))
 
@@ -49,7 +69,7 @@ WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/a_All'))
 pipelineStatus = WebUI.getAttribute(findTestObject('Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus'), 'text')
 
 'Check every 10 seconds for a status update'
-while ((pipelineStatus == 'ht_delivery RUNNING') || (pipelineStatus == 'ht_delivery WAITING')) {
+while ((pipelineStatus == 'insert_jpegs RUNNING') || (pipelineStatus == 'insert_jpegs WAITING')) {
     WebUI.delay(10)
 
     pipelineStatus = WebUI.getAttribute(findTestObject('Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus'), 'text')
@@ -62,6 +82,16 @@ WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/input_Toggle'
 WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/btn_Delete'))
 
 WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/btn_ConfirmDelete'))
+
+WebUI.click(findTestObject('Page_Assay Dashboard HTProduction/link_Assays'))
+
+WebUI.click(findTestObject('Page_Assay Dashboard HTProduction/link_HPLC Assays'))
+
+WebUI.click(findTestObject('Page_Assay Dashboard HTProduction/chkbx_HPLC_HT0102'))
+
+WebUI.click(findTestObject('Page_Assay Dashboard HTProduction/btn_Delete'))
+
+WebUI.click(findTestObject('Page_Assay Dashboard HTProduction/btn_ConfirmDelete'))
 
 WebUI.closeBrowser()
 

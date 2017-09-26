@@ -21,7 +21,25 @@ import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 
 'use global script for log in with credentials and BASE_URL set there'
-WebUI.callTestCase(findTestCase('OpenAndLogIn'), [:], FailureHandling.STOP_ON_FAILURE)
+not_run: WebUI.callTestCase(findTestCase('OpenAndLogIn'), [:], FailureHandling.STOP_ON_FAILURE)
+
+WebUI.waitForElementVisible(findTestObject('Page_Start Page Optides/a_Samples_CompReg'), 0)
+
+WebUI.click(findTestObject('Page_Start Page Optides/a_Samples_CompReg'))
+
+WebUI.delay(2)
+
+WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Pipeline'))
+
+WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/a_All'))
+
+if (!WebUI.verifyTextPresent('No data to show.', false)) {
+    WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/input_Toggle'))
+
+    WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/btn_Delete'))
+
+    WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/btn_ConfirmDelete'))
+}
 
 WebUI.mouseOver(findTestObject('Page_Start Page Optides/a_CompoundsRegistry'))
 
@@ -42,22 +60,6 @@ WebUI.setText(findTestObject('Page_Import Sample Set OptidesCompo/textarea_data'
 WebUI.click(findTestObject('Page_Import Sample Set OptidesCompo/span_Submit'))
 
 WebUI.mouseOver(findTestObject('Page_Start Page Optides/a_CompoundsRegistry'))
-
-WebUI.waitForElementVisible(findTestObject('Page_Start Page Optides/a_Samples_CompReg'), 0)
-
-WebUI.click(findTestObject('Page_Start Page Optides/a_Samples_CompReg'))
-
-WebUI.delay(2)
-
-WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Pipeline'))
-
-WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/a_All'))
-
-WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/input_Toggle'))
-
-WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/btn_Delete'))
-
-WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/btn_ConfirmDelete'))
 
 WebUI.closeBrowser()
 

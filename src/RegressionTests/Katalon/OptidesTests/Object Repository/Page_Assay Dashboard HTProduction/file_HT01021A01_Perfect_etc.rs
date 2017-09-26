@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebElementEntity>
+   <description></description>
+   <name>file_HT01021A01_Perfect_etc</name>
+   <tag></tag>
+   <elementGuidId>1433e80b-3543-407d-891b-a702dba2dca7</elementGuidId>
+   <useRalativeImagePath>false</useRalativeImagePath>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>tag</name>
+      <type>Main</type>
+      <value>span</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>text</name>
+      <type>Main</type>
+      <value>HT01021A01_Perfect_494.51_7.86.jpg</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath</name>
+      <type>Main</type>
+      <value>//td/div/div/div/span[text()=&quot;HT01021A01_Perfect_494.51_7.86.jpg&quot;]/parent::div/parent::div/parent::div/parent::td/preceding-sibling::td/preceding-sibling::td/div/div</value>
+   </webElementProperties>
+</WebElementEntity>

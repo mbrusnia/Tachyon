@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>Test the HPLC Image Assay pipeline</description>
+   <name>HPLC Image Assay Pipeline</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>7ac4ac70-7083-415c-a719-7f010dc45197</testCaseGuid>
+</TestCaseEntity>

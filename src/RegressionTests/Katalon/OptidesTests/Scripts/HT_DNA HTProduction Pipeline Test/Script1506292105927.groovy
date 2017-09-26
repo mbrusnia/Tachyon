@@ -18,6 +18,7 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
+import org.openqa.selenium.Keys as Keys
 
 'use global script for log in with credentials and BASE_URL set there'
 WebUI.callTestCase(findTestCase('OpenAndLogIn'), [:], FailureHandling.STOP_ON_FAILURE)
@@ -108,4 +109,6 @@ WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/input_Toggle'
 WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/btn_Delete'))
 
 WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/btn_ConfirmDelete'))
+
+WebUI.closeBrowser()
 
