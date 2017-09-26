@@ -249,6 +249,7 @@ for(i in 1:length(chemProdReport$ChemProductionID)){
 			schemaName=SAMPLE_SETS_SCHEMA_NAME,
 			queryName="OTDProduction",
 			colNameOpt="fieldname",
+			showHidden=TRUE,
 			colFilter=makeFilter(c("OTDProductionID", "EQUALS", curChemProductionRow$OTDProductionID)),
 			colSelect=c("ParentID"))
 		#if no constructID found for the OTDProductionID, skip this iteration
@@ -263,6 +264,7 @@ for(i in 1:length(chemProdReport$ChemProductionID)){
 				schemaName="assay.General.InSilicoAssay",
 				queryName="Data",
 				colNameOpt="fieldname",
+				showHidden=TRUE,
 				colFilter=makeFilter(c("ID", "EQUALS", ConstructID)),
 				colSelect=c("AverageMass"))
 			if(length(MW_inputs[,1]) == 0){
@@ -280,6 +282,7 @@ for(i in 1:length(chemProdReport$ChemProductionID)){
 			schemaName=SAMPLE_SETS_SCHEMA_NAME,
 			queryName="Variant",
 			colNameOpt="fieldname",
+			showHidden=TRUE,
 			colFilter=makeFilter(c("ID", "EQUALS", curChemProductionRow$VariantID)),
 			colSelect=c("AASeq"))
 		if(length(variantSequences[,1]) == 0){
@@ -297,6 +300,7 @@ for(i in 1:length(chemProdReport$ChemProductionID)){
 			schemaName=SAMPLE_SETS_SCHEMA_NAME,
 			queryName="Reagents",
 			colNameOpt="fieldname",
+			showHidden=TRUE,
 			colFilter=makeFilter(c("ReagentID", "EQUALS", curChemProductionRow$DrugReagentID)),
 			colSelect=c("AverageMass"))
 		if(length(MW_inputs[,1]) == 0){
