@@ -21,7 +21,7 @@ import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 
 'use global script for log in with credentials and BASE_URL set there'
-not_run: WebUI.callTestCase(findTestCase('OpenAndLogIn'), [:], FailureHandling.STOP_ON_FAILURE)
+WebUI.callTestCase(findTestCase('OpenAndLogIn'), [:], FailureHandling.STOP_ON_FAILURE)
 
 WebUI.mouseOver(findTestObject('Page_Start Page Optides/a_CompoundsRegistry'))
 
@@ -80,6 +80,56 @@ WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/div_ID'))
 WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
 
 WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TEST')
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/button_OK'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/input_.toggle'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Delete'))
+
+WebUI.click(findTestObject('Page_Confirm Deletion OptidesCompou/span_Confirm Delete'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/div_AASeq'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
+
+WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TTEESSTT')
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/button_OK'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/input_.toggle'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Delete'))
+
+WebUI.click(findTestObject('Page_Confirm Deletion OptidesCompou/span_Confirm Delete'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/a_Sample Sets'))
+
+WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Variant'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/div_AASeq'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
+
+WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TTEESSTT')
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/button_OK'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/input_.toggle'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Delete'))
+
+WebUI.click(findTestObject('Page_Confirm Deletion OptidesCompou/span_Confirm Delete'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/a_Sample Sets'))
+
+WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Homologue'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/div_AASeq'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
+
+WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TTEESSTT')
 
 WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/button_OK'))
 
