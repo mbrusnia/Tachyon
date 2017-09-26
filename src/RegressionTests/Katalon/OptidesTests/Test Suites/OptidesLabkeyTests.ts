@@ -42,6 +42,24 @@
       <testCaseId>Test Cases/HT_DNA HTProduction Pipeline Test</testCaseId>
    </testCaseLink>
    <testCaseLink>
+      <guid>8600afd9-e5c9-4e65-9221-c7676b12b9ec</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/HPLC Image Assay Pipeline</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>48e6e899-bdc3-4cf6-ad91-962c3cd285d5</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/Insert Constructs via Pipeline Test</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>11c440ef-4323-4cf4-8060-801e07ebad9b</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/Insert Variants via Pipeline Test</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
       <guid>a1aab72c-40fe-4396-9854-762096783c94</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>

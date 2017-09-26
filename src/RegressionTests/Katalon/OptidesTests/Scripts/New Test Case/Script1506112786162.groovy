@@ -20,5 +20,9 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
-WebUI.click(findTestObject('Page_Assay Dashboard HTProduction/btn_Delete'))
+WebUI.refresh()
+
+WebUI.delay(2)
+
+WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/file_TEST_insertHomologuesThroughPipeline.xlsx'))
 
