@@ -28,6 +28,10 @@ WebUI.waitForElementVisible(findTestObject('Page_Start Page Optides/a_Samples_Co
 
 WebUI.click(findTestObject('Page_Start Page Optides/a_Samples_CompReg'))
 
+WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Files'))
+
+WebUI.delay(2)
+
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/file_TEST_insertVariantsThroughPipeline.xlsx'))
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/span_Import Data'))
