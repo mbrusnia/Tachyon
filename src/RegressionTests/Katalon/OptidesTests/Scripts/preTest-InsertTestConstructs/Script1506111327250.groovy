@@ -21,7 +21,9 @@ import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 
 'use global script for log in with credentials and BASE_URL set there'
-not_run: WebUI.callTestCase(findTestCase('OpenAndLogIn'), [:], FailureHandling.STOP_ON_FAILURE)
+WebUI.callTestCase(findTestCase('OpenAndLogIn'), [:], FailureHandling.STOP_ON_FAILURE)
+
+WebUI.mouseOver(findTestObject('Page_Start Page Optides/a_CompoundsRegistry'))
 
 WebUI.waitForElementVisible(findTestObject('Page_Start Page Optides/a_Samples_CompReg'), 0)
 
@@ -33,8 +35,9 @@ WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Pipeline'))
 
 WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/a_All'))
 
-if (!WebUI.verifyTextPresent('No data to show.', false)) {
-    WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/input_Toggle'))
+WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/input_Toggle'))
+
+if (WebUI.verifyElementClickable(findTestObject('Page_Data Pipeline - CompoundsRegistry/btn_Delete'))) {
 
     WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/btn_Delete'))
 

@@ -38,6 +38,7 @@ cat("#########   update CHEMProduction MWs  ########\n")
 chemProd <- labkey.selectRows(
     baseUrl=BASE_URL,
     folderPath=CONTAINER_PATH,
+	showHidden=TRUE,
     schemaName=SAMPLE_SETS_SCHEMA_NAME,
     queryName="CHEMProduction",
 	colNameOpt="fieldname",  
@@ -64,7 +65,7 @@ for(i in 1:length(chemProd$CHEMProductionID)){
 			#get ConstructID
 			constructIDs <- labkey.selectRows(BASE_URL, CONTAINER_PATH, 
 				SAMPLE_SETS_SCHEMA_NAME, "OTDProduction", colSelect = c("OTDProductionID", "ParentID"), 
-				colFilter=makeFilter(c("OTDProductionID", "EQUAL", otdProdID)), colNameOpt="fieldname")
+				showHidden=TRUE, colFilter=makeFilter(c("OTDProductionID", "EQUAL", otdProdID)), colNameOpt="fieldname")
 			if(length(constructIDs$OTDProductionID) < 1){
 				stop(paste0("The OTDProductionID: ", otdProdID, " is not found in the OTDProduction Sampleset!  Please correct this issue and try again."))
 			}
@@ -72,7 +73,7 @@ for(i in 1:length(chemProd$CHEMProductionID)){
 
 			#get sequence
 			sequence <- labkey.selectRows(BASE_URL, CONTAINER_PATH, 
-				SAMPLE_SETS_SCHEMA_NAME, "Construct", colSelect = c("ID", "AASeq"), 
+				SAMPLE_SETS_SCHEMA_NAME, "Construct", colSelect = c("ID", "AASeq"), showHidden=TRUE,
 				colFilter=makeFilter(c("ID", "EQUAL", constructID)), colNameOpt="fieldname")$AASeq[1]
 		}else if(is.na(chemProd$OTDProductionID[i]) && !is.na(chemProd$VariantID[i])){
 			#get sequence in order to calculate weight
@@ -80,7 +81,7 @@ for(i in 1:length(chemProd$CHEMProductionID)){
 
 			#get sequence
 			sequence <- labkey.selectRows(BASE_URL, CONTAINER_PATH, 
-				SAMPLE_SETS_SCHEMA_NAME, "Variant", colSelect = c("ID", "AASeq"), 
+				SAMPLE_SETS_SCHEMA_NAME, "Variant", colSelect = c("ID", "AASeq"), showHidden=TRUE,
 				colFilter=makeFilter(c("ID", "EQUAL", variantID)), colNameOpt="fieldname")$AASeq[1]
 		}
 
@@ -246,17 +247,17 @@ for(i in 1:length(chemProdReport$ChemProductionID)){
 		ConstructIDs <- labkey.selectRows(
 			baseUrl=BASE_URL,
 			folderPath="/Optides/CompoundsRegistry/Samples",
-			schemaName=SAMPLE_SETS_SCHEMA_NAME,
+			schemaName="samples",
 			queryName="OTDProduction",
 			colNameOpt="fieldname",
 			showHidden=TRUE,
 			colFilter=makeFilter(c("OTDProductionID", "EQUALS", curChemProductionRow$OTDProductionID)),
 			colSelect=c("ParentID"))
 		#if no constructID found for the OTDProductionID, skip this iteration
-		if(length(ConstructIDs[,1]) == 0){
+		if(length(ConstructIDs[,"ParentID"]) == 0){
 			cat(curChemProductionRow$CHEMProductionID, ": ODTProductionID ", curChemProductionRow$OTDProductionID, " has no associated ParentID (ConstructID).  Skipping this calculation.\n")
 		}else{
-			ConstructID <- ConstructIDs[1, 1]
+			ConstructID <- ConstructIDs[1, "ParentID"]
 			#lookup weight from InSilicoAssay
 			MW_inputs <- labkey.selectRows(
 				baseUrl=BASE_URL,
@@ -281,6 +282,7 @@ for(i in 1:length(chemProdReport$ChemProductionID)){
 			folderPath="/Optides/CompoundsRegistry/Samples",
 			schemaName=SAMPLE_SETS_SCHEMA_NAME,
 			queryName="Variant",
+			showHidden=TRUE,
 			colNameOpt="fieldname",
 			showHidden=TRUE,
 			colFilter=makeFilter(c("ID", "EQUALS", curChemProductionRow$VariantID)),

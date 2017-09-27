@@ -20,9 +20,6 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
-WebUI.refresh()
-
-WebUI.delay(2)
-
-WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/file_TEST_insertHomologuesThroughPipeline.xlsx'))
+'use global script for log in with credentials and BASE_URL set there'
+WebUI.callTestCase(findTestCase('OpenAndLogIn'), [:], FailureHandling.STOP_ON_FAILURE)
 
