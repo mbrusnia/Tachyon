@@ -21,7 +21,7 @@ import internal.GlobalVariable as GlobalVariable
 
 WebUI.openBrowser('https://optides-dev-lk1.fhcrc.org')
 
-WebUI.maximizeWindow()
+WebUI.setViewPortSize(2000, 1500)
 
 WebUI.click(findTestObject('LSC_objects/Page_Optide Dev Server home/a_SignIn'))
 
