@@ -18,6 +18,12 @@
       <testCaseId>Test Cases/LSCActivityCalcTest</testCaseId>
    </testCaseLink>
    <testCaseLink>
+      <guid>a8fc356f-2cdc-46f3-8093-222ecc5a6454</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/updateMWs Test</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
       <guid>c56cc29a-ae8c-433d-a3f3-2a31fca99d1d</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
