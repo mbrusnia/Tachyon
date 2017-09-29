@@ -20,6 +20,25 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
-'use global script for log in with credentials and BASE_URL set there'
 WebUI.callTestCase(findTestCase('OpenAndLogIn'), [:], FailureHandling.STOP_ON_FAILURE)
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/a_Sample Sets'))
+
+WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_CHEMProduction'))
+
+WebUI.click(findTestObject('Page_CHEMProduction SampleSet/div_Received By'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
+
+WebUI.click(findTestObject('Page_CHEMProduction SampleSet/a_All'))
+
+WebUI.click(findTestObject('Page_CHEMProduction SampleSet/a_TESTTEST'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/button_OK'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/input_.toggle'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Delete'))
+
+WebUI.click(findTestObject('Page_Confirm Deletion OptidesCompou/span_Confirm Delete'))
 

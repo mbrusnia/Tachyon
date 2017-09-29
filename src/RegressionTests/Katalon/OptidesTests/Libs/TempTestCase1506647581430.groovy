@@ -13,7 +13,7 @@ DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.w
 DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.mobile.contribution.MobileDriverCleaner())
 
 
-RunConfiguration.setExecutionSettingFile('C:\\Users\\Hector\\AppData\\Local\\Temp\\Katalon\\Test Cases\\HT_DNA OrderGeneratorTest\\20170925_220023\\execution.properties')
+RunConfiguration.setExecutionSettingFile('C:\\Users\\Hector\\AppData\\Local\\Temp\\Katalon\\Test Cases\\New Test Case\\20170928_181301\\execution.properties')
 
 TestCaseMain.beforeStart()
 try {
@@ -25,6 +25,7 @@ import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
 import com.kms.katalon.core.checkpoint.CheckpointFactory as CheckpointFactory
+import com.kms.katalon.core.exception.StepFailedException as StepFailedException
 import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as MobileBuiltInKeywords
 import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
 import com.kms.katalon.core.model.FailureHandling as FailureHandling
@@ -39,46 +40,31 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
-import org.openqa.selenium.Keys as Keys
 
-'use global script for log in with credentials and BASE_URL set there'
 not_run: WebUI.callTestCase(findTestCase('OpenAndLogIn'), [:], FailureHandling.STOP_ON_FAILURE)
 
-not_run: WebUI.mouseOver(findTestObject('Page_Start Page Optides/a_CompoundsRegistry'))
+not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/a_Sample Sets'))
 
-not_run: WebUI.waitForElementVisible(findTestObject('Page_Start Page Optides/a_Samples_CompReg'), 0)
+WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_CHEMProduction'))
 
-not_run: WebUI.click(findTestObject('Page_Start Page Optides/a_Samples_CompReg'))
+WebUI.click(findTestObject('Page_CHEMProduction SampleSet/div_Received By'))
 
-not_run: WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/span_ht_dna_generateOrder4Kata'))
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
 
-not_run: WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/span_Import Data'))
+WebUI.click(findTestObject('Page_CHEMProduction SampleSet/a_All'))
 
-not_run: WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/radioBtn_Upload HT Order Form'))
+WebUI.click(findTestObject('Page_CHEMProduction SampleSet/a_TESTTEST'))
 
-not_run: WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/button_Import'))
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/button_OK'))
 
-not_run: WebUI.setText(findTestObject('Page_Upload a spreadsheet of orders/input_linker_seq_txt'), 'GS')
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/input_.toggle'))
 
-WebUI.selectOptionByValue(findTestObject('Page_Upload a spreadsheet of orders/select_vendor_name_lst'), 'GenScript', true)
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Delete'))
 
-WebUI.click(findTestObject('Page_Upload a spreadsheet of orders/span_Generate HT Order Form'))
+WebUI.click(findTestObject('Page_Confirm Deletion OptidesCompou/span_Confirm Delete'))
 
-pipelineStatus = WebUI.getAttribute(findTestObject('Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus'), 'text')
-
-'Check every 10 seconds for a status update'
-while ((pipelineStatus == 'ht_order_generator RUNNING') || (pipelineStatus == 'ht_order_generator WAITING')) {
-    WebUI.delay(10)
-
-    pipelineStatus = WebUI.getAttribute(findTestObject('Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus'), 'text')
-}
-
-assert pipelineStatus == 'COMPLETE'
-
-WebUI.closeBrowser()
-
-''', 'Test Cases/HT_DNA OrderGeneratorTest', new TestCaseBinding('Test Cases/HT_DNA OrderGeneratorTest', [:]), FailureHandling.STOP_ON_FAILURE )
+''', 'Test Cases/New Test Case', new TestCaseBinding('Test Cases/New Test Case', [:]), FailureHandling.STOP_ON_FAILURE )
     
 } catch (Exception e) {
-    TestCaseMain.logError(e, 'Test Cases/HT_DNA OrderGeneratorTest')
+    TestCaseMain.logError(e, 'Test Cases/New Test Case')
 }

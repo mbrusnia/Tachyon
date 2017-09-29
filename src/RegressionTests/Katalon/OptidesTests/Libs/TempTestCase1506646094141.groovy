@@ -13,13 +13,13 @@ DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.w
 DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.mobile.contribution.MobileDriverCleaner())
 
 
-RunConfiguration.setExecutionSettingFile('C:\\Users\\Hector\\AppData\\Local\\Temp\\Katalon\\Test Cases\\HT_DNA Delivery.R\\20170925_220110\\execution.properties')
+RunConfiguration.setExecutionSettingFile('C:\\Users\\Hector\\AppData\\Local\\Temp\\Katalon\\Test Cases\\Insert CHEMProducts via pipeline\\20170928_174813\\execution.properties')
 
 TestCaseMain.beforeStart()
 try {
     
-	    TestCaseMain.runTestCase('Test Cases/HT_DNA Delivery.R', new TestCaseBinding('Test Cases/HT_DNA Delivery.R', [:]), FailureHandling.STOP_ON_FAILURE )
+	    TestCaseMain.runTestCase('Test Cases/Insert CHEMProducts via pipeline', new TestCaseBinding('Test Cases/Insert CHEMProducts via pipeline', [:]), FailureHandling.STOP_ON_FAILURE )
     
 } catch (Exception e) {
-    TestCaseMain.logError(e, 'Test Cases/HT_DNA Delivery.R')
+    TestCaseMain.logError(e, 'Test Cases/Insert CHEMProducts via pipeline')
 }

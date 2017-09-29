@@ -13,13 +13,13 @@ DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.w
 DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.mobile.contribution.MobileDriverCleaner())
 
 
-RunConfiguration.setExecutionSettingFile('C:\\Users\\Hector\\AppData\\Local\\Temp\\Katalon\\Test Cases\\preTest-InsertTestConstructs\\20170925_213843\\execution.properties')
+RunConfiguration.setExecutionSettingFile('C:\\Users\\Hector\\AppData\\Local\\Temp\\Katalon\\Test Cases\\Insert Variants via Pipeline Test\\20170928_153231\\execution.properties')
 
 TestCaseMain.beforeStart()
 try {
     
-	    TestCaseMain.runTestCase('Test Cases/preTest-InsertTestConstructs', new TestCaseBinding('Test Cases/preTest-InsertTestConstructs', [:]), FailureHandling.STOP_ON_FAILURE )
+	    TestCaseMain.runTestCase('Test Cases/Insert Variants via Pipeline Test', new TestCaseBinding('Test Cases/Insert Variants via Pipeline Test', [:]), FailureHandling.STOP_ON_FAILURE )
     
 } catch (Exception e) {
-    TestCaseMain.logError(e, 'Test Cases/preTest-InsertTestConstructs')
+    TestCaseMain.logError(e, 'Test Cases/Insert Variants via Pipeline Test')
 }

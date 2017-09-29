@@ -15,42 +15,42 @@ import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 
 
 def static runTestCase_0() {
-    TestCaseMain.runTestCase('Test Cases/LSCActivityCalcTest', new TestCaseBinding('Test Cases/LSCActivityCalcTest',  null), FailureHandling.STOP_ON_FAILURE)
-    
-}
-
-def static runTestCase_1() {
     TestCaseMain.runTestCase('Test Cases/preTest-InsertTestConstructs', new TestCaseBinding('Test Cases/preTest-InsertTestConstructs',  null), FailureHandling.STOP_ON_FAILURE)
     
 }
 
-def static runTestCase_2() {
+def static runTestCase_1() {
     TestCaseMain.runTestCase('Test Cases/HT_DNA OrderGeneratorTest', new TestCaseBinding('Test Cases/HT_DNA OrderGeneratorTest',  null), FailureHandling.STOP_ON_FAILURE)
     
 }
 
-def static runTestCase_3() {
+def static runTestCase_2() {
     TestCaseMain.runTestCase('Test Cases/HT_DNA Delivery.R', new TestCaseBinding('Test Cases/HT_DNA Delivery.R',  null), FailureHandling.STOP_ON_FAILURE)
     
 }
 
-def static runTestCase_4() {
+def static runTestCase_3() {
     TestCaseMain.runTestCase('Test Cases/HT_DNA HTProduction Pipeline Test', new TestCaseBinding('Test Cases/HT_DNA HTProduction Pipeline Test',  null), FailureHandling.STOP_ON_FAILURE)
     
 }
 
-def static runTestCase_5() {
+def static runTestCase_4() {
     TestCaseMain.runTestCase('Test Cases/HPLC Image Assay Pipeline', new TestCaseBinding('Test Cases/HPLC Image Assay Pipeline',  null), FailureHandling.STOP_ON_FAILURE)
     
 }
 
-def static runTestCase_6() {
+def static runTestCase_5() {
     TestCaseMain.runTestCase('Test Cases/Insert Constructs via Pipeline Test', new TestCaseBinding('Test Cases/Insert Constructs via Pipeline Test',  null), FailureHandling.STOP_ON_FAILURE)
     
 }
 
-def static runTestCase_7() {
+def static runTestCase_6() {
     TestCaseMain.runTestCase('Test Cases/Insert Variants via Pipeline Test', new TestCaseBinding('Test Cases/Insert Variants via Pipeline Test',  null), FailureHandling.STOP_ON_FAILURE)
+    
+}
+
+def static runTestCase_7() {
+    TestCaseMain.runTestCase('Test Cases/Insert Homologues via Pipeline Test', new TestCaseBinding('Test Cases/Insert Homologues via Pipeline Test',  null), FailureHandling.STOP_ON_FAILURE)
     
 }
 
@@ -75,7 +75,7 @@ DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.m
 
 
 
-RunConfiguration.setExecutionSettingFile("C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20170925_213033\\execution.properties")
+RunConfiguration.setExecutionSettingFile("C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20170928_134112\\execution.properties")
 
 TestCaseMain.beforeStart()
 

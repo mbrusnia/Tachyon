@@ -60,6 +60,18 @@
       <testCaseId>Test Cases/Insert Variants via Pipeline Test</testCaseId>
    </testCaseLink>
    <testCaseLink>
+      <guid>db73da85-1fbc-41a2-98a8-070d2a7292d6</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/Insert Homologues via Pipeline Test</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>16310eb0-671a-4126-947d-0b3ad9c22eed</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/Insert CHEMProducts via pipeline</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
       <guid>a1aab72c-40fe-4396-9854-762096783c94</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>

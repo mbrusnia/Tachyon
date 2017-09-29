@@ -13,7 +13,7 @@ DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.w
 DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.mobile.contribution.MobileDriverCleaner())
 
 
-RunConfiguration.setExecutionSettingFile('C:\\Users\\Hector\\AppData\\Local\\Temp\\Katalon\\Test Cases\\postTest-RemoveTestConstructs\\20170926_151315\\execution.properties')
+RunConfiguration.setExecutionSettingFile('C:\\Users\\Hector\\AppData\\Local\\Temp\\Katalon\\Test Cases\\postTest-RemoveTestConstructs\\20170928_143901\\execution.properties')
 
 TestCaseMain.beforeStart()
 try {
@@ -56,7 +56,7 @@ not_run: WebUI.click(findTestObject('Page_Sample Set HT_DNA OptidesCo/div_Constr
 
 not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
 
-not_run: WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TEST')
+not_run: WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TST')
 
 not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/button_OK'))
 
@@ -65,8 +65,6 @@ not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/input_.
 not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Delete'))
 
 not_run: WebUI.click(findTestObject('Page_Confirm Deletion OptidesCompou/span_Confirm Delete'))
-
-not_run: WebUI.mouseOver(findTestObject('Page_Start Page Optides/a_CompoundsRegistry'))
 
 not_run: WebUI.waitForElementVisible(findTestObject('Page_Start Page Optides/a_Samples_CompReg'), 0)
 
@@ -78,7 +76,7 @@ not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/div_ID'
 
 not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
 
-not_run: WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TEST')
+not_run: WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TST')
 
 not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/button_OK'))
 
@@ -90,39 +88,25 @@ not_run: WebUI.click(findTestObject('Page_Confirm Deletion OptidesCompou/span_Co
 
 not_run: WebUI.mouseOver(findTestObject('Page_Start Page Optides/a_CompoundsRegistry'))
 
-not_run: WebUI.waitForElementVisible(findTestObject('Page_Start Page Optides/a_Samples_CompReg'), 0)
+WebUI.waitForElementVisible(findTestObject('Page_Start Page Optides/a_Samples_CompReg'), 0)
 
-not_run: WebUI.click(findTestObject('Page_Start Page Optides/a_Samples_CompReg'))
+WebUI.click(findTestObject('Page_Start Page Optides/a_Samples_CompReg'))
 
-not_run: WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Construct'))
+WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Construct'))
 
-not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/div_ID'))
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/div_AASeq'))
 
-not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
 
-not_run: WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TEST')
+WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TTEESSTT')
 
-not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/button_OK'))
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/button_OK'))
 
-not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/input_.toggle'))
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/input_.toggle'))
 
-not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Delete'))
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Delete'))
 
-not_run: WebUI.click(findTestObject('Page_Confirm Deletion OptidesCompou/span_Confirm Delete'))
-
-not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/div_AASeq'))
-
-not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
-
-not_run: WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TTEESSTT')
-
-not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/button_OK'))
-
-not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/input_.toggle'))
-
-not_run: WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Delete'))
-
-not_run: WebUI.click(findTestObject('Page_Confirm Deletion OptidesCompou/span_Confirm Delete'))
+WebUI.click(findTestObject('Page_Confirm Deletion OptidesCompou/span_Confirm Delete'))
 
 WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/a_Sample Sets'))
 
