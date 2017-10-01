@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebElementEntity>
+   <description></description>
+   <name>text_NumberOfConstructs</name>
+   <tag></tag>
+   <elementGuidId>a4c85ace-3003-44b7-824b-322dbc01edcf</elementGuidId>
+   <useRalativeImagePath>false</useRalativeImagePath>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>tag</name>
+      <type>Main</type>
+      <value>td</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath</name>
+      <type>Main</type>
+      <value>//tbody/tr[@class=&quot;labkey-row&quot;]/td/a[text()=&quot;Construct&quot;]/parent::td/following-sibling::td/following-sibling::td/following-sibling::td</value>
+   </webElementProperties>
+</WebElementEntity>

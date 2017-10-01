@@ -4,7 +4,7 @@
    <name>OptidesLabkeyTests</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2017-09-22T13:30:31</lastRun>
+   <lastRun>2017-09-30T15:25:28</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>30</pageLoadTimeout>
@@ -12,10 +12,10 @@
    <rerunFailedTestCasesOnly>false</rerunFailedTestCasesOnly>
    <testSuiteGuid>4eb7b4ef-e6d0-4806-b5cf-ae0d4964adfd</testSuiteGuid>
    <testCaseLink>
-      <guid>4bf4037e-f3d9-4292-aed0-6d3bd9064abc</guid>
+      <guid>1f78906c-b40a-468e-8244-dbd75f1dc662</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/LSCActivityCalcTest</testCaseId>
+      <testCaseId>Test Cases/InSilicoAssay Weekly Cron Test</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>a8fc356f-2cdc-46f3-8093-222ecc5a6454</guid>
@@ -36,10 +36,10 @@
       <testCaseId>Test Cases/HT_DNA OrderGeneratorTest</testCaseId>
    </testCaseLink>
    <testCaseLink>
-      <guid>881f5f88-ba08-446b-bce2-9748bdd97be3</guid>
+      <guid>4bf4037e-f3d9-4292-aed0-6d3bd9064abc</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/HT_DNA Delivery.R</testCaseId>
+      <testCaseId>Test Cases/LSCActivityCalcTest</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>933e64f0-e210-4bc8-bc8a-2fe768204b47</guid>
@@ -82,5 +82,11 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/postTest-RemoveTestConstructs</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>881f5f88-ba08-446b-bce2-9748bdd97be3</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/HT_DNA Delivery.R</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>
