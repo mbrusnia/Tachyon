@@ -47,6 +47,8 @@ WebUI.setText(findTestObject('Page_Assay Dashboard OptidesCompoun/textarea_JSON'
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/btn_Submit'))
 
+WebUI.delay(10)
+
 WebUI.verifyTextPresent('testAssayReport-', false)
 
 WebUI.verifyTextPresent('Name', false)
@@ -66,4 +68,6 @@ WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/span_EditPencil'
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/btn_Delete'))
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/btn_Yes'))
+
+WebUI.closeBrowser()
 
