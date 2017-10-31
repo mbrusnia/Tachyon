@@ -19,7 +19,7 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 
-WebUI.openBrowser('https://optides-dev-lk1.fhcrc.org')
+WebUI.openBrowser('https://optides-stage.fhcrc.org')
 
 WebUI.setViewPortSize(2000, 1500)
 

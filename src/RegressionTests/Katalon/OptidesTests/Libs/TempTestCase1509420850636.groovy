@@ -1,4 +1,25 @@
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
+import com.kms.katalon.core.main.TestCaseMain
+import com.kms.katalon.core.logging.KeywordLogger
+import groovy.lang.MissingPropertyException
+import com.kms.katalon.core.testcase.TestCaseBinding
+import com.kms.katalon.core.driver.internal.DriverCleanerCollector
+import com.kms.katalon.core.model.FailureHandling
+import com.kms.katalon.core.configuration.RunConfiguration
+import com.kms.katalon.core.webui.contribution.WebUiDriverCleaner
+import com.kms.katalon.core.mobile.contribution.MobileDriverCleaner
+
+
+DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.webui.contribution.WebUiDriverCleaner())
+DriverCleanerCollector.getInstance().addDriverCleaner(new com.kms.katalon.core.mobile.contribution.MobileDriverCleaner())
+
+
+RunConfiguration.setExecutionSettingFile('C:\\Users\\Hector\\AppData\\Local\\Temp\\Katalon\\Test Cases\\LSCActivityCalcTest\\20171030_203410\\execution.properties')
+
+TestCaseMain.beforeStart()
+try {
+    
+        TestCaseMain.runTestCaseRawScript(
+'''import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
@@ -20,7 +41,7 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 
-WebUI.callTestCase(findTestCase('OpenAndLogIn'), [:], FailureHandling.STOP_ON_FAILURE)
+not_run: WebUI.callTestCase(findTestCase('OpenAndLogIn'), [:], FailureHandling.STOP_ON_FAILURE)
 
 WebUI.mouseOver(findTestObject('LSC_objects/Page_Start Page Optides/a_VIVOAssay'))
 
@@ -32,14 +53,11 @@ WebUI.click(findTestObject('LSC_objects/Page_Assay Dashboard OptidesVIVOAss/a_LS
 
 WebUI.click(findTestObject('LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl/span_Import Data'))
 
-WebUI.selectOptionByLabel(findTestObject('Page_Data Import Batch Properties O (1)/select_standardCurve'), 'STD_2016_0928', 
-    false)
-
 WebUI.click(findTestObject('LSC_objects/Page_Data Import Batch Properties O/span_Next'))
 
 WebUI.setText(findTestObject('LSC_objects/Page_Data Import Run Properties and/input_name'), 'TEST0001')
 
-WebUI.setText(findTestObject('LSC_objects/Page_Data Import Run Properties and/textarea_TextAreaDataCollector'), 'MouseID\tCompoundID\tTissue\tAcquisitionDate\tTissue_mg\tmg_per_ul\tLoaded_Volume_uL\tCPM\tLoaded_mg\tpCi\tpCi_per_uL\tFlag\r\nMU00000100\tOTD169\tKidney Cortex\t2016.11.2\t50\t0.16667\t16\t340\t\t\t\t\\n')
+WebUI.setText(findTestObject('LSC_objects/Page_Data Import Run Properties and/textarea_TextAreaDataCollector'), 'MouseID\\tCompoundID\\tTissue\\tAcquisitionDate\\tTissue_mg\\tmg_per_ul\\tLoaded_Volume_uL\\tCPM\\tLoaded_mg\\tpCi\\tpCi_per_uL\\tFlag\\r\\nMU00000100\\tOTD169\\tKidney Cortex\\t2016.11.2\\t50\\t0.16667\\t16\\t340\\t\\t\\t\\t\\\\n')
 
 WebUI.click(findTestObject('LSC_objects/Page_Data Import Run Properties and/span_Save and Finish'))
 
@@ -69,3 +87,8 @@ WebUI.click(findTestObject('LSC_objects/Page_Confirm Deletion OptidesVIVOAs/span
 
 WebUI.closeBrowser()
 
+''', 'Test Cases/LSCActivityCalcTest', new TestCaseBinding('Test Cases/LSCActivityCalcTest', [:]), FailureHandling.STOP_ON_FAILURE )
+    
+} catch (Exception e) {
+    TestCaseMain.logError(e, 'Test Cases/LSCActivityCalcTest')
+}
