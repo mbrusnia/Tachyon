@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebElementEntity>
+   <description></description>
+   <name>img_thumb-large</name>
+   <tag></tag>
+   <elementGuidId>a665d45c-b1b0-4f7e-a916-a0442528e58b</elementGuidId>
+   <selectorMethod>BASIC</selectorMethod>
+   <useRalativeImagePath>false</useRalativeImagePath>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>tag</name>
+      <type>Main</type>
+      <value>img</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>src</name>
+      <type>Main</type>
+      <value>/_icons/icon_folder2.png</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>class</name>
+      <type>Main</type>
+      <value>thumb-large</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath</name>
+      <type>Main</type>
+      <value>id(&quot;dataview-1087&quot;)/table[1]/tbody[1]/tr[1]/td[@class=&quot;thumb-wrap&quot;]/div[@class=&quot;tool-icon thumb-wrap thumb-wrap-bottom&quot;]/a[1]/div[@class=&quot;thumb-img-bottom&quot;]/img[@class=&quot;thumb-large&quot;]</value>
+   </webElementProperties>
+</WebElementEntity>

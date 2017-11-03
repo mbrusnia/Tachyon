@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebElementEntity>
+   <description></description>
+   <name>btn_Yes</name>
+   <tag></tag>
+   <elementGuidId>c920ef04-e4d6-4c9a-ac0c-ba12a4882876</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value></value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
+   <useRalativeImagePath>false</useRalativeImagePath>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath</name>
+      <type>Main</type>
+      <value>//div/div/div/div/a/span/span/span[text()=&quot;Yes&quot;]/following-sibling::span</value>
+   </webElementProperties>
+</WebElementEntity>

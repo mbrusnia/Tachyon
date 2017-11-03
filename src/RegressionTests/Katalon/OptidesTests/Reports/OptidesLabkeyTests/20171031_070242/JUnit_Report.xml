@@ -1,0 +1,1608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="OptidesLabkeyTests" time="1245" tests="3" failures="11" errors="0">
+   <testsuite name="OptidesLabkeyTests" tests="3" failures="11" errors="0" time="1245" timestamp="2017-10-31 07:02:48" hostname="Hector - 140.107.10.91" id="Test Suites/OptidesLabkeyTests">
+      <properties>
+         <property name="deviceName" value=""/>
+         <property name="devicePlatform" value=""/>
+         <property name="logFolder" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171031_070242"/>
+         <property name="logFiles" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171031_070242\\execution0.log"/>
+         <property name="attachments" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171031_070242\\1509458676192.png, C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171031_070242\\1509458875414.png, C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171031_070242\\1509459453145.png, C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171031_070242\\1509459535241.png, C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171031_070242\\1509459622933.png, C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171031_070242\\1509459810088.png"/>
+         <property name="hostName" value="Hector - 140.107.10.91"/>
+         <property name="os" value="Windows 8.1 64bit"/>
+         <property name="katalonVersion" value="5.0.0.1"/>
+         <property name="browser" value="Chrome 61.0.3163.100"/>
+         <property name="hostAddress" value="140.107.10.91"/>
+         <property name="sessionId" value="575058acfb923c1016ddd68dd747f57c"/>
+         <property name="seleniumVersion" value="2.53.0"/>
+         <property name="proxyInformation" value="ProxyInformation{proxyOption=NO_PROXY, proxyServerType=HTTP, password=, proxyServerAddress=, proxyServerPort=0}"/>
+         <property name="platform" value="Windows 8.1"/>
+      </properties>
+      <testcase name="Test Cases/InSilicoAssay Weekly Cron Test" classname="Test Cases/InSilicoAssay Weekly Cron Test" status="PASSED">
+         <system-out><![CDATA[2017-10-31 07:02:48 - [TEST_CASE][PASSED] - Test Cases/InSilicoAssay Weekly Cron Test: Test Cases/InSilicoAssay Weekly Cron Test
+
+2017-10-31 07:02:49 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:02:49 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-10-31 07:02:50 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:03:02 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:03:02 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:03:04 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:03:04 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:03:07 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:03:07 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:03:11 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:03:11 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:03:15 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:03:15 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:03:17 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:03:17 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:03:21 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:03:21 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:03:21 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:03:24 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:03:24 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:03:24 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:03:26 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:03:26 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:03:30 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:03:30 - [TEST_STEP][PASSED] - Statement - numOfConstructs = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getText(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Assay Dashboard OptidesCompoun/text_NumberOfConstructs)): Text of object 'Object Repository/Page_Assay Dashboard OptidesCompoun/text_NumberOfConstructs' is: '2131'
+
+2017-10-31 07:03:32 - [MESSAGE][PASSED] - Text of object 'Object Repository/Page_Assay Dashboard OptidesCompoun/text_NumberOfConstructs' is: '2131'
+
+2017-10-31 07:03:32 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/menu_InSilicoAssay' is hovered
+
+2017-10-31 07:03:34 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/menu_InSilicoAssay' is hovered
+
+2017-10-31 07:03:34 - [TEST_STEP][PASSED] - waitForElementPresent: Object 'Object Repository/Page_Start Page Optides/menu_InSilicoAssay_MolecularProperties' is present
+
+2017-10-31 07:03:34 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:03:35 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/menu_InSilicoAssay_MolecularProperties' is present
+
+2017-10-31 07:03:35 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/menu_InSilicoAssay_MolecularProperties' is clicked on
+
+2017-10-31 07:03:38 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/menu_InSilicoAssay_MolecularProperties' is clicked on
+
+2017-10-31 07:03:38 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_InSilicoAssay Assay Dashboard/a_InSilicoAssay' is clicked on
+
+2017-10-31 07:03:41 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_InSilicoAssay Assay Dashboard/a_InSilicoAssay' is clicked on
+
+2017-10-31 07:03:41 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_InSilicoAssay Assay Dashboard/input_Toggle' is clicked on
+
+2017-10-31 07:03:43 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_InSilicoAssay Assay Dashboard/input_Toggle' is clicked on
+
+2017-10-31 07:03:43 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_InSilicoAssay Assay Dashboard/a_ViewResults' is clicked on
+
+2017-10-31 07:03:47 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_InSilicoAssay Assay Dashboard/a_ViewResults' is clicked on
+
+2017-10-31 07:03:47 - [TEST_STEP][PASSED] - Statement - formatted = java.text.NumberFormat.getNumberInstance(US).format(java.lang.Integer.valueOf(numOfConstructs)): null
+
+2017-10-31 07:03:47 - [TEST_STEP][PASSED] - Statement - out.println(formatted): null
+
+2017-10-31 07:03:47 - [TEST_STEP][PASSED] - verifyTextPresent: Text '2,131' is present on page 
+
+2017-10-31 07:03:49 - [MESSAGE][PASSED] - Text '2,131' is present on page 
+
+2017-10-31 07:03:49 - [TEST_STEP][PASSED] - closeBrowser: Browser is closed
+
+2017-10-31 07:03:52 - [MESSAGE][PASSED] - Browser is closed]]></system-out>
+         <system-err><![CDATA[]]></system-err>
+      </testcase>
+      <testcase name="Test Cases/updateMWs Test" classname="Test Cases/updateMWs Test" status="FAILED">
+         <failure type="FAILED" message="Unable to verify text '2017-10-31' is present  (Root cause: Text '2017-10-31' is not present on page )"/>
+         <system-out><![CDATA[2017-10-31 07:03:52 - [TEST_CASE][FAILED] - Test Cases/updateMWs Test: Test Cases/updateMWs Test FAILED because (of) Unable to verify text '2017-10-31' is present  (Root cause: Text '2017-10-31' is not present on page )
+
+2017-10-31 07:03:52 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:03:52 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-10-31 07:03:52 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:04:01 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:04:01 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:04:03 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:04:03 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:04:06 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:04:06 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:04:11 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:04:11 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:04:15 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:04:15 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:04:17 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:04:17 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:04:21 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:04:21 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:04:21 - [TEST_STEP][PASSED] - Statement - today = null: null
+
+2017-10-31 07:04:21 - [TEST_STEP][PASSED] - Statement - use(groovy.time.TimeCategory, { -> ... }): null
+
+2017-10-31 07:04:21 - [TEST_STEP][PASSED] - Statement - dateStr = today.format("yyyy-MM-dd"): null
+
+2017-10-31 07:04:21 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:04:24 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:04:24 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:04:24 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:04:26 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:04:26 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:04:29 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:04:29 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_CHEMProduction' is clicked on
+
+2017-10-31 07:04:32 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_CHEMProduction' is clicked on
+
+2017-10-31 07:04:32 - [TEST_STEP][FAILED] - verifyTextPresent: Unable to verify text '2017-10-31' is present  (Root cause: Text '2017-10-31' is not present on page )
+
+2017-10-31 07:04:36 - [MESSAGE][FAILED] - Text '2017-10-31' is not present on page 
+
+2017-10-31 07:04:37 - [MESSAGE][FAILED] - Unable to verify text '2017-10-31' is present  (Root cause: Text '2017-10-31' is not present on page )
+[[ATTACHMENT|C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171031_070242\\1509458676192.png]]]]></system-out>
+         <system-err><![CDATA[2017-10-31 07:03:52 - [TEST_CASE][FAILED] - Test Cases/updateMWs Test: Test Cases/updateMWs Test FAILED because (of) Unable to verify text '2017-10-31' is present  (Root cause: Text '2017-10-31' is not present on page )]]></system-err>
+      </testcase>
+      <testcase name="Test Cases/LSCActivityCalcTest" classname="Test Cases/LSCActivityCalcTest" status="PASSED">
+         <system-out><![CDATA[2017-10-31 07:04:37 - [TEST_CASE][PASSED] - Test Cases/LSCActivityCalcTest: Test Cases/LSCActivityCalcTest
+
+2017-10-31 07:04:37 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:04:37 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-10-31 07:04:37 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:04:37 - [MESSAGE][WARNING] - A browser is already opened. Closing browser and opening a new one
+
+2017-10-31 07:04:48 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:04:48 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:04:50 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:04:50 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:04:53 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:04:53 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:04:57 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:04:57 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:05:01 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:05:01 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:05:03 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:05:03 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:05:17 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:05:17 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:05:17 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/LSC_objects/Page_Start Page Optides/a_VIVOAssay' is hovered
+
+2017-10-31 07:05:19 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Start Page Optides/a_VIVOAssay' is hovered
+
+2017-10-31 07:05:19 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/LSC_objects/Page_Start Page Optides/a_Sample' is visible
+
+2017-10-31 07:05:19 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:05:21 - [MESSAGE][PASSED] - Object 'Object Repository/LSC_objects/Page_Start Page Optides/a_Sample' is visible
+
+2017-10-31 07:05:21 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Start Page Optides/a_Sample' is clicked on
+
+2017-10-31 07:05:26 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Start Page Optides/a_Sample' is clicked on
+
+2017-10-31 07:05:26 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Assay Dashboard OptidesVIVOAss/a_LSC' is clicked on
+
+2017-10-31 07:05:29 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Assay Dashboard OptidesVIVOAss/a_LSC' is clicked on
+
+2017-10-31 07:05:29 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl/span_Import Data' is clicked on
+
+2017-10-31 07:05:34 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl/span_Import Data' is clicked on
+
+2017-10-31 07:05:34 - [TEST_STEP][PASSED] - selectOptionByLabel: All options with label 'STD_2016_0928' are selected in object 'Object Repository/Page_Data Import Batch Properties O (1)/select_standardCurve' 
+
+2017-10-31 07:05:39 - [MESSAGE][PASSED] - All options with label 'STD_2016_0928' are selected in object 'Object Repository/Page_Data Import Batch Properties O (1)/select_standardCurve' 
+
+2017-10-31 07:05:39 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Data Import Batch Properties O/span_Next' is clicked on
+
+2017-10-31 07:05:42 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Data Import Batch Properties O/span_Next' is clicked on
+
+2017-10-31 07:05:42 - [TEST_STEP][PASSED] - setText: Text 'TEST0001' is set on object 'Object Repository/LSC_objects/Page_Data Import Run Properties and/input_name'
+
+2017-10-31 07:05:47 - [MESSAGE][PASSED] - Text 'TEST0001' is set on object 'Object Repository/LSC_objects/Page_Data Import Run Properties and/input_name'
+
+2017-10-31 07:05:47 - [TEST_STEP][PASSED] - setText: Text 'MouseID	CompoundID	Tissue	AcquisitionDate	Tissue_mg	mg_per_ul	Loaded_Volume_uL	CPM	Loaded_mg	pCi	pCi_per_uL	Flag
+MU00000100	OTD169	Kidney Cortex	2016.11.2	50	0.16667	16	340				\n' is set on object 'Object Repository/LSC_objects/Page_Data Import Run Properties and/textarea_TextAreaDataCollector'
+
+2017-10-31 07:05:52 - [MESSAGE][PASSED] - Text 'MouseID	CompoundID	Tissue	AcquisitionDate	Tissue_mg	mg_per_ul	Loaded_Volume_uL	CPM	Loaded_mg	pCi	pCi_per_uL	Flag
+MU00000100	OTD169	Kidney Cortex	2016.11.2	50	0.16667	16	340				\n' is set on object 'Object Repository/LSC_objects/Page_Data Import Run Properties and/textarea_TextAreaDataCollector'
+
+2017-10-31 07:05:52 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Data Import Run Properties and/span_Save and Finish' is clicked on
+
+2017-10-31 07:05:58 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Data Import Run Properties and/span_Save and Finish' is clicked on
+
+2017-10-31 07:05:58 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl (1)/a_TEST0001' is clicked on
+
+2017-10-31 07:06:03 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl (1)/a_TEST0001' is clicked on
+
+2017-10-31 07:06:03 - [TEST_STEP][PASSED] - waitForPageLoad: Wait for page load successfully
+
+2017-10-31 07:06:04 - [MESSAGE][PASSED] - Wait for page load successfully
+
+2017-10-31 07:06:04 - [TEST_STEP][PASSED] - verifyTextPresent: Text '148.54' is present on page 
+
+2017-10-31 07:06:07 - [MESSAGE][PASSED] - Text '148.54' is present on page 
+
+2017-10-31 07:06:07 - [TEST_STEP][PASSED] - verifyTextPresent: Text '9.28' is present on page 
+
+2017-10-31 07:06:09 - [MESSAGE][PASSED] - Text '9.28' is present on page 
+
+2017-10-31 07:06:09 - [TEST_STEP][PASSED] - verifyTextPresent: Text '2.67' is present on page 
+
+2017-10-31 07:06:11 - [MESSAGE][PASSED] - Text '2.67' is present on page 
+
+2017-10-31 07:06:11 - [TEST_STEP][PASSED] - verifyTextPresent: Text '340.0' is present on page 
+
+2017-10-31 07:06:13 - [MESSAGE][PASSED] - Text '340.0' is present on page 
+
+2017-10-31 07:06:13 - [TEST_STEP][PASSED] - verifyTextPresent: Text '0.16667' is present on page 
+
+2017-10-31 07:06:15 - [MESSAGE][PASSED] - Text '0.16667' is present on page 
+
+2017-10-31 07:06:15 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_LSC Batches OptidesVIVOAssaySa/a_view runs' is clicked on
+
+2017-10-31 07:06:22 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_LSC Batches OptidesVIVOAssaySa/a_view runs' is clicked on
+
+2017-10-31 07:06:22 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl (2)/input_.select' is clicked on
+
+2017-10-31 07:06:24 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl (2)/input_.select' is clicked on
+
+2017-10-31 07:06:24 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl (2)/span_Delete' is clicked on
+
+2017-10-31 07:06:28 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl (2)/span_Delete' is clicked on
+
+2017-10-31 07:06:28 - [TEST_STEP][PASSED] - verifyTextPresent: Text 'TEST0001' is present on page 
+
+2017-10-31 07:06:30 - [MESSAGE][PASSED] - Text 'TEST0001' is present on page 
+
+2017-10-31 07:06:30 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Confirm Deletion OptidesVIVOAs/span_Confirm Delete' is clicked on
+
+2017-10-31 07:06:33 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Confirm Deletion OptidesVIVOAs/span_Confirm Delete' is clicked on
+
+2017-10-31 07:06:33 - [TEST_STEP][PASSED] - closeBrowser: Browser is closed
+
+2017-10-31 07:06:35 - [MESSAGE][PASSED] - Browser is closed]]></system-out>
+         <system-err><![CDATA[]]></system-err>
+      </testcase>
+      <testcase name="Test Cases/AssayReport Creation test" classname="Test Cases/AssayReport Creation test" status="FAILED">
+         <failure type="FAILED" message="Unable to verify text 'Name' is present  (Root cause: Text 'Name' is not present on page )"/>
+         <system-out><![CDATA[2017-10-31 07:06:35 - [TEST_CASE][FAILED] - Test Cases/AssayReport Creation test: Test Cases/AssayReport Creation test FAILED because (of) Unable to verify text 'Name' is present  (Root cause: Text 'Name' is not present on page )
+
+2017-10-31 07:06:36 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:06:36 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-10-31 07:06:36 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:06:45 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:06:45 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:06:48 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:06:48 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:06:51 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:06:51 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:06:55 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:06:55 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:06:59 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:06:59 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:07:01 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:07:01 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:07:10 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:07:10 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:07:10 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:07:13 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:07:13 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:07:13 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:07:15 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:07:15 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:07:20 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:07:20 - [TEST_STEP][PASSED] - delay: Delayed 2 second(s)
+
+2017-10-31 07:07:22 - [MESSAGE][PASSED] - Delayed 2 second(s)
+
+2017-10-31 07:07:22 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Admin' is clicked on
+
+2017-10-31 07:07:24 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Admin' is clicked on
+
+2017-10-31 07:07:24 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Manage_Views' is clicked on
+
+2017-10-31 07:07:27 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Manage_Views' is clicked on
+
+2017-10-31 07:07:27 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Add_Report' is clicked on
+
+2017-10-31 07:07:29 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Add_Report' is clicked on
+
+2017-10-31 07:07:29 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_SampleComparison' is clicked on
+
+2017-10-31 07:07:32 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_SampleComparison' is clicked on
+
+2017-10-31 07:07:32 - [TEST_STEP][PASSED] - delay: Delayed 2 second(s)
+
+2017-10-31 07:07:34 - [MESSAGE][PASSED] - Delayed 2 second(s)
+
+2017-10-31 07:07:34 - [TEST_STEP][PASSED] - setText: Text 'testAssayReport-' is set on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/input_ReportName'
+
+2017-10-31 07:07:38 - [MESSAGE][PASSED] - Text 'testAssayReport-' is set on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/input_ReportName'
+
+2017-10-31 07:07:38 - [TEST_STEP][PASSED] - setText: Text '{ "selectedColumns": [ {"name": "Name", "schemaName": "samples", "queryName": "Construct", "type":"VARCHAR"},{ "folderPath":"/Optides/InSilicoAssay/MolecularProperties", "schemaName": "assay.general.InSilicoAssay", "queryName": "Data", "name": "NetChargeAtpH7_4", "type": "DOUBLE", "sampleIdColumnName": "ID" },{ "folderPath":"/Optides/InSilicoAssay/MolecularProperties", "schemaName": "assay.general.InSilicoAssay", "queryName": "Data", "name": "ReducedForm_pI", "type": "DOUBLE", "sampleIdColumnName": "ID" } ]}' is set on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/textarea_JSON'
+
+2017-10-31 07:07:45 - [MESSAGE][PASSED] - Text '{ "selectedColumns": [ {"name": "Name", "schemaName": "samples", "queryName": "Construct", "type":"VARCHAR"},{ "folderPath":"/Optides/InSilicoAssay/MolecularProperties", "schemaName": "assay.general.InSilicoAssay", "queryName": "Data", "name": "NetChargeAtpH7_4", "type": "DOUBLE", "sampleIdColumnName": "ID" },{ "folderPath":"/Optides/InSilicoAssay/MolecularProperties", "schemaName": "assay.general.InSilicoAssay", "queryName": "Data", "name": "ReducedForm_pI", "type": "DOUBLE", "sampleIdColumnName": "ID" } ]}' is set on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/textarea_JSON'
+
+2017-10-31 07:07:45 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/btn_Submit' is clicked on
+
+2017-10-31 07:07:51 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/btn_Submit' is clicked on
+
+2017-10-31 07:07:51 - [TEST_STEP][PASSED] - verifyTextPresent: Text 'testAssayReport-' is present on page 
+
+2017-10-31 07:07:53 - [MESSAGE][PASSED] - Text 'testAssayReport-' is present on page 
+
+2017-10-31 07:07:53 - [TEST_STEP][FAILED] - verifyTextPresent: Unable to verify text 'Name' is present  (Root cause: Text 'Name' is not present on page )
+
+2017-10-31 07:07:55 - [MESSAGE][FAILED] - Text 'Name' is not present on page 
+
+2017-10-31 07:07:56 - [MESSAGE][FAILED] - Unable to verify text 'Name' is present  (Root cause: Text 'Name' is not present on page )
+[[ATTACHMENT|C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171031_070242\\1509458875414.png]]]]></system-out>
+         <system-err><![CDATA[2017-10-31 07:06:35 - [TEST_CASE][FAILED] - Test Cases/AssayReport Creation test: Test Cases/AssayReport Creation test FAILED because (of) Unable to verify text 'Name' is present  (Root cause: Text 'Name' is not present on page )]]></system-err>
+      </testcase>
+      <testcase name="Test Cases/preTest-InsertTestConstructs" classname="Test Cases/preTest-InsertTestConstructs" status="PASSED">
+         <system-out><![CDATA[2017-10-31 07:07:56 - [TEST_CASE][PASSED] - Test Cases/preTest-InsertTestConstructs: Test Cases/preTest-InsertTestConstructs
+
+2017-10-31 07:07:57 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:07:57 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-10-31 07:07:57 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:07:57 - [MESSAGE][WARNING] - A browser is already opened. Closing browser and opening a new one
+
+2017-10-31 07:08:11 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:08:11 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:08:13 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:08:13 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:08:16 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:08:16 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:08:21 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:08:21 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:08:25 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:08:25 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:08:27 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:08:27 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:08:35 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:08:35 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:08:35 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:08:37 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:08:37 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:08:37 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:08:39 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:08:39 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:08:44 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:08:44 - [TEST_STEP][PASSED] - delay: Delayed 2 second(s)
+
+2017-10-31 07:08:46 - [MESSAGE][PASSED] - Delayed 2 second(s)
+
+2017-10-31 07:08:46 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Pipeline' is clicked on
+
+2017-10-31 07:08:49 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Pipeline' is clicked on
+
+2017-10-31 07:08:49 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_All' is clicked on
+
+2017-10-31 07:08:51 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_All' is clicked on
+
+2017-10-31 07:08:51 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/input_Toggle' is clicked on
+
+2017-10-31 07:08:54 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/input_Toggle' is clicked on
+
+2017-10-31 07:08:54 - [TEST_STEP][PASSED] - Statement - dataPresent = !(com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.verifyTextPresent("No data to show.", false, CONTINUE_ON_FAILURE)): Text 'No data to show.' is present on page 
+
+2017-10-31 07:08:56 - [MESSAGE][PASSED] - Text 'No data to show.' is present on page 
+
+2017-10-31 07:08:56 - [TEST_STEP][PASSED] - Statement - If (dataPresent): null
+
+2017-10-31 07:08:56 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:08:58 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:08:58 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:08:58 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:09:00 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:09:00 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:09:03 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:09:03 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Construct' is clicked on
+
+2017-10-31 07:09:07 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Construct' is clicked on
+
+2017-10-31 07:09:07 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Sample Set Construct OptidesCo/span_Insert' is clicked on
+
+2017-10-31 07:09:10 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Sample Set Construct OptidesCo/span_Insert' is clicked on
+
+2017-10-31 07:09:10 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Sample Set Construct OptidesCo/span_Import Bulk Data' is clicked on
+
+2017-10-31 07:09:13 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Sample Set Construct OptidesCo/span_Import Bulk Data' is clicked on
+
+2017-10-31 07:09:13 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Import Sample Set OptidesCompo/input_insertUpdateChoice' is clicked on
+
+2017-10-31 07:09:15 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Import Sample Set OptidesCompo/input_insertUpdateChoice' is clicked on
+
+2017-10-31 07:09:15 - [TEST_STEP][PASSED] - setText: Text 'Name	ID	Parent ID	Alternate Name	AASeq	Vector			
+TST0000013	TST0000013	VAR0000016	OTD-000054	GSSEKDCIKHLQRCRENKDCCSKKCSRRGTNPEKRCR	VCR020			
+TST0000026	TST0000026	VAR0000046	OTD-000071	GSGDCLPHLKRCKADNDCCGKKCKRRGTNAEKRCR	VCR020			
+TST0000037	TST0000037	VAR0000028	OTD-000087	GSGDCLPHLKRCKENNDCCSKKCKRRGANPEKRCR	VCR020			
+TST0001397	TST0001397	VAR0001397	OTD-000035	GSMCMPCFTTDHQMARRCDDCCGGRGRGRCYGPQCLCR	VCR020			
+TST0001463	TST0001463	VAR0001462	CTX_WT, OTD-000194	GSMCMPCFTTDHQMARKCDDCCGGKGRGKCYGPQCLCR	VCR020			
+TST0005460	TST0005460	VAR0005368	OTD-000313	GSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005476	TST0005476	VAR0005386	Tat_TB1G2	GSGRKKRRQRRRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005477	TST0005477	VAR0005387	CysTat_TB1G2	GSCYRKKRRQRRRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005478	TST0005478	VAR0005388	S19-Tat_TB1G2	GSPFVIGAGVLGALGTGIGGIGRKKRRQRRRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005479	TST0005479	VAR0005389	Pas-Tat_TB1G2	GSFFLIPKGGRKKRRQRRRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005480	TST0005480	VAR0005390	R8_TB1G2	GSRRRRRRRRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005481	TST0005481	VAR0005391	Pas-R8_TB1G2	GSFFLIPKGRRRRRRRRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005482	TST0005482	VAR0005392	pAntp_TB1G2	GSRQIKIWFQNRRMKWKKGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005483	TST0005483	VAR0005393	Pas-pAntp_TB1G2	GSFFLIPKGRQIKIWFQNRRMKWKKGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005484	TST0005484	VAR0005394	Pas-FHV_TB1G2	GSFFLIPKGRRRRNRTRRNRRRVRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005485	TST0005485	VAR0005395	MCa(1-9)_TB1G2	GSGDALPHLKLGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005486	TST0005486	VAR0005396	Imp(1-9)_TB1G2	GSGDALPHLKRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005487	TST0005487	VAR0005397	Had(1-11)_TB1G2	GSSEKDAIKHLQRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005488	TST0005488	VAR0005398	Had(3-11)_TB1G2	GSKDAIKHLQRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005489	TST0005489	VAR0005399	ybbR_TB1G2	GSVLDSLEFIASKLGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005490	TST0005490	VAR0005400	Q15(F2R4)_TB1G2	GSPDEYIERAKECCKKFFRRRRDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005491	TST0005491	VAR0005401	CTX_TEAD_EYE	GSMCMPCDTTDHLMALFCDGCCGNSGRGKCYGPQCLCR	VCR020			
+TST0005492	TST0005492	VAR0005402	B55_TB1G2	GSKAVLGATKIDLPVDINDPYDLGLLLRHLRHHSNLLANIGDPAVREQVLSAMQEEEGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005493	TST0005493	VAR0005403	azu_TB1G2	GSLSTAADMQGVVTDGMASGLDKDYLKPDDGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005494	TST0005494	VAR0005404	IMT-P8_TB1G2	GSRRWRRWNRFNRRRCRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005495	TST0005495	VAR0005405	BR2_TB1G2	GSRAGLQFPVGRLLRRLLRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005496	TST0005496	VAR0005406	OMOTAG1_TB1G2	GSKRAHHNALERKRRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005497	TST0005497	VAR0005407	OMOTAG2_TB1G2	RRMKANARERNRMGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005498	TST0005498	VAR0005408	pVEC_TB1G2	GSLLIILRRRIRKQAHAHSKGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005499	TST0005499	VAR0005409	SynB3_TB1G2	GSRRLSYSRRRFGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005500	TST0005500	VAR0005410	DPV1047_TB1G2	GSVKRGLKLRHVRPRVTRMDVGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005501	TST0005501	VAR0005411	C105Y_TB1G2	GSCSIPPEVKFNKPFVYLIGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005502	TST0005502	VAR0005412	Transportan_TB1G2	GSGWTLNSAGYLLGKINLKALAALAKKILGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005503	TST0005503	VAR0005413	MTS_TB1G2	GSKGEGAAVLLPVLLAAPGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005504	TST0005504	VAR0005414	Ctx-GS-TB1G2	GSMCMPCFTTDHQMARKCDDCCGGKGRGKCYGPQCLCRGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005505	TST0005505	VAR0005415	Ctx-DkTx-TB1G2	GSMCMPCFTTDHQMARKCDDCCGGKGRGKCYGPQCLCRKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005506	TST0005506	VAR0005416	Ctx-hIgG3-TB1G2	GSMCMPCFTTDHQMARKCDDCCGGKGRGKCYGPQCLCREPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005507	TST0005507	VAR0005417	MCa-GS-TB1G2	GSGDCLPHLKLCKENKDCCSKKCKRRGTNIEKRCRGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005508	TST0005508	VAR0005418	MCa-DkTx-TB1G2	GSGDCLPHLKLCKENKDCCSKKCKRRGTNIEKRCRKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005509	TST0005509	VAR0005419	MCa-hIgG3-TB1G2	GSGDCLPHLKLCKENKDCCSKKCKRRGTNIEKRCREPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005510	TST0005510	VAR0005420	Imp-GS-TB1G2	GSGDCLPHLKRCKADNDCCGKKCKRRGTNAEKRCRGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005511	TST0005511	VAR0005421	Imp-DkTx-TB1G2	GSGDCLPHLKRCKADNDCCGKKCKRRGTNAEKRCRKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005512	TST0005512	VAR0005422	Imp-hIgG3-TB1G2	GSGDCLPHLKRCKADNDCCGKKCKRRGTNAEKRCREPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005513	TST0005513	VAR0005423	Hem-GS-TB1G2	GSGDCLPHLKLCKADKDCCSKKCKRRGTNPEKRCRGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005514	TST0005514	VAR0005424	Hem-DkTx-TB1G2	GSGDCLPHLKLCKADKDCCSKKCKRRGTNPEKRCRKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005515	TST0005515	VAR0005425	Hem-hIgG3-TB1G2	GSGDCLPHLKLCKADKDCCSKKCKRRGTNPEKRCREPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005516	TST0005516	VAR0005426	Opi1-GS-TB1G2	GSGDCLPHLKRCKENNDCCSKKCKRRGTNPEKRCRGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005517	TST0005517	VAR0005427	Opi1-DkTx-TB1G2	GSGDCLPHLKRCKENNDCCSKKCKRRGTNPEKRCRKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005518	TST0005518	VAR0005428	Opi1-hIgG3-TB1G2	GSGDCLPHLKRCKENNDCCSKKCKRRGTNPEKRCREPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005519	TST0005519	VAR0005429	Opi2-GS-TB1G2	GSGDCLPHLKRCKENNDCCSKKCKRRGANPEKRCRGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005520	TST0005520	VAR0005430	Opi2-DkTx-TB1G2	GSGDCLPHLKRCKENNDCCSKKCKRRGANPEKRCRKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005521	TST0005521	VAR0005431	Opi2-hIgG3-TB1G2	GSGDCLPHLKRCKENNDCCSKKCKRRGANPEKRCREPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005522	TST0005522	VAR0005432	Had-GS-TB1G2	GSSEKDCIKHLQRCRENKDCCSKKCSRRGTNPEKRCRGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005523	TST0005523	VAR0005433	Had-DkTx-TB1G2	GSSEKDCIKHLQRCRENKDCCSKKCSRRGTNPEKRCRKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005524	TST0005524	VAR0005434	Had-hIgG3-TB1G2	GSSEKDCIKHLQRCRENKDCCSKKCSRRGTNPEKRCREPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005525	TST0005525	VAR0005435	MK(62-104)-GS-TB1G2	GSCKYKFENWGACDGGTGTKVRQGTLKKARYNAQCQETIRVTKPCGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005526	TST0005526	VAR0005436	MK(62-104)-DkTx-TB1G2	GSCKYKFENWGACDGGTGTKVRQGTLKKARYNAQCQETIRVTKPCKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005527	TST0005527	VAR0005437	MK(62-104)-hIgG3-TB1G2	GSCKYKFENWGACDGGTGTKVRQGTLKKARYNAQCQETIRVTKPCEPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005528	TST0005528	VAR0005438	MCOTI-GS-TB1G2	GSSGSDGGVCPKILKKCRRDSDCPGACICRGNGYCGGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005529	TST0005529	VAR0005439	MCOTI-DkTx-TB1G2	GSSGSDGGVCPKILKKCRRDSDCPGACICRGNGYCGKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005530	TST0005530	VAR0005440	MCOTI-hIgG3-TB1G2	GSSGSDGGVCPKILKKCRRDSDCPGACICRGNGYCGEPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005531	TST0005531	VAR0005441	CTXgraft01	GSMCMPCFSDDLFMRARCAKCCGGAGRGRCYGPQCLCR	VCR020			
+TST0005532	TST0005532	VAR0005442	CTXgraft02	GSMCMPCFSSDLFMRAKCQKCCGGAGRGKCYGPQCLCR	VCR020			
+TST0005533	TST0005533	VAR0005443	CTXgraft03	GSMCMPCFLFDSQMARRCDDCCGGRGRGECRGPQCLCR	VCR020			
+TST0005534	TST0005534	VAR0005444	CTXgraft04	GSMCMPCFLFDSQMARKCDDCCGGKGRGKCDGPQCLCR	VCR020			
+TST0005535	TST0005535	VAR0005445	CTXgraft05	GSMCMPCFTTDHQMARRCDDCCLFDGFGRCYGPQCLCV	VCR020			
+TST0005536	TST0005536	VAR0005446	CTXgraft06	GSMCMPCFTTDHQMARKCDDCCLFIGWGKCYGPQCLCK	VCR020			
+TST0005537	TST0005537	VAR0005447	CTXgraft07	GSMCEPCTTLFTDEANSCDACCGGRGRGRCYGPQCLCR	VCR020			
+TST0005538	TST0005538	VAR0005448	CTXgraft08	GSMCTPCWTLFQSIADLCDACCGGKGRGKCYGPQCLCR	VCR020			
+TST0005539	TST0005539	VAR0005449	CTXgraft09	GSMCMPCFTTDHQMARRCDDCCGGALFGRCYGPQCLCI	VCR020			
+TST0005540	TST0005540	VAR0005450	CTXgraft10	GSMCMPCFTTDHQMARKCDDCCGGALFGKCYGPQCLCI	VCR020			
+TST0005541	TST0005541	VAR0005451	CTXgraft11	GSMCMPCFTTDLTMQLFCEACCGGSGRGRCYGPQCLCR	VCR020			
+TST0005542	TST0005542	VAR0005452	CTXgraft12	GSMCMPCFTTDLTMQLFCEACCGGSGRGKCYGPQCLCR	VCR020			
+TST0005543	TST0005543	VAR0005453	CTXgraft13	GSMCVPCYTMLQDVAYLCWWCCGGKGRGKCYGPQCLCR	VCR020			
+TST0005544	TST0005544	VAR0005454	CTXgraft14	GSMCYPCFTTDHTMAMLCWQCCGGEGRGKCYGPQCLCR	VCR020			
+TST0005545	TST0005545	VAR0005455	CTXgraft15	GSMCSPCFTTDHTMAMLCQQCCGGYGRGRCYGPQCLCR	VCR020			
+TST0005546	TST0005546	VAR0005456	MCOTIgraft01	GSSGNLGGVCPKILKKCRNETDCPGACICFENGYCG	VCR020			
+TST0005547	TST0005547	VAR0005457	MCOTIgraft02	GSSGSDGGVCPKILKKCRRDSDCPGACICRLFGYCG	VCR020			
+TST0005548	TST0005548	VAR0005458	MCOTIgraft03	GSSGLFGGVCPKILKKCRTENDCPGACQCRGNGYCG	VCR020			
+TST0005549	TST0005549	VAR0005459	MCOTIgraft04	GSSGTDLFWCPKILKKCRRDSDCPGACICRGNGYCG	VCR020			
+TST0005550	TST0005550	VAR0005460	MCOTIgraft05	GSSGSDGGVCPLFIQKCRRDSDCPGACICRGNGYCG	VCR020			
+TST0005551	TST0005551	VAR0005461	MCOTIgraft06	GSSGSDGGVCPKILKECLFNSDCPGACICRGNGYCG	VCR020			
+TST0005552	TST0005552	VAR0005462	MCOTIgraft07	GSSGSDGGVCPMLFSRCRRDSDCPGACICRGNGFCG	VCR020			
+TST0005553	TST0005553	VAR0005463	MCOTI	SGSDGGVCPKILKKCRRDSDCPGACICRGNGYCG	VCR020			
+TST0005554	TST0005554	VAR0005464	Opi2	GDCLPHLKLCKENKDCCSKKCKRRGTNIEKRCR	VCR020			
+TST0005555	TST0005555	VAR0005465	Hem	GDCLPHLKLCKADKDCCSKKCKRRGTNPEKRCR	VCR020			
+TST0005556	TST0005556	VAR0005466	Mca	GDCLPHLKRCKENNDCCSKKCKRRGTNPEKRCR	VCR020			
+TST0005557	TST0005557	VAR0005467	MK	CKYKFENWGACDGGTGTKVRQGTLKKARYNAQCQETIRVTKPC	VCR020			
+TST0005645	TST0005645	VAR0005468	hLF_TB1G2	GSKCFQWQRNMRKVRGPPVSCIKRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005647	TST0005647	VAR0005469	PFVYLI_TB1G2	GSPFVYLIGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+' is set on object 'Object Repository/Page_Import Sample Set OptidesCompo/textarea_data'
+
+2017-10-31 07:10:24 - [MESSAGE][PASSED] - Text 'Name	ID	Parent ID	Alternate Name	AASeq	Vector			
+TST0000013	TST0000013	VAR0000016	OTD-000054	GSSEKDCIKHLQRCRENKDCCSKKCSRRGTNPEKRCR	VCR020			
+TST0000026	TST0000026	VAR0000046	OTD-000071	GSGDCLPHLKRCKADNDCCGKKCKRRGTNAEKRCR	VCR020			
+TST0000037	TST0000037	VAR0000028	OTD-000087	GSGDCLPHLKRCKENNDCCSKKCKRRGANPEKRCR	VCR020			
+TST0001397	TST0001397	VAR0001397	OTD-000035	GSMCMPCFTTDHQMARRCDDCCGGRGRGRCYGPQCLCR	VCR020			
+TST0001463	TST0001463	VAR0001462	CTX_WT, OTD-000194	GSMCMPCFTTDHQMARKCDDCCGGKGRGKCYGPQCLCR	VCR020			
+TST0005460	TST0005460	VAR0005368	OTD-000313	GSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005476	TST0005476	VAR0005386	Tat_TB1G2	GSGRKKRRQRRRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005477	TST0005477	VAR0005387	CysTat_TB1G2	GSCYRKKRRQRRRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005478	TST0005478	VAR0005388	S19-Tat_TB1G2	GSPFVIGAGVLGALGTGIGGIGRKKRRQRRRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005479	TST0005479	VAR0005389	Pas-Tat_TB1G2	GSFFLIPKGGRKKRRQRRRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005480	TST0005480	VAR0005390	R8_TB1G2	GSRRRRRRRRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005481	TST0005481	VAR0005391	Pas-R8_TB1G2	GSFFLIPKGRRRRRRRRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005482	TST0005482	VAR0005392	pAntp_TB1G2	GSRQIKIWFQNRRMKWKKGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005483	TST0005483	VAR0005393	Pas-pAntp_TB1G2	GSFFLIPKGRQIKIWFQNRRMKWKKGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005484	TST0005484	VAR0005394	Pas-FHV_TB1G2	GSFFLIPKGRRRRNRTRRNRRRVRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005485	TST0005485	VAR0005395	MCa(1-9)_TB1G2	GSGDALPHLKLGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005486	TST0005486	VAR0005396	Imp(1-9)_TB1G2	GSGDALPHLKRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005487	TST0005487	VAR0005397	Had(1-11)_TB1G2	GSSEKDAIKHLQRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005488	TST0005488	VAR0005398	Had(3-11)_TB1G2	GSKDAIKHLQRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005489	TST0005489	VAR0005399	ybbR_TB1G2	GSVLDSLEFIASKLGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005490	TST0005490	VAR0005400	Q15(F2R4)_TB1G2	GSPDEYIERAKECCKKFFRRRRDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005491	TST0005491	VAR0005401	CTX_TEAD_EYE	GSMCMPCDTTDHLMALFCDGCCGNSGRGKCYGPQCLCR	VCR020			
+TST0005492	TST0005492	VAR0005402	B55_TB1G2	GSKAVLGATKIDLPVDINDPYDLGLLLRHLRHHSNLLANIGDPAVREQVLSAMQEEEGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005493	TST0005493	VAR0005403	azu_TB1G2	GSLSTAADMQGVVTDGMASGLDKDYLKPDDGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005494	TST0005494	VAR0005404	IMT-P8_TB1G2	GSRRWRRWNRFNRRRCRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005495	TST0005495	VAR0005405	BR2_TB1G2	GSRAGLQFPVGRLLRRLLRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005496	TST0005496	VAR0005406	OMOTAG1_TB1G2	GSKRAHHNALERKRRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005497	TST0005497	VAR0005407	OMOTAG2_TB1G2	RRMKANARERNRMGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005498	TST0005498	VAR0005408	pVEC_TB1G2	GSLLIILRRRIRKQAHAHSKGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005499	TST0005499	VAR0005409	SynB3_TB1G2	GSRRLSYSRRRFGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005500	TST0005500	VAR0005410	DPV1047_TB1G2	GSVKRGLKLRHVRPRVTRMDVGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005501	TST0005501	VAR0005411	C105Y_TB1G2	GSCSIPPEVKFNKPFVYLIGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005502	TST0005502	VAR0005412	Transportan_TB1G2	GSGWTLNSAGYLLGKINLKALAALAKKILGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005503	TST0005503	VAR0005413	MTS_TB1G2	GSKGEGAAVLLPVLLAAPGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005504	TST0005504	VAR0005414	Ctx-GS-TB1G2	GSMCMPCFTTDHQMARKCDDCCGGKGRGKCYGPQCLCRGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005505	TST0005505	VAR0005415	Ctx-DkTx-TB1G2	GSMCMPCFTTDHQMARKCDDCCGGKGRGKCYGPQCLCRKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005506	TST0005506	VAR0005416	Ctx-hIgG3-TB1G2	GSMCMPCFTTDHQMARKCDDCCGGKGRGKCYGPQCLCREPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005507	TST0005507	VAR0005417	MCa-GS-TB1G2	GSGDCLPHLKLCKENKDCCSKKCKRRGTNIEKRCRGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005508	TST0005508	VAR0005418	MCa-DkTx-TB1G2	GSGDCLPHLKLCKENKDCCSKKCKRRGTNIEKRCRKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005509	TST0005509	VAR0005419	MCa-hIgG3-TB1G2	GSGDCLPHLKLCKENKDCCSKKCKRRGTNIEKRCREPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005510	TST0005510	VAR0005420	Imp-GS-TB1G2	GSGDCLPHLKRCKADNDCCGKKCKRRGTNAEKRCRGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005511	TST0005511	VAR0005421	Imp-DkTx-TB1G2	GSGDCLPHLKRCKADNDCCGKKCKRRGTNAEKRCRKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005512	TST0005512	VAR0005422	Imp-hIgG3-TB1G2	GSGDCLPHLKRCKADNDCCGKKCKRRGTNAEKRCREPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005513	TST0005513	VAR0005423	Hem-GS-TB1G2	GSGDCLPHLKLCKADKDCCSKKCKRRGTNPEKRCRGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005514	TST0005514	VAR0005424	Hem-DkTx-TB1G2	GSGDCLPHLKLCKADKDCCSKKCKRRGTNPEKRCRKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005515	TST0005515	VAR0005425	Hem-hIgG3-TB1G2	GSGDCLPHLKLCKADKDCCSKKCKRRGTNPEKRCREPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005516	TST0005516	VAR0005426	Opi1-GS-TB1G2	GSGDCLPHLKRCKENNDCCSKKCKRRGTNPEKRCRGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005517	TST0005517	VAR0005427	Opi1-DkTx-TB1G2	GSGDCLPHLKRCKENNDCCSKKCKRRGTNPEKRCRKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005518	TST0005518	VAR0005428	Opi1-hIgG3-TB1G2	GSGDCLPHLKRCKENNDCCSKKCKRRGTNPEKRCREPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005519	TST0005519	VAR0005429	Opi2-GS-TB1G2	GSGDCLPHLKRCKENNDCCSKKCKRRGANPEKRCRGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005520	TST0005520	VAR0005430	Opi2-DkTx-TB1G2	GSGDCLPHLKRCKENNDCCSKKCKRRGANPEKRCRKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005521	TST0005521	VAR0005431	Opi2-hIgG3-TB1G2	GSGDCLPHLKRCKENNDCCSKKCKRRGANPEKRCREPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005522	TST0005522	VAR0005432	Had-GS-TB1G2	GSSEKDCIKHLQRCRENKDCCSKKCSRRGTNPEKRCRGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005523	TST0005523	VAR0005433	Had-DkTx-TB1G2	GSSEKDCIKHLQRCRENKDCCSKKCSRRGTNPEKRCRKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005524	TST0005524	VAR0005434	Had-hIgG3-TB1G2	GSSEKDCIKHLQRCRENKDCCSKKCSRRGTNPEKRCREPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005525	TST0005525	VAR0005435	MK(62-104)-GS-TB1G2	GSCKYKFENWGACDGGTGTKVRQGTLKKARYNAQCQETIRVTKPCGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005526	TST0005526	VAR0005436	MK(62-104)-DkTx-TB1G2	GSCKYKFENWGACDGGTGTKVRQGTLKKARYNAQCQETIRVTKPCKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005527	TST0005527	VAR0005437	MK(62-104)-hIgG3-TB1G2	GSCKYKFENWGACDGGTGTKVRQGTLKKARYNAQCQETIRVTKPCEPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005528	TST0005528	VAR0005438	MCOTI-GS-TB1G2	GSSGSDGGVCPKILKKCRRDSDCPGACICRGNGYCGGGGSGGGSGGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005529	TST0005529	VAR0005439	MCOTI-DkTx-TB1G2	GSSGSDGGVCPKILKKCRRDSDCPGACICRGNGYCGKKYKPYVPVTTNPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005530	TST0005530	VAR0005440	MCOTI-hIgG3-TB1G2	GSSGSDGGVCPKILKKCRRDSDCPGACICRGNGYCGEPKSSDKTHTPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005531	TST0005531	VAR0005441	CTXgraft01	GSMCMPCFSDDLFMRARCAKCCGGAGRGRCYGPQCLCR	VCR020			
+TST0005532	TST0005532	VAR0005442	CTXgraft02	GSMCMPCFSSDLFMRAKCQKCCGGAGRGKCYGPQCLCR	VCR020			
+TST0005533	TST0005533	VAR0005443	CTXgraft03	GSMCMPCFLFDSQMARRCDDCCGGRGRGECRGPQCLCR	VCR020			
+TST0005534	TST0005534	VAR0005444	CTXgraft04	GSMCMPCFLFDSQMARKCDDCCGGKGRGKCDGPQCLCR	VCR020			
+TST0005535	TST0005535	VAR0005445	CTXgraft05	GSMCMPCFTTDHQMARRCDDCCLFDGFGRCYGPQCLCV	VCR020			
+TST0005536	TST0005536	VAR0005446	CTXgraft06	GSMCMPCFTTDHQMARKCDDCCLFIGWGKCYGPQCLCK	VCR020			
+TST0005537	TST0005537	VAR0005447	CTXgraft07	GSMCEPCTTLFTDEANSCDACCGGRGRGRCYGPQCLCR	VCR020			
+TST0005538	TST0005538	VAR0005448	CTXgraft08	GSMCTPCWTLFQSIADLCDACCGGKGRGKCYGPQCLCR	VCR020			
+TST0005539	TST0005539	VAR0005449	CTXgraft09	GSMCMPCFTTDHQMARRCDDCCGGALFGRCYGPQCLCI	VCR020			
+TST0005540	TST0005540	VAR0005450	CTXgraft10	GSMCMPCFTTDHQMARKCDDCCGGALFGKCYGPQCLCI	VCR020			
+TST0005541	TST0005541	VAR0005451	CTXgraft11	GSMCMPCFTTDLTMQLFCEACCGGSGRGRCYGPQCLCR	VCR020			
+TST0005542	TST0005542	VAR0005452	CTXgraft12	GSMCMPCFTTDLTMQLFCEACCGGSGRGKCYGPQCLCR	VCR020			
+TST0005543	TST0005543	VAR0005453	CTXgraft13	GSMCVPCYTMLQDVAYLCWWCCGGKGRGKCYGPQCLCR	VCR020			
+TST0005544	TST0005544	VAR0005454	CTXgraft14	GSMCYPCFTTDHTMAMLCWQCCGGEGRGKCYGPQCLCR	VCR020			
+TST0005545	TST0005545	VAR0005455	CTXgraft15	GSMCSPCFTTDHTMAMLCQQCCGGYGRGRCYGPQCLCR	VCR020			
+TST0005546	TST0005546	VAR0005456	MCOTIgraft01	GSSGNLGGVCPKILKKCRNETDCPGACICFENGYCG	VCR020			
+TST0005547	TST0005547	VAR0005457	MCOTIgraft02	GSSGSDGGVCPKILKKCRRDSDCPGACICRLFGYCG	VCR020			
+TST0005548	TST0005548	VAR0005458	MCOTIgraft03	GSSGLFGGVCPKILKKCRTENDCPGACQCRGNGYCG	VCR020			
+TST0005549	TST0005549	VAR0005459	MCOTIgraft04	GSSGTDLFWCPKILKKCRRDSDCPGACICRGNGYCG	VCR020			
+TST0005550	TST0005550	VAR0005460	MCOTIgraft05	GSSGSDGGVCPLFIQKCRRDSDCPGACICRGNGYCG	VCR020			
+TST0005551	TST0005551	VAR0005461	MCOTIgraft06	GSSGSDGGVCPKILKECLFNSDCPGACICRGNGYCG	VCR020			
+TST0005552	TST0005552	VAR0005462	MCOTIgraft07	GSSGSDGGVCPMLFSRCRRDSDCPGACICRGNGFCG	VCR020			
+TST0005553	TST0005553	VAR0005463	MCOTI	SGSDGGVCPKILKKCRRDSDCPGACICRGNGYCG	VCR020			
+TST0005554	TST0005554	VAR0005464	Opi2	GDCLPHLKLCKENKDCCSKKCKRRGTNIEKRCR	VCR020			
+TST0005555	TST0005555	VAR0005465	Hem	GDCLPHLKLCKADKDCCSKKCKRRGTNPEKRCR	VCR020			
+TST0005556	TST0005556	VAR0005466	Mca	GDCLPHLKRCKENNDCCSKKCKRRGTNPEKRCR	VCR020			
+TST0005557	TST0005557	VAR0005467	MK	CKYKFENWGACDGGTGTKVRQGTLKKARYNAQCQETIRVTKPC	VCR020			
+TST0005645	TST0005645	VAR0005468	hLF_TB1G2	GSKCFQWQRNMRKVRGPPVSCIKRGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+TST0005647	TST0005647	VAR0005469	PFVYLI_TB1G2	GSPFVYLIGGSPDEYIERAKECCKKQDIQCCLRIFDESKDPNVMLICLFCW	VCR020			
+' is set on object 'Object Repository/Page_Import Sample Set OptidesCompo/textarea_data'
+
+2017-10-31 07:10:24 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Import Sample Set OptidesCompo/span_Submit' is clicked on
+
+2017-10-31 07:10:28 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Import Sample Set OptidesCompo/span_Submit' is clicked on
+
+2017-10-31 07:10:28 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:10:30 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:10:30 - [TEST_STEP][PASSED] - closeBrowser: Browser is closed
+
+2017-10-31 07:10:32 - [MESSAGE][PASSED] - Browser is closed]]></system-out>
+         <system-err><![CDATA[]]></system-err>
+      </testcase>
+      <testcase name="Test Cases/HT_DNA OrderGeneratorTest" classname="Test Cases/HT_DNA OrderGeneratorTest" status="FAILED">
+         <failure type="FAILED" message="org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false"/>
+         <system-out><![CDATA[2017-10-31 07:10:32 - [TEST_CASE][FAILED] - Test Cases/HT_DNA OrderGeneratorTest: Test Cases/HT_DNA OrderGeneratorTest FAILED because (of) org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false
+
+2017-10-31 07:10:32 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:10:32 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-10-31 07:10:32 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:10:41 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:10:41 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:10:43 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:10:43 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:10:46 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:10:46 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:10:51 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:10:51 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:10:55 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:10:55 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:10:57 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:10:57 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:11:05 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:11:05 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:11:05 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:11:07 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:11:07 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:11:07 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:11:09 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:11:09 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:11:12 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:11:12 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_ht_dna_generateOrder4Kata' is clicked on
+
+2017-10-31 07:11:20 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_ht_dna_generateOrder4Kata' is clicked on
+
+2017-10-31 07:11:20 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2017-10-31 07:11:23 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2017-10-31 07:11:23 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/radioBtn_Upload HT Order Form' is clicked on
+
+2017-10-31 07:11:25 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/radioBtn_Upload HT Order Form' is clicked on
+
+2017-10-31 07:11:25 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2017-10-31 07:11:28 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2017-10-31 07:11:28 - [TEST_STEP][PASSED] - setText: Text 'GS' is set on object 'Object Repository/Page_Upload a spreadsheet of orders/input_linker_seq_txt'
+
+2017-10-31 07:11:32 - [MESSAGE][PASSED] - Text 'GS' is set on object 'Object Repository/Page_Upload a spreadsheet of orders/input_linker_seq_txt'
+
+2017-10-31 07:11:32 - [TEST_STEP][PASSED] - selectOptionByValue: All options with value 'GenScript' are selected in object 'Object Repository/Page_Upload a spreadsheet of orders/select_vendor_name_lst'  using regular expression
+
+2017-10-31 07:11:47 - [MESSAGE][PASSED] - All options with value 'GenScript' are selected in object 'Object Repository/Page_Upload a spreadsheet of orders/select_vendor_name_lst'  using regular expression
+
+2017-10-31 07:11:47 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Upload a spreadsheet of orders/span_Generate HT Order Form' is clicked on
+
+2017-10-31 07:11:49 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Upload a spreadsheet of orders/span_Generate HT Order Form' is clicked on
+
+2017-10-31 07:11:49 - [TEST_STEP][PASSED] - Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), "text"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ht_order_generator RUNNING'
+
+2017-10-31 07:11:51 - [MESSAGE][PASSED] - Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ht_order_generator RUNNING'
+
+2017-10-31 07:11:51 - [TEST_STEP][PASSED] - Statement - While (pipelineStatus == "ht_order_generator RUNNING" || pipelineStatus == "ht_order_generator WAITING"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ERROR'
+
+2017-10-31 07:11:51 - [TEST_STEP][PASSED] - delay: Delayed 10 second(s)
+
+2017-10-31 07:12:01 - [MESSAGE][PASSED] - Delayed 10 second(s)
+
+2017-10-31 07:12:01 - [TEST_STEP][PASSED] - Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), "text"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ht_order_generator RUNNING'
+
+2017-10-31 07:12:03 - [MESSAGE][PASSED] - Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ht_order_generator RUNNING'
+
+2017-10-31 07:12:03 - [TEST_STEP][PASSED] - delay: Delayed 10 second(s)
+
+2017-10-31 07:12:13 - [MESSAGE][PASSED] - Delayed 10 second(s)
+
+2017-10-31 07:12:13 - [TEST_STEP][PASSED] - Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), "text"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ERROR'
+
+2017-10-31 07:12:15 - [MESSAGE][PASSED] - Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ERROR'
+
+2017-10-31 07:12:15 - [TEST_STEP][PASSED] - Statement - assert pipelineStatus == "COMPLETE": null]]></system-out>
+         <system-err><![CDATA[2017-10-31 07:10:32 - [TEST_CASE][FAILED] - Test Cases/HT_DNA OrderGeneratorTest: Test Cases/HT_DNA OrderGeneratorTest FAILED because (of) org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false]]></system-err>
+      </testcase>
+      <testcase name="Test Cases/HT_DNA Delivery.R" classname="Test Cases/HT_DNA Delivery.R" status="FAILED">
+         <failure type="FAILED" message="org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false"/>
+         <system-out><![CDATA[2017-10-31 07:12:15 - [TEST_CASE][FAILED] - Test Cases/HT_DNA Delivery.R: Test Cases/HT_DNA Delivery.R FAILED because (of) org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false
+
+2017-10-31 07:12:15 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:12:15 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-10-31 07:12:15 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:12:15 - [MESSAGE][WARNING] - A browser is already opened. Closing browser and opening a new one
+
+2017-10-31 07:12:25 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:12:25 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:12:27 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:12:27 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:12:30 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:12:30 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:12:35 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:12:35 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:12:39 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:12:39 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:12:41 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:12:41 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:12:45 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:12:45 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:12:45 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:12:48 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:12:48 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:12:48 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:12:50 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:12:50 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:12:54 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:12:54 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_test_GenScript_HT_DNA_DeliveryFile.xlsx' is clicked on
+
+2017-10-31 07:13:01 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_test_GenScript_HT_DNA_DeliveryFile.xlsx' is clicked on
+
+2017-10-31 07:13:01 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2017-10-31 07:13:04 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2017-10-31 07:13:04 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/radioBtn_Upload_HT_Delivery' is clicked on
+
+2017-10-31 07:13:06 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/radioBtn_Upload_HT_Delivery' is clicked on
+
+2017-10-31 07:13:06 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2017-10-31 07:13:09 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2017-10-31 07:13:09 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is visible
+
+2017-10-31 07:13:09 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:13:11 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is visible
+
+2017-10-31 07:13:11 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is clicked on
+
+2017-10-31 07:13:14 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is clicked on
+
+2017-10-31 07:13:14 - [TEST_STEP][PASSED] - delay: Delayed 2 second(s)
+
+2017-10-31 07:13:16 - [MESSAGE][PASSED] - Delayed 2 second(s)
+
+2017-10-31 07:13:16 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Pipeline' is clicked on
+
+2017-10-31 07:13:18 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Pipeline' is clicked on
+
+2017-10-31 07:13:18 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_All' is clicked on
+
+2017-10-31 07:13:21 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_All' is clicked on
+
+2017-10-31 07:13:21 - [TEST_STEP][PASSED] - Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), "text"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ERROR'
+
+2017-10-31 07:13:23 - [MESSAGE][PASSED] - Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ERROR'
+
+2017-10-31 07:13:23 - [TEST_STEP][PASSED] - Statement - While (pipelineStatus == "ht_delivery RUNNING" || pipelineStatus == "ht_delivery WAITING"): null
+
+2017-10-31 07:13:23 - [TEST_STEP][PASSED] - Statement - assert pipelineStatus == "COMPLETE": null]]></system-out>
+         <system-err><![CDATA[2017-10-31 07:12:15 - [TEST_CASE][FAILED] - Test Cases/HT_DNA Delivery.R: Test Cases/HT_DNA Delivery.R FAILED because (of) org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false]]></system-err>
+      </testcase>
+      <testcase name="Test Cases/HT_DNA HTProduction Pipeline Test" classname="Test Cases/HT_DNA HTProduction Pipeline Test" status="FAILED">
+         <failure type="FAILED" message="org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false"/>
+         <system-out><![CDATA[2017-10-31 07:13:23 - [TEST_CASE][FAILED] - Test Cases/HT_DNA HTProduction Pipeline Test: Test Cases/HT_DNA HTProduction Pipeline Test FAILED because (of) org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false
+
+2017-10-31 07:13:24 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:13:24 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-10-31 07:13:24 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:13:24 - [MESSAGE][WARNING] - A browser is already opened. Closing browser and opening a new one
+
+2017-10-31 07:13:36 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:13:36 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:13:38 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:13:38 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:13:41 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:13:41 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:13:45 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:13:45 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:13:49 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:13:49 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:13:52 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:13:52 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:14:03 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:14:03 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:14:03 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:14:05 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:14:05 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:14:05 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:14:07 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:14:07 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:14:12 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:14:12 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_test_GenScript_HT_DNA_DeliveryFile.xlsx' is clicked on
+
+2017-10-31 07:14:17 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_test_GenScript_HT_DNA_DeliveryFile.xlsx' is clicked on
+
+2017-10-31 07:14:17 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2017-10-31 07:14:19 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2017-10-31 07:14:19 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/radioBtn_GenerateHTplates' is clicked on
+
+2017-10-31 07:14:22 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/radioBtn_GenerateHTplates' is clicked on
+
+2017-10-31 07:14:22 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2017-10-31 07:14:25 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2017-10-31 07:14:25 - [TEST_STEP][PASSED] - setText: Text 'CNT0001396' is set on object 'Object Repository/Page_Generate HT Plate from HT Delivery File/input_toReplaceBlanks'
+
+2017-10-31 07:14:29 - [MESSAGE][PASSED] - Text 'CNT0001396' is set on object 'Object Repository/Page_Generate HT Plate from HT Delivery File/input_toReplaceBlanks'
+
+2017-10-31 07:14:29 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Generate HT Plate from HT Delivery File/btn_GenerateHTPlate' is clicked on
+
+2017-10-31 07:14:31 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Generate HT Plate from HT Delivery File/btn_GenerateHTPlate' is clicked on
+
+2017-10-31 07:14:31 - [TEST_STEP][PASSED] - delay: Delayed 2 second(s)
+
+2017-10-31 07:14:33 - [MESSAGE][PASSED] - Delayed 2 second(s)
+
+2017-10-31 07:14:33 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Pipeline' is clicked on
+
+2017-10-31 07:14:36 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Pipeline' is clicked on
+
+2017-10-31 07:14:36 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_All' is clicked on
+
+2017-10-31 07:14:38 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_All' is clicked on
+
+2017-10-31 07:14:38 - [TEST_STEP][PASSED] - Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), "text"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ERROR'
+
+2017-10-31 07:14:41 - [MESSAGE][PASSED] - Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ERROR'
+
+2017-10-31 07:14:41 - [TEST_STEP][PASSED] - Statement - While (pipelineStatus == "ht_plate_generator RUNNING" || pipelineStatus == "ht_plate_generator WAITING"): null
+
+2017-10-31 07:14:41 - [TEST_STEP][PASSED] - Statement - assert pipelineStatus == "COMPLETE": null]]></system-out>
+         <system-err><![CDATA[2017-10-31 07:13:23 - [TEST_CASE][FAILED] - Test Cases/HT_DNA HTProduction Pipeline Test: Test Cases/HT_DNA HTProduction Pipeline Test FAILED because (of) org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false]]></system-err>
+      </testcase>
+      <testcase name="Test Cases/HPLC Image Assay Pipeline" classname="Test Cases/HPLC Image Assay Pipeline" status="FAILED">
+         <failure type="FAILED" message="org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false"/>
+         <system-out><![CDATA[2017-10-31 07:14:41 - [TEST_CASE][FAILED] - Test Cases/HPLC Image Assay Pipeline: Test Cases/HPLC Image Assay Pipeline FAILED because (of) org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false
+
+2017-10-31 07:14:41 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:14:41 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-10-31 07:14:41 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:14:41 - [MESSAGE][WARNING] - A browser is already opened. Closing browser and opening a new one
+
+2017-10-31 07:14:51 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:14:51 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:14:53 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:14:53 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:14:56 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:14:56 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:15:00 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:15:00 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:15:04 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:15:04 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:15:06 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:15:06 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:15:12 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:15:12 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:15:12 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/menu_HTProduction' is hovered
+
+2017-10-31 07:15:14 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/menu_HTProduction' is hovered
+
+2017-10-31 07:15:14 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Assays' is visible
+
+2017-10-31 07:15:14 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:15:17 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Assays' is visible
+
+2017-10-31 07:15:17 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Assays' is clicked on
+
+2017-10-31 07:15:20 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Assays' is clicked on
+
+2017-10-31 07:15:20 - [TEST_STEP][PASSED] - refresh: Refresh successfully
+
+2017-10-31 07:15:22 - [MESSAGE][PASSED] - Refresh successfully
+
+2017-10-31 07:15:22 - [TEST_STEP][PASSED] - delay: Delayed 3 second(s)
+
+2017-10-31 07:15:25 - [MESSAGE][PASSED] - Delayed 3 second(s)
+
+2017-10-31 07:15:25 - [TEST_STEP][PASSED] - doubleClick: Object: 'Object Repository/Page_Assay Dashboard HTProduction/file_HPLC_Assay_Images' is double clicked on
+
+2017-10-31 07:15:30 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard HTProduction/file_HPLC_Assay_Images' is double clicked on
+
+2017-10-31 07:15:30 - [TEST_STEP][PASSED] - waitForElementPresent: Object 'Object Repository/Page_Assay Dashboard HTProduction/file_HT0102' is present
+
+2017-10-31 07:15:30 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:15:31 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Assay Dashboard HTProduction/file_HT0102' is present
+
+2017-10-31 07:15:31 - [TEST_STEP][PASSED] - doubleClick: Object: 'Object Repository/Page_Assay Dashboard HTProduction/file_HT0102' is double clicked on
+
+2017-10-31 07:15:35 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard HTProduction/file_HT0102' is double clicked on
+
+2017-10-31 07:15:35 - [TEST_STEP][PASSED] - waitForElementPresent: Object 'Object Repository/Page_Assay Dashboard HTProduction/file_HT01021A01_Perfect_etc' is present
+
+2017-10-31 07:15:35 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:15:36 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Assay Dashboard HTProduction/file_HT01021A01_Perfect_etc' is present
+
+2017-10-31 07:15:36 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard HTProduction/file_HT01021A01_Perfect_etc' is clicked on
+
+2017-10-31 07:15:38 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard HTProduction/file_HT01021A01_Perfect_etc' is clicked on
+
+2017-10-31 07:15:38 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard HTProduction/file_HT01021A02_Complex_etc' is clicked on
+
+2017-10-31 07:15:40 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard HTProduction/file_HT01021A02_Complex_etc' is clicked on
+
+2017-10-31 07:15:40 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard HTProduction/file_HT01021A03_Simple_etc' is clicked on
+
+2017-10-31 07:15:42 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard HTProduction/file_HT01021A03_Simple_etc' is clicked on
+
+2017-10-31 07:15:42 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard HTProduction/file_HT01021A04_Perfect_523.58_6.53.jpg' is clicked on
+
+2017-10-31 07:15:44 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard HTProduction/file_HT01021A04_Perfect_523.58_6.53.jpg' is clicked on
+
+2017-10-31 07:15:44 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard HTProduction/file_HT01021A05' is clicked on
+
+2017-10-31 07:15:46 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard HTProduction/file_HT01021A05' is clicked on
+
+2017-10-31 07:15:46 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2017-10-31 07:15:49 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2017-10-31 07:15:49 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard HTProduction/radioBtn_Update HPLC Assay' is clicked on
+
+2017-10-31 07:15:51 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard HTProduction/radioBtn_Update HPLC Assay' is clicked on
+
+2017-10-31 07:15:51 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2017-10-31 07:15:55 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2017-10-31 07:15:55 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is visible
+
+2017-10-31 07:15:55 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:15:57 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is visible
+
+2017-10-31 07:15:57 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is clicked on
+
+2017-10-31 07:15:59 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is clicked on
+
+2017-10-31 07:15:59 - [TEST_STEP][PASSED] - delay: Delayed 2 second(s)
+
+2017-10-31 07:16:01 - [MESSAGE][PASSED] - Delayed 2 second(s)
+
+2017-10-31 07:16:01 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Pipeline' is clicked on
+
+2017-10-31 07:16:04 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Pipeline' is clicked on
+
+2017-10-31 07:16:04 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_All' is clicked on
+
+2017-10-31 07:16:07 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_All' is clicked on
+
+2017-10-31 07:16:07 - [TEST_STEP][PASSED] - Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), "text"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ERROR'
+
+2017-10-31 07:16:09 - [MESSAGE][PASSED] - Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ERROR'
+
+2017-10-31 07:16:09 - [TEST_STEP][PASSED] - Statement - While (pipelineStatus == "insert_jpegs RUNNING" || pipelineStatus == "insert_jpegs WAITING"): null
+
+2017-10-31 07:16:09 - [TEST_STEP][PASSED] - Statement - assert pipelineStatus == "COMPLETE": null]]></system-out>
+         <system-err><![CDATA[2017-10-31 07:14:41 - [TEST_CASE][FAILED] - Test Cases/HPLC Image Assay Pipeline: Test Cases/HPLC Image Assay Pipeline FAILED because (of) org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false]]></system-err>
+      </testcase>
+      <testcase name="Test Cases/Insert Constructs via Pipeline Test" classname="Test Cases/Insert Constructs via Pipeline Test" status="FAILED">
+         <failure type="FAILED" message="Unable to click on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TESTinsertConstructsThroughPipeline.xml' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TESTinsertConstructsThroughPipeline.xml' located by 'By.xpath: //span[count(. | //*[text() = 'TEST_insertConstructsThroughPipeline.xlsx']) = count(//*[text() = 'TEST_insertConstructsThroughPipeline.xlsx'])]' not found)"/>
+         <system-out><![CDATA[2017-10-31 07:16:09 - [TEST_CASE][FAILED] - Test Cases/Insert Constructs via Pipeline Test: Test Cases/Insert Constructs via Pipeline Test FAILED because (of) Unable to click on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TESTinsertConstructsThroughPipeline.xml' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TESTinsertConstructsThroughPipeline.xml' located by 'By.xpath: //span[count(. | //*[text() = 'TEST_insertConstructsThroughPipeline.xlsx']) = count(//*[text() = 'TEST_insertConstructsThroughPipeline.xlsx'])]' not found)
+
+2017-10-31 07:16:09 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:16:09 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-10-31 07:16:09 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:16:09 - [MESSAGE][WARNING] - A browser is already opened. Closing browser and opening a new one
+
+2017-10-31 07:16:23 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:16:23 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:16:25 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:16:25 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:16:28 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:16:28 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:16:32 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:16:32 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:16:36 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:16:36 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:16:38 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:16:38 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:16:43 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:16:43 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:16:43 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:16:46 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:16:46 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:16:46 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:16:48 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:16:48 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:16:52 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:16:52 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Files' is clicked on
+
+2017-10-31 07:16:55 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Files' is clicked on
+
+2017-10-31 07:16:55 - [TEST_STEP][PASSED] - delay: Delayed 2 second(s)
+
+2017-10-31 07:16:57 - [MESSAGE][PASSED] - Delayed 2 second(s)
+
+2017-10-31 07:16:57 - [TEST_STEP][FAILED] - click: Unable to click on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TESTinsertConstructsThroughPipeline.xml' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TESTinsertConstructsThroughPipeline.xml' located by 'By.xpath: //span[count(. | //*[text() = 'TEST_insertConstructsThroughPipeline.xlsx']) = count(//*[text() = 'TEST_insertConstructsThroughPipeline.xlsx'])]' not found)
+
+2017-10-31 07:17:34 - [MESSAGE][FAILED] - Unable to click on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TESTinsertConstructsThroughPipeline.xml' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TESTinsertConstructsThroughPipeline.xml' located by 'By.xpath: //span[count(. | //*[text() = 'TEST_insertConstructsThroughPipeline.xlsx']) = count(//*[text() = 'TEST_insertConstructsThroughPipeline.xlsx'])]' not found)
+[[ATTACHMENT|C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171031_070242\\1509459453145.png]]]]></system-out>
+         <system-err><![CDATA[2017-10-31 07:16:09 - [TEST_CASE][FAILED] - Test Cases/Insert Constructs via Pipeline Test: Test Cases/Insert Constructs via Pipeline Test FAILED because (of) Unable to click on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TESTinsertConstructsThroughPipeline.xml' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TESTinsertConstructsThroughPipeline.xml' located by 'By.xpath: //span[count(. | //*[text() = 'TEST_insertConstructsThroughPipeline.xlsx']) = count(//*[text() = 'TEST_insertConstructsThroughPipeline.xlsx'])]' not found)]]></system-err>
+      </testcase>
+      <testcase name="Test Cases/Insert Variants via Pipeline Test" classname="Test Cases/Insert Variants via Pipeline Test" status="FAILED">
+         <failure type="FAILED" message="Unable to click on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertVariantsThroughPipeline.xlsx' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertVariantsThroughPipeline.xlsx' located by 'By.xpath: //span[count(. | //*[text() = 'TEST_insertVariantsThroughPipeline.xlsx']) = count(//*[text() = 'TEST_insertVariantsThroughPipeline.xlsx'])]' not found)"/>
+         <system-out><![CDATA[2017-10-31 07:17:34 - [TEST_CASE][FAILED] - Test Cases/Insert Variants via Pipeline Test: Test Cases/Insert Variants via Pipeline Test FAILED because (of) Unable to click on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertVariantsThroughPipeline.xlsx' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertVariantsThroughPipeline.xlsx' located by 'By.xpath: //span[count(. | //*[text() = 'TEST_insertVariantsThroughPipeline.xlsx']) = count(//*[text() = 'TEST_insertVariantsThroughPipeline.xlsx'])]' not found)
+
+2017-10-31 07:17:34 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:17:35 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-10-31 07:17:35 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:17:35 - [MESSAGE][WARNING] - A browser is already opened. Closing browser and opening a new one
+
+2017-10-31 07:17:45 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:17:45 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:17:47 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:17:47 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:17:50 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:17:50 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:17:54 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:17:54 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:17:59 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:17:59 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:18:01 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:18:01 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:18:06 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:18:06 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:18:06 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:18:08 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:18:08 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:18:08 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:18:11 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:18:11 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:18:14 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:18:14 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Files' is clicked on
+
+2017-10-31 07:18:17 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Files' is clicked on
+
+2017-10-31 07:18:17 - [TEST_STEP][PASSED] - delay: Delayed 2 second(s)
+
+2017-10-31 07:18:19 - [MESSAGE][PASSED] - Delayed 2 second(s)
+
+2017-10-31 07:18:19 - [TEST_STEP][FAILED] - click: Unable to click on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertVariantsThroughPipeline.xlsx' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertVariantsThroughPipeline.xlsx' located by 'By.xpath: //span[count(. | //*[text() = 'TEST_insertVariantsThroughPipeline.xlsx']) = count(//*[text() = 'TEST_insertVariantsThroughPipeline.xlsx'])]' not found)
+
+2017-10-31 07:18:56 - [MESSAGE][FAILED] - Unable to click on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertVariantsThroughPipeline.xlsx' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertVariantsThroughPipeline.xlsx' located by 'By.xpath: //span[count(. | //*[text() = 'TEST_insertVariantsThroughPipeline.xlsx']) = count(//*[text() = 'TEST_insertVariantsThroughPipeline.xlsx'])]' not found)
+[[ATTACHMENT|C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171031_070242\\1509459535241.png]]]]></system-out>
+         <system-err><![CDATA[2017-10-31 07:17:34 - [TEST_CASE][FAILED] - Test Cases/Insert Variants via Pipeline Test: Test Cases/Insert Variants via Pipeline Test FAILED because (of) Unable to click on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertVariantsThroughPipeline.xlsx' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertVariantsThroughPipeline.xlsx' located by 'By.xpath: //span[count(. | //*[text() = 'TEST_insertVariantsThroughPipeline.xlsx']) = count(//*[text() = 'TEST_insertVariantsThroughPipeline.xlsx'])]' not found)]]></system-err>
+      </testcase>
+      <testcase name="Test Cases/Insert Homologues via Pipeline Test" classname="Test Cases/Insert Homologues via Pipeline Test" status="FAILED">
+         <failure type="FAILED" message="Unable to click on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertHomologuesThroughPipeline.xlsx' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertHomologuesThroughPipeline.xlsx' located by 'By.xpath: //span[count(. | //*[text() = 'TEST_insertHomologuesThroughPipeline.xlsx']) = count(//*[text() = 'TEST_insertHomologuesThroughPipeline.xlsx'])]' not found)"/>
+         <system-out><![CDATA[2017-10-31 07:18:56 - [TEST_CASE][FAILED] - Test Cases/Insert Homologues via Pipeline Test: Test Cases/Insert Homologues via Pipeline Test FAILED because (of) Unable to click on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertHomologuesThroughPipeline.xlsx' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertHomologuesThroughPipeline.xlsx' located by 'By.xpath: //span[count(. | //*[text() = 'TEST_insertHomologuesThroughPipeline.xlsx']) = count(//*[text() = 'TEST_insertHomologuesThroughPipeline.xlsx'])]' not found)
+
+2017-10-31 07:18:56 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:18:56 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-10-31 07:18:56 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:18:56 - [MESSAGE][WARNING] - A browser is already opened. Closing browser and opening a new one
+
+2017-10-31 07:19:09 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:19:09 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:19:11 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:19:11 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:19:14 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:19:14 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:19:18 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:19:18 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:19:22 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:19:22 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:19:25 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:19:25 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:19:33 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:19:33 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:19:33 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:19:36 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:19:36 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:19:36 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:19:38 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:19:38 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:19:42 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:19:42 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Files' is clicked on
+
+2017-10-31 07:19:45 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Files' is clicked on
+
+2017-10-31 07:19:45 - [TEST_STEP][PASSED] - delay: Delayed 2 second(s)
+
+2017-10-31 07:19:47 - [MESSAGE][PASSED] - Delayed 2 second(s)
+
+2017-10-31 07:19:47 - [TEST_STEP][FAILED] - click: Unable to click on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertHomologuesThroughPipeline.xlsx' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertHomologuesThroughPipeline.xlsx' located by 'By.xpath: //span[count(. | //*[text() = 'TEST_insertHomologuesThroughPipeline.xlsx']) = count(//*[text() = 'TEST_insertHomologuesThroughPipeline.xlsx'])]' not found)
+
+2017-10-31 07:20:24 - [MESSAGE][FAILED] - Unable to click on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertHomologuesThroughPipeline.xlsx' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertHomologuesThroughPipeline.xlsx' located by 'By.xpath: //span[count(. | //*[text() = 'TEST_insertHomologuesThroughPipeline.xlsx']) = count(//*[text() = 'TEST_insertHomologuesThroughPipeline.xlsx'])]' not found)
+[[ATTACHMENT|C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171031_070242\\1509459622933.png]]]]></system-out>
+         <system-err><![CDATA[2017-10-31 07:18:56 - [TEST_CASE][FAILED] - Test Cases/Insert Homologues via Pipeline Test: Test Cases/Insert Homologues via Pipeline Test FAILED because (of) Unable to click on object 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertHomologuesThroughPipeline.xlsx' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertHomologuesThroughPipeline.xlsx' located by 'By.xpath: //span[count(. | //*[text() = 'TEST_insertHomologuesThroughPipeline.xlsx']) = count(//*[text() = 'TEST_insertHomologuesThroughPipeline.xlsx'])]' not found)]]></system-err>
+      </testcase>
+      <testcase name="Test Cases/Insert CHEMProducts via pipeline" classname="Test Cases/Insert CHEMProducts via pipeline" status="FAILED">
+         <failure type="FAILED" message="org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false"/>
+         <system-out><![CDATA[2017-10-31 07:20:24 - [TEST_CASE][FAILED] - Test Cases/Insert CHEMProducts via pipeline: Test Cases/Insert CHEMProducts via pipeline FAILED because (of) org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false
+
+2017-10-31 07:20:24 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:20:24 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-10-31 07:20:24 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:20:24 - [MESSAGE][WARNING] - A browser is already opened. Closing browser and opening a new one
+
+2017-10-31 07:20:37 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:20:37 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:20:39 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:20:39 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:20:43 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:20:43 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:20:47 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:20:47 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:20:51 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:20:51 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:20:53 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:20:53 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:21:02 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:21:02 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:21:02 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:21:05 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:21:05 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:21:05 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:21:07 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:21:07 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:21:12 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:21:12 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Files' is clicked on
+
+2017-10-31 07:21:16 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Files' is clicked on
+
+2017-10-31 07:21:16 - [TEST_STEP][PASSED] - delay: Delayed 2 second(s)
+
+2017-10-31 07:21:18 - [MESSAGE][PASSED] - Delayed 2 second(s)
+
+2017-10-31 07:21:18 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_newChemProducts_input.xlsx' is clicked on
+
+2017-10-31 07:21:20 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_newChemProducts_input.xlsx' is clicked on
+
+2017-10-31 07:21:20 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2017-10-31 07:21:22 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2017-10-31 07:21:22 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/radioBtn_InsertNewCHEMProducts' is clicked on
+
+2017-10-31 07:21:25 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/radioBtn_InsertNewCHEMProducts' is clicked on
+
+2017-10-31 07:21:25 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2017-10-31 07:21:28 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2017-10-31 07:21:28 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is visible
+
+2017-10-31 07:21:28 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:21:30 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is visible
+
+2017-10-31 07:21:30 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is clicked on
+
+2017-10-31 07:21:32 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is clicked on
+
+2017-10-31 07:21:32 - [TEST_STEP][PASSED] - delay: Delayed 2 second(s)
+
+2017-10-31 07:21:34 - [MESSAGE][PASSED] - Delayed 2 second(s)
+
+2017-10-31 07:21:34 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Pipeline' is clicked on
+
+2017-10-31 07:21:37 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Pipeline' is clicked on
+
+2017-10-31 07:21:37 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_All' is clicked on
+
+2017-10-31 07:21:39 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_All' is clicked on
+
+2017-10-31 07:21:39 - [TEST_STEP][PASSED] - Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), "text"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ERROR'
+
+2017-10-31 07:21:41 - [MESSAGE][PASSED] - Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ERROR'
+
+2017-10-31 07:21:41 - [TEST_STEP][PASSED] - Statement - While (pipelineStatus == "insert_chemical_product RUNNING" || pipelineStatus == "insert_chemical_product WAITING"): null
+
+2017-10-31 07:21:41 - [TEST_STEP][PASSED] - Statement - assert pipelineStatus == "COMPLETE": null]]></system-out>
+         <system-err><![CDATA[2017-10-31 07:20:24 - [TEST_CASE][FAILED] - Test Cases/Insert CHEMProducts via pipeline: Test Cases/Insert CHEMProducts via pipeline FAILED because (of) org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false]]></system-err>
+      </testcase>
+      <testcase name="Test Cases/postTest-RemoveTestConstructs" classname="Test Cases/postTest-RemoveTestConstructs" status="FAILED">
+         <failure type="FAILED" message="Unable to click on object 'Object Repository/Page_Confirm Deletion OptidesCompou/span_Confirm Delete' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Confirm Deletion OptidesCompou/span_Confirm Delete' located by 'By.xpath: //span[count(. | //*[contains(.,'Confirm Delete')]) = count(//*[contains(.,'Confirm Delete')])]' not found)"/>
+         <system-out><![CDATA[2017-10-31 07:21:41 - [TEST_CASE][FAILED] - Test Cases/postTest-RemoveTestConstructs: Test Cases/postTest-RemoveTestConstructs FAILED because (of) Unable to click on object 'Object Repository/Page_Confirm Deletion OptidesCompou/span_Confirm Delete' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Confirm Deletion OptidesCompou/span_Confirm Delete' located by 'By.xpath: //span[count(. | //*[contains(.,'Confirm Delete')]) = count(//*[contains(.,'Confirm Delete')])]' not found)
+
+2017-10-31 07:21:41 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:21:42 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-10-31 07:21:42 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:21:42 - [MESSAGE][WARNING] - A browser is already opened. Closing browser and opening a new one
+
+2017-10-31 07:21:52 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-10-31 07:21:52 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:21:54 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-31 07:21:54 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:21:57 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-31 07:21:57 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:22:01 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-31 07:22:01 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:22:05 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-31 07:22:05 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:22:07 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-31 07:22:07 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:22:13 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-31 07:22:13 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-31 07:22:13 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:22:16 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-10-31 07:22:16 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:22:16 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-10-31 07:22:18 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-10-31 07:22:18 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:22:22 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-10-31 07:22:22 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_HT_DNA' is clicked on
+
+2017-10-31 07:22:26 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_HT_DNA' is clicked on
+
+2017-10-31 07:22:26 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Sample Set HT_DNA OptidesCo/div_ConstructID' is clicked on
+
+2017-10-31 07:22:28 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Sample Set HT_DNA OptidesCo/div_ConstructID' is clicked on
+
+2017-10-31 07:22:28 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Sample Set Construct OptidesCo/span_Filter...' is clicked on
+
+2017-10-31 07:22:32 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Sample Set Construct OptidesCo/span_Filter...' is clicked on
+
+2017-10-31 07:22:32 - [TEST_STEP][PASSED] - setText: Text 'TST' is set on object 'Object Repository/Page_Sample Set Construct OptidesCo/input_value_1'
+
+2017-10-31 07:22:38 - [MESSAGE][PASSED] - Text 'TST' is set on object 'Object Repository/Page_Sample Set Construct OptidesCo/input_value_1'
+
+2017-10-31 07:22:38 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' is clicked on
+
+2017-10-31 07:22:41 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' is clicked on
+
+2017-10-31 07:22:41 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Sample Set Construct OptidesCo/input_.toggle' is clicked on
+
+2017-10-31 07:22:43 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Sample Set Construct OptidesCo/input_.toggle' is clicked on
+
+2017-10-31 07:22:43 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Sample Set Construct OptidesCo/span_Delete' is clicked on
+
+2017-10-31 07:22:45 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Sample Set Construct OptidesCo/span_Delete' is clicked on
+
+2017-10-31 07:22:45 - [TEST_STEP][FAILED] - click: Unable to click on object 'Object Repository/Page_Confirm Deletion OptidesCompou/span_Confirm Delete' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Confirm Deletion OptidesCompou/span_Confirm Delete' located by 'By.xpath: //span[count(. | //*[contains(.,'Confirm Delete')]) = count(//*[contains(.,'Confirm Delete')])]' not found)
+
+2017-10-31 07:23:31 - [MESSAGE][FAILED] - Unable to click on object 'Object Repository/Page_Confirm Deletion OptidesCompou/span_Confirm Delete' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Confirm Deletion OptidesCompou/span_Confirm Delete' located by 'By.xpath: //span[count(. | //*[contains(.,'Confirm Delete')]) = count(//*[contains(.,'Confirm Delete')])]' not found)
+[[ATTACHMENT|C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171031_070242\\1509459810088.png]]]]></system-out>
+         <system-err><![CDATA[2017-10-31 07:21:41 - [TEST_CASE][FAILED] - Test Cases/postTest-RemoveTestConstructs: Test Cases/postTest-RemoveTestConstructs FAILED because (of) Unable to click on object 'Object Repository/Page_Confirm Deletion OptidesCompou/span_Confirm Delete' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Confirm Deletion OptidesCompou/span_Confirm Delete' located by 'By.xpath: //span[count(. | //*[contains(.,'Confirm Delete')]) = count(//*[contains(.,'Confirm Delete')])]' not found)]]></system-err>
+      </testcase>
+      <system-out><![CDATA[2017-10-31 07:02:48 - [TEST_SUITE][FAILED] - OptidesLabkeyTests: Test Cases/updateMWs Test FAILED because (of) Unable to verify text '2017-10-31' is present  (Root cause: Text '2017-10-31' is not present on page )]]></system-out>
+      <system-err><![CDATA[2017-10-31 07:02:48 - [TEST_SUITE][FAILED] - OptidesLabkeyTests: Test Cases/updateMWs Test FAILED because (of) Unable to verify text '2017-10-31' is present  (Root cause: Text '2017-10-31' is not present on page )]]></system-err>
+   </testsuite>
+</testsuites>

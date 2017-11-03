@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="OptidesLabkeyTests" time="94" tests="0" failures="1" errors="0">
+   <testsuite name="OptidesLabkeyTests" tests="0" failures="1" errors="0" time="94" timestamp="2017-10-30 16:39:20" hostname="Hector - 140.107.11.113" id="Test Suites/OptidesLabkeyTests">
+      <properties>
+         <property name="deviceName" value=""/>
+         <property name="devicePlatform" value=""/>
+         <property name="logFolder" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171030_163917"/>
+         <property name="logFiles" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171030_163917\\execution0.log"/>
+         <property name="attachments" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171030_163917\\1509406852024.png"/>
+         <property name="hostName" value="Hector - 140.107.11.113"/>
+         <property name="os" value="Windows 8.1 64bit"/>
+         <property name="katalonVersion" value="5.0.0.1"/>
+         <property name="browser" value="Firefox 37.0"/>
+         <property name="hostAddress" value="140.107.11.113"/>
+         <property name="sessionId" value="b1696f81-04ef-46ba-b6f3-7e2a607779ad"/>
+         <property name="seleniumVersion" value="2.53.0"/>
+         <property name="proxyInformation" value="ProxyInformation{proxyOption=NO_PROXY, proxyServerType=HTTP, password=, proxyServerAddress=, proxyServerPort=0}"/>
+         <property name="platform" value="Windows 8.1"/>
+      </properties>
+      <testcase name="Test Cases/InSilicoAssay Weekly Cron Test" classname="Test Cases/InSilicoAssay Weekly Cron Test" status="FAILED">
+         <failure type="FAILED" message="Unable to move mouse over object 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' located by 'By.xpath: //a[count(. | //*[@href = '#']) = count(//*[@href = '#'])][count(. | //*[contains(.,'CompoundsRegistry')]) = count(//*[contains(.,'CompoundsRegistry')])]' not found)"/>
+         <system-out><![CDATA[2017-10-30 16:39:20 - [TEST_CASE][FAILED] - Test Cases/InSilicoAssay Weekly Cron Test: Test Cases/InSilicoAssay Weekly Cron Test FAILED because (of) Unable to move mouse over object 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' located by 'By.xpath: //a[count(. | //*[@href = '#']) = count(//*[@href = '#'])][count(. | //*[contains(.,'CompoundsRegistry')]) = count(//*[contains(.,'CompoundsRegistry')])]' not found)
+
+2017-10-30 16:39:21 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-30 16:39:21 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-10-30 16:39:21 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-stage.fhcrc.org'
+
+2017-10-30 16:39:35 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-stage.fhcrc.org'
+
+2017-10-30 16:39:35 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-30 16:39:43 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-10-30 16:39:43 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-30 16:39:46 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-10-30 16:39:46 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-30 16:39:56 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-10-30 16:39:56 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-30 16:40:01 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-10-30 16:40:01 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-30 16:40:03 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-10-30 16:40:03 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-30 16:40:11 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-10-30 16:40:11 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-10-30 16:40:11 - [TEST_STEP][FAILED] - mouseOver: Unable to move mouse over object 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' located by 'By.xpath: //a[count(. | //*[@href = '#']) = count(//*[@href = '#'])][count(. | //*[contains(.,'CompoundsRegistry')]) = count(//*[contains(.,'CompoundsRegistry')])]' not found)
+
+2017-10-30 16:40:53 - [MESSAGE][FAILED] - Unable to move mouse over object 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' located by 'By.xpath: //a[count(. | //*[@href = '#']) = count(//*[@href = '#'])][count(. | //*[contains(.,'CompoundsRegistry')]) = count(//*[contains(.,'CompoundsRegistry')])]' not found)
+[[ATTACHMENT|C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171030_163917\\1509406852024.png]]]]></system-out>
+         <system-err><![CDATA[2017-10-30 16:39:20 - [TEST_CASE][FAILED] - Test Cases/InSilicoAssay Weekly Cron Test: Test Cases/InSilicoAssay Weekly Cron Test FAILED because (of) Unable to move mouse over object 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' located by 'By.xpath: //a[count(. | //*[@href = '#']) = count(//*[@href = '#'])][count(. | //*[contains(.,'CompoundsRegistry')]) = count(//*[contains(.,'CompoundsRegistry')])]' not found)]]></system-err>
+      </testcase>
+      <system-out><![CDATA[2017-10-30 16:39:20 - [TEST_SUITE][FAILED] - OptidesLabkeyTests: Test Cases/InSilicoAssay Weekly Cron Test FAILED because (of) Unable to move mouse over object 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' located by 'By.xpath: //a[count(. | //*[@href = '#']) = count(//*[@href = '#'])][count(. | //*[contains(.,'CompoundsRegistry')]) = count(//*[contains(.,'CompoundsRegistry')])]' not found)]]></system-out>
+      <system-err><![CDATA[2017-10-30 16:39:20 - [TEST_SUITE][FAILED] - OptidesLabkeyTests: Test Cases/InSilicoAssay Weekly Cron Test FAILED because (of) Unable to move mouse over object 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' located by 'By.xpath: //a[count(. | //*[@href = '#']) = count(//*[@href = '#'])][count(. | //*[contains(.,'CompoundsRegistry')]) = count(//*[contains(.,'CompoundsRegistry')])]' not found)]]></system-err>
+   </testsuite>
+</testsuites>

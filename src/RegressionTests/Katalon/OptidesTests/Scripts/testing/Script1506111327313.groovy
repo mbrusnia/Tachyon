@@ -26,4 +26,13 @@ WebUI.waitForElementVisible(findTestObject('LSC_objects/Page_Start Page Optides/
 
 WebUI.click(findTestObject('LSC_objects/Page_Start Page Optides/a_Sample'))
 
+WebUI.openBrowser('')
+
+WebUI.selectOptionByValue(findTestObject('Page_Data Import Batch Properties O (1)/select_studyDescription'), 'LSC0001 Tumor Homing of OTD257', 
+    true)
+
+WebUI.selectOptionByValue(findTestObject('Page_Data Import Batch Properties O (1)/select_standardCurve'), 'STD_2016_0928', 
+    true)
+
+WebUI.closeBrowser()
 

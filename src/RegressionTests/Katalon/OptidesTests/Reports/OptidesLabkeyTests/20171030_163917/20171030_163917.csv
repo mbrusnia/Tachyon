@@ -1,0 +1,6 @@
+Suite/Test/Step Name,Browser,Description,Start time,End time,Duration,Status
+OptidesLabkeyTests,Firefox 37.0,,2017-10-30 16:39:20,2017-10-30 16:40:55,1m - 34.884s,FAILED
+,,,,,,
+Test Cases/InSilicoAssay Weekly Cron Test,Firefox 37.0,,2017-10-30 16:39:20,2017-10-30 16:40:53,1m - 32.906s,FAILED
+callTestCase,Firefox 37.0,use global script for log in with credentials and BASE_URL set there,2017-10-30 16:39:21,2017-10-30 16:40:11,50.648s,PASSED
+mouseOver,Firefox 37.0,,2017-10-30 16:40:11,2017-10-30 16:40:53,41.501s,FAILED

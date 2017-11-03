@@ -32,6 +32,9 @@ WebUI.click(findTestObject('LSC_objects/Page_Assay Dashboard OptidesVIVOAss/a_LS
 
 WebUI.click(findTestObject('LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl/span_Import Data'))
 
+WebUI.selectOptionByLabel(findTestObject('Page_Data Import Batch Properties O (1)/select_standardCurve'), 'STD_2016_0928', 
+    false)
+
 WebUI.click(findTestObject('LSC_objects/Page_Data Import Batch Properties O/span_Next'))
 
 WebUI.setText(findTestObject('LSC_objects/Page_Data Import Run Properties and/input_name'), 'TEST0001')
