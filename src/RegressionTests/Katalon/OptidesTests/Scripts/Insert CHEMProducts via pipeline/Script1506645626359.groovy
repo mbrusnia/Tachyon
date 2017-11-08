@@ -42,6 +42,8 @@ WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/button_Import'))
 
 WebUI.waitForElementVisible(findTestObject('Page_Upload_HT_Delivery_Info/a_submitButton'), 0)
 
+WebUI.setText(findTestObject('input_ProtocolName'), 'TEST - Chem Inputs via pipeline')
+
 WebUI.click(findTestObject('Page_Upload_HT_Delivery_Info/a_submitButton'))
 
 WebUI.delay(2)
