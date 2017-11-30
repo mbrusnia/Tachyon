@@ -4,6 +4,13 @@
    <name>span_ht_dna_generateOrder4Kata</name>
    <tag></tag>
    <elementGuidId>53492a07-f536-432f-ad76-21a1191308a5</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//span[count(. | //*[contains(.,'ht_dna_generateOrder4Katalon.xlsx')]) = count(//*[contains(.,'ht_dna_generateOrder4Katalon.xlsx')])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>
@@ -11,13 +18,6 @@
       <name>tag</name>
       <type>Main</type>
       <value>span</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>false</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>xpath</name>
-      <type>Main</type>
-      <value>id(&quot;ext4-ext-gen2314&quot;)/div[@class=&quot;x4-grid-cell-inner&quot;]/div[1]/div[2]/span[1]</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>

@@ -31,15 +31,18 @@ WebUI.click(findTestObject('Page_Start Page Optides/a_Samples_CompReg'))
 
 WebUI.delay(2)
 
-WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Pipeline'))
+'Get current page\'s URL'
+url = WebUI.getUrl()
+
+WebUI.navigateToUrl(url + 'pageId=Pipeline')
 
 WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/a_All'))
 
 WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/input_Toggle'))
 
-dataPresent = !WebUI.verifyTextPresent('No data to show.', false, FailureHandling.CONTINUE_ON_FAILURE)
+dataPresent = WebUI.verifyTextPresent('No data to show.', false, FailureHandling.CONTINUE_ON_FAILURE)
 
-if (dataPresent) {
+if (dataPresent == false) {
     WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/btn_Delete'))
 
     WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/btn_ConfirmDelete'))

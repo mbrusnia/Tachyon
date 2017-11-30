@@ -47,7 +47,7 @@ WebUI.setText(findTestObject('Page_Assay Dashboard OptidesCompoun/textarea_JSON'
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/btn_Submit'))
 
-WebUI.delay(10)
+WebUI.delay(20)
 
 WebUI.verifyTextPresent('testAssayReport-', false)
 

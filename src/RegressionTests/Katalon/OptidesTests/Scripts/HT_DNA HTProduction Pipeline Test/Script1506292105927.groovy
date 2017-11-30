@@ -37,13 +37,20 @@ WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/radioBtn_Generat
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/button_Import'))
 
+WebUI.setText(findTestObject('Page_Data Pipeline - CompoundsRegistry/input_Name'), 'TEST_HT_DNA_HTProduction 01')
+
 WebUI.setText(findTestObject('Page_Generate HT Plate from HT Delivery File/input_toReplaceBlanks'), 'CNT0001396')
 
 WebUI.click(findTestObject('Page_Generate HT Plate from HT Delivery File/btn_GenerateHTPlate'))
 
 WebUI.delay(2)
 
-WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Pipeline'))
+'Get current page\'s URL'
+url = WebUI.getUrl()
+
+if (!(url.contains('pipeline-status'))) {
+    WebUI.navigateToUrl(url + 'pageId=Pipeline')
+}
 
 WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/a_All'))
 
@@ -82,6 +89,8 @@ WebUI.setText(findTestObject('Page_Generate HT Plate from HT Delivery File/input
 
 WebUI.click(findTestObject('Page_Generate HT Plate from HT Delivery File/chkBox_reproductionPlate'))
 
+WebUI.delay(2)
+
 WebUI.selectOptionByValue(findTestObject('Page_Generate HT Plate from HT Delivery File/select_reproductionPlateID'), 'HT0106', 
     false)
 
@@ -89,7 +98,10 @@ WebUI.click(findTestObject('Page_Generate HT Plate from HT Delivery File/btn_Gen
 
 WebUI.delay(2)
 
-WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Pipeline'))
+'Get current page\'s URL'
+not_run: url = WebUI.getUrl()
+
+not_run: WebUI.navigateToUrl(url + 'pageId=Pipeline')
 
 WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/a_All'))
 

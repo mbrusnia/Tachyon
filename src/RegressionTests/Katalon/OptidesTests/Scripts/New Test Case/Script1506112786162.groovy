@@ -28,7 +28,7 @@ WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_CHEMProduction
 
 WebUI.click(findTestObject('Page_CHEMProduction SampleSet/div_Received By'))
 
-WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/a_Filter'))
 
 WebUI.click(findTestObject('Page_CHEMProduction SampleSet/a_All'))
 

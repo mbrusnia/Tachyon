@@ -31,29 +31,7 @@ WebUI.click(findTestObject('Page_Start Page Optides/a_Samples_CompReg'))
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_HT_DNA'))
 
-WebUI.click(findTestObject('Page_Sample Set HT_DNA OptidesCo/div_ConstructID'))
-
-WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
-
-WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TST')
-
-WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/button_OK'))
-
-WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/input_.toggle'))
-
-WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Delete'))
-
-WebUI.click(findTestObject('Page_Confirm Deletion OptidesCompou/span_Confirm Delete'))
-
-WebUI.waitForElementVisible(findTestObject('Page_Start Page Optides/a_Samples_CompReg'), 0)
-
-WebUI.click(findTestObject('Page_Start Page Optides/a_Samples_CompReg'))
-
-WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Construct'))
-
-WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/div_ID'))
-
-WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
+WebUI.executeJavaScript('LABKEY.DataRegions[\'Material\']._openFilter(\'ConstructID\')', [])
 
 WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TST')
 
@@ -73,9 +51,27 @@ WebUI.click(findTestObject('Page_Start Page Optides/a_Samples_CompReg'))
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Construct'))
 
-WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/div_AASeq'))
+WebUI.executeJavaScript('LABKEY.DataRegions[\'Material\']._openFilter(\'Name\')', [])
 
-WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
+WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TST')
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/button_OK'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/input_.toggle'))
+
+WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Delete'))
+
+WebUI.click(findTestObject('Page_Confirm Deletion OptidesCompou/span_Confirm Delete'))
+
+WebUI.mouseOver(findTestObject('Page_Start Page Optides/a_CompoundsRegistry'))
+
+WebUI.waitForElementVisible(findTestObject('Page_Start Page Optides/a_Samples_CompReg'), 0)
+
+WebUI.click(findTestObject('Page_Start Page Optides/a_Samples_CompReg'))
+
+WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Construct'))
+
+WebUI.executeJavaScript('LABKEY.DataRegions[\'Material\']._openFilter(\'AASeq\')', [])
 
 WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TTEESSTT')
 
@@ -91,9 +87,7 @@ WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/a_Sample Sets'))
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Variant'))
 
-WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/div_AASeq'))
-
-WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
+WebUI.executeJavaScript('LABKEY.DataRegions[\'Material\']._openFilter(\'AASeq\')', [])
 
 WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TTEESSTT')
 
@@ -109,9 +103,7 @@ WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/a_Sample Sets'))
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Homologue'))
 
-WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/div_AASeq'))
-
-WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
+WebUI.executeJavaScript('LABKEY.DataRegions[\'Material\']._openFilter(\'AASeq\')', [])
 
 WebUI.setText(findTestObject('Page_Sample Set Construct OptidesCo/input_value_1'), 'TTEESSTT')
 
@@ -127,9 +119,7 @@ WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/a_Sample Sets'))
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_CHEMProduction'))
 
-WebUI.click(findTestObject('Page_CHEMProduction SampleSet/div_Received By'))
-
-WebUI.click(findTestObject('Page_Sample Set Construct OptidesCo/span_Filter...'))
+WebUI.executeJavaScript('LABKEY.DataRegions[\'Material\']._openFilter(\'ReceivedBy\')', [])
 
 WebUI.click(findTestObject('Page_CHEMProduction SampleSet/a_All'))
 

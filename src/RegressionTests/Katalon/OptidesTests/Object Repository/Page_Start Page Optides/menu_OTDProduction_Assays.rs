@@ -4,6 +4,13 @@
    <name>menu_OTDProduction_Assays</name>
    <tag></tag>
    <elementGuidId>dbc5bf44-8b20-446e-b53d-2ad0a7f0049a</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[count(. | //*[text() = 'Assays']) = count(//*[text() = 'Assays'])][count(. | //*[@href = '/project/Optides/OTDProduction/Assays/begin.view?']) = count(//*[@href = '/project/Optides/OTDProduction/Assays/begin.view?'])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>

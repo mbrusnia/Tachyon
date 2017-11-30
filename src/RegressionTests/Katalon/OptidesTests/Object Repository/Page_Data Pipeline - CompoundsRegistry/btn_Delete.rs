@@ -4,11 +4,18 @@
    <name>btn_Delete</name>
    <tag></tag>
    <elementGuidId>dd226cc5-4870-446d-8cdf-8771f7b79b53</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//*[@data-original-title = 'Delete'][count(. | //a) = count(//a)]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
-      <name>text</name>
+      <name>data-original-title</name>
       <type>Main</type>
       <value>Delete</value>
    </webElementProperties>
@@ -17,6 +24,13 @@
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
-      <value>span</value>
+      <value>a</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>contains</matchCondition>
+      <name>class</name>
+      <type>Main</type>
+      <value>labkey-button</value>
    </webElementProperties>
 </WebElementEntity>

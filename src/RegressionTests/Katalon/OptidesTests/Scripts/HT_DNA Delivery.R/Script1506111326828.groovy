@@ -36,13 +36,22 @@ WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/radioBtn_Upload_
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/button_Import'))
 
-WebUI.waitForElementVisible(findTestObject('Page_Upload_HT_Delivery_Info/a_submitButton'), 0)
+WebUI.delay(3)
+
+if (WebUI.verifyElementVisible(findTestObject('Page_Data Pipeline - CompoundsRegistry/input_Name'), FailureHandling.CONTINUE_ON_FAILURE)) {
+    WebUI.setText(findTestObject('Page_Data Pipeline - CompoundsRegistry/input_Name'), 'TEST_HT_DNA_Delivery 01')
+}
 
 WebUI.click(findTestObject('Page_Upload_HT_Delivery_Info/a_submitButton'))
 
 WebUI.delay(2)
 
-WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Pipeline'))
+'Get current page\'s URL'
+url = WebUI.getUrl()
+
+if (!(url.endsWith('pipeline-status/Optides/CompoundsRegistry/Samples/showList.view?'))) {
+    WebUI.navigateToUrl(url + 'pageId=Pipeline')
+}
 
 WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/a_All'))
 

@@ -1,0 +1,112 @@
+Suite/Test/Step Name,Browser,Description,Start time,End time,Duration,Status
+OptidesLabkeyTests,Chrome 61.0.3163.100,,2017-11-06 21:49:08,2017-11-06 22:01:18,12m - 10.136s,FAILED
+,,,,,,
+Test Cases/Insert Constructs via Pipeline Test,Chrome 61.0.3163.100,,2017-11-06 21:49:09,2017-11-06 21:51:18,2m - 9.625s,PASSED
+callTestCase,Chrome 61.0.3163.100,use global script for log in with credentials and BASE_URL set there,2017-11-06 21:49:09,2017-11-06 21:49:46,36.860s,PASSED
+mouseOver,Chrome 61.0.3163.100,,2017-11-06 21:49:46,2017-11-06 21:49:49,2.508s,PASSED
+waitForElementVisible,Chrome 61.0.3163.100,,2017-11-06 21:49:49,2017-11-06 21:49:51,2.280s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:49:51,2017-11-06 21:49:55,3.540s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:49:55,2017-11-06 21:49:59,4.297s,PASSED
+delay,Chrome 61.0.3163.100,,2017-11-06 21:49:59,2017-11-06 21:50:01,2.016s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:50:01,2017-11-06 21:50:03,2.490s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:50:03,2017-11-06 21:50:06,2.403s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:50:06,2017-11-06 21:50:08,2.122s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:50:08,2017-11-06 21:50:11,3.122s,PASSED
+waitForElementVisible,Chrome 61.0.3163.100,,2017-11-06 21:50:11,2017-11-06 21:50:13,2.061s,PASSED
+setText,Chrome 61.0.3163.100,,2017-11-06 21:50:13,2017-11-06 21:50:17,4.311s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:50:17,2017-11-06 21:50:20,2.092s,PASSED
+delay,Chrome 61.0.3163.100,,2017-11-06 21:50:20,2017-11-06 21:50:22,2.002s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:50:22,2017-11-06 21:50:25,2.956s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:50:25,2017-11-06 21:50:27,2.618s,PASSED
+"Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), ""text"")",Chrome 61.0.3163.100,,2017-11-06 21:50:27,2017-11-06 21:50:29,2.063s,PASSED
+"Statement - While (pipelineStatus == ""insert_constructs RUNNING"" || pipelineStatus == ""insert_constructs WAITING"")",Chrome 61.0.3163.100,Check every 10 seconds for a status update,2017-11-06 21:50:29,2017-11-06 21:50:53,24.058s,PASSED
+"Statement - assert pipelineStatus == ""COMPLETE""",Chrome 61.0.3163.100,,2017-11-06 21:50:53,2017-11-06 21:50:53,0.003s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:50:53,2017-11-06 21:50:55,2.091s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:50:55,2017-11-06 21:51:07,11.309s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:51:07,2017-11-06 21:51:16,9.326s,PASSED
+closeBrowser,Chrome 61.0.3163.100,,2017-11-06 21:51:16,2017-11-06 21:51:18,2.205s,PASSED
+,,,,,,
+Test Cases/Insert Variants via Pipeline Test,Chrome 61.0.3163.100,,2017-11-06 21:51:18,2017-11-06 21:53:51,2m - 33.068s,PASSED
+callTestCase,Chrome 61.0.3163.100,use global script for log in with credentials and BASE_URL set there,2017-11-06 21:51:19,2017-11-06 21:52:30,1m - 11.757s,PASSED
+mouseOver,Chrome 61.0.3163.100,,2017-11-06 21:52:30,2017-11-06 21:52:33,2.475s,PASSED
+waitForElementVisible,Chrome 61.0.3163.100,,2017-11-06 21:52:33,2017-11-06 21:52:35,2.251s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:52:35,2017-11-06 21:52:39,4.336s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:52:39,2017-11-06 21:52:54,14.321s,PASSED
+delay,Chrome 61.0.3163.100,,2017-11-06 21:52:54,2017-11-06 21:52:56,2.002s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:52:56,2017-11-06 21:52:58,2.454s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:52:58,2017-11-06 21:53:00,2.364s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:53:00,2017-11-06 21:53:03,2.130s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:53:03,2017-11-06 21:53:10,7.152s,PASSED
+waitForElementVisible,Chrome 61.0.3163.100,,2017-11-06 21:53:10,2017-11-06 21:53:12,2.059s,PASSED
+setText,Chrome 61.0.3163.100,,2017-11-06 21:53:12,2017-11-06 21:53:16,4.311s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:53:16,2017-11-06 21:53:18,2.091s,PASSED
+delay,Chrome 61.0.3163.100,,2017-11-06 21:53:18,2017-11-06 21:53:20,2.002s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:53:20,2017-11-06 21:53:23,2.677s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:53:23,2017-11-06 21:53:27,4.592s,PASSED
+"Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), ""text"")",Chrome 61.0.3163.100,,2017-11-06 21:53:27,2017-11-06 21:53:30,2.044s,PASSED
+"Statement - While (pipelineStatus == ""insert_variants RUNNING"" || pipelineStatus == ""insert_variants WAITING"")",Chrome 61.0.3163.100,Check every 10 seconds for a status update,2017-11-06 21:53:30,2017-11-06 21:53:42,12.030s,PASSED
+"Statement - assert pipelineStatus == ""COMPLETE""",Chrome 61.0.3163.100,,2017-11-06 21:53:42,2017-11-06 21:53:42,0.000s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:53:42,2017-11-06 21:53:44,2.094s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:53:44,2017-11-06 21:53:46,2.599s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:53:46,2017-11-06 21:53:49,2.943s,PASSED
+closeBrowser,Chrome 61.0.3163.100,,2017-11-06 21:53:49,2017-11-06 21:53:51,2.110s,PASSED
+,,,,,,
+Test Cases/Insert Homologues via Pipeline Test,Chrome 61.0.3163.100,,2017-11-06 21:53:51,2017-11-06 21:55:23,1m - 31.303s,PASSED
+callTestCase,Chrome 61.0.3163.100,use global script for log in with credentials and BASE_URL set there,2017-11-06 21:53:52,2017-11-06 21:54:22,30.231s,PASSED
+mouseOver,Chrome 61.0.3163.100,,2017-11-06 21:54:22,2017-11-06 21:54:24,2.438s,PASSED
+waitForElementVisible,Chrome 61.0.3163.100,,2017-11-06 21:54:24,2017-11-06 21:54:27,2.211s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:54:27,2017-11-06 21:54:30,3.179s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:54:30,2017-11-06 21:54:34,4.183s,PASSED
+delay,Chrome 61.0.3163.100,,2017-11-06 21:54:34,2017-11-06 21:54:36,2.003s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:54:36,2017-11-06 21:54:38,2.411s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:54:38,2017-11-06 21:54:41,2.465s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:54:41,2017-11-06 21:54:43,2.121s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:54:43,2017-11-06 21:54:46,2.915s,PASSED
+waitForElementVisible,Chrome 61.0.3163.100,,2017-11-06 21:54:46,2017-11-06 21:54:48,2.058s,PASSED
+setText,Chrome 61.0.3163.100,,2017-11-06 21:54:48,2017-11-06 21:54:52,4.317s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:54:52,2017-11-06 21:54:54,2.084s,PASSED
+delay,Chrome 61.0.3163.100,,2017-11-06 21:54:54,2017-11-06 21:54:56,2.003s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:54:56,2017-11-06 21:55:00,3.939s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:55:00,2017-11-06 21:55:06,5.980s,PASSED
+"Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), ""text"")",Chrome 61.0.3163.100,,2017-11-06 21:55:06,2017-11-06 21:55:08,2.043s,PASSED
+"Statement - While (pipelineStatus == ""insert_homologues RUNNING"" || pipelineStatus == ""insert_homologues WAITING"")",Chrome 61.0.3163.100,Check every 10 seconds for a status update,2017-11-06 21:55:08,2017-11-06 21:55:08,0.001s,PASSED
+"Statement - assert pipelineStatus == ""COMPLETE""",Chrome 61.0.3163.100,,2017-11-06 21:55:08,2017-11-06 21:55:08,0.000s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:55:08,2017-11-06 21:55:10,2.092s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:55:10,2017-11-06 21:55:15,4.485s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:55:15,2017-11-06 21:55:21,5.807s,PASSED
+closeBrowser,Chrome 61.0.3163.100,,2017-11-06 21:55:21,2017-11-06 21:55:23,2.035s,PASSED
+,,,,,,
+Test Cases/Insert CHEMProducts via pipeline,Chrome 61.0.3163.100,,2017-11-06 21:55:23,2017-11-06 21:58:48,3m - 25.397s,PASSED
+callTestCase,Chrome 61.0.3163.100,use global script for log in with credentials and BASE_URL set there,2017-11-06 21:55:23,2017-11-06 21:57:27,2m - 4.424s,PASSED
+mouseOver,Chrome 61.0.3163.100,,2017-11-06 21:57:27,2017-11-06 21:57:30,2.482s,PASSED
+waitForElementVisible,Chrome 61.0.3163.100,,2017-11-06 21:57:30,2017-11-06 21:57:32,2.217s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:57:32,2017-11-06 21:57:38,5.804s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:57:38,2017-11-06 21:57:43,5.091s,PASSED
+delay,Chrome 61.0.3163.100,,2017-11-06 21:57:43,2017-11-06 21:57:45,2.002s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:57:45,2017-11-06 21:57:48,2.498s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:57:48,2017-11-06 21:57:50,2.411s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:57:50,2017-11-06 21:57:52,2.114s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:57:52,2017-11-06 21:58:02,9.585s,PASSED
+waitForElementVisible,Chrome 61.0.3163.100,,2017-11-06 21:58:02,2017-11-06 21:58:04,2.055s,PASSED
+setText,Chrome 61.0.3163.100,,2017-11-06 21:58:04,2017-11-06 21:58:08,4.277s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:58:08,2017-11-06 21:58:10,2.104s,PASSED
+delay,Chrome 61.0.3163.100,,2017-11-06 21:58:10,2017-11-06 21:58:12,2.002s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:58:12,2017-11-06 21:58:23,11.427s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:58:23,2017-11-06 21:58:29,5.393s,PASSED
+"Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), ""text"")",Chrome 61.0.3163.100,,2017-11-06 21:58:29,2017-11-06 21:58:31,2.041s,PASSED
+"Statement - While (pipelineStatus == ""insert_chemical_product RUNNING"" || pipelineStatus == ""insert_chemical_product WAITING"")",Chrome 61.0.3163.100,Check every 10 seconds for a status update,2017-11-06 21:58:31,2017-11-06 21:58:31,0.001s,PASSED
+"Statement - assert pipelineStatus == ""COMPLETE""",Chrome 61.0.3163.100,,2017-11-06 21:58:31,2017-11-06 21:58:31,0.000s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:58:31,2017-11-06 21:58:33,2.088s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:58:33,2017-11-06 21:58:39,5.566s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 21:58:39,2017-11-06 21:58:46,7.533s,PASSED
+closeBrowser,Chrome 61.0.3163.100,,2017-11-06 21:58:46,2017-11-06 21:58:48,2.035s,PASSED
+,,,,,,
+Test Cases/postTest-RemoveTestConstructs,Chrome 61.0.3163.100,remove constructs temporarily inserted for the test to work properly,2017-11-06 21:58:48,2017-11-06 22:01:16,2m - 27.927s,FAILED
+callTestCase,Chrome 61.0.3163.100,use global script for log in with credentials and BASE_URL set there,2017-11-06 21:58:48,2017-11-06 22:00:47,1m - 58.615s,PASSED
+mouseOver,Chrome 61.0.3163.100,,2017-11-06 22:00:47,2017-11-06 22:00:49,2.463s,PASSED
+waitForElementVisible,Chrome 61.0.3163.100,,2017-11-06 22:00:49,2017-11-06 22:00:52,2.220s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 22:00:52,2017-11-06 22:00:56,4.713s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 22:00:56,2017-11-06 22:01:01,4.524s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 22:01:01,2017-11-06 22:01:03,2.444s,PASSED
+click,Chrome 61.0.3163.100,,2017-11-06 22:01:03,2017-11-06 22:01:07,3.447s,PASSED
+setText,Chrome 61.0.3163.100,,2017-11-06 22:01:07,2017-11-06 22:01:16,9.269s,FAILED

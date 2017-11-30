@@ -1,0 +1,45 @@
+Suite/Test/Step Name,Browser,Description,Start time,End time,Duration,Status
+OptidesLabkeyTests,Chrome 62.0.3202.94,,2017-11-29 19:50:30,2017-11-29 19:53:01,2m - 31.161s,FAILED
+,,,,,,
+Test Cases/Insert CHEMProducts via pipeline,Chrome 62.0.3202.94,,2017-11-29 19:50:31,2017-11-29 19:51:10,39.397s,PASSED
+callTestCase,Chrome 62.0.3202.94,use global script for log in with credentials and BASE_URL set there,2017-11-29 19:50:32,2017-11-29 19:50:48,16.159s,PASSED
+mouseOver,Chrome 62.0.3202.94,,2017-11-29 19:50:48,2017-11-29 19:50:50,1.901s,PASSED
+waitForElementVisible,Chrome 62.0.3202.94,,2017-11-29 19:50:50,2017-11-29 19:50:53,3.221s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:50:53,2017-11-29 19:50:55,2.557s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:50:55,2017-11-29 19:50:57,1.642s,PASSED
+delay,Chrome 62.0.3202.94,,2017-11-29 19:50:57,2017-11-29 19:50:59,2.009s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:50:59,2017-11-29 19:51:00,0.534s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:51:00,2017-11-29 19:51:00,0.601s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:51:00,2017-11-29 19:51:00,0.267s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:51:00,2017-11-29 19:51:02,1.616s,PASSED
+waitForElementVisible,Chrome 62.0.3202.94,,2017-11-29 19:51:02,2017-11-29 19:51:02,0.131s,PASSED
+setText,Chrome 62.0.3202.94,,2017-11-29 19:51:02,2017-11-29 19:51:03,0.429s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:51:03,2017-11-29 19:51:03,0.169s,PASSED
+delay,Chrome 62.0.3202.94,,2017-11-29 19:51:03,2017-11-29 19:51:05,2.005s,PASSED
+Statement - url = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getUrl(),Chrome 62.0.3202.94,Get current page's URL,2017-11-29 19:51:05,2017-11-29 19:51:05,0.148s,PASSED
+navigateToUrl,Chrome 62.0.3202.94,,2017-11-29 19:51:05,2017-11-29 19:51:06,0.616s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:51:06,2017-11-29 19:51:07,1.503s,PASSED
+"Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), ""text"")",Chrome 62.0.3202.94,,2017-11-29 19:51:07,2017-11-29 19:51:07,0.106s,PASSED
+"Statement - While (pipelineStatus == ""insert_chemical_product RUNNING"" || pipelineStatus == ""insert_chemical_product WAITING"")",Chrome 62.0.3202.94,Check every 10 seconds for a status update,2017-11-29 19:51:07,2017-11-29 19:51:07,0.000s,PASSED
+"Statement - assert pipelineStatus == ""COMPLETE""",Chrome 62.0.3202.94,,2017-11-29 19:51:07,2017-11-29 19:51:07,0.000s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:51:07,2017-11-29 19:51:07,0.180s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:51:07,2017-11-29 19:51:09,1.227s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:51:09,2017-11-29 19:51:09,0.678s,PASSED
+closeBrowser,Chrome 62.0.3202.94,,2017-11-29 19:51:09,2017-11-29 19:51:10,0.847s,PASSED
+,,,,,,
+Test Cases/postTest-RemoveTestConstructs,Chrome 62.0.3202.94,remove constructs temporarily inserted for the test to work properly,2017-11-29 19:51:10,2017-11-29 19:53:00,1m - 50.278s,FAILED
+callTestCase,Chrome 62.0.3202.94,use global script for log in with credentials and BASE_URL set there,2017-11-29 19:51:10,2017-11-29 19:51:25,14.657s,PASSED
+mouseOver,Chrome 62.0.3202.94,,2017-11-29 19:51:25,2017-11-29 19:51:27,1.747s,PASSED
+waitForElementVisible,Chrome 62.0.3202.94,,2017-11-29 19:51:27,2017-11-29 19:51:30,2.931s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:51:30,2017-11-29 19:51:32,2.510s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:51:32,2017-11-29 19:51:34,2.072s,PASSED
+executeJavaScript,Chrome 62.0.3202.94,,2017-11-29 19:51:34,2017-11-29 19:51:35,0.115s,PASSED
+setText,Chrome 62.0.3202.94,,2017-11-29 19:51:35,2017-11-29 19:51:38,3.391s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:51:38,2017-11-29 19:51:40,2.547s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:51:40,2017-11-29 19:51:41,0.584s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:51:41,2017-11-29 19:51:44,3.230s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:51:44,2017-11-29 19:52:07,22.530s,PASSED
+waitForElementVisible,Chrome 62.0.3202.94,,2017-11-29 19:52:07,2017-11-29 19:52:22,15.686s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:52:22,2017-11-29 19:52:24,1.862s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:52:24,2017-11-29 19:52:28,3.407s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 19:52:28,2017-11-29 19:53:00,32.674s,FAILED

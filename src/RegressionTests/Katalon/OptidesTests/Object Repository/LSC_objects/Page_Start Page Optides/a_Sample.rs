@@ -4,6 +4,13 @@
    <name>a_Sample</name>
    <tag></tag>
    <elementGuidId>bf0eabd0-2e37-42f8-8ee5-f44d1e674426</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[count(. | //*[contains(@href,'/project/Optides/VIVOAssay/Sample/begin.view')]) = count(//*[contains(@href,'/project/Optides/VIVOAssay/Sample/begin.view')])][count(. | //*[contains(.,'Sample')]) = count(//*[contains(.,'Sample')])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>
@@ -14,13 +21,6 @@
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>xpath</name>
-      <type>Main</type>
-      <value>id(&quot;CustomMenu10-Header_menu&quot;)/table[1]/tbody[1]/tr[1]/td[1]/a[1]</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>false</isSelected>
       <matchCondition>contains</matchCondition>
       <name>href</name>
       <type>Main</type>

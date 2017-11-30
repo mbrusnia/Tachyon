@@ -4,6 +4,13 @@
    <name>menu_CHEMProduction</name>
    <tag></tag>
    <elementGuidId>bb09c0fd-70b4-488b-849f-026a22e9d4d9</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[count(. | //*[@data-target = '#']) = count(//*[@data-target = '#'])][count(. | //*[contains(.,'ChemProduction')]) = count(//*[contains(.,'ChemProduction')])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>
@@ -15,7 +22,7 @@
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
-      <name>href</name>
+      <name>data-target</name>
       <type>Main</type>
       <value>#</value>
    </webElementProperties>
@@ -25,5 +32,12 @@
       <name>text</name>
       <type>Main</type>
       <value>ChemProduction</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>class</name>
+      <type>Main</type>
+      <value>dropdown-toggle</value>
    </webElementProperties>
 </WebElementEntity>

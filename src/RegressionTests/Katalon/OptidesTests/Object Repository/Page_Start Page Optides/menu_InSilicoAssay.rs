@@ -4,6 +4,13 @@
    <name>menu_InSilicoAssay</name>
    <tag></tag>
    <elementGuidId>a2e4b5b8-a8bc-4fa8-b8e0-442c9fe4ac90</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[count(. | //*[@data-target = '#']) = count(//*[@data-target = '#'])][count(. | //*[contains(.,'InSilicoAssay')]) = count(//*[contains(.,'InSilicoAssay')])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>
@@ -15,15 +22,22 @@
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
-      <name>href</name>
+      <name>data-target</name>
       <type>Main</type>
       <value>#</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>contains</matchCondition>
+      <matchCondition>equals</matchCondition>
       <name>text</name>
       <type>Main</type>
       <value>InSilicoAssay</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>class</name>
+      <type>Main</type>
+      <value>dropdown-toggle</value>
    </webElementProperties>
 </WebElementEntity>

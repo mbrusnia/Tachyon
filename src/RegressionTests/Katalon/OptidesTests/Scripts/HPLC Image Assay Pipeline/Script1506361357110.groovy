@@ -58,11 +58,17 @@ WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/button_Import'))
 
 WebUI.waitForElementVisible(findTestObject('Page_Upload_HT_Delivery_Info/a_submitButton'), 0)
 
+if(WebUI.verifyElementVisible(findTestObject('input_ProtocolName'), FailureHandling.CONTINUE_ON_FAILURE)){
+	WebUI.setText(findTestObject('input_ProtocolName'), 'TEST -Assay Image Import01')
+}
 WebUI.click(findTestObject('Page_Upload_HT_Delivery_Info/a_submitButton'))
 
 WebUI.delay(2)
 
-WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Pipeline'))
+'Get current page\'s URL'
+url = WebUI.getUrl()
+
+WebUI.navigateToUrl(url + 'pageId=Pipeline')
 
 WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/a_All'))
 
