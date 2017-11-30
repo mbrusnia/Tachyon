@@ -4,6 +4,13 @@
    <name>a_Samples_CompReg</name>
    <tag></tag>
    <elementGuidId>39e086e9-b108-4eb4-91c9-f5ff1b1d986f</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[count(. | //*[@href = '/project/Optides/CompoundsRegistry/Samples/begin.view?']) = count(//*[@href = '/project/Optides/CompoundsRegistry/Samples/begin.view?'])][count(. | //*[contains(.,'Samples')]) = count(//*[contains(.,'Samples')])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>
@@ -11,13 +18,6 @@
       <name>tag</name>
       <type>Main</type>
       <value>a</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>false</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>xpath</name>
-      <type>Main</type>
-      <value>id(&quot;CustomMenu4-Header_menu&quot;)/table[1]/tbody[1]/tr[1]/td[1]/a[1]</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
@@ -32,5 +32,12 @@
       <name>text</name>
       <type>Main</type>
       <value>Samples</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath</name>
+      <type>Main</type>
+      <value>//tr/td/a</value>
    </webElementProperties>
 </WebElementEntity>

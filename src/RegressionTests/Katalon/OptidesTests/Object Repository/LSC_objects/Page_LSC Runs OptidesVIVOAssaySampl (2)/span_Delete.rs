@@ -4,25 +4,25 @@
    <name>span_Delete</name>
    <tag></tag>
    <elementGuidId>9fe6d1f4-68b2-4f51-bfab-ee41b2cd35b0</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[count(. | //*[@data-original-title = 'Delete']) = count(//*[@data-original-title = 'Delete'])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
-      <value>span</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>false</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>xpath</name>
-      <type>Main</type>
-      <value>id(&quot;lk-region-8468-header&quot;)/tbody[1]/tr[1]/td[1]/div[@class=&quot;labkey-button-bar&quot;]/span[7]/a[@class=&quot;labkey-button&quot;]/span[1]</value>
+      <value>a</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>contains</matchCondition>
-      <name>text</name>
+      <matchCondition>equals</matchCondition>
+      <name>data-original-title</name>
       <type>Main</type>
       <value>Delete</value>
    </webElementProperties>

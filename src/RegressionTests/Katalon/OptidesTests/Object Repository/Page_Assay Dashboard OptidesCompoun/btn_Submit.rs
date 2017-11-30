@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//input[count(. | //*[@type = 'submit']) = count(//*[@type = 'submit'])]</value>
+         <value>//input[count(. | //*[@type = 'submit']) = count(//*[@type = 'submit'])][count(. | //div/div/div/div/form/input) = count(//div/div/div/div/form/input)]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -31,6 +31,6 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>//form/input</value>
+      <value>//div/div/div/div/form/input</value>
    </webElementProperties>
 </WebElementEntity>

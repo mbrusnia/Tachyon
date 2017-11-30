@@ -37,6 +37,8 @@ WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/radioBtn_Upload 
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/button_Import'))
 
+WebUI.setText(findTestObject('Page_Data Pipeline - CompoundsRegistry/input_Name'), 'TEST_HT_DNA_OrderGenerator 01')
+
 WebUI.setText(findTestObject('Page_Upload a spreadsheet of orders/input_linker_seq_txt'), 'GS')
 
 WebUI.selectOptionByValue(findTestObject('Page_Upload a spreadsheet of orders/select_vendor_name_lst'), 'GenScript', true)
@@ -44,6 +46,8 @@ WebUI.selectOptionByValue(findTestObject('Page_Upload a spreadsheet of orders/se
 WebUI.click(findTestObject('Page_Upload a spreadsheet of orders/span_Generate HT Order Form'))
 
 pipelineStatus = WebUI.getAttribute(findTestObject('Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus'), 'text')
+
+System.out.println(pipelineStatus)
 
 'Check every 10 seconds for a status update'
 while ((pipelineStatus == 'ht_order_generator RUNNING') || (pipelineStatus == 'ht_order_generator WAITING')) {

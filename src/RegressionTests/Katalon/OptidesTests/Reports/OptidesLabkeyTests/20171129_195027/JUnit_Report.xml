@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="OptidesLabkeyTests" time="151" tests="1" failures="1" errors="0">
+   <testsuite name="OptidesLabkeyTests" tests="1" failures="1" errors="0" time="151" timestamp="2017-11-29 19:50:30" hostname="Hector - 140.107.11.142" id="Test Suites/OptidesLabkeyTests">
+      <properties>
+         <property name="deviceName" value=""/>
+         <property name="devicePlatform" value=""/>
+         <property name="logFolder" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171129_195027"/>
+         <property name="logFiles" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171129_195027\\execution0.log"/>
+         <property name="attachments" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171129_195027\\1512013980528.png"/>
+         <property name="hostName" value="Hector - 140.107.11.142"/>
+         <property name="os" value="Windows 8.1 64bit"/>
+         <property name="katalonVersion" value="5.1.0.2"/>
+         <property name="browser" value="Chrome 62.0.3202.94"/>
+         <property name="hostAddress" value="140.107.11.142"/>
+         <property name="sessionId" value="dc5afcbbebd6c2069a3b0079f3f70618"/>
+         <property name="seleniumVersion" value="3.7.1"/>
+         <property name="proxyInformation" value="ProxyInformation{proxyOption=NO_PROXY, proxyServerType=HTTP, password=, proxyServerAddress=, proxyServerPort=0}"/>
+         <property name="platform" value="Windows 8.1"/>
+      </properties>
+      <testcase name="Test Cases/Insert CHEMProducts via pipeline" classname="Test Cases/Insert CHEMProducts via pipeline" status="PASSED">
+         <system-out><![CDATA[2017-11-29 19:50:31 - [TEST_CASE][PASSED] - Test Cases/Insert CHEMProducts via pipeline: Test Cases/Insert CHEMProducts via pipeline
+
+2017-11-29 19:50:32 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-11-29 19:50:32 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-11-29 19:50:32 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-11-29 19:50:41 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-11-29 19:50:41 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-11-29 19:50:42 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-11-29 19:50:42 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-11-29 19:50:43 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-11-29 19:50:43 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-11-29 19:50:44 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-11-29 19:50:44 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-11-29 19:50:44 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-11-29 19:50:44 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-11-29 19:50:44 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-11-29 19:50:44 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-11-29 19:50:48 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-11-29 19:50:48 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-11-29 19:50:48 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-11-29 19:50:50 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-11-29 19:50:50 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-11-29 19:50:50 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-11-29 19:50:53 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-11-29 19:50:53 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-11-29 19:50:55 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-11-29 19:50:55 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Files' is clicked on
+
+2017-11-29 19:50:57 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Files' is clicked on
+
+2017-11-29 19:50:57 - [TEST_STEP][PASSED] - delay: Delayed 2 second(s)
+
+2017-11-29 19:50:59 - [MESSAGE][PASSED] - Delayed 2 second(s)
+
+2017-11-29 19:50:59 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_newChemProducts_input.xlsx' is clicked on
+
+2017-11-29 19:51:00 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_newChemProducts_input.xlsx' is clicked on
+
+2017-11-29 19:51:00 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2017-11-29 19:51:00 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2017-11-29 19:51:00 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/radioBtn_InsertNewCHEMProducts' is clicked on
+
+2017-11-29 19:51:00 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/radioBtn_InsertNewCHEMProducts' is clicked on
+
+2017-11-29 19:51:00 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2017-11-29 19:51:02 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2017-11-29 19:51:02 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is visible
+
+2017-11-29 19:51:02 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-11-29 19:51:02 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is visible
+
+2017-11-29 19:51:02 - [TEST_STEP][PASSED] - setText: Text 'TEST - Chem Inputs via pipeline' is set on object 'Object Repository/input_ProtocolName'
+
+2017-11-29 19:51:03 - [MESSAGE][PASSED] - Text 'TEST - Chem Inputs via pipeline' is set on object 'Object Repository/input_ProtocolName'
+
+2017-11-29 19:51:03 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is clicked on
+
+2017-11-29 19:51:03 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is clicked on
+
+2017-11-29 19:51:03 - [TEST_STEP][PASSED] - delay: Delayed 2 second(s)
+
+2017-11-29 19:51:05 - [MESSAGE][PASSED] - Delayed 2 second(s)
+
+2017-11-29 19:51:05 - [TEST_STEP][PASSED] - Statement - url = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getUrl(): Current window's url is: 'https://optides-dev-lk1.fhcrc.org/project/Optides/CompoundsRegistry/Samples/begin.view?'
+
+2017-11-29 19:51:05 - [MESSAGE][PASSED] - Current window's url is: 'https://optides-dev-lk1.fhcrc.org/project/Optides/CompoundsRegistry/Samples/begin.view?'
+
+2017-11-29 19:51:05 - [TEST_STEP][PASSED] - navigateToUrl: Navigate to 'https://optides-dev-lk1.fhcrc.org/project/Optides/CompoundsRegistry/Samples/begin.view?pageId=Pipeline' successfully
+
+2017-11-29 19:51:06 - [MESSAGE][PASSED] - Navigate to 'https://optides-dev-lk1.fhcrc.org/project/Optides/CompoundsRegistry/Samples/begin.view?pageId=Pipeline' successfully
+
+2017-11-29 19:51:06 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_All' is clicked on
+
+2017-11-29 19:51:07 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_All' is clicked on
+
+2017-11-29 19:51:07 - [TEST_STEP][PASSED] - Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), "text"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'COMPLETE'
+
+2017-11-29 19:51:07 - [MESSAGE][PASSED] - Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'COMPLETE'
+
+2017-11-29 19:51:07 - [TEST_STEP][PASSED] - Statement - While (pipelineStatus == "insert_chemical_product RUNNING" || pipelineStatus == "insert_chemical_product WAITING"): null
+
+2017-11-29 19:51:07 - [TEST_STEP][PASSED] - Statement - assert pipelineStatus == "COMPLETE": null
+
+2017-11-29 19:51:07 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/input_Toggle' is clicked on
+
+2017-11-29 19:51:07 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/input_Toggle' is clicked on
+
+2017-11-29 19:51:07 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/btn_Delete' is clicked on
+
+2017-11-29 19:51:09 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/btn_Delete' is clicked on
+
+2017-11-29 19:51:09 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/btn_ConfirmDelete' is clicked on
+
+2017-11-29 19:51:09 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/btn_ConfirmDelete' is clicked on
+
+2017-11-29 19:51:09 - [TEST_STEP][PASSED] - closeBrowser: Browser is closed
+
+2017-11-29 19:51:10 - [MESSAGE][PASSED] - Browser is closed]]></system-out>
+         <system-err><![CDATA[]]></system-err>
+      </testcase>
+      <testcase name="Test Cases/postTest-RemoveTestConstructs" classname="Test Cases/postTest-RemoveTestConstructs" status="FAILED">
+         <failure type="FAILED" message="Unable to click on object 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' located by 'By.xpath: //button[count(. | //*[contains(.,'OK')]) = count(//*[contains(.,'OK')])][count(. | //*[@type = 'button']) = count(//*[@type = 'button'])]' not found)"/>
+         <system-out><![CDATA[2017-11-29 19:51:10 - [TEST_CASE][FAILED] - Test Cases/postTest-RemoveTestConstructs: Test Cases/postTest-RemoveTestConstructs FAILED because (of) Unable to click on object 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' located by 'By.xpath: //button[count(. | //*[contains(.,'OK')]) = count(//*[contains(.,'OK')])][count(. | //*[@type = 'button']) = count(//*[@type = 'button'])]' not found)
+
+2017-11-29 19:51:10 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-11-29 19:51:11 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2017-11-29 19:51:11 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-11-29 19:51:17 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2017-11-29 19:51:17 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2017-11-29 19:51:18 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2017-11-29 19:51:18 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-11-29 19:51:20 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2017-11-29 19:51:20 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-11-29 19:51:20 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2017-11-29 19:51:20 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-11-29 19:51:21 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2017-11-29 19:51:21 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-11-29 19:51:21 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2017-11-29 19:51:21 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-11-29 19:51:25 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2017-11-29 19:51:25 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2017-11-29 19:51:25 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-11-29 19:51:27 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2017-11-29 19:51:27 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-11-29 19:51:27 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-11-29 19:51:30 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-11-29 19:51:30 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-11-29 19:51:32 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-11-29 19:51:32 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_HT_DNA' is clicked on
+
+2017-11-29 19:51:34 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_HT_DNA' is clicked on
+
+2017-11-29 19:51:34 - [TEST_STEP][PASSED] - executeJavaScript: Execute JavaScript 'LABKEY.DataRegions['Material']._openFilter('ConstructID')' successfully
+
+2017-11-29 19:51:35 - [MESSAGE][PASSED] - Execute JavaScript 'LABKEY.DataRegions['Material']._openFilter('ConstructID')' successfully
+
+2017-11-29 19:51:35 - [TEST_STEP][PASSED] - setText: Text 'TST' is set on object 'Object Repository/Page_Sample Set Construct OptidesCo/input_value_1'
+
+2017-11-29 19:51:38 - [MESSAGE][PASSED] - Text 'TST' is set on object 'Object Repository/Page_Sample Set Construct OptidesCo/input_value_1'
+
+2017-11-29 19:51:38 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' is clicked on
+
+2017-11-29 19:51:40 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' is clicked on
+
+2017-11-29 19:51:40 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Sample Set Construct OptidesCo/input_.toggle' is clicked on
+
+2017-11-29 19:51:41 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Sample Set Construct OptidesCo/input_.toggle' is clicked on
+
+2017-11-29 19:51:41 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Sample Set Construct OptidesCo/span_Delete' is clicked on
+
+2017-11-29 19:51:44 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Sample Set Construct OptidesCo/span_Delete' is clicked on
+
+2017-11-29 19:51:44 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Confirm Deletion OptidesCompou/span_Confirm Delete' is clicked on
+
+2017-11-29 19:52:07 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Confirm Deletion OptidesCompou/span_Confirm Delete' is clicked on
+
+2017-11-29 19:52:07 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-11-29 19:52:07 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2017-11-29 19:52:22 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2017-11-29 19:52:22 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-11-29 19:52:24 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2017-11-29 19:52:24 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Construct' is clicked on
+
+2017-11-29 19:52:28 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Construct' is clicked on
+
+2017-11-29 19:52:28 - [TEST_STEP][FAILED] - click: Unable to click on object 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' located by 'By.xpath: //button[count(. | //*[contains(.,'OK')]) = count(//*[contains(.,'OK')])][count(. | //*[@type = 'button']) = count(//*[@type = 'button'])]' not found)
+
+2017-11-29 19:53:00 - [MESSAGE][FAILED] - Unable to click on object 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' located by 'By.xpath: //button[count(. | //*[contains(.,'OK')]) = count(//*[contains(.,'OK')])][count(. | //*[@type = 'button']) = count(//*[@type = 'button'])]' not found)
+[[ATTACHMENT|C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20171129_195027\\1512013980528.png]]]]></system-out>
+         <system-err><![CDATA[2017-11-29 19:51:10 - [TEST_CASE][FAILED] - Test Cases/postTest-RemoveTestConstructs: Test Cases/postTest-RemoveTestConstructs FAILED because (of) Unable to click on object 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' located by 'By.xpath: //button[count(. | //*[contains(.,'OK')]) = count(//*[contains(.,'OK')])][count(. | //*[@type = 'button']) = count(//*[@type = 'button'])]' not found)]]></system-err>
+      </testcase>
+      <system-out><![CDATA[2017-11-29 19:50:30 - [TEST_SUITE][FAILED] - OptidesLabkeyTests: Test Cases/postTest-RemoveTestConstructs FAILED because (of) Unable to click on object 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' located by 'By.xpath: //button[count(. | //*[contains(.,'OK')]) = count(//*[contains(.,'OK')])][count(. | //*[@type = 'button']) = count(//*[@type = 'button'])]' not found)]]></system-out>
+      <system-err><![CDATA[2017-11-29 19:50:30 - [TEST_SUITE][FAILED] - OptidesLabkeyTests: Test Cases/postTest-RemoveTestConstructs FAILED because (of) Unable to click on object 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' (Root cause: com.kms.katalon.core.webui.exception.WebElementNotFoundException: Web element with id: 'Object Repository/Page_Sample Set Construct OptidesCo/button_OK' located by 'By.xpath: //button[count(. | //*[contains(.,'OK')]) = count(//*[contains(.,'OK')])][count(. | //*[@type = 'button']) = count(//*[@type = 'button'])]' not found)]]></system-err>
+   </testsuite>
+</testsuites>

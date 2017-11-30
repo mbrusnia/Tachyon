@@ -1,0 +1,14 @@
+Suite/Test/Step Name,Browser,Description,Start time,End time,Duration,Status
+OptidesLabkeyTests,Chrome 62.0.3202.94,,2017-11-29 21:45:27,2017-11-29 21:46:11,44.618s,FAILED
+,,,,,,
+Test Cases/postTest-RemoveTestConstructs,Chrome 62.0.3202.94,remove constructs temporarily inserted for the test to work properly,2017-11-29 21:45:27,2017-11-29 21:46:10,43.260s,FAILED
+callTestCase,Chrome 62.0.3202.94,use global script for log in with credentials and BASE_URL set there,2017-11-29 21:45:28,2017-11-29 21:45:47,18.674s,PASSED
+mouseOver,Chrome 62.0.3202.94,,2017-11-29 21:45:47,2017-11-29 21:45:49,2.507s,PASSED
+waitForElementVisible,Chrome 62.0.3202.94,,2017-11-29 21:45:49,2017-11-29 21:45:54,4.363s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 21:45:54,2017-11-29 21:45:56,2.943s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 21:45:56,2017-11-29 21:46:00,3.434s,PASSED
+executeJavaScript,Chrome 62.0.3202.94,,2017-11-29 21:46:00,2017-11-29 21:46:00,0.042s,PASSED
+setText,Chrome 62.0.3202.94,,2017-11-29 21:46:00,2017-11-29 21:46:03,3.039s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 21:46:03,2017-11-29 21:46:06,3.366s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 21:46:06,2017-11-29 21:46:07,0.655s,PASSED
+click,Chrome 62.0.3202.94,,2017-11-29 21:46:07,2017-11-29 21:46:10,3.277s,FAILED

@@ -4,10 +4,17 @@
    <name>link_Assays</name>
    <tag></tag>
    <elementGuidId>790b9e2d-bbc0-491e-93eb-12e569c41794</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//*[contains(.,'Assays')][count(. | //a) = count(//a)][count(. | //*[@href = '/project/Optides/HTProduction/Assays/begin.view?']) = count(//*[@href = '/project/Optides/HTProduction/Assays/begin.view?'])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
+      <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
       <value>Assays</value>
@@ -18,5 +25,19 @@
       <name>tag</name>
       <type>Main</type>
       <value>a</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>href</name>
+      <type>Main</type>
+      <value>/project/Optides/HTProduction/Assays/begin.view?</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath</name>
+      <type>Main</type>
+      <value>//div/div/div/div/a</value>
    </webElementProperties>
 </WebElementEntity>

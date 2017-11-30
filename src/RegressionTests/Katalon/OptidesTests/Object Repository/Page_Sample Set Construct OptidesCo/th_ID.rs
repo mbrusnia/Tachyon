@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>span_Filter...</name>
+   <name>th_ID</name>
    <tag></tag>
-   <elementGuidId>ecad58a7-8bdb-44fe-8a8b-dc514e43e78a</elementGuidId>
+   <elementGuidId>286d069d-47d5-488d-987e-6f5a88f55037</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//th[count(. | //*[text() = 'ID']) = count(//*[text() = 'ID'])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
-      <value>span</value>
+      <value>th</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>contains</matchCondition>
+      <matchCondition>equals</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>Filter...</value>
+      <value>ID</value>
    </webElementProperties>
 </WebElementEntity>

@@ -4,6 +4,13 @@
    <name>a_VIVOAssay</name>
    <tag></tag>
    <elementGuidId>2f9bac96-0285-4666-9839-908d1153d588</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[count(. | //*[@data-target = '#']) = count(//*[@data-target = '#'])][count(. | //*[text() = 'VIVOAssay']) = count(//*[text() = 'VIVOAssay'])][count(. | //*[@class = 'dropdown-toggle']) = count(//*[@class = 'dropdown-toggle'])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>
@@ -13,31 +20,24 @@
       <value>a</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>xpath</name>
-      <type>Main</type>
-      <value>id(&quot;CustomMenu10-Header&quot;)/a[@class=&quot;labkey-main-menu-link&quot;]</value>
-   </webElementProperties>
-   <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
-      <name>href</name>
+      <name>data-target</name>
       <type>Main</type>
       <value>#</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>contains</matchCondition>
+      <matchCondition>equals</matchCondition>
       <name>text</name>
       <type>Main</type>
       <value>VIVOAssay</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>class</name>
       <type>Main</type>
-      <value>labkey-main-menu-link</value>
+      <value>dropdown-toggle</value>
    </webElementProperties>
 </WebElementEntity>

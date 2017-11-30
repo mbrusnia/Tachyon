@@ -4,6 +4,13 @@
    <name>a_submitButton</name>
    <tag></tag>
    <elementGuidId>6d48367a-aabf-4b4d-b982-d96dfce52283</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[count(. | id(&quot;submitButton&quot;)) = count(id(&quot;submitButton&quot;))][count(. | //*[@id = 'submitButton']) = count(//*[@id = 'submitButton'])][count(. | //*[@class = 'labkey-button']) = count(//*[@class = 'labkey-button'])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>
@@ -15,22 +22,8 @@
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
-      <name>xpath</name>
-      <type>Main</type>
-      <value>id(&quot;submitButton&quot;)</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
       <name>id</name>
       <type>Main</type>
       <value>submitButton</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>class</name>
-      <type>Main</type>
-      <value>labkey-button</value>
    </webElementProperties>
 </WebElementEntity>

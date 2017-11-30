@@ -4,9 +4,16 @@
    <name>a_SignIn</name>
    <tag></tag>
    <elementGuidId>51ae03ae-73d1-41b5-abbe-35e4d187f6fd</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value></value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
@@ -15,29 +22,15 @@
    <webElementProperties>
       <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
-      <name>xpath</name>
-      <type>Main</type>
-      <value>id(&quot;menubar&quot;)/div[@class=&quot;labkey-menu-constraint&quot;]/div[1]/div[@class=&quot;headermenu&quot;]/a[@class=&quot;labkey-nomenu-text-link&quot;]</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>true</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>href</name>
-      <type>Main</type>
-      <value>/login/home/login.view?returnUrl=%2Fproject%2Fhome%2Fbegin.view%3F</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>true</isSelected>
-      <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
       <value>Sign In</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
-      <name>class</name>
+      <name>xpath</name>
       <type>Main</type>
-      <value>labkey-nomenu-text-link</value>
+      <value>//a/span[text()=&quot;Sign In&quot;]</value>
    </webElementProperties>
 </WebElementEntity>

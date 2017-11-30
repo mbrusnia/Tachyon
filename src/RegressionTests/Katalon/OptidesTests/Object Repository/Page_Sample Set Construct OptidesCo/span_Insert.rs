@@ -4,26 +4,26 @@
    <name>span_Insert</name>
    <tag></tag>
    <elementGuidId>d624bc3d-d3f2-478d-aff2-139d2a159c63</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[count(. | //*[contains(@data-original-title,'Insert data')]) = count(//*[contains(@data-original-title,'Insert data')])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
-      <value>span</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>false</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>xpath</name>
-      <type>Main</type>
-      <value>id(&quot;lk-region-14305-header&quot;)/tbody[1]/tr[1]/td[1]/div[@class=&quot;labkey-button-bar&quot;]/span[5]/a[@class=&quot;labkey-menu-button&quot;]/span[1]</value>
+      <value>a</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>contains</matchCondition>
-      <name>text</name>
+      <name>data-original-title</name>
       <type>Main</type>
-      <value>Insert</value>
+      <value>Insert data</value>
    </webElementProperties>
 </WebElementEntity>

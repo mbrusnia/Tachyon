@@ -4,6 +4,13 @@
    <name>a_CompoundsRegistry</name>
    <tag></tag>
    <elementGuidId>6317866e-a814-49e6-a641-204986ff5631</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//a[count(. | //*[@data-target = '#']) = count(//*[@data-target = '#'])][count(. | //*[contains(.,'CompoundsRegistry')]) = count(//*[contains(.,'CompoundsRegistry')])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>
@@ -13,16 +20,9 @@
       <value>a</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>xpath</name>
-      <type>Main</type>
-      <value>id(&quot;CustomMenu4-Header&quot;)/a[@class=&quot;labkey-main-menu-link&quot;]</value>
-   </webElementProperties>
-   <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
-      <name>href</name>
+      <name>data-target</name>
       <type>Main</type>
       <value>#</value>
    </webElementProperties>
@@ -34,10 +34,10 @@
       <value>CompoundsRegistry</value>
    </webElementProperties>
    <webElementProperties>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
       <name>class</name>
       <type>Main</type>
-      <value>labkey-main-menu-link</value>
+      <value>dropdown-toggle</value>
    </webElementProperties>
 </WebElementEntity>
