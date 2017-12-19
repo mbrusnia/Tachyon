@@ -42,7 +42,7 @@ WebUI.click(findTestObject('LSC_objects/Page_Data Import Batch Properties O/span
 
 WebUI.setText(findTestObject('LSC_objects/Page_Data Import Run Properties and/input_name'), 'TEST0001')
 
-WebUI.setText(findTestObject('LSC_objects/Page_Data Import Run Properties and/textarea_TextAreaDataCollector'), 'MouseID\tCompoundID\tTissue\tAcquisitionDate\tTissue_mg\tmg_per_ul\tLoaded_Volume_uL\tCPM\tLoaded_mg\tpCi\tpCi_per_uL\tFlag\r\nMU00000100\tOTD169\tKidney Cortex\t2016.11.2\t50\t0.16667\t16\t340\t\t\t\t\\n')
+WebUI.setText(findTestObject('LSC_objects/Page_Data Import Run Properties and/textarea_TextAreaDataCollector'), 'MouseID\tOTDCompoundID\tCHEMCompoundID\tReagentID\tTissue\tAcquisitionDate\tTissue_mg\tmg_per_ul\tLoaded_Volume_uL\tCPM\tLoaded_mg\tpCi\tpCi_per_uL\tFlag\r\nMU00000100\tOTD169\t\t\tKidney Cortex\t2016.11.2\t50\t0.16667\t16\t340\t\t\t\t\\n')
 
 WebUI.click(findTestObject('LSC_objects/Page_Data Import Run Properties and/span_Save and Finish'))
 

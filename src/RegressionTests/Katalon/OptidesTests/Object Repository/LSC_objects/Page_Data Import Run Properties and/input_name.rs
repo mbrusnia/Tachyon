@@ -4,6 +4,13 @@
    <name>input_name</name>
    <tag></tag>
    <elementGuidId>57b2a4d6-d5e4-4ec7-8306-06cff1627456</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//input[count(. | //*[@name = 'name']) = count(//*[@name = 'name'])][count(. | //*[@type = 'text']) = count(//*[@type = 'text'])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>
@@ -11,20 +18,6 @@
       <name>tag</name>
       <type>Main</type>
       <value>input</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>false</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>xpath</name>
-      <type>Main</type>
-      <value>id(&quot;lk-region-8297-form&quot;)/table[1]/tbody[1]/tr[2]/td[2]/input[1]</value>
-   </webElementProperties>
-   <webElementProperties>
-      <isSelected>false</isSelected>
-      <matchCondition>equals</matchCondition>
-      <name>size</name>
-      <type>Main</type>
-      <value>40</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>

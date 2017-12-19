@@ -1,0 +1,68 @@
+<table>
+    <tr>
+        <td><a name="htplate">HT Plate ID:</a></td>
+        <td id='htPlateID'/>
+        <td></td>
+    </tr>
+    <tr>
+        <td><a name="filterVal">Filter value:</a></td>
+        <td id='filterValtd'><input type="text" id="filterVal"/></td>
+        <td><input type="button" value="Update" onclick="refreshChart()"/></td>
+       
+    </tr>
+</table>
+<div id='histogramDiv'/>
+
+<div id="div1"></div>
+<script type="text/javascript">
+LABKEY.requiresExt3();
+var comboBox;
+function refreshChart() {
+      var config = {reportId: 'db:22', showSection: 'labkeyl_png'};
+
+       if (comboBox.getValue() != null && comboBox.getValue() != "") {
+        	 config['htplateID'] = comboBox.getValue();
+        	 config['filterVal'] = document.getElementById('filterVal').value;
+        	 
+		 var wikiWebPartRenderer = new LABKEY.WebPart( {
+        	    partName: 'Report',
+        	    renderTo: 'histogramDiv',
+        	    frame: 'none',
+        	    partConfig: config
+        	});
+        	wikiWebPartRenderer.render();
+		var config = {
+      			renderTo: 'div1',
+      			title: "Matching HTProduction",
+      			schemaName: 'assay.General.HPLC Assays',
+      			queryName: 'Data',
+      			filters: [LABKEY.Filter.create('Run/Batch/HTPlateID', comboBox.getValue(), LABKEY.Filter.Types.EQUAL)]
+    		}
+		if(Number.parseInt(document.getElementById('filterVal').value) >=0){
+			config['filters'].push(
+                    		LABKEY.Filter.create('MaxPeakNR', Number.parseInt(document.getElementById('filterVal').value), LABKEY.Filter.Types.GREATER_THAN_OR_EQUAL));
+		}
+		var qwp1 = new LABKEY.QueryWebPart(config);
+
+	}
+    }
+    LABKEY.requiresExt3ClientAPI(function() {
+    	comboBox = new Ext.form.ComboBox( {
+    	    triggerAction: 'all',
+    	    renderTo: 'htPlateID',
+    	    editable: false,
+    	    displayField: 'HTPlateID',
+		sort: '-HTPlateID',
+        	store: new LABKEY.ext.Store( {
+        	    schemaName: 'assay.General.HPLC Assays',
+        	    queryName: 'Batches'
+        	})
+    	});
+
+ comboBox.addListener('select', refreshChart);
+
+
+ refreshChart();
+
+} );
+</script>

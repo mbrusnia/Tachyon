@@ -20,19 +20,5 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 
-WebUI.mouseOver(findTestObject('LSC_objects/Page_Start Page Optides/a_VIVOAssay'))
-
-WebUI.waitForElementVisible(findTestObject('LSC_objects/Page_Start Page Optides/a_Samples'), 0)
-
-WebUI.click(findTestObject('LSC_objects/Page_Start Page Optides/a_Sample'))
-
-WebUI.openBrowser('')
-
-WebUI.selectOptionByValue(findTestObject('Page_Data Import Batch Properties O (1)/select_studyDescription'), 'LSC0001 Tumor Homing of OTD257', 
-    true)
-
-WebUI.selectOptionByValue(findTestObject('Page_Data Import Batch Properties O (1)/select_standardCurve'), 'STD_2016_0928', 
-    true)
-
-WebUI.closeBrowser()
+WebUI.setText(findTestObject('LSC_objects/Page_Data Import Run Properties and/textarea_TextAreaDataCollector'), 'MouseID\tOTDCompoundID\tCHEMCompoundID\tReagentID\tTissue\tAcquisitionDate\tTissue_mg\tmg_per_ul\tLoaded_Volume_uL\tCPM\tLoaded_mg\tpCi\tpCi_per_uL\tFlag\r\nMU00000100\tOTD169\t\t\tKidney Cortex\t2016.11.2\t50\t0.16667\t16\t340\t\t\t\t\\n')
 
