@@ -3,7 +3,7 @@ library(dplyr)
 library(ggplot2) 
 
 labkey.data <- labkey.selectRows(
-    baseUrl="https://optides-dev-lk1.fhcrc.org", 
+    baseUrl="https://optides-prod.fhcrc.org",
     folderPath="/Optides/HTProduction/Assays", 
     schemaName="assay.General.HPLC Assays", 
     queryName="Data", 
