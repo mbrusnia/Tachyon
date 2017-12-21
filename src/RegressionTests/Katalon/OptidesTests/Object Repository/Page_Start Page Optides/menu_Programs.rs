@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>a_Assays</name>
+   <name>menu_Programs</name>
    <tag></tag>
-   <elementGuidId>4938a6a0-233a-4f99-9138-fe3b9233fc62</elementGuidId>
+   <elementGuidId>f6d8ab88-53db-4315-8cb4-10a7a5d3d2b7</elementGuidId>
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//a[count(. | //*[@href = '/project/Optides/HTProduction/Assays/begin.view?']) = count(//*[@href = '/project/Optides/HTProduction/Assays/begin.view?'])][count(. | //*[contains(.,'Assays')]) = count(//*[contains(.,'Assays')])]</value>
+         <value></value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -22,15 +22,22 @@
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
-      <name>href</name>
+      <name>data-target</name>
       <type>Main</type>
-      <value>/project/Optides/HTProduction/Assays/begin.view?</value>
+      <value>#</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>contains</matchCondition>
+      <matchCondition>equals</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>Assays</value>
+      <value>Programs</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>class</name>
+      <type>Main</type>
+      <value>dropdown-toggle</value>
    </webElementProperties>
 </WebElementEntity>

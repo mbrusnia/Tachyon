@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>span_Submit</name>
+   <name>a_QueryAssays</name>
    <tag></tag>
-   <elementGuidId>7e6217b2-27e6-4389-a9a9-1378d29ec92e</elementGuidId>
+   <elementGuidId>e52fc506-a5d2-4db6-9d56-b3b0d970af37</elementGuidId>
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//span[count(. | //*[contains(.,'Submit')]) = count(//*[contains(.,'Submit')])]</value>
+         <value></value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -17,13 +17,20 @@
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
-      <value>span</value>
+      <value>a</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>href</name>
+      <type>Main</type>
+      <value>/project/Optides/Programs/QueryAssays/begin.view?</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>contains</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>Submit</value>
+      <value>QueryAssays</value>
    </webElementProperties>
 </WebElementEntity>

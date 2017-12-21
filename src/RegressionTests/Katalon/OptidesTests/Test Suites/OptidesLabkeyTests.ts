@@ -12,6 +12,12 @@
    <rerunFailedTestCasesOnly>false</rerunFailedTestCasesOnly>
    <testSuiteGuid>4eb7b4ef-e6d0-4806-b5cf-ae0d4964adfd</testSuiteGuid>
    <testCaseLink>
+      <guid>44538e3e-1a7a-43c5-8d09-2e9f17838ef3</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/QueryAssay Test</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
       <guid>1f78906c-b40a-468e-8244-dbd75f1dc662</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>

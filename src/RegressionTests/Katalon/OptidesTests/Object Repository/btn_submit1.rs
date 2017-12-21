@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>span_Submit</name>
+   <name>btn_submit1</name>
    <tag></tag>
-   <elementGuidId>7e6217b2-27e6-4389-a9a9-1378d29ec92e</elementGuidId>
+   <elementGuidId>02acaa56-f6df-4b7f-ba60-3ed2109039e0</elementGuidId>
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//span[count(. | //*[contains(.,'Submit')]) = count(//*[contains(.,'Submit')])]</value>
+         <value></value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
-      <value>span</value>
+      <value>input</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>type</name>
+      <type>Main</type>
+      <value>submit</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>contains</matchCondition>
-      <name>text</name>
+      <matchCondition>equals</matchCondition>
+      <name>xpath</name>
       <type>Main</type>
-      <value>Submit</value>
+      <value>//div/div/div/div/div/div/form/p/input</value>
    </webElementProperties>
 </WebElementEntity>

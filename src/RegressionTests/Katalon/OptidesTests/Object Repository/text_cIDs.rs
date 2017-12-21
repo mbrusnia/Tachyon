@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>span_Submit</name>
+   <name>text_cIDs</name>
    <tag></tag>
-   <elementGuidId>7e6217b2-27e6-4389-a9a9-1378d29ec92e</elementGuidId>
+   <elementGuidId>6a5a1b37-3c09-4f79-a7fb-07991f13bcd9</elementGuidId>
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//span[count(. | //*[contains(.,'Submit')]) = count(//*[contains(.,'Submit')])]</value>
+         <value></value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -17,13 +17,20 @@
       <matchCondition>equals</matchCondition>
       <name>tag</name>
       <type>Main</type>
-      <value>span</value>
+      <value>textarea</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
-      <matchCondition>contains</matchCondition>
-      <name>text</name>
+      <matchCondition>equals</matchCondition>
+      <name>name</name>
       <type>Main</type>
-      <value>Submit</value>
+      <value>cIDs</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>id</name>
+      <type>Main</type>
+      <value>cIDs</value>
    </webElementProperties>
 </WebElementEntity>
