@@ -43,7 +43,7 @@ WebUI.delay(2)
 
 WebUI.setText(findTestObject('Page_Assay Dashboard OptidesCompoun/input_ReportName'), 'testAssayReport-')
 
-WebUI.setText(findTestObject('Page_Assay Dashboard OptidesCompoun/textarea_JSON'), '{ "selectedColumns": [ {"name": "Name", "schemaName": "samples", "queryName": "Construct", "type":"VARCHAR"},{ "folderPath":"/Optides/InSilicoAssay/MolecularProperties", "schemaName": "assay.general.InSilicoAssay", "queryName": "Data", "name": "NetChargeAtpH7_4", "type": "DOUBLE", "sampleIdColumnName": "ID" },{ "folderPath":"/Optides/InSilicoAssay/MolecularProperties", "schemaName": "assay.general.InSilicoAssay", "queryName": "Data", "name": "ReducedForm_pI", "type": "DOUBLE", "sampleIdColumnName": "ID" } ]}')
+WebUI.setText(findTestObject('Page_Assay Dashboard OptidesCompoun/textarea_JSON'), '{ "selectedColumns": [ {"name": "Name", "schemaName": "samples", "queryName": "Construct", "type":"VARCHAR"},{ "folderPath":"/Optides/InSilicoAssay/MolecularProperties", "schemaName": "assay.general.InSilicoAssay", "queryName": "Data", "name": "NetChargeAtpH7_4", "type": "DOUBLE", "sampleIdColumnName": "ID" },{ "folderPath":"/Optides/InSilicoAssay/MolecularProperties", "schemaName": "assay.general.InSilicoAssay", "queryName": "Data", "name": "ReducedForm_pI", "type": "DOUBLE",  "sampleIdColumnName": "ID" } ]}')
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/btn_Submit'))
 
