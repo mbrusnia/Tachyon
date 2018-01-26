@@ -191,14 +191,29 @@ public class UniquenessGeneFinder {
 	}
 	
 	private void writeOutput(HashMap<String, HashMap<String, Integer>> map, int cutoff2) throws IOException {
-		SortedSet<String> keys = new TreeSet<String>(map.keySet());
 		outputFileBufferedWriter.write(UniquenessGeneFinder.ENSEMBL_COLUMN_NAME + "\tNumber of Matching Categories (cutoff=" + cutoff2 +")\n");
-		int size_;
-		for (String key : keys) { 
-		   HashMap<String, Integer> value = map.get(key);
-		   size_ = value.size();
-		   if(size_ <= cutoff2)
-			   outputFileBufferedWriter.write(key + "\t" + size_ + "\n");
+				
+		//close and reopen the input bufferedreader to reset it back to 1st position
+		if(inputFileBufferedReader != null)
+			inputFileBufferedReader.close();
+		this.setInputFileBufferedReader(
+			this.openFileForReading(
+				this.getInputFilename()
+			)
+		);
+		
+		String curEnsembl = "";
+		//skip first line of headers
+		String line = inputFileBufferedReader.readLine();
+		String[] lines;
+		while((line = inputFileBufferedReader.readLine()) != null){
+			lines = line.split("\t");
+			curEnsembl = lines[ensemblColIdx];
+			
+			HashMap<String, Integer> hm = map.get(curEnsembl);
+			
+			if(hm != null && hm.size() <= cutoff2)
+				outputFileBufferedWriter.write(line + "\n");
 		}
 	}
 
