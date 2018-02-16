@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="OptidesLabkeyTests" time="72" tests="1" failures="0" errors="0">
+   <testsuite name="OptidesLabkeyTests" tests="1" failures="0" errors="0" time="72" timestamp="2018-02-15 15:33:55" hostname="Hector - 140.107.11.14" id="Test Suites/OptidesLabkeyTests">
+      <properties>
+         <property name="deviceName" value=""/>
+         <property name="devicePlatform" value=""/>
+         <property name="logFolder" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20180215_153353"/>
+         <property name="logFiles" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20180215_153353\\execution0.log"/>
+         <property name="attachments" value=""/>
+         <property name="hostName" value="Hector - 140.107.11.14"/>
+         <property name="os" value="Windows 8.1 64bit"/>
+         <property name="katalonVersion" value="5.1.0.2"/>
+         <property name="browser" value="Chrome 64.0.3282.167"/>
+         <property name="hostAddress" value="140.107.11.14"/>
+         <property name="sessionId" value="2372f6dc555c0374df721333b05a1035"/>
+         <property name="seleniumVersion" value="3.7.1"/>
+         <property name="proxyInformation" value="ProxyInformation{proxyOption=NO_PROXY, proxyServerType=HTTP, password=, proxyServerAddress=, proxyServerPort=0}"/>
+         <property name="platform" value="Windows 8.1"/>
+      </properties>
+      <testcase name="Test Cases/Insert Variants via Pipeline Test" classname="Test Cases/Insert Variants via Pipeline Test" status="PASSED">
+         <system-out><![CDATA[2018-02-15 15:33:55 - [TEST_CASE][PASSED] - Test Cases/Insert Variants via Pipeline Test: Test Cases/Insert Variants via Pipeline Test
+
+2018-02-15 15:33:56 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2018-02-15 15:33:56 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2018-02-15 15:33:56 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2018-02-15 15:34:05 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2018-02-15 15:34:05 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2018-02-15 15:34:06 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2018-02-15 15:34:06 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2018-02-15 15:34:07 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2018-02-15 15:34:07 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2018-02-15 15:34:08 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2018-02-15 15:34:08 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2018-02-15 15:34:08 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2018-02-15 15:34:08 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2018-02-15 15:34:08 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2018-02-15 15:34:08 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2018-02-15 15:34:11 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2018-02-15 15:34:11 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2018-02-15 15:34:11 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2018-02-15 15:34:12 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2018-02-15 15:34:12 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2018-02-15 15:34:12 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2018-02-15 15:34:15 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2018-02-15 15:34:15 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2018-02-15 15:34:17 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2018-02-15 15:34:17 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Files' is clicked on
+
+2018-02-15 15:34:19 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Files' is clicked on
+
+2018-02-15 15:34:19 - [TEST_STEP][PASSED] - delay: Delayed 2 second(s)
+
+2018-02-15 15:34:21 - [MESSAGE][PASSED] - Delayed 2 second(s)
+
+2018-02-15 15:34:21 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertVariantsThroughPipeline.xlsx' is clicked on
+
+2018-02-15 15:34:32 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/file_TEST_insertVariantsThroughPipeline.xlsx' is clicked on
+
+2018-02-15 15:34:32 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2018-02-15 15:34:32 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2018-02-15 15:34:32 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/label_Insert New Variant Seq' is clicked on
+
+2018-02-15 15:34:33 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/label_Insert New Variant Seq' is clicked on
+
+2018-02-15 15:34:33 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2018-02-15 15:34:37 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2018-02-15 15:34:37 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is visible
+
+2018-02-15 15:34:37 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2018-02-15 15:34:37 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is visible
+
+2018-02-15 15:34:37 - [TEST_STEP][PASSED] - delay: Delayed 3 second(s)
+
+2018-02-15 15:34:40 - [MESSAGE][PASSED] - Delayed 3 second(s)
+
+2018-02-15 15:34:40 - [TEST_STEP][PASSED] - Statement - If (com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.verifyElementVisible(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(input_ProtocolName), CONTINUE_ON_FAILURE)): Text 'TEST - Variants insert Via Pipeline' is set on object 'Object Repository/input_ProtocolName'
+
+2018-02-15 15:34:40 - [MESSAGE][PASSED] - Object 'Object Repository/input_ProtocolName' is visible
+
+2018-02-15 15:34:40 - [TEST_STEP][PASSED] - setText: Text 'TEST - Variants insert Via Pipeline' is set on object 'Object Repository/input_ProtocolName'
+
+2018-02-15 15:34:41 - [MESSAGE][PASSED] - Text 'TEST - Variants insert Via Pipeline' is set on object 'Object Repository/input_ProtocolName'
+
+2018-02-15 15:34:41 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is clicked on
+
+2018-02-15 15:34:41 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is clicked on
+
+2018-02-15 15:34:41 - [TEST_STEP][PASSED] - delay: Delayed 2 second(s)
+
+2018-02-15 15:34:43 - [MESSAGE][PASSED] - Delayed 2 second(s)
+
+2018-02-15 15:34:43 - [TEST_STEP][PASSED] - Statement - url = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getUrl(): Current window's url is: 'https://optides-dev-lk1.fhcrc.org/project/Optides/CompoundsRegistry/Samples/begin.view?'
+
+2018-02-15 15:34:43 - [MESSAGE][PASSED] - Current window's url is: 'https://optides-dev-lk1.fhcrc.org/project/Optides/CompoundsRegistry/Samples/begin.view?'
+
+2018-02-15 15:34:43 - [TEST_STEP][PASSED] - navigateToUrl: Navigate to 'https://optides-dev-lk1.fhcrc.org/project/Optides/CompoundsRegistry/Samples/begin.view?pageId=Pipeline' successfully
+
+2018-02-15 15:34:43 - [MESSAGE][PASSED] - Navigate to 'https://optides-dev-lk1.fhcrc.org/project/Optides/CompoundsRegistry/Samples/begin.view?pageId=Pipeline' successfully
+
+2018-02-15 15:34:43 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_All' is clicked on
+
+2018-02-15 15:34:45 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_All' is clicked on
+
+2018-02-15 15:34:45 - [TEST_STEP][PASSED] - Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), "text"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'insert_variants RUNNING'
+
+2018-02-15 15:34:45 - [MESSAGE][PASSED] - Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'insert_variants RUNNING'
+
+2018-02-15 15:34:45 - [TEST_STEP][PASSED] - Statement - While (pipelineStatus == "insert_variants RUNNING" || pipelineStatus == "insert_variants WAITING"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'COMPLETE'
+
+2018-02-15 15:34:45 - [TEST_STEP][PASSED] - delay: Delayed 10 second(s)
+
+2018-02-15 15:34:55 - [MESSAGE][PASSED] - Delayed 10 second(s)
+
+2018-02-15 15:34:55 - [TEST_STEP][PASSED] - Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), "text"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'insert_variants RUNNING'
+
+2018-02-15 15:34:55 - [MESSAGE][PASSED] - Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'insert_variants RUNNING'
+
+2018-02-15 15:34:55 - [TEST_STEP][PASSED] - delay: Delayed 10 second(s)
+
+2018-02-15 15:35:05 - [MESSAGE][PASSED] - Delayed 10 second(s)
+
+2018-02-15 15:35:05 - [TEST_STEP][PASSED] - Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), "text"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'COMPLETE'
+
+2018-02-15 15:35:05 - [MESSAGE][PASSED] - Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'COMPLETE'
+
+2018-02-15 15:35:05 - [TEST_STEP][PASSED] - Statement - assert pipelineStatus == "COMPLETE": null
+
+2018-02-15 15:35:05 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/input_Toggle' is clicked on
+
+2018-02-15 15:35:05 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/input_Toggle' is clicked on
+
+2018-02-15 15:35:05 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/btn_Delete' is clicked on
+
+2018-02-15 15:35:06 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/btn_Delete' is clicked on
+
+2018-02-15 15:35:06 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/btn_ConfirmDelete' is clicked on
+
+2018-02-15 15:35:07 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/btn_ConfirmDelete' is clicked on
+
+2018-02-15 15:35:07 - [TEST_STEP][PASSED] - closeBrowser: Browser is closed
+
+2018-02-15 15:35:08 - [MESSAGE][PASSED] - Browser is closed]]></system-out>
+         <system-err><![CDATA[]]></system-err>
+      </testcase>
+      <system-out><![CDATA[2018-02-15 15:33:55 - [TEST_SUITE][PASSED] - OptidesLabkeyTests: Test Cases/Insert Variants via Pipeline Test]]></system-out>
+      <system-err><![CDATA[]]></system-err>
+   </testsuite>
+</testsuites>

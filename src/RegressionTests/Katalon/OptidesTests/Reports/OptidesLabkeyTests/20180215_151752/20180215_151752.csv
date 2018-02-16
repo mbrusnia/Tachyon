@@ -1,0 +1,9 @@
+Suite/Test/Step Name,Browser,Description,Start time,End time,Duration,Status
+OptidesLabkeyTests,Chrome 64.0.3282.167,,2018-02-15 15:17:54,2018-02-15 15:18:19,24.812s,FAILED
+,,,,,,
+Test Cases/HT_DNA HTProduction Pipeline Test,Chrome 64.0.3282.167,,2018-02-15 15:17:55,2018-02-15 15:18:18,23.109s,FAILED
+callTestCase,Chrome 64.0.3282.167,use global script for log in with credentials and BASE_URL set there,2018-02-15 15:17:55,2018-02-15 15:18:08,12.514s,PASSED
+mouseOver,Chrome 64.0.3282.167,,2018-02-15 15:18:08,2018-02-15 15:18:09,1.384s,PASSED
+waitForElementVisible,Chrome 64.0.3282.167,,2018-02-15 15:18:09,2018-02-15 15:18:12,2.887s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:18:12,2018-02-15 15:18:14,2.130s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:18:14,2018-02-15 15:18:18,3.418s,FAILED

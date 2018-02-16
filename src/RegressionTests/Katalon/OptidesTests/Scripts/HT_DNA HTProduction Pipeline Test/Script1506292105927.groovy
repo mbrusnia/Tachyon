@@ -29,6 +29,8 @@ WebUI.waitForElementVisible(findTestObject('Page_Start Page Optides/a_Samples_Co
 
 WebUI.click(findTestObject('Page_Start Page Optides/a_Samples_CompReg'))
 
+WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Files'))
+
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/span_test_GenScript_HT_DNA_DeliveryFile.xlsx'))
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/span_Import Data'))
@@ -77,6 +79,8 @@ WebUI.waitForElementVisible(findTestObject('Page_Start Page Optides/a_Samples_Co
 
 WebUI.click(findTestObject('Page_Start Page Optides/a_Samples_CompReg'))
 
+WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Files'))
+
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/span_test_GenScript_HT_DNA_DeliveryFile.xlsx'))
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/span_Import Data'))
@@ -117,6 +121,8 @@ while ((pipelineStatus == 'ht_plate_generator RUNNING') || (pipelineStatus == 'h
 assert pipelineStatus == 'COMPLETE'
 
 WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/input_Toggle'))
+
+WebUI.mouseOver(findTestObject('Page_Data Pipeline - CompoundsRegistry/btn_Delete'))
 
 WebUI.click(findTestObject('Page_Data Pipeline - CompoundsRegistry/btn_Delete'))
 

@@ -28,6 +28,8 @@ WebUI.waitForElementVisible(findTestObject('Page_Start Page Optides/a_Samples_Co
 
 WebUI.click(findTestObject('Page_Start Page Optides/a_Samples_CompReg'))
 
+WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/a_Files'))
+
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/span_test_GenScript_HT_DNA_DeliveryFile.xlsx'))
 
 WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/span_Import Data'))

@@ -1,0 +1,41 @@
+Suite/Test/Step Name,Browser,Description,Start time,End time,Duration,Status
+OptidesLabkeyTests,Chrome 64.0.3282.167,,2018-02-15 15:29:23,2018-02-15 15:30:09,45.744s,PASSED
+,,,,,,
+Test Cases/HPLC Image Assay Pipeline,Chrome 64.0.3282.167,Test the HPLC Image Assay pipeline,2018-02-15 15:29:24,2018-02-15 15:30:09,45.303s,PASSED
+callTestCase,Chrome 64.0.3282.167,use global script for log in with credentials and BASE_URL set there,2018-02-15 15:29:25,2018-02-15 15:29:37,12.831s,PASSED
+mouseOver,Chrome 64.0.3282.167,,2018-02-15 15:29:37,2018-02-15 15:29:39,1.180s,PASSED
+waitForElementVisible,Chrome 64.0.3282.167,,2018-02-15 15:29:39,2018-02-15 15:29:41,2.723s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:29:41,2018-02-15 15:29:43,2.168s,PASSED
+refresh,Chrome 64.0.3282.167,,2018-02-15 15:29:43,2018-02-15 15:29:45,1.564s,PASSED
+delay,Chrome 64.0.3282.167,,2018-02-15 15:29:45,2018-02-15 15:29:48,3.012s,PASSED
+doubleClick,Chrome 64.0.3282.167,,2018-02-15 15:29:48,2018-02-15 15:29:48,0.255s,PASSED
+waitForElementPresent,Chrome 64.0.3282.167,,2018-02-15 15:29:48,2018-02-15 15:29:49,0.706s,PASSED
+doubleClick,Chrome 64.0.3282.167,,2018-02-15 15:29:49,2018-02-15 15:29:49,0.201s,PASSED
+waitForElementPresent,Chrome 64.0.3282.167,,2018-02-15 15:29:49,2018-02-15 15:29:50,0.690s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:29:50,2018-02-15 15:29:50,0.214s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:29:50,2018-02-15 15:29:50,0.143s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:29:50,2018-02-15 15:29:50,0.113s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:29:50,2018-02-15 15:29:50,0.109s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:29:50,2018-02-15 15:29:51,0.117s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:29:51,2018-02-15 15:29:52,1.128s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:29:52,2018-02-15 15:29:52,0.272s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:29:52,2018-02-15 15:29:54,1.574s,PASSED
+waitForElementVisible,Chrome 64.0.3282.167,,2018-02-15 15:29:54,2018-02-15 15:29:54,0.648s,PASSED
+"Statement - If (com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.verifyElementVisible(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(input_ProtocolName), CONTINUE_ON_FAILURE))",Chrome 64.0.3282.167,,2018-02-15 15:29:54,2018-02-15 15:29:55,0.424s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:29:55,2018-02-15 15:29:55,0.196s,PASSED
+delay,Chrome 64.0.3282.167,,2018-02-15 15:29:55,2018-02-15 15:29:57,2.003s,PASSED
+Statement - url = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getUrl(),Chrome 64.0.3282.167,Get current page's URL,2018-02-15 15:29:57,2018-02-15 15:29:57,0.054s,PASSED
+navigateToUrl,Chrome 64.0.3282.167,,2018-02-15 15:29:57,2018-02-15 15:29:57,0.550s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:29:57,2018-02-15 15:29:58,0.958s,PASSED
+"Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), ""text"")",Chrome 64.0.3282.167,,2018-02-15 15:29:58,2018-02-15 15:29:59,0.103s,PASSED
+"Statement - While (pipelineStatus == ""insert_jpegs RUNNING"" || pipelineStatus == ""insert_jpegs WAITING"")",Chrome 64.0.3282.167,Check every 10 seconds for a status update,2018-02-15 15:29:59,2018-02-15 15:29:59,0.001s,PASSED
+"Statement - assert pipelineStatus == ""COMPLETE""",Chrome 64.0.3282.167,,2018-02-15 15:29:59,2018-02-15 15:29:59,0.003s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:29:59,2018-02-15 15:29:59,0.161s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:29:59,2018-02-15 15:30:00,1.172s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:30:00,2018-02-15 15:30:01,1.208s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:30:01,2018-02-15 15:30:02,1.281s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:30:02,2018-02-15 15:30:04,1.661s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:30:04,2018-02-15 15:30:04,0.119s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:30:04,2018-02-15 15:30:06,1.403s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:30:06,2018-02-15 15:30:08,2.516s,PASSED
+closeBrowser,Chrome 64.0.3282.167,,2018-02-15 15:30:08,2018-02-15 15:30:09,1.126s,PASSED

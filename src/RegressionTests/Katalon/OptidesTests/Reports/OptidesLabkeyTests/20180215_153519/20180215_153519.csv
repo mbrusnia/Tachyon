@@ -1,0 +1,28 @@
+Suite/Test/Step Name,Browser,Description,Start time,End time,Duration,Status
+OptidesLabkeyTests,Chrome 64.0.3282.167,,2018-02-15 15:35:21,2018-02-15 15:36:18,57.146s,PASSED
+,,,,,,
+Test Cases/Insert Homologues via Pipeline Test,Chrome 64.0.3282.167,,2018-02-15 15:35:21,2018-02-15 15:36:18,56.694s,PASSED
+callTestCase,Chrome 64.0.3282.167,use global script for log in with credentials and BASE_URL set there,2018-02-15 15:35:22,2018-02-15 15:35:35,13.130s,PASSED
+mouseOver,Chrome 64.0.3282.167,,2018-02-15 15:35:35,2018-02-15 15:35:37,1.487s,PASSED
+waitForElementVisible,Chrome 64.0.3282.167,,2018-02-15 15:35:37,2018-02-15 15:35:39,2.548s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:35:39,2018-02-15 15:35:42,2.557s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:35:42,2018-02-15 15:35:43,1.417s,PASSED
+delay,Chrome 64.0.3282.167,,2018-02-15 15:35:43,2018-02-15 15:35:45,2.016s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:35:45,2018-02-15 15:35:52,7.307s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:35:52,2018-02-15 15:35:53,0.431s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:35:53,2018-02-15 15:35:53,0.328s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:35:53,2018-02-15 15:35:54,0.916s,PASSED
+waitForElementVisible,Chrome 64.0.3282.167,,2018-02-15 15:35:54,2018-02-15 15:35:54,0.156s,PASSED
+"Statement - If (com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.verifyElementVisible(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(input_ProtocolName), CONTINUE_ON_FAILURE))",Chrome 64.0.3282.167,,2018-02-15 15:35:54,2018-02-15 15:35:55,0.512s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:35:55,2018-02-15 15:35:55,0.144s,PASSED
+delay,Chrome 64.0.3282.167,,2018-02-15 15:35:55,2018-02-15 15:35:57,2.003s,PASSED
+Statement - url = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getUrl(),Chrome 64.0.3282.167,Get current page's URL,2018-02-15 15:35:57,2018-02-15 15:35:57,0.063s,PASSED
+navigateToUrl,Chrome 64.0.3282.167,,2018-02-15 15:35:57,2018-02-15 15:35:58,0.526s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:35:58,2018-02-15 15:35:58,0.761s,PASSED
+"Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), ""text"")",Chrome 64.0.3282.167,,2018-02-15 15:35:58,2018-02-15 15:35:58,0.108s,PASSED
+"Statement - While (pipelineStatus == ""insert_homologues RUNNING"" || pipelineStatus == ""insert_homologues WAITING"")",Chrome 64.0.3282.167,Check every 10 seconds for a status update,2018-02-15 15:35:58,2018-02-15 15:35:58,0.000s,PASSED
+"Statement - assert pipelineStatus == ""COMPLETE""",Chrome 64.0.3282.167,,2018-02-15 15:35:58,2018-02-15 15:35:58,0.008s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:35:58,2018-02-15 15:35:59,0.303s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:35:59,2018-02-15 15:35:59,0.185s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 15:35:59,2018-02-15 15:36:17,17.972s,PASSED
+closeBrowser,Chrome 64.0.3282.167,,2018-02-15 15:36:17,2018-02-15 15:36:18,0.991s,PASSED

@@ -44,8 +44,8 @@ WebUI.waitForElementVisible(findTestObject('Page_Upload_HT_Delivery_Info/a_submi
 
 WebUI.delay(2)
 
-if(WebUI.verifyElementVisible(findTestObject('input_ProtocolName'), FailureHandling.CONTINUE_ON_FAILURE)){
-	WebUI.setText(findTestObject('input_ProtocolName'), 'TEST - Constructs insert via Pipeline')
+if (WebUI.verifyElementVisible(findTestObject('input_ProtocolName'), FailureHandling.CONTINUE_ON_FAILURE)) {
+    WebUI.setText(findTestObject('input_ProtocolName'), 'TEST - Constructs insert via Pipeline')
 }
 
 WebUI.click(findTestObject('Page_Upload_HT_Delivery_Info/a_submitButton'))

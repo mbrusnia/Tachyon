@@ -1,0 +1,12 @@
+Suite/Test/Step Name,Browser,Description,Start time,End time,Duration,Status
+OptidesLabkeyTests,Chrome 64.0.3282.167,,2018-02-15 14:32:23,2018-02-15 14:33:04,40.956s,FAILED
+,,,,,,
+Test Cases/QueryAssay Test,Chrome 64.0.3282.167,,2018-02-15 14:32:24,2018-02-15 14:33:02,38.485s,FAILED
+callTestCase,Chrome 64.0.3282.167,use global script for log in with credentials and BASE_URL set there,2018-02-15 14:32:25,2018-02-15 14:32:49,24.506s,PASSED
+mouseOver,Chrome 64.0.3282.167,,2018-02-15 14:32:49,2018-02-15 14:32:51,1.525s,PASSED
+waitForElementVisible,Chrome 64.0.3282.167,,2018-02-15 14:32:51,2018-02-15 14:32:53,2.714s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:32:53,2018-02-15 14:32:56,2.552s,PASSED
+setText,Chrome 64.0.3282.167,,2018-02-15 14:32:56,2018-02-15 14:32:57,1.128s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:32:57,2018-02-15 14:32:59,1.516s,PASSED
+delay,Chrome 64.0.3282.167,,2018-02-15 14:32:59,2018-02-15 14:33:02,3.014s,PASSED
+verifyTextPresent,Chrome 64.0.3282.167,,2018-02-15 14:33:02,2018-02-15 14:33:02,0.721s,FAILED

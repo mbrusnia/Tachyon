@@ -1,0 +1,21 @@
+Suite/Test/Step Name,Browser,Description,Start time,End time,Duration,Status
+OptidesLabkeyTests,Chrome 64.0.3282.167,,2018-02-15 14:54:47,2018-02-15 14:55:36,48.461s,PASSED
+,,,,,,
+Test Cases/HT_DNA OrderGeneratorTest,Chrome 64.0.3282.167,,2018-02-15 14:54:47,2018-02-15 14:55:36,48.032s,PASSED
+callTestCase,Chrome 64.0.3282.167,use global script for log in with credentials and BASE_URL set there,2018-02-15 14:54:48,2018-02-15 14:55:01,12.671s,PASSED
+mouseOver,Chrome 64.0.3282.167,,2018-02-15 14:55:01,2018-02-15 14:55:03,1.782s,PASSED
+waitForElementVisible,Chrome 64.0.3282.167,,2018-02-15 14:55:03,2018-02-15 14:55:05,2.488s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:55:05,2018-02-15 14:55:07,2.131s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:55:07,2018-02-15 14:55:10,2.949s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:55:10,2018-02-15 14:55:11,0.693s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:55:11,2018-02-15 14:55:11,0.234s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:55:11,2018-02-15 14:55:12,0.730s,PASSED
+setText,Chrome 64.0.3282.167,,2018-02-15 14:55:12,2018-02-15 14:55:12,0.329s,PASSED
+setText,Chrome 64.0.3282.167,,2018-02-15 14:55:12,2018-02-15 14:55:12,0.181s,PASSED
+selectOptionByValue,Chrome 64.0.3282.167,,2018-02-15 14:55:12,2018-02-15 14:55:13,0.240s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:55:13,2018-02-15 14:55:13,0.120s,PASSED
+"Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), ""text"")",Chrome 64.0.3282.167,,2018-02-15 14:55:13,2018-02-15 14:55:14,1.427s,PASSED
+Statement - out.println(pipelineStatus),Chrome 64.0.3282.167,,2018-02-15 14:55:14,2018-02-15 14:55:14,0.013s,PASSED
+"Statement - While (pipelineStatus == ""ht_order_generator RUNNING"" || pipelineStatus == ""ht_order_generator WAITING"")",Chrome 64.0.3282.167,Check every 10 seconds for a status update,2018-02-15 14:55:14,2018-02-15 14:55:34,20.142s,PASSED
+"Statement - assert pipelineStatus == ""COMPLETE""",Chrome 64.0.3282.167,,2018-02-15 14:55:34,2018-02-15 14:55:34,0.002s,PASSED
+closeBrowser,Chrome 64.0.3282.167,,2018-02-15 14:55:34,2018-02-15 14:55:35,1.230s,PASSED

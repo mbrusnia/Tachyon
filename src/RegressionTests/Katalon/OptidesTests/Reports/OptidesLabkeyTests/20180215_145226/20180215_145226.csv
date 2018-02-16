@@ -1,0 +1,9 @@
+Suite/Test/Step Name,Browser,Description,Start time,End time,Duration,Status
+OptidesLabkeyTests,Chrome 64.0.3282.167,,2018-02-15 14:52:28,2018-02-15 14:53:29,1m - 1.122s,FAILED
+,,,,,,
+Test Cases/HT_DNA Delivery.R,Chrome 64.0.3282.167,HT_DNA order form delivery pipeline test,2018-02-15 14:52:28,2018-02-15 14:53:28,59.697s,FAILED
+callTestCase,Chrome 64.0.3282.167,use global script for log in with credentials and BASE_URL set there,2018-02-15 14:52:29,2018-02-15 14:52:43,14.109s,PASSED
+mouseOver,Chrome 64.0.3282.167,,2018-02-15 14:52:43,2018-02-15 14:52:45,1.928s,PASSED
+waitForElementVisible,Chrome 64.0.3282.167,,2018-02-15 14:52:45,2018-02-15 14:52:48,2.654s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:52:48,2018-02-15 14:52:50,2.180s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:52:50,2018-02-15 14:53:28,38.025s,FAILED

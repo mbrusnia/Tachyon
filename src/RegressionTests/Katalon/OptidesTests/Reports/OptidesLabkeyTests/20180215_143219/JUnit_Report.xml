@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="OptidesLabkeyTests" time="40" tests="0" failures="1" errors="0">
+   <testsuite name="OptidesLabkeyTests" tests="0" failures="1" errors="0" time="40" timestamp="2018-02-15 14:32:23" hostname="Hector - 140.107.11.14" id="Test Suites/OptidesLabkeyTests">
+      <properties>
+         <property name="deviceName" value=""/>
+         <property name="devicePlatform" value=""/>
+         <property name="logFolder" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20180215_143219"/>
+         <property name="logFiles" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20180215_143219\\execution0.log"/>
+         <property name="attachments" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20180215_143219\\1518733982201.png"/>
+         <property name="hostName" value="Hector - 140.107.11.14"/>
+         <property name="os" value="Windows 8.1 64bit"/>
+         <property name="katalonVersion" value="5.1.0.2"/>
+         <property name="browser" value="Chrome 64.0.3282.167"/>
+         <property name="hostAddress" value="140.107.11.14"/>
+         <property name="sessionId" value="9ad33f0439b5aec671def87941f40ed6"/>
+         <property name="seleniumVersion" value="3.7.1"/>
+         <property name="proxyInformation" value="ProxyInformation{proxyOption=NO_PROXY, proxyServerType=HTTP, password=, proxyServerAddress=, proxyServerPort=0}"/>
+         <property name="platform" value="Windows 8.1"/>
+      </properties>
+      <testcase name="Test Cases/QueryAssay Test" classname="Test Cases/QueryAssay Test" status="FAILED">
+         <failure type="FAILED" message="Unable to verify text 'GSGCLEFWWKCNPNDDKCCRPKLKCSPLGKLCNFSFG' is present  (Root cause: Text 'GSGCLEFWWKCNPNDDKCCRPKLKCSPLGKLCNFSFG' is not present on page )"/>
+         <system-out><![CDATA[2018-02-15 14:32:24 - [TEST_CASE][FAILED] - Test Cases/QueryAssay Test: Test Cases/QueryAssay Test FAILED because (of) Unable to verify text 'GSGCLEFWWKCNPNDDKCCRPKLKCSPLGKLCNFSFG' is present  (Root cause: Text 'GSGCLEFWWKCNPNDDKCCRPKLKCSPLGKLCNFSFG' is not present on page )
+
+2018-02-15 14:32:25 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2018-02-15 14:32:25 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2018-02-15 14:32:25 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2018-02-15 14:32:42 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-dev-lk1.fhcrc.org'
+
+2018-02-15 14:32:42 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2018-02-15 14:32:43 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2018-02-15 14:32:43 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2018-02-15 14:32:44 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2018-02-15 14:32:44 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2018-02-15 14:32:45 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2018-02-15 14:32:45 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2018-02-15 14:32:45 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2018-02-15 14:32:45 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2018-02-15 14:32:46 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2018-02-15 14:32:46 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2018-02-15 14:32:49 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2018-02-15 14:32:49 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2018-02-15 14:32:49 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/menu_Programs' is hovered
+
+2018-02-15 14:32:51 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/menu_Programs' is hovered
+
+2018-02-15 14:32:51 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_QueryAssays' is visible
+
+2018-02-15 14:32:53 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_QueryAssays' is visible
+
+2018-02-15 14:32:53 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_QueryAssays' is clicked on
+
+2018-02-15 14:32:56 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_QueryAssays' is clicked on
+
+2018-02-15 14:32:56 - [TEST_STEP][PASSED] - setText: Text 'CNT0001396
+CNT0001356
+CNT000137
+CNT0001356
+CNT0001357
+CNT0001358
+CNT0001359
+CNT0001360
+CNT0001361
+CNT0001362
+CNT0001363
+CNT0001364
+CNT0001365
+CNT0001366
+CNT0001367' is set on object 'Object Repository/text_cIDs'
+
+2018-02-15 14:32:57 - [MESSAGE][PASSED] - Text 'CNT0001396
+CNT0001356
+CNT000137
+CNT0001356
+CNT0001357
+CNT0001358
+CNT0001359
+CNT0001360
+CNT0001361
+CNT0001362
+CNT0001363
+CNT0001364
+CNT0001365
+CNT0001366
+CNT0001367' is set on object 'Object Repository/text_cIDs'
+
+2018-02-15 14:32:57 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/btn_submit1' is clicked on
+
+2018-02-15 14:32:59 - [MESSAGE][PASSED] - Object: 'Object Repository/btn_submit1' is clicked on
+
+2018-02-15 14:32:59 - [TEST_STEP][PASSED] - delay: Delayed 3 second(s)
+
+2018-02-15 14:33:02 - [MESSAGE][PASSED] - Delayed 3 second(s)
+
+2018-02-15 14:33:02 - [TEST_STEP][FAILED] - verifyTextPresent: Unable to verify text 'GSGCLEFWWKCNPNDDKCCRPKLKCSPLGKLCNFSFG' is present  (Root cause: Text 'GSGCLEFWWKCNPNDDKCCRPKLKCSPLGKLCNFSFG' is not present on page )
+
+2018-02-15 14:33:02 - [MESSAGE][FAILED] - Text 'GSGCLEFWWKCNPNDDKCCRPKLKCSPLGKLCNFSFG' is not present on page 
+
+2018-02-15 14:33:02 - [MESSAGE][FAILED] - Unable to verify text 'GSGCLEFWWKCNPNDDKCCRPKLKCSPLGKLCNFSFG' is present  (Root cause: Text 'GSGCLEFWWKCNPNDDKCCRPKLKCSPLGKLCNFSFG' is not present on page )
+[[ATTACHMENT|C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20180215_143219\\1518733982201.png]]]]></system-out>
+         <system-err><![CDATA[2018-02-15 14:32:24 - [TEST_CASE][FAILED] - Test Cases/QueryAssay Test: Test Cases/QueryAssay Test FAILED because (of) Unable to verify text 'GSGCLEFWWKCNPNDDKCCRPKLKCSPLGKLCNFSFG' is present  (Root cause: Text 'GSGCLEFWWKCNPNDDKCCRPKLKCSPLGKLCNFSFG' is not present on page )]]></system-err>
+      </testcase>
+      <system-out><![CDATA[2018-02-15 14:32:23 - [TEST_SUITE][FAILED] - OptidesLabkeyTests: Test Cases/QueryAssay Test FAILED because (of) Unable to verify text 'GSGCLEFWWKCNPNDDKCCRPKLKCSPLGKLCNFSFG' is present  (Root cause: Text 'GSGCLEFWWKCNPNDDKCCRPKLKCSPLGKLCNFSFG' is not present on page )]]></system-out>
+      <system-err><![CDATA[2018-02-15 14:32:23 - [TEST_SUITE][FAILED] - OptidesLabkeyTests: Test Cases/QueryAssay Test FAILED because (of) Unable to verify text 'GSGCLEFWWKCNPNDDKCCRPKLKCSPLGKLCNFSFG' is present  (Root cause: Text 'GSGCLEFWWKCNPNDDKCCRPKLKCSPLGKLCNFSFG' is not present on page )]]></system-err>
+   </testsuite>
+</testsuites>

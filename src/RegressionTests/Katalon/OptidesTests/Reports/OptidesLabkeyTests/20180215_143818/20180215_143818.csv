@@ -1,0 +1,5 @@
+Suite/Test/Step Name,Browser,Description,Start time,End time,Duration,Status
+OptidesLabkeyTests,,,2018-02-15 14:38:21,2018-02-15 14:38:23,2.678s,FAILED
+,,,,,,
+Test Cases/InSilicoAssay Weekly Cron Test,,,2018-02-15 14:38:21,2018-02-15 14:38:23,2.053s,FAILED
+callTestCase,,use global script for log in with credentials and BASE_URL set there,2018-02-15 14:38:22,2018-02-15 14:38:23,1.131s,FAILED

@@ -42,7 +42,7 @@ AND (SELECT s.Category FROM prop.PropertySets AS s WHERE s.[Set] = prop.Properti
 
 --Updates the color theme
 UPDATE prop.Properties 
-SET Value = 'Sage' 
+SET Value = 'Leaf' 
 WHERE Name = 'themeName' 
 AND (SELECT s.Category FROM prop.PropertySets AS s WHERE s.[Set] = prop.Properties.[Set]) = 'LookAndFeel'; 
 

@@ -1,0 +1,19 @@
+Suite/Test/Step Name,Browser,Description,Start time,End time,Duration,Status
+OptidesLabkeyTests,Chrome 64.0.3282.167,,2018-02-15 14:38:30,2018-02-15 14:39:01,30.769s,PASSED
+,,,,,,
+Test Cases/InSilicoAssay Weekly Cron Test,Chrome 64.0.3282.167,,2018-02-15 14:38:30,2018-02-15 14:39:01,30.248s,PASSED
+callTestCase,Chrome 64.0.3282.167,use global script for log in with credentials and BASE_URL set there,2018-02-15 14:38:31,2018-02-15 14:38:45,13.901s,PASSED
+mouseOver,Chrome 64.0.3282.167,,2018-02-15 14:38:45,2018-02-15 14:38:46,1.458s,PASSED
+waitForElementVisible,Chrome 64.0.3282.167,,2018-02-15 14:38:46,2018-02-15 14:38:49,2.465s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:38:49,2018-02-15 14:38:51,2.412s,PASSED
+Statement - numOfConstructs = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getText(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Assay Dashboard OptidesCompoun/text_NumberOfConstructs)),Chrome 64.0.3282.167,,2018-02-15 14:38:51,2018-02-15 14:38:52,0.426s,PASSED
+mouseOver,Chrome 64.0.3282.167,,2018-02-15 14:38:52,2018-02-15 14:38:53,0.858s,PASSED
+waitForElementPresent,Chrome 64.0.3282.167,,2018-02-15 14:38:53,2018-02-15 14:38:54,1.848s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:38:54,2018-02-15 14:38:56,1.737s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:38:56,2018-02-15 14:38:57,1.024s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:38:57,2018-02-15 14:38:57,0.120s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:38:57,2018-02-15 14:38:58,1.200s,PASSED
+Statement - formatted = java.text.NumberFormat.getNumberInstance(US).format(java.lang.Integer.valueOf(numOfConstructs)),Chrome 64.0.3282.167,,2018-02-15 14:38:58,2018-02-15 14:38:58,0.034s,PASSED
+Statement - out.println(formatted),Chrome 64.0.3282.167,,2018-02-15 14:38:58,2018-02-15 14:38:59,0.045s,PASSED
+verifyTextPresent,Chrome 64.0.3282.167,,2018-02-15 14:38:59,2018-02-15 14:38:59,0.876s,PASSED
+closeBrowser,Chrome 64.0.3282.167,,2018-02-15 14:38:59,2018-02-15 14:39:01,1.170s,PASSED

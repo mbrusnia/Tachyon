@@ -1,0 +1,13 @@
+Suite/Test/Step Name,Browser,Description,Start time,End time,Duration,Status
+OptidesLabkeyTests,Chrome 64.0.3282.167,,2018-02-15 14:39:18,2018-02-15 14:39:43,25.285s,FAILED
+,,,,,,
+Test Cases/updateMWs Test,Chrome 64.0.3282.167,,2018-02-15 14:39:18,2018-02-15 14:39:42,23.827s,FAILED
+callTestCase,Chrome 64.0.3282.167,use global script for log in with credentials and BASE_URL set there,2018-02-15 14:39:19,2018-02-15 14:39:32,13.043s,PASSED
+Statement - today = null,Chrome 64.0.3282.167,,2018-02-15 14:39:32,2018-02-15 14:39:32,0.001s,PASSED
+"Statement - use(groovy.time.TimeCategory, { -> ... })",Chrome 64.0.3282.167,"TODAY'S DATE.  used to check \""modified\"" columns in the various tables with MWs.\t",2018-02-15 14:39:32,2018-02-15 14:39:32,0.106s,PASSED
+"Statement - dateStr = today.format(""yyyy-MM-dd"")",Chrome 64.0.3282.167,,2018-02-15 14:39:32,2018-02-15 14:39:32,0.005s,PASSED
+mouseOver,Chrome 64.0.3282.167,,2018-02-15 14:39:32,2018-02-15 14:39:34,1.572s,PASSED
+waitForElementVisible,Chrome 64.0.3282.167,,2018-02-15 14:39:34,2018-02-15 14:39:36,2.546s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:39:36,2018-02-15 14:39:39,2.214s,PASSED
+click,Chrome 64.0.3282.167,,2018-02-15 14:39:39,2018-02-15 14:39:40,1.579s,PASSED
+verifyTextPresent,Chrome 64.0.3282.167,Check CHEMProduction table to see if weights were updated today.,2018-02-15 14:39:40,2018-02-15 14:39:42,2.086s,FAILED
