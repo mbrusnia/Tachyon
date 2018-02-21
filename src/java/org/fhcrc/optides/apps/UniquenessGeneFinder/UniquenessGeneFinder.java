@@ -8,8 +8,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -17,6 +23,8 @@ import java.util.TreeSet;
  * 
  * This program outputs the Ensemble numbers which belong to [cutoff] number of unique
  * values in the selectedCol column of a tsv spreadsheet.
+ * 
+ * 2/12/18 extention - ExclusivePairs option
  * 
  * @author Hector
  *
@@ -31,19 +39,25 @@ public class UniquenessGeneFinder {
 	private ArrayList<String> delimiters;
 		
 	//optional parameters
-	private Integer cutoff = 1;  //default value
+	private Integer cutoff = -1;  //default value
+	private Boolean exclusivePairs = false;
+	private String exclusiveMinimumLevel = "";
+	private Integer exclusiveCountCutoff = -1;
 	
 	//computed values we need
-	private int ensemblColIdx = 0;
-	private int selectedColIdx = 0;
+	private int ensemblColIdx = -1;
+	private int selectedColIdx = -1;
+	private int levelColIdx = -1;
 	private BufferedReader inputFileBufferedReader;
 	private BufferedWriter uniqueStatFileBufferedWriter;
 	private BufferedWriter outputFileBufferedWriter;
 	private String[] inputColHeaders;
 	private HashMap<String, HashMap<String, Integer>> ensemblToSelectedColMap;
 	private HashMap<String, HashMap<String, Integer>> selectedColToEnsemblMap;
-	
+
 	public static final String ENSEMBL_COLUMN_NAME = "Ensembl";
+	public static final String LEVEL_COLUMN_NAME = "Level";
+	public static final String TISSUE_COLUMN_NAME = "Tissue";
 		
 	UniquenessGeneFinder(UniquenessGeneFinderBuilder builder){
 		this.selectedCol = builder.selectedCol;
@@ -52,6 +66,9 @@ public class UniquenessGeneFinder {
 		this.uniqueStatFile = builder.uniqueStatFile;
 		this.delimiters = builder.delimiters;
 		this.cutoff = builder.cutoff;
+		this.exclusivePairs = builder.exclusivePairs;
+		this.exclusiveMinimumLevel = builder.exclusiveMinimumLevel;
+		this.exclusiveCountCutoff = builder.exclusiveCountCutoff;
 	}
 	
 	//for builder pattern
@@ -63,8 +80,11 @@ public class UniquenessGeneFinder {
 		private String uniqueStatFile;
 		private int cutoff = 1;
 		private ArrayList<String> delimiters;
+		private Boolean exclusivePairs = false;
+		private String exclusiveMinimumLevel;
+		private Integer exclusiveCountCutoff;
 		
-		UniquenessGeneFinderBuilder(String selectedCol, String inputFile, String outputFile, String uniqueStatFile){
+		UniquenessGeneFinderBuilder(String selectedCol, String inputFile, String outputFile, String uniqueStatFile, boolean exclusivePairs){
 			if(selectedCol == null || selectedCol == "")
 				throw new IllegalStateException("ERROR: Please provide a valid value for parameter: SelectedCol");
 			if(inputFile == null || inputFile == "")
@@ -77,11 +97,22 @@ public class UniquenessGeneFinder {
 			this.inputFile = inputFile;
 			this.outputFile = outputFile;
 			this.uniqueStatFile = uniqueStatFile;
+			this.exclusivePairs = exclusivePairs;
 		}
 		public UniquenessGeneFinderBuilder setCutoff(int cutoff){
-			if(cutoff < 1)
-				throw new IllegalStateException("ERROR: Please provide a valid value for parameter: Cutoff.  It must be greater than 0.");
+			if(!exclusivePairs && cutoff < 1)
+				throw new IllegalStateException("ERROR: Please provide a valid value for parameter: UniqueCutoff.  It must be greater than 0.");
+			if(exclusivePairs && cutoff > -1)	
+				throw new IllegalStateException("ERROR: You cannot set parameters UniqueCutoff and ExclusivePairs at the same time.");				
 			this.cutoff = cutoff;
+			return this;
+		}
+		public UniquenessGeneFinderBuilder setExclusiveMinimumLevel(String eml) {
+			if(this.exclusivePairs) {
+				if(!(eml.equals("High") || eml.equals("Medium") || eml.equals("Low") || eml.equals("")))
+					throw new IllegalArgumentException("ERROR: parameter ExclusiveMinimumLevel must be one of these 3 values: High Medium Low");
+				this.exclusiveMinimumLevel = eml;
+			}
 			return this;
 		}
 		public UniquenessGeneFinderBuilder setDelimiters(String delimiters){
@@ -95,6 +126,10 @@ public class UniquenessGeneFinder {
 		public UniquenessGeneFinder build(){
 			return new UniquenessGeneFinder(this);
 		}
+		public UniquenessGeneFinderBuilder setExclusiveCountCutoff(Integer exclusiveCountCutoff) {
+			this.exclusiveCountCutoff = exclusiveCountCutoff;
+			return this;
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -103,7 +138,10 @@ public class UniquenessGeneFinder {
 		String outputFile = "";
 		String uniqueStatFile = "";
 		String delimiters = "; , <br>";
-		Integer cutoff = 1;
+		Integer cutoff = -1;
+		Boolean exclusivePairs = false;
+		String exclusiveMinimumLevel = "";
+		Integer exclusiveCountCutoff = -1;
 
 		//check command line input parameters
 		//if(args.length !=3){
@@ -120,12 +158,18 @@ public class UniquenessGeneFinder {
 				inputFile = curParam[1];
 			else if(curParam[0].equals("--SelectedCol"))
 				selectedCol = curParam[1].toUpperCase();
-			else if(curParam[0].equals("--Cutoff"))
+			else if(curParam[0].equals("--UniqueCutoff"))
 				cutoff = Integer.parseInt(curParam[1]);
 			else if(curParam[0].equals("--Delimiters"))
 				delimiters = curParam[1];
+			else if(curParam[0].equals("--ExclusivePairs"))
+				exclusivePairs = true;
+			else if(curParam[0].equals("--ExclusiveMinimumLevel"))
+				exclusiveMinimumLevel = curParam[1];
+			else if(curParam[0].equals("--ExclusiveCount_Cutoff"))
+				exclusiveCountCutoff = Integer.parseInt(curParam[1]);
 			else if(curParam[0].equals("--uniqueStat"))
-				uniqueStatFile = curParam[1];
+					uniqueStatFile = curParam[1];
 			else if(curParam[0].equals("--outputfile"))
 				outputFile = curParam[1];
 			else{
@@ -139,8 +183,8 @@ public class UniquenessGeneFinder {
 		UniquenessGeneFinder ugf;
 		try{
 			ugf= new UniquenessGeneFinder.UniquenessGeneFinderBuilder(
-				selectedCol, inputFile, outputFile, uniqueStatFile).setCutoff(cutoff)
-				.setDelimiters(delimiters).build();
+				selectedCol, inputFile, outputFile, uniqueStatFile, exclusivePairs).setCutoff(cutoff)
+				.setExclusiveMinimumLevel(exclusiveMinimumLevel).setExclusiveCountCutoff(exclusiveCountCutoff).setDelimiters(delimiters).build();
 		}catch (IllegalStateException e){
 			System.out.println(e.getMessage());
 			System.out.println("");
@@ -175,13 +219,29 @@ public class UniquenessGeneFinder {
 		
 		//get the column Indexes we need for our processing
 		ugf.setEnsemblColIdx(ugf.getColIdx(UniquenessGeneFinder.ENSEMBL_COLUMN_NAME));
-		ugf.setSelectedColIdx(ugf.getColIdx(ugf.getSelectedCol()));
-				
+		
 		try {
-			ugf.processInput();
+			//if ExclusiveMinimumLevel is set, the processing is different
+			if(ugf.isExclusivePairs()) {
+				//this line throws an error if the column name is not found
+				if(!exclusiveMinimumLevel.equals(""))
+					ugf.setLevelColIdx(ugf.getColIdx(UniquenessGeneFinder.LEVEL_COLUMN_NAME));
+				
+				//we'll use the Tissue column as the selectedCol
+				ugf.setSelectedColIdx(ugf.getColIdx(UniquenessGeneFinder.TISSUE_COLUMN_NAME));
+				ugf.processInput();
+				ugf.writeExclusivePairsOutput(ugf.getEnsemblToSelColMap(), ugf.getExclusiveCountCutoff());
+			}else {
+				ugf.setSelectedColIdx(ugf.getColIdx(ugf.getSelectedCol()));
+				ugf.processInput();
+				ugf.writeUniqueCutoffOutput(ugf.getEnsemblToSelColMap(), ugf.getCutoff());
+			}
 			ugf.writeUniqueStatReport(ugf.getSelColMapToEnsembl());
-			ugf.writeOutput(ugf.getEnsemblToSelColMap(), ugf.getCutoff());
+
 		} catch (IOException e) {
+			e.printStackTrace();
+			ugf.close();
+		} catch (Exception e) {
 			e.printStackTrace();
 			ugf.close();
 		}
@@ -190,7 +250,56 @@ public class UniquenessGeneFinder {
 		ugf.close();
 	}
 	
-	private void writeOutput(HashMap<String, HashMap<String, Integer>> map, int cutoff2) throws IOException {
+	private Integer getExclusiveCountCutoff() {
+		return exclusiveCountCutoff;
+	}
+
+	private void setLevelColIdx(int colIdx) {
+		levelColIdx = colIdx;		
+	}
+
+	private String getExclusiveMinimumLevel() {
+		return exclusiveMinimumLevel;
+	}
+
+	private boolean isExclusivePairs() {
+		return exclusivePairs;
+	}
+
+	public void writeExclusivePairsOutput(HashMap<String, HashMap<String, Integer>> map, int cutoff) throws IOException {
+		HashMap<String, Integer> outerHm = null;
+		HashMap<String, Integer> innerHm = null;
+		Set<String> outerKeySet = null;
+		Set<String> innerKeySet = null;
+		Set<String> intersection = null;
+		String curEnsembl = "";
+		ArrayList<String> keySet = new ArrayList((Set<String>) map.keySet());
+		
+		outputFileBufferedWriter.write("Ensembl 1\tEnsembl 2\t Overlapping Tissues\n");
+
+		for(int i = 0; i < keySet.size(); i++) {
+			outerHm = map.get(keySet.get(i));
+			outerKeySet = (Set<String>) outerHm.keySet();
+			for(int j=i+1; j < keySet.size(); j++) {
+				innerHm = map.get(keySet.get(j));
+				innerKeySet = (Set<String>) innerHm.keySet();
+				intersection = new HashSet<String>(outerKeySet); // use the copy constructor
+				intersection.retainAll(innerKeySet);
+				if(intersection.size() <= exclusiveCountCutoff) {
+					outputFileBufferedWriter.write(keySet.get(i) + "\t" + keySet.get(j) + "\t");
+			        StringBuilder builder = new StringBuilder();
+			        for (String str : intersection) {
+			          builder.append(str).append(", ");
+			        }
+			        if(builder.length() > 0)
+			        	builder.delete(builder.length()-2, builder.length());
+			        outputFileBufferedWriter.write(builder.toString() + "\n");
+				}
+			}
+		}
+	}
+	
+	public void writeUniqueCutoffOutput(HashMap<String, HashMap<String, Integer>> map, int cutoff2) throws IOException {
 		outputFileBufferedWriter.write(UniquenessGeneFinder.ENSEMBL_COLUMN_NAME + "\tNumber of Matching Categories (cutoff=" + cutoff2 +")\n");
 				
 		//close and reopen the input bufferedreader to reset it back to 1st position
@@ -246,6 +355,7 @@ public class UniquenessGeneFinder {
 		return ensemblToSelectedColMap;
 	}
 
+	
 	public void processInput() throws IOException {
 		//set up our hashes that will organize Ensembl to SelectedCol mappings and vice versa
 		ensemblToSelectedColMap = new HashMap<String, HashMap<String, Integer>>();
@@ -254,13 +364,40 @@ public class UniquenessGeneFinder {
 		String[] lineArr;
 		ArrayList<String> separatedSelectedColValues;
 		String ensemblVal;
+		String levelVal = "";
 		HashMap<String, Integer> curExistingSelColValues;
 		HashMap<String, Integer> curExistingEnsemblValues;
 			//now iterate through the whole input file, capturing the data we need.
 		while((line = inputFileBufferedReader.readLine()) != null){
 			lineArr = line.split("\t");
 			ensemblVal = lineArr[ensemblColIdx];
-			separatedSelectedColValues = breakupStringByDelimiters(lineArr[selectedColIdx]);
+			
+			//if it doesn't make the "level" cutoff, skip this record
+			if(exclusivePairs) {
+				separatedSelectedColValues = tissueCol_RemoveTrailingNumber(lineArr[selectedColIdx]);
+				if(levelColIdx > -1) {
+					levelVal = lineArr[levelColIdx];
+					switch(levelVal) {
+					case "High":
+						//always accept
+						break;
+					case "Medium":
+						if(exclusiveMinimumLevel.equals("High"))
+							continue;
+						break;
+					case "Low":
+						if(exclusiveMinimumLevel.equals("High") || exclusiveMinimumLevel.equals("Medium"))
+							continue;
+						break;
+					default:  //"Not detected or blank
+						if(exclusiveMinimumLevel.equals("High") || exclusiveMinimumLevel.equals("Medium") || exclusiveMinimumLevel.equals("Low"))
+							continue;
+						break;
+					}
+				}
+			}else {
+				separatedSelectedColValues = breakupStringByDelimiters(lineArr[selectedColIdx]);
+			}
 			
 			//update ensembl -> selectedCol counters
 			if(ensemblToSelectedColMap.containsKey(ensemblVal))
@@ -302,6 +439,19 @@ public class UniquenessGeneFinder {
 		}
 	}
 
+	private ArrayList<String> tissueCol_RemoveTrailingNumber(String string){
+		ArrayList<String>retval =  new ArrayList();
+		retval.add(removeTrailingNumber(string));
+		return retval;
+	}
+	private String removeTrailingNumber(String string) {
+		//when doing Tissue grouping, eliminate trailing digits (1, 2, 3, etc.)
+		if(Character.isDigit(string.charAt(string.length()-1))) {
+			string = string.substring(0,  string.length()-2);
+		}
+		return string;
+	}
+
 	public ArrayList<String> breakupStringByDelimiters(String string) {
 		ArrayList<String> retval = new ArrayList<String>();
 		ArrayList<String> temp = new ArrayList<String>();
@@ -317,7 +467,7 @@ public class UniquenessGeneFinder {
 			temp.add(string);
 		
 		for(String val : temp){
-				Collections.addAll(retval, val.split(":")[0].trim());
+			Collections.addAll(retval, val.split(":")[0].trim());
 		}
 		
 		return retval;
@@ -381,8 +531,11 @@ public class UniquenessGeneFinder {
 		this.ensemblColIdx = i;
 	}
 	public static void printUsage() {
-		System.out.println("USAGE: UniquenessGeneFinder.java --SelectedCol=\"Sample\" --Cutoff=3 --Delimiters=\", <br> ;\" --inputfile=\"C:/input/Sample1_tissue.tsv\" --outputfile=\"C:/result/run1.tsv\" --uniqueStat=\"C:/result/Sample1_resultstat.tsv\"");		
+		System.out.println("USAGE: UniquenessGeneFinder.java --SelectedCol=\"Sample\" --UniqueCutoff=3 [--ExclusivePairs --ExclusiveMinimumLevel=High --ExclusiveCount_Cutoff=3] --Delimiters=\", <br> ;\" --inputfile=\"C:/input/Sample1_tissue.tsv\" --outputfile=\"C:/result/run1.tsv\" --uniqueStat=\"C:/result/Sample1_resultstat.tsv\"");		
 		System.out.println("");
+		System.out.println("--ExclusivePairs is an option that can not overlap with --UniqueCutoff. More specifically, a user can choose either --ExclusivePair or --UniqueCutoff but not both.");
+		System.out.println("--ExclusiveMinimumLevel goes with --ExclusivePairs and can be set to either Low, Medium, or High.");
+		System.out.println("--ExclusiveCount_Cutoff goes with --ExclusivePairs.");
 		System.out.println("Delimiters are separated by a single space.  default value: ; , <br>");
 	}
 	
