@@ -32,7 +32,7 @@ WebUI.setText(findTestObject('text_cIDs'), 'CNT0001396\r\nCNT0001356\r\nCNT00013
 
 WebUI.click(findTestObject('btn_submit1'))
 
-WebUI.delay(3)
+WebUI.delay(7)
 
 WebUI.verifyTextPresent('GSGCLEFWWKCNPNDDKCCRPKLKCSPLGKLCNFSFG', false)
 
