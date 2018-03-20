@@ -7,6 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -24,7 +27,8 @@ import java.util.TreeSet;
  * This program outputs the Ensemble numbers which belong to [cutoff] number of unique
  * values in the selectedCol column of a tsv spreadsheet.
  * 
- * 2/12/18 extention - ExclusivePairs option
+ * 2/12/18 extension - ExclusivePairs option
+ * 3/19/18 extension - ExclusivePair_fromList option
  * 
  * @author Hector
  *
@@ -41,10 +45,12 @@ public class UniquenessGeneFinder {
 	//optional parameters
 	private Integer cutoff = -1;  //default value
 	private Boolean exclusivePairs = false;
+	private String exclusivePairsListFile = "";
 	private String exclusiveMinimumLevel = "";
 	private Integer exclusiveCountCutoff = -1;
 	
 	//computed values we need
+	private boolean pairsFromList = false;
 	private int ensemblColIdx = -1;
 	private int selectedColIdx = -1;
 	private int levelColIdx = -1;
@@ -54,6 +60,7 @@ public class UniquenessGeneFinder {
 	private String[] inputColHeaders;
 	private HashMap<String, HashMap<String, Integer>> ensemblToSelectedColMap;
 	private HashMap<String, HashMap<String, Integer>> selectedColToEnsemblMap;
+	private ArrayList<String> emblList;
 
 	public static final String ENSEMBL_COLUMN_NAME = "Ensembl";
 	public static final String LEVEL_COLUMN_NAME = "Level";
@@ -69,6 +76,8 @@ public class UniquenessGeneFinder {
 		this.exclusivePairs = builder.exclusivePairs;
 		this.exclusiveMinimumLevel = builder.exclusiveMinimumLevel;
 		this.exclusiveCountCutoff = builder.exclusiveCountCutoff;
+		this.exclusivePairsListFile = builder.exclusivePairListFilename;
+		this.pairsFromList = !this.exclusivePairsListFile.equals("");
 	}
 	
 	//for builder pattern
@@ -83,6 +92,7 @@ public class UniquenessGeneFinder {
 		private Boolean exclusivePairs = false;
 		private String exclusiveMinimumLevel;
 		private Integer exclusiveCountCutoff;
+		private String exclusivePairListFilename;
 		
 		UniquenessGeneFinderBuilder(String selectedCol, String inputFile, String outputFile, String uniqueStatFile, boolean exclusivePairs){
 			if(selectedCol == null || selectedCol == "")
@@ -130,6 +140,14 @@ public class UniquenessGeneFinder {
 			this.exclusiveCountCutoff = exclusiveCountCutoff;
 			return this;
 		}
+		
+		public UniquenessGeneFinderBuilder setExclusivePairList(String exclusivePairListFilename) {
+			if(!exclusivePairListFilename.equals("") && !this.exclusivePairs) 
+				throw new IllegalArgumentException("ERROR: The --ExclusivePairs parameter must be set before setting the --ExclusivePair_FromList parameter.");
+			this.exclusivePairListFilename= exclusivePairListFilename;
+			
+			return this;
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -142,13 +160,7 @@ public class UniquenessGeneFinder {
 		Boolean exclusivePairs = false;
 		String exclusiveMinimumLevel = "";
 		Integer exclusiveCountCutoff = -1;
-
-		//check command line input parameters
-		//if(args.length !=3){
-		//	System.out.println("This program requires three parameters to Run.  Please see the following USAGE:");
-		//	printUsage();
-		//	return;
-		//}
+		String exclusivePairListFilename = "";
 		
 		//get input params
 		String[] curParam = null;
@@ -163,7 +175,9 @@ public class UniquenessGeneFinder {
 			else if(curParam[0].equals("--Delimiters"))
 				delimiters = curParam[1];
 			else if(curParam[0].equals("--ExclusivePairs"))
-				exclusivePairs = true;
+					exclusivePairs = true;
+			else if(curParam[0].equals("--ExclusivePair_FromList"))
+					exclusivePairListFilename = curParam[1];
 			else if(curParam[0].equals("--ExclusiveMinimumLevel"))
 				exclusiveMinimumLevel = curParam[1];
 			else if(curParam[0].equals("--ExclusiveCount_Cutoff"))
@@ -184,7 +198,8 @@ public class UniquenessGeneFinder {
 		try{
 			ugf= new UniquenessGeneFinder.UniquenessGeneFinderBuilder(
 				selectedCol, inputFile, outputFile, uniqueStatFile, exclusivePairs).setCutoff(cutoff)
-				.setExclusiveMinimumLevel(exclusiveMinimumLevel).setExclusiveCountCutoff(exclusiveCountCutoff).setDelimiters(delimiters).build();
+				.setExclusiveMinimumLevel(exclusiveMinimumLevel).setExclusiveCountCutoff(exclusiveCountCutoff)
+				.setExclusivePairList(exclusivePairListFilename).setDelimiters(delimiters).build();
 		}catch (IllegalStateException e){
 			System.out.println(e.getMessage());
 			System.out.println("");
@@ -229,6 +244,12 @@ public class UniquenessGeneFinder {
 				
 				//we'll use the Tissue column as the selectedCol
 				ugf.setSelectedColIdx(ugf.getColIdx(UniquenessGeneFinder.TISSUE_COLUMN_NAME));
+
+				//TODO
+				if(ugf.pairsFromList) {
+					ugf.readEMBLlist();
+				}
+				
 				ugf.processInput();
 				ugf.writeExclusivePairsOutput(ugf.getEnsemblToSelColMap(), ugf.getExclusiveCountCutoff());
 			}else {
@@ -250,6 +271,11 @@ public class UniquenessGeneFinder {
 		ugf.close();
 	}
 	
+	//read user provided list of EMBLs to filter our process for (for exclusive pair operation)
+	private void readEMBLlist() throws IOException {
+		emblList = (ArrayList<String>) Files.readAllLines(new File(exclusivePairsListFile).toPath(), Charset.defaultCharset() );
+	}
+
 	private Integer getExclusiveCountCutoff() {
 		return exclusiveCountCutoff;
 	}
@@ -274,6 +300,7 @@ public class UniquenessGeneFinder {
 		Set<String> intersection = null;
 		String curEnsembl = "";
 		ArrayList<String> keySet = new ArrayList((Set<String>) map.keySet());
+		ArrayList<String> outputtedEMBLs = new ArrayList<>();
 		
 		outputFileBufferedWriter.write("Ensembl 1\tEnsembl 2\t Overlapping Tissues\n");
 
@@ -285,7 +312,8 @@ public class UniquenessGeneFinder {
 				innerKeySet = (Set<String>) innerHm.keySet();
 				intersection = new HashSet<String>(outerKeySet); // use the copy constructor
 				intersection.retainAll(innerKeySet);
-				if(intersection.size() <= exclusiveCountCutoff) {
+				if(intersection.size() <= exclusiveCountCutoff && (!pairsFromList || emblList.contains(keySet.get(i)))){
+					outputtedEMBLs.add(keySet.get(i));
 					outputFileBufferedWriter.write(keySet.get(i) + "\t" + keySet.get(j) + "\t");
 			        StringBuilder builder = new StringBuilder();
 			        for (String str : intersection) {
@@ -297,6 +325,8 @@ public class UniquenessGeneFinder {
 				}
 			}
 		}
+		if(pairsFromList)
+			emblList.stream().filter(e -> !outputtedEMBLs.contains(e)).forEach(e -> System.err.println("Not found " + e));
 	}
 	
 	public void writeUniqueCutoffOutput(HashMap<String, HashMap<String, Integer>> map, int cutoff2) throws IOException {
@@ -490,7 +520,7 @@ public class UniquenessGeneFinder {
 	}
 
 	public BufferedWriter openFileForWriting(String filename) throws IOException {
-		return new BufferedWriter(new FileWriter(filename));
+		return Files.newBufferedWriter(Paths.get(filename)); //new BufferedWriter(new FileWriter(filename));
 	}
 
 	//set inputfile bufferedreader and get the column headers
@@ -536,6 +566,7 @@ public class UniquenessGeneFinder {
 		System.out.println("--ExclusivePairs is an option that can not overlap with --UniqueCutoff. More specifically, a user can choose either --ExclusivePair or --UniqueCutoff but not both.");
 		System.out.println("--ExclusiveMinimumLevel goes with --ExclusivePairs and can be set to either Low, Medium, or High.");
 		System.out.println("--ExclusiveCount_Cutoff goes with --ExclusivePairs.");
+		System.out.println("--ExclusivePair_FromList=\"your_file_with_embls_listed\" goes with --ExclusivePairs. ");
 		System.out.println("Delimiters are separated by a single space.  default value: ; , <br>");
 	}
 	
