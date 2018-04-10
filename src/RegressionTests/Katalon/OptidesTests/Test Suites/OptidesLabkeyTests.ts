@@ -4,7 +4,7 @@
    <name>OptidesLabkeyTests</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-03-05T10:11:30</lastRun>
+   <lastRun>2018-03-28T10:55:00</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>30</pageLoadTimeout>
@@ -62,7 +62,7 @@
    <testCaseLink>
       <guid>933e64f0-e210-4bc8-bc8a-2fe768204b47</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>false</isRun>
+      <isRun>true</isRun>
       <testCaseId>Test Cases/HT_DNA HTProduction Pipeline Test</testCaseId>
    </testCaseLink>
    <testCaseLink>
@@ -98,7 +98,7 @@
    <testCaseLink>
       <guid>a1aab72c-40fe-4396-9854-762096783c94</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
+      <isRun>false</isRun>
       <testCaseId>Test Cases/postTest-RemoveTestConstructs</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>

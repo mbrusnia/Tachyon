@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="OptidesLabkeyTests" time="30" tests="0" failures="1" errors="0">
+   <testsuite name="OptidesLabkeyTests" tests="0" failures="1" errors="0" time="30" timestamp="2018-03-27 13:53:31" hostname="Hector - 140.107.11.187" id="Test Suites/OptidesLabkeyTests">
+      <properties>
+         <property name="deviceName" value=""/>
+         <property name="devicePlatform" value=""/>
+         <property name="logFolder" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20180327_135329"/>
+         <property name="logFiles" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20180327_135329\\execution0.log"/>
+         <property name="attachments" value=""/>
+         <property name="hostName" value="Hector - 140.107.11.187"/>
+         <property name="os" value="Windows 8.1 64bit"/>
+         <property name="katalonVersion" value="5.3.1.1"/>
+         <property name="browser" value="Chrome 65.0.3325.181"/>
+         <property name="hostAddress" value="140.107.11.187"/>
+         <property name="sessionId" value="dd041f5b206028679cc46d5e9ae4ebaf"/>
+         <property name="seleniumVersion" value="3.7.1"/>
+         <property name="proxyInformation" value="ProxyInformation{proxyOption=NO_PROXY, proxyServerType=HTTP, password=, proxyServerAddress=, proxyServerPort=0}"/>
+         <property name="platform" value="Windows 8.1"/>
+      </properties>
+      <testcase name="Test Cases/HT_DNA Delivery.R" classname="Test Cases/HT_DNA Delivery.R" status="FAILED">
+         <failure type="FAILED" message="org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false"/>
+         <system-out><![CDATA[2018-03-27 13:53:32 - [TEST_CASE][FAILED] - Test Cases/HT_DNA Delivery.R: Test Cases/HT_DNA Delivery.R FAILED because (of) org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false
+
+2018-03-27 13:53:33 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2018-03-27 13:53:33 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2018-03-27 13:53:33 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-stage.fhcrc.org'
+
+2018-03-27 13:53:37 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-stage.fhcrc.org'
+
+2018-03-27 13:53:37 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2018-03-27 13:53:38 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2018-03-27 13:53:38 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2018-03-27 13:53:39 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2018-03-27 13:53:39 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2018-03-27 13:53:39 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2018-03-27 13:53:39 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2018-03-27 13:53:39 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2018-03-27 13:53:39 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2018-03-27 13:53:39 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2018-03-27 13:53:39 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2018-03-27 13:53:42 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2018-03-27 13:53:42 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2018-03-27 13:53:42 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2018-03-27 13:53:42 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2018-03-27 13:53:42 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2018-03-27 13:53:42 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2018-03-27 13:53:43 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2018-03-27 13:53:43 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2018-03-27 13:53:44 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2018-03-27 13:53:44 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Files' is clicked on
+
+2018-03-27 13:53:46 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Files' is clicked on
+
+2018-03-27 13:53:46 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_test_GenScript_HT_DNA_DeliveryFile.xlsx' is clicked on
+
+2018-03-27 13:53:53 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_test_GenScript_HT_DNA_DeliveryFile.xlsx' is clicked on
+
+2018-03-27 13:53:53 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2018-03-27 13:53:53 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2018-03-27 13:53:53 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/radioBtn_Upload_HT_Delivery' is clicked on
+
+2018-03-27 13:53:53 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/radioBtn_Upload_HT_Delivery' is clicked on
+
+2018-03-27 13:53:53 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2018-03-27 13:53:54 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2018-03-27 13:53:54 - [TEST_STEP][PASSED] - delay: Delayed 3 second(s)
+
+2018-03-27 13:53:57 - [MESSAGE][PASSED] - Delayed 3 second(s)
+
+2018-03-27 13:53:57 - [TEST_STEP][PASSED] - Statement - If (com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.verifyElementVisible(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/input_Name), CONTINUE_ON_FAILURE)): Text 'TEST_HT_DNA_Delivery 01' is set on object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/input_Name'
+
+2018-03-27 13:53:57 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/input_Name' is visible
+
+2018-03-27 13:53:57 - [TEST_STEP][PASSED] - setText: Text 'TEST_HT_DNA_Delivery 01' is set on object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/input_Name'
+
+2018-03-27 13:53:58 - [MESSAGE][PASSED] - Text 'TEST_HT_DNA_Delivery 01' is set on object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/input_Name'
+
+2018-03-27 13:53:58 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is clicked on
+
+2018-03-27 13:53:58 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Upload_HT_Delivery_Info/a_submitButton' is clicked on
+
+2018-03-27 13:53:58 - [TEST_STEP][PASSED] - delay: Delayed 2 second(s)
+
+2018-03-27 13:54:00 - [MESSAGE][PASSED] - Delayed 2 second(s)
+
+2018-03-27 13:54:00 - [TEST_STEP][PASSED] - Statement - url = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getUrl(): Current window's url is: 'https://optides-stage.fhcrc.org/project/Optides/CompoundsRegistry/Samples/begin.view?'
+
+2018-03-27 13:54:00 - [MESSAGE][PASSED] - Current window's url is: 'https://optides-stage.fhcrc.org/project/Optides/CompoundsRegistry/Samples/begin.view?'
+
+2018-03-27 13:54:00 - [TEST_STEP][PASSED] - Statement - If (!(url.endsWith("pipeline-status/Optides/CompoundsRegistry/Samples/showList.view?"))): Navigate to 'https://optides-stage.fhcrc.org/project/Optides/CompoundsRegistry/Samples/begin.view?pageId=Pipeline' successfully
+
+2018-03-27 13:54:00 - [TEST_STEP][PASSED] - navigateToUrl: Navigate to 'https://optides-stage.fhcrc.org/project/Optides/CompoundsRegistry/Samples/begin.view?pageId=Pipeline' successfully
+
+2018-03-27 13:54:00 - [MESSAGE][PASSED] - Navigate to 'https://optides-stage.fhcrc.org/project/Optides/CompoundsRegistry/Samples/begin.view?pageId=Pipeline' successfully
+
+2018-03-27 13:54:00 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_All' is clicked on
+
+2018-03-27 13:54:01 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_All' is clicked on
+
+2018-03-27 13:54:01 - [TEST_STEP][PASSED] - Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), "text"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ERROR'
+
+2018-03-27 13:54:01 - [MESSAGE][PASSED] - Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ERROR'
+
+2018-03-27 13:54:01 - [TEST_STEP][PASSED] - Statement - While (pipelineStatus == "ht_delivery RUNNING" || pipelineStatus == "ht_delivery WAITING"): null
+
+2018-03-27 13:54:01 - [TEST_STEP][PASSED] - Statement - assert pipelineStatus == "COMPLETE": null]]></system-out>
+         <system-err><![CDATA[2018-03-27 13:53:32 - [TEST_CASE][FAILED] - Test Cases/HT_DNA Delivery.R: Test Cases/HT_DNA Delivery.R FAILED because (of) org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false]]></system-err>
+      </testcase>
+      <system-out><![CDATA[2018-03-27 13:53:31 - [TEST_SUITE][FAILED] - OptidesLabkeyTests: Test Cases/HT_DNA Delivery.R FAILED because (of) org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false]]></system-out>
+      <system-err><![CDATA[2018-03-27 13:53:31 - [TEST_SUITE][FAILED] - OptidesLabkeyTests: Test Cases/HT_DNA Delivery.R FAILED because (of) org.codehaus.groovy.runtime.powerassert.PowerAssertionError: assert pipelineStatus == 'COMPLETE'
+       |              |
+       ERROR          false]]></system-err>
+   </testsuite>
+</testsuites>

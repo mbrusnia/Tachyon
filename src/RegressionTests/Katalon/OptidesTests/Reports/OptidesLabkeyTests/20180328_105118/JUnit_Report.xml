@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="OptidesLabkeyTests" time="55" tests="1" failures="0" errors="0">
+   <testsuite name="OptidesLabkeyTests" tests="1" failures="0" errors="0" time="55" timestamp="2018-03-28 10:51:21" hostname="Hector - 140.107.10.36" id="Test Suites/OptidesLabkeyTests">
+      <properties>
+         <property name="deviceName" value=""/>
+         <property name="devicePlatform" value=""/>
+         <property name="logFolder" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20180328_105118"/>
+         <property name="logFiles" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20180328_105118\\execution0.log"/>
+         <property name="attachments" value=""/>
+         <property name="hostName" value="Hector - 140.107.10.36"/>
+         <property name="os" value="Windows 8.1 64bit"/>
+         <property name="katalonVersion" value="5.3.1.1"/>
+         <property name="browser" value="Chrome 65.0.3325.181"/>
+         <property name="hostAddress" value="140.107.10.36"/>
+         <property name="sessionId" value="9bcb391626e587bd442b6ed9e74da7f7"/>
+         <property name="seleniumVersion" value="3.7.1"/>
+         <property name="proxyInformation" value="ProxyInformation{proxyOption=NO_PROXY, proxyServerType=HTTP, password=, proxyServerAddress=, proxyServerPort=0}"/>
+         <property name="platform" value="Windows 8.1"/>
+      </properties>
+      <testcase name="Test Cases/HT_DNA OrderGeneratorTest" classname="Test Cases/HT_DNA OrderGeneratorTest" status="PASSED">
+         <system-out><![CDATA[2018-03-28 10:51:22 - [TEST_CASE][PASSED] - Test Cases/HT_DNA OrderGeneratorTest: Test Cases/HT_DNA OrderGeneratorTest
+
+2018-03-28 10:51:23 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2018-03-28 10:51:23 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2018-03-28 10:51:23 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-stage.fhcrc.org'
+
+2018-03-28 10:51:29 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-stage.fhcrc.org'
+
+2018-03-28 10:51:29 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2018-03-28 10:51:31 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2018-03-28 10:51:31 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2018-03-28 10:51:33 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2018-03-28 10:51:33 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2018-03-28 10:51:33 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2018-03-28 10:51:33 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2018-03-28 10:51:33 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2018-03-28 10:51:33 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2018-03-28 10:51:33 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2018-03-28 10:51:33 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2018-03-28 10:51:37 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2018-03-28 10:51:37 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2018-03-28 10:51:37 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2018-03-28 10:51:37 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_CompoundsRegistry' is hovered
+
+2018-03-28 10:51:37 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2018-03-28 10:51:37 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2018-03-28 10:51:38 - [MESSAGE][PASSED] - Object 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is visible
+
+2018-03-28 10:51:38 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2018-03-28 10:51:40 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Start Page Optides/a_Samples_CompReg' is clicked on
+
+2018-03-28 10:51:40 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Files' is clicked on
+
+2018-03-28 10:51:42 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/a_Files' is clicked on
+
+2018-03-28 10:51:42 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_ht_dna_generateOrder4Kata' is clicked on
+
+2018-03-28 10:51:43 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_ht_dna_generateOrder4Kata' is clicked on
+
+2018-03-28 10:51:43 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2018-03-28 10:51:43 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/span_Import Data' is clicked on
+
+2018-03-28 10:51:43 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/radioBtn_Upload HT Order Form' is clicked on
+
+2018-03-28 10:51:43 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/radioBtn_Upload HT Order Form' is clicked on
+
+2018-03-28 10:51:43 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2018-03-28 10:51:44 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Assay Dashboard OptidesCompoun/button_Import' is clicked on
+
+2018-03-28 10:51:44 - [TEST_STEP][PASSED] - setText: Text 'TEST_HT_DNA_OrderGenerator 01' is set on object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/input_Name'
+
+2018-03-28 10:51:44 - [MESSAGE][PASSED] - Text 'TEST_HT_DNA_OrderGenerator 01' is set on object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/input_Name'
+
+2018-03-28 10:51:44 - [TEST_STEP][PASSED] - setText: Text 'GS' is set on object 'Object Repository/Page_Upload a spreadsheet of orders/input_linker_seq_txt'
+
+2018-03-28 10:51:44 - [MESSAGE][PASSED] - Text 'GS' is set on object 'Object Repository/Page_Upload a spreadsheet of orders/input_linker_seq_txt'
+
+2018-03-28 10:51:44 - [TEST_STEP][PASSED] - selectOptionByValue: All options with value 'GenScript' are selected in object 'Object Repository/Page_Upload a spreadsheet of orders/select_vendor_name_lst'  using regular expression
+
+2018-03-28 10:51:45 - [MESSAGE][PASSED] - All options with value 'GenScript' are selected in object 'Object Repository/Page_Upload a spreadsheet of orders/select_vendor_name_lst'  using regular expression
+
+2018-03-28 10:51:45 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/Page_Upload a spreadsheet of orders/span_Generate HT Order Form' is clicked on
+
+2018-03-28 10:51:45 - [MESSAGE][PASSED] - Object: 'Object Repository/Page_Upload a spreadsheet of orders/span_Generate HT Order Form' is clicked on
+
+2018-03-28 10:51:45 - [TEST_STEP][PASSED] - Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), "text"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ht_order_generator RUNNING'
+
+2018-03-28 10:51:46 - [MESSAGE][PASSED] - Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ht_order_generator RUNNING'
+
+2018-03-28 10:51:46 - [TEST_STEP][PASSED] - Statement - out.println(pipelineStatus): null
+
+2018-03-28 10:51:46 - [TEST_STEP][PASSED] - Statement - While (pipelineStatus == "ht_order_generator RUNNING" || pipelineStatus == "ht_order_generator WAITING"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'COMPLETE'
+
+2018-03-28 10:51:46 - [TEST_STEP][PASSED] - delay: Delayed 10 second(s)
+
+2018-03-28 10:51:56 - [MESSAGE][PASSED] - Delayed 10 second(s)
+
+2018-03-28 10:51:56 - [TEST_STEP][PASSED] - Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), "text"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ht_order_generator RUNNING'
+
+2018-03-28 10:51:56 - [MESSAGE][PASSED] - Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ht_order_generator RUNNING'
+
+2018-03-28 10:51:56 - [TEST_STEP][PASSED] - delay: Delayed 10 second(s)
+
+2018-03-28 10:52:06 - [MESSAGE][PASSED] - Delayed 10 second(s)
+
+2018-03-28 10:52:06 - [TEST_STEP][PASSED] - Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), "text"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ht_order_generator RUNNING'
+
+2018-03-28 10:52:06 - [MESSAGE][PASSED] - Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'ht_order_generator RUNNING'
+
+2018-03-28 10:52:06 - [TEST_STEP][PASSED] - delay: Delayed 10 second(s)
+
+2018-03-28 10:52:16 - [MESSAGE][PASSED] - Delayed 10 second(s)
+
+2018-03-28 10:52:16 - [TEST_STEP][PASSED] - Statement - pipelineStatus = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getAttribute(com.kms.katalon.core.testobject.ObjectRepository.findTestObject(Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus), "text"): Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'COMPLETE'
+
+2018-03-28 10:52:16 - [MESSAGE][PASSED] - Attribute 'text' of object 'Object Repository/Page_Data Pipeline - CompoundsRegistry/a_PipelineStatus' is: 'COMPLETE'
+
+2018-03-28 10:52:16 - [TEST_STEP][PASSED] - Statement - assert pipelineStatus == "COMPLETE": null
+
+2018-03-28 10:52:16 - [TEST_STEP][PASSED] - closeBrowser: Browser is closed
+
+2018-03-28 10:52:17 - [MESSAGE][PASSED] - Browser is closed]]></system-out>
+         <system-err><![CDATA[]]></system-err>
+      </testcase>
+      <system-out><![CDATA[2018-03-28 10:51:21 - [TEST_SUITE][PASSED] - OptidesLabkeyTests: Test Cases/HT_DNA OrderGeneratorTest]]></system-out>
+      <system-err><![CDATA[]]></system-err>
+   </testsuite>
+</testsuites>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="OptidesLabkeyTests" time="25" tests="1" failures="0" errors="0">
+   <testsuite name="OptidesLabkeyTests" tests="1" failures="0" errors="0" time="25" timestamp="2018-03-27 13:43:26" hostname="Hector - 140.107.11.187" id="Test Suites/OptidesLabkeyTests">
+      <properties>
+         <property name="deviceName" value=""/>
+         <property name="devicePlatform" value=""/>
+         <property name="logFolder" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20180327_134323"/>
+         <property name="logFiles" value="C:\\Users\\Hector\\Documents\\HRInternetConsulting\\Clients\\FHCRC\\Tachyon\\src\\RegressionTests\\Katalon\\OptidesTests\\Reports\\OptidesLabkeyTests\\20180327_134323\\execution0.log"/>
+         <property name="attachments" value=""/>
+         <property name="hostName" value="Hector - 140.107.11.187"/>
+         <property name="os" value="Windows 8.1 64bit"/>
+         <property name="katalonVersion" value="5.3.1.1"/>
+         <property name="browser" value="Chrome 65.0.3325.181"/>
+         <property name="hostAddress" value="140.107.11.187"/>
+         <property name="sessionId" value="1a4a2a4422653565825d7b8d061cad54"/>
+         <property name="seleniumVersion" value="3.7.1"/>
+         <property name="proxyInformation" value="ProxyInformation{proxyOption=NO_PROXY, proxyServerType=HTTP, password=, proxyServerAddress=, proxyServerPort=0}"/>
+         <property name="platform" value="Windows 8.1"/>
+      </properties>
+      <testcase name="Test Cases/LSCActivityCalcTest" classname="Test Cases/LSCActivityCalcTest" status="PASSED">
+         <system-out><![CDATA[2018-03-27 13:43:26 - [TEST_CASE][PASSED] - Test Cases/LSCActivityCalcTest: Test Cases/LSCActivityCalcTest
+
+2018-03-27 13:43:27 - [TEST_STEP][PASSED] - callTestCase: Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2018-03-27 13:43:27 - [TEST_CASE][PASSED] - Test Cases/OpenAndLogIn: Test Cases/OpenAndLogIn
+
+2018-03-27 13:43:27 - [TEST_STEP][PASSED] - openBrowser: Browser is opened with url: 'https://optides-stage.fhcrc.org'
+
+2018-03-27 13:43:31 - [MESSAGE][PASSED] - Browser is opened with url: 'https://optides-stage.fhcrc.org'
+
+2018-03-27 13:43:31 - [TEST_STEP][PASSED] - setViewPortSize: Viewport is set to new size with width = 2000 and height = 1500
+
+2018-03-27 13:43:32 - [MESSAGE][PASSED] - Viewport is set to new size with width = 2000 and height = 1500
+
+2018-03-27 13:43:32 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2018-03-27 13:43:33 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/a_SignIn' is clicked on
+
+2018-03-27 13:43:33 - [TEST_STEP][PASSED] - setText: Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2018-03-27 13:43:34 - [MESSAGE][PASSED] - Text 'hramos@fhcrc.org' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_email'
+
+2018-03-27 13:43:34 - [TEST_STEP][PASSED] - setText: Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2018-03-27 13:43:34 - [MESSAGE][PASSED] - Text 'One1Two2' is set on object 'Object Repository/LSC_objects/Page_Sign In/input_password'
+
+2018-03-27 13:43:34 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2018-03-27 13:43:34 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Sign In/span_Sign In' is clicked on
+
+2018-03-27 13:43:34 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2018-03-27 13:43:36 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Optide Dev Server home/span_Optides' is clicked on
+
+2018-03-27 13:43:36 - [MESSAGE][PASSED] - Call Test Case 'Test Cases/OpenAndLogIn' successfully
+
+2018-03-27 13:43:36 - [TEST_STEP][PASSED] - mouseOver: Object: 'Object Repository/LSC_objects/Page_Start Page Optides/a_VIVOAssay' is hovered
+
+2018-03-27 13:43:37 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Start Page Optides/a_VIVOAssay' is hovered
+
+2018-03-27 13:43:37 - [TEST_STEP][PASSED] - waitForElementVisible: Object 'Object Repository/LSC_objects/Page_Start Page Optides/a_Sample' is visible
+
+2018-03-27 13:43:37 - [MESSAGE][WARNING] - Timeout '0' is invalid. Using default page load timeout: '30'
+
+2018-03-27 13:43:38 - [MESSAGE][PASSED] - Object 'Object Repository/LSC_objects/Page_Start Page Optides/a_Sample' is visible
+
+2018-03-27 13:43:38 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Start Page Optides/a_Sample' is clicked on
+
+2018-03-27 13:43:39 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Start Page Optides/a_Sample' is clicked on
+
+2018-03-27 13:43:39 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Assay Dashboard OptidesVIVOAss/a_LSC' is clicked on
+
+2018-03-27 13:43:40 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Assay Dashboard OptidesVIVOAss/a_LSC' is clicked on
+
+2018-03-27 13:43:40 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl/span_Import Data' is clicked on
+
+2018-03-27 13:43:41 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl/span_Import Data' is clicked on
+
+2018-03-27 13:43:41 - [TEST_STEP][PASSED] - selectOptionByLabel: All options with label 'LSC0001 Tumor Homing of OTD257' are selected in object 'Object Repository/Page_Data Import Batch Properties O (1)/select_studyDescription' 
+
+2018-03-27 13:43:41 - [MESSAGE][PASSED] - All options with label 'LSC0001 Tumor Homing of OTD257' are selected in object 'Object Repository/Page_Data Import Batch Properties O (1)/select_studyDescription' 
+
+2018-03-27 13:43:41 - [TEST_STEP][PASSED] - selectOptionByLabel: All options with label 'STD_2016_0928' are selected in object 'Object Repository/Page_Data Import Batch Properties O (1)/select_standardCurve' 
+
+2018-03-27 13:43:41 - [MESSAGE][PASSED] - All options with label 'STD_2016_0928' are selected in object 'Object Repository/Page_Data Import Batch Properties O (1)/select_standardCurve' 
+
+2018-03-27 13:43:41 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Data Import Batch Properties O/span_Next' is clicked on
+
+2018-03-27 13:43:42 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Data Import Batch Properties O/span_Next' is clicked on
+
+2018-03-27 13:43:42 - [TEST_STEP][PASSED] - setText: Text 'TEST0001' is set on object 'Object Repository/LSC_objects/Page_Data Import Run Properties and/input_name'
+
+2018-03-27 13:43:42 - [MESSAGE][PASSED] - Text 'TEST0001' is set on object 'Object Repository/LSC_objects/Page_Data Import Run Properties and/input_name'
+
+2018-03-27 13:43:42 - [TEST_STEP][PASSED] - setText: Text 'MouseID	OTDCompoundID	CHEMCompoundID	ReagentID	Tissue	AcquisitionDate	Tissue_mg	mg_per_ul	Loaded_Volume_uL	CPM	Loaded_mg	pCi	pCi_per_uL	Flag
+MU00000100	OTD169			Kidney Cortex	2016.11.2	50	0.16667	16	340				\n' is set on object 'Object Repository/LSC_objects/Page_Data Import Run Properties and/textarea_TextAreaDataCollector'
+
+2018-03-27 13:43:43 - [MESSAGE][PASSED] - Text 'MouseID	OTDCompoundID	CHEMCompoundID	ReagentID	Tissue	AcquisitionDate	Tissue_mg	mg_per_ul	Loaded_Volume_uL	CPM	Loaded_mg	pCi	pCi_per_uL	Flag
+MU00000100	OTD169			Kidney Cortex	2016.11.2	50	0.16667	16	340				\n' is set on object 'Object Repository/LSC_objects/Page_Data Import Run Properties and/textarea_TextAreaDataCollector'
+
+2018-03-27 13:43:43 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Data Import Run Properties and/span_Save and Finish' is clicked on
+
+2018-03-27 13:43:46 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Data Import Run Properties and/span_Save and Finish' is clicked on
+
+2018-03-27 13:43:46 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl (1)/a_TEST0001' is clicked on
+
+2018-03-27 13:43:46 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl (1)/a_TEST0001' is clicked on
+
+2018-03-27 13:43:46 - [TEST_STEP][PASSED] - waitForPageLoad: Wait for page load successfully
+
+2018-03-27 13:43:47 - [MESSAGE][PASSED] - Wait for page load successfully
+
+2018-03-27 13:43:47 - [TEST_STEP][PASSED] - verifyTextPresent: Text '148.54' is present on page 
+
+2018-03-27 13:43:47 - [MESSAGE][PASSED] - Text '148.54' is present on page 
+
+2018-03-27 13:43:47 - [TEST_STEP][PASSED] - verifyTextPresent: Text '9.28' is present on page 
+
+2018-03-27 13:43:47 - [MESSAGE][PASSED] - Text '9.28' is present on page 
+
+2018-03-27 13:43:47 - [TEST_STEP][PASSED] - verifyTextPresent: Text '2.67' is present on page 
+
+2018-03-27 13:43:47 - [MESSAGE][PASSED] - Text '2.67' is present on page 
+
+2018-03-27 13:43:47 - [TEST_STEP][PASSED] - verifyTextPresent: Text '340.0' is present on page 
+
+2018-03-27 13:43:47 - [MESSAGE][PASSED] - Text '340.0' is present on page 
+
+2018-03-27 13:43:47 - [TEST_STEP][PASSED] - verifyTextPresent: Text '0.16667' is present on page 
+
+2018-03-27 13:43:48 - [MESSAGE][PASSED] - Text '0.16667' is present on page 
+
+2018-03-27 13:43:48 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_LSC Batches OptidesVIVOAssaySa/a_view runs' is clicked on
+
+2018-03-27 13:43:48 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_LSC Batches OptidesVIVOAssaySa/a_view runs' is clicked on
+
+2018-03-27 13:43:48 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl (2)/input_.select' is clicked on
+
+2018-03-27 13:43:49 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl (2)/input_.select' is clicked on
+
+2018-03-27 13:43:49 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl (2)/span_Delete' is clicked on
+
+2018-03-27 13:43:49 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_LSC Runs OptidesVIVOAssaySampl (2)/span_Delete' is clicked on
+
+2018-03-27 13:43:49 - [TEST_STEP][PASSED] - verifyTextPresent: Text 'TEST0001' is present on page 
+
+2018-03-27 13:43:49 - [MESSAGE][PASSED] - Text 'TEST0001' is present on page 
+
+2018-03-27 13:43:49 - [TEST_STEP][PASSED] - click: Object: 'Object Repository/LSC_objects/Page_Confirm Deletion OptidesVIVOAs/span_Confirm Delete' is clicked on
+
+2018-03-27 13:43:50 - [MESSAGE][PASSED] - Object: 'Object Repository/LSC_objects/Page_Confirm Deletion OptidesVIVOAs/span_Confirm Delete' is clicked on
+
+2018-03-27 13:43:50 - [TEST_STEP][PASSED] - closeBrowser: Browser is closed
+
+2018-03-27 13:43:51 - [MESSAGE][PASSED] - Browser is closed]]></system-out>
+         <system-err><![CDATA[]]></system-err>
+      </testcase>
+      <system-out><![CDATA[2018-03-27 13:43:26 - [TEST_SUITE][PASSED] - OptidesLabkeyTests: Test Cases/LSCActivityCalcTest]]></system-out>
+      <system-err><![CDATA[]]></system-err>
+   </testsuite>
+</testsuites>

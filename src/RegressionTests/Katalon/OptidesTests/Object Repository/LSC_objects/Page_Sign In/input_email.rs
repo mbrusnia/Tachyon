@@ -4,6 +4,13 @@
    <name>input_email</name>
    <tag></tag>
    <elementGuidId>4c011325-e829-44e7-8a85-f5b58782030e</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//input[count(. | //*[@name = 'email']) = count(//*[@name = 'email'])][count(. | //*[@id = 'email']) = count(//*[@id = 'email'])][count(. | //*[@type = 'text']) = count(//*[@type = 'text'])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
       <isSelected>true</isSelected>

@@ -1,0 +1,26 @@
+Suite/Test/Step Name,Browser,Description,Start time,End time,Duration,Status
+OptidesLabkeyTests,Chrome 65.0.3325.181,,2018-03-27 13:45:56,2018-03-27 13:48:01,2m - 4.461s,FAILED
+,,,,,,
+Test Cases/preTest-InsertTestConstructs,Chrome 65.0.3325.181,,2018-03-27 13:45:57,2018-03-27 13:48:00,2m - 3.807s,FAILED
+callTestCase,Chrome 65.0.3325.181,use global script for log in with credentials and BASE_URL set there,2018-03-27 13:45:57,2018-03-27 13:46:07,9.561s,PASSED
+mouseOver,Chrome 65.0.3325.181,,2018-03-27 13:46:07,2018-03-27 13:46:07,0.473s,PASSED
+waitForElementVisible,Chrome 65.0.3325.181,,2018-03-27 13:46:07,2018-03-27 13:46:08,0.934s,PASSED
+click,Chrome 65.0.3325.181,,2018-03-27 13:46:08,2018-03-27 13:46:10,1.431s,PASSED
+delay,Chrome 65.0.3325.181,,2018-03-27 13:46:10,2018-03-27 13:46:12,2.013s,PASSED
+Statement - url = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.getUrl(),Chrome 65.0.3325.181,Get current page's URL,2018-03-27 13:46:12,2018-03-27 13:46:12,0.047s,PASSED
+navigateToUrl,Chrome 65.0.3325.181,,2018-03-27 13:46:12,2018-03-27 13:46:12,0.481s,PASSED
+click,Chrome 65.0.3325.181,,2018-03-27 13:46:12,2018-03-27 13:46:14,1.346s,PASSED
+click,Chrome 65.0.3325.181,,2018-03-27 13:46:14,2018-03-27 13:46:14,0.149s,PASSED
+"Statement - dataPresent = com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords.verifyTextPresent(""No data to show."", false, CONTINUE_ON_FAILURE)",Chrome 65.0.3325.181,,2018-03-27 13:46:14,2018-03-27 13:46:14,0.472s,FAILED
+Statement - If (dataPresent == false),Chrome 65.0.3325.181,,2018-03-27 13:46:14,2018-03-27 13:46:17,2.567s,PASSED
+mouseOver,Chrome 65.0.3325.181,,2018-03-27 13:46:17,2018-03-27 13:46:17,0.064s,PASSED
+waitForElementVisible,Chrome 65.0.3325.181,,2018-03-27 13:46:17,2018-03-27 13:46:17,0.569s,PASSED
+click,Chrome 65.0.3325.181,,2018-03-27 13:46:17,2018-03-27 13:46:19,1.266s,PASSED
+click,Chrome 65.0.3325.181,,2018-03-27 13:46:19,2018-03-27 13:46:20,1.260s,PASSED
+click,Chrome 65.0.3325.181,,2018-03-27 13:46:20,2018-03-27 13:46:20,0.306s,PASSED
+click,Chrome 65.0.3325.181,,2018-03-27 13:46:20,2018-03-27 13:46:21,0.479s,PASSED
+click,Chrome 65.0.3325.181,,2018-03-27 13:46:21,2018-03-27 13:46:21,0.143s,PASSED
+setText,Chrome 65.0.3325.181,,2018-03-27 13:46:21,2018-03-27 13:47:42,1m - 21.086s,PASSED
+click,Chrome 65.0.3325.181,,2018-03-27 13:47:42,2018-03-27 13:48:00,17.579s,PASSED
+mouseOver,Chrome 65.0.3325.181,,2018-03-27 13:48:00,2018-03-27 13:48:00,0.108s,PASSED
+closeBrowser,Chrome 65.0.3325.181,,2018-03-27 13:48:00,2018-03-27 13:48:00,0.818s,PASSED

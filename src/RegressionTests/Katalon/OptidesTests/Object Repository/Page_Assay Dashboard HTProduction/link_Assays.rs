@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//*[contains(.,'Assays')][count(. | //a) = count(//a)][count(. | //*[@href = '/project/Optides/HTProduction/Assays/begin.view?']) = count(//*[@href = '/project/Optides/HTProduction/Assays/begin.view?'])]</value>
+         <value>//div/div/div/div/span/a[count(. | //a[(contains(text(), 'Assays') or contains(., 'Assays')) and @href = '/project/Optides/HTProduction/Assays/begin.view?']) = count(//a[(contains(text(), 'Assays') or contains(., 'Assays')) and @href = '/project/Optides/HTProduction/Assays/begin.view?'])]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -38,6 +38,6 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>//div/div/div/div/a</value>
+      <value>//div/div/div/div/span/a</value>
    </webElementProperties>
 </WebElementEntity>
