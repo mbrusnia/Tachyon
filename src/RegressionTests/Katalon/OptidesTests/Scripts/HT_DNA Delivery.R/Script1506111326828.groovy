@@ -40,7 +40,7 @@ WebUI.click(findTestObject('Page_Assay Dashboard OptidesCompoun/button_Import'))
 
 WebUI.delay(3)
 
-if (WebUI.verifyElementVisible(findTestObject('Page_Data Pipeline - CompoundsRegistry/input_Name'), FailureHandling.CONTINUE_ON_FAILURE)) {
+if (WebUI.verifyElementVisible(findTestObject('Page_Data Pipeline - CompoundsRegistry/input_Name'), FailureHandling.OPTIONAL)) {
     WebUI.setText(findTestObject('Page_Data Pipeline - CompoundsRegistry/input_Name'), 'TEST_HT_DNA_Delivery 01')
 }
 

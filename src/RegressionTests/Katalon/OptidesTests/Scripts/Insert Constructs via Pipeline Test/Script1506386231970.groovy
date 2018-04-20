@@ -44,7 +44,7 @@ WebUI.waitForElementVisible(findTestObject('Page_Upload_HT_Delivery_Info/a_submi
 
 WebUI.delay(2)
 
-if (WebUI.verifyElementVisible(findTestObject('input_ProtocolName'), FailureHandling.CONTINUE_ON_FAILURE)) {
+if (WebUI.verifyElementVisible(findTestObject('input_ProtocolName'), FailureHandling.OPTIONAL)) {
     WebUI.setText(findTestObject('input_ProtocolName'), 'TEST - Constructs insert via Pipeline')
 }
 
