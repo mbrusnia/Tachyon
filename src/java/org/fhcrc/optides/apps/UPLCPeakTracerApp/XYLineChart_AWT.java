@@ -64,6 +64,7 @@ public class XYLineChart_AWT extends ApplicationFrame {
 
     private XYDataset createDataset(ArrayList<HPLCPeakComparable> list,
                                     ArrayList<HPLCPeakComparable> peaks, double defaultYmax ) {
+        String[] StandardMW = {"670K", "158K", "44K", "17K", "1.35K"};
         final XYSeries plot = new XYSeries("Current Sample");
         final XYSeriesCollection dataset = new XYSeriesCollection();
         for (int i = 0; i < list.size(); i++) {
@@ -71,7 +72,7 @@ public class XYLineChart_AWT extends ApplicationFrame {
         }
         double standardYmax = defaultYmax - 1.0;
         for (int i = 0; i < 5; i++) {
-            final XYSeries chrome = new XYSeries(peaks.get(i).getAu() * 100);
+            final XYSeries chrome = new XYSeries(StandardMW[i]);
             chrome.add(peaks.get(i).getRt(), 0);
             chrome.add(peaks.get(i).getRt(), standardYmax);
             dataset.addSeries(chrome);
