@@ -1,4 +1,4 @@
-package org.fhcrc.optides.apps.UPLCPeakTrace;
+package org.fhcrc.optides.apps.UPLCPeakTracerApp;
 
 import org.fhcrc.optides.apps.HPLCPeakClassifierApp.HPLCPeak;
 

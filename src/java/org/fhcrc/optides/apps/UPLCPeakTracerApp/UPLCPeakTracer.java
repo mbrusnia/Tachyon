@@ -1,29 +1,20 @@
-package org.fhcrc.optides.apps.UPLCPeakTrace;
+package org.fhcrc.optides.apps.UPLCPeakTracerApp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Scanner;
 
 import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.RefineryUtilities;
 
 public class UPLCPeakTracer {
 	private static String nrFilename = "";
 	private static String stdFilename = "";
 	private static double maxRTFforPeak;
 	private static double minRTFforPeak;
-	private static int maxMAUForPeak = 500;
+	private static double maxMAUForPeak = 50.0;
 	private static String outputdir = "";
 	private static final int numbOfPeaks = 0;
 
@@ -41,7 +32,7 @@ public class UPLCPeakTracer {
 			} else if (curParam[0].equals("--MinRTForPeak")) {
 				minRTFforPeak = Double.parseDouble(curParam[1]);
 			} else if (curParam[0].equals("--MaxMAUForPeak")) {
-				maxMAUForPeak = Integer.parseInt(curParam[1]);
+				maxMAUForPeak = Double.parseDouble(curParam[1]);
 			} else if (curParam[0].equals("--outputdir")) {
 				outputdir = curParam[1];
 			} else {
@@ -59,7 +50,7 @@ public class UPLCPeakTracer {
 		ArrayList<HPLCPeakComparable> fivePeaks = pickPeaks(stdFilename);
 		Collections.sort(fivePeaks);
 		// draw peeks on the image
-		XYLineChart_AWT chart = new XYLineChart_AWT(getFilenameFromFullPath(nrFilename), getFilenameFromFullPath(nrFilename),
+		XYLineChart_AWT chart = new XYLineChart_AWT(getFilenameFromFullPath(nrFilename), getFilenameFromFullPath(nrFilename), maxMAUForPeak,
 				HPCLPeakList, fivePeaks);
 		// save image
 		int width = 640; /* Width of the image */
@@ -93,6 +84,7 @@ public class UPLCPeakTracer {
 			String[] splited = dataLine.split("\\s+");
 			Double xCoord = Double.parseDouble(splited[0]);
 			Double yCoord = Double.parseDouble(splited[1]);
+
 			list.add(new HPLCPeakComparable(xCoord, yCoord));
 		}
 		return list;
