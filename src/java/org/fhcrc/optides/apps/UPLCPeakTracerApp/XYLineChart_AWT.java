@@ -39,9 +39,9 @@ public class XYLineChart_AWT extends ApplicationFrame {
         plot.setRangeGridlinesVisible(true);
         plot.setRangeGridlinePaint(Color.black);
         plot.setDomainGridlinePaint(Color.black);
-        ValueAxis range1 = new NumberAxis("mAU (280nm wavelength)");
-        range1.setRange(0.0, defaultYmax);
-        plot.setRangeAxis(0, range1);
+        ValueAxis rangeY = new NumberAxis("mAU (280nm wavelength)");
+        rangeY.setRange(0.0, defaultYmax);
+        plot.setRangeAxis(0, rangeY);
 
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         renderer.setSeriesPaint(0, Color.BLUE);

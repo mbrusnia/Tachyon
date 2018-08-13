@@ -15,8 +15,6 @@ import org.jfree.chart.ChartUtilities;
 public class UPLCPeakTracer {
     private static String nrFilename = "";
     private static String stdFilename = "";
-    private static double maxRTFforPeak;
-    private static double minRTFforPeak;
     private static double maxMAUForPeak = 50.0;
     private static String outputdir = "";
     private static final int numbOfPeaks = 0;
@@ -30,10 +28,6 @@ public class UPLCPeakTracer {
                 stdFilename = curParam[1];
             } else if (curParam[0].equals("--NR")) {
                 nrFilename = curParam[1];
-            } else if (curParam[0].equals("--MaxRTForPeak")) {
-                maxRTFforPeak = Double.parseDouble(curParam[1]);
-            } else if (curParam[0].equals("--MinRTForPeak")) {
-                minRTFforPeak = Double.parseDouble(curParam[1]);
             } else if (curParam[0].equals("--MaxMAUForPeak")) {
                 maxMAUForPeak = Double.parseDouble(curParam[1]);
             } else if (curParam[0].equals("--outputdir")) {
