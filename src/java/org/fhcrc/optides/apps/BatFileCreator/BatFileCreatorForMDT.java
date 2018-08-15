@@ -70,18 +70,31 @@ public class BatFileCreatorForMDT {
             inputDir += fileSeparator;
         if(!outDir.endsWith(fileSeparator))
             outDir += fileSeparator;
-        System.out.println(optidesSoftwareDir + "dos2unix.exe\" \"" + standardRunFileName + "\"");
+        System.out.println("\"" + optidesSoftwareDir + "dos2unix.exe\" \"" + standardRunFileName + "\"");
+        int currFileNumber = fileStartingNumber;
         for(int i = 0; i < 96 ;i++){
-            System.out.println(optidesSoftwareDir + "dos2unix.exe\" \"" + inputDir + filenamePrefix + (fileStartingNumber + i) + "." + fileType + "\"");
+            System.out.println("\"" + optidesSoftwareDir + "dos2unix.exe\" \"" + inputDir + filenamePrefix + (currFileNumber) + "." + fileType + "\"");
+            if(i == 0){
+                currFileNumber += 6;
+            }
+            else {
+                currFileNumber += 5;
+            }
         }
         for(int i = 0; i < 96 ;i++) {
             /***  NEXT, PRINT RUN COMMANDS MATCHING UP SAMPLES ***/
             System.out.println("java -jar \"" + optidesSoftwareDir + "UPLCPeakTracer.jar\" ^");
             System.out.println("--STD=\"" + standardRunFileName + "\" ^");
-            System.out.println("--NR=\"" + inputDir + filenamePrefix + (fileStartingNumber + i) + "." + fileType + "\" ^");
+            System.out.println("--NR=\"" + inputDir + filenamePrefix + (currFileNumber) + "." + fileType + "\" ^");
             System.out.println("--outdir=\"" + outDir + "\" ^");
             System.out.println("--MaxMAUForPeak=" + maxMAUForPeak + " ^");
             System.out.println();
+            if(i == 0){
+                 currFileNumber += 6;
+            }
+            else {
+                currFileNumber += 5;
+            }
         }
     }
 
