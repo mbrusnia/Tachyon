@@ -17,7 +17,6 @@ public class UPLCPeakTracer {
     private static String stdFilename = "";
     private static double maxMAUForPeak = 50.0;
     private static String outputdir = "";
-    private static final int numbOfPeaks = 0;
 
     public static void main(String[] args) throws IOException {
         // read file
