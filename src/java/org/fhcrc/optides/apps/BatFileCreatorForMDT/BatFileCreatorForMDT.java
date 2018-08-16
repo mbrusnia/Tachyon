@@ -5,7 +5,7 @@ package org.fhcrc.optides.apps.BatFileCreatorForMDT;
  */
 public class BatFileCreatorForMDT {
     public static String fileSeparator = "/";
-    public static String optidesSoftwareDir = "C:" + fileSeparator + "Users" + fileSeparator + "Admin" + fileSeparator + "Desktop" + fileSeparator + "OptidesSoftware" + fileSeparator;
+    public static String optidesSoftwareDir = "C:" + fileSeparator + "Users" + fileSeparator + "Waters" + fileSeparator + "Desktop" + fileSeparator + "OptidesSoftware" + fileSeparator;
 
     public static void main(String[] args) {
         //BatFileCreatorForMDT
@@ -18,8 +18,8 @@ public class BatFileCreatorForMDT {
 
         Integer fileStartingNumber = 0;
         String fileType = "arw";
-        String inputDir = "C:\\Users\\Admin\\Desktop\\HT_UPLC_Export";
-        String outDir = "C:\\Users\\Admin\\Desktop\\HT_UPLC_Reports";
+        String inputDir = "C:\\Users\\Waters\\Desktop\\HT_UPLC_Export";
+        String outDir = "C:\\Users\\Waters\\Desktop\\HT_UPLC_Reports";
         Double maxMAUForPeak = 50.0;
         String filenamePrefix = "HT_UPLC_Export";
         String standardRunFileName = "";
@@ -81,13 +81,14 @@ public class BatFileCreatorForMDT {
                 currFileNumber += 5;
             }
         }
+        currFileNumber = fileStartingNumber;
         for(int i = 0; i < 96 ;i++) {
             /***  NEXT, PRINT RUN COMMANDS MATCHING UP SAMPLES ***/
             System.out.println("java -jar \"" + optidesSoftwareDir + "UPLCPeakTracer.jar\" ^");
             System.out.println("--STD=\"" + standardRunFileName + "\" ^");
             System.out.println("--NR=\"" + inputDir + filenamePrefix + (currFileNumber) + "." + fileType + "\" ^");
-            System.out.println("--outdir=\"" + outDir + "\" ^");
-            System.out.println("--MaxMAUForPeak=" + maxMAUForPeak + " ^");
+            System.out.println("--outputdir=\"" + outDir + "\" ^");
+            System.out.println("--MaxMAUForPeak=" + maxMAUForPeak);
             System.out.println();
             if(i == 0){
                 currFileNumber += 6;
