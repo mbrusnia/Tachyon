@@ -17,7 +17,7 @@ public class UPLCPeakTracer {
     private static String stdFilename = "";
     private static double maxMAUForPeak = 50.0;
     private static String outputdir = "";
-
+    private static String sampleName ="";
     public static void main(String[] args) throws IOException {
         // read file
         String[] curParam = null;
@@ -42,11 +42,11 @@ public class UPLCPeakTracer {
         }
 
         // get peaks
-        ArrayList<HPLCPeakComparable> HPCLPeakList = acquireData(nrFilename);
         ArrayList<HPLCPeakComparable> fivePeaks = pickPeaks(stdFilename);
+        ArrayList<HPLCPeakComparable> HPCLPeakList = acquireData(nrFilename);
         Collections.sort(fivePeaks);
         // draw peeks on the image
-        XYLineChart_AWT chart = new XYLineChart_AWT(getFilenameFromFullPath(nrFilename), getFilenameFromFullPath(nrFilename), maxMAUForPeak,
+        XYLineChart_AWT chart = new XYLineChart_AWT(sampleName, sampleName, maxMAUForPeak,
                 HPCLPeakList, fivePeaks);
         // save image
         int width = 640; /* Width of the image */
@@ -60,10 +60,9 @@ public class UPLCPeakTracer {
     }
 
     private static void printUsage() {
-        System.out.println("USAGE: UPLCPeakClassifier --NR=pathToNRarwFile --STD=pathToStandardArwFile --outdir=pathToOutputDir --MaxRTForPeak=maxRTtoConsider --MinRTForPeak=minRTtoConsider --MaxMAUForPeak=upperYvalueOnChart");
+        System.out.println("USAGE: UPLCPeakClassifier --NR=pathToNRarwFile --STD=pathToStandardArwFile --outdir=pathToOutputDir --MaxMAUForPeak=upperYvalueOnChart");
         System.out.println("");
-        System.out.println("note: MaxMAUForPeak is defaulted to 500 if not entered.");
-        System.out.println("note: if SN parameter is set to greater than 1, then it will be used as an absolute intensity threshold cuttoff for peak finding.");
+        System.out.println("note: MaxMAUForPeak is defaulted to 50.0 if not entered.");
     }
 
     // data acquisition
@@ -73,7 +72,10 @@ public class UPLCPeakTracer {
         File file = new File(filename);
         Scanner sc = new Scanner(file);
         System.out.println(sc.nextLine());
-        System.out.println(sc.nextLine());
+        sampleName = sc.nextLine();
+        //remove input quotes from the sample name
+        UPLCPeakTracer.sampleName = sampleName.substring(1,sampleName.length()-1);
+        System.out.println(UPLCPeakTracer.sampleName);
 
         while (sc.hasNextLine()) {
             String dataLine = sc.nextLine();
