@@ -86,7 +86,7 @@ for(i in 1:length(chemProd$CHEMProductionID)){
 		}
 
 		#calculate Molecular Weight
-		chemProd$AverageMW[i] = round(DSBMWCalc(sequence) + (str_count(sequence, "K")+1) * 2.0 * (calc_formula_mass("C1H2")+ DeltaC14), digit=2)
+		chemProd$AverageMW[i] = round(DSBMWCalc(toupper(sequence)) + (str_count(sequence, "K")+1) * 2.0 * (calc_formula_mass("C1H2")+ DeltaC14), digit=2)
 	}
 }
 ##set NAs to ""  (required for R -> labkey insertions)
@@ -158,7 +158,7 @@ for(i in 1:length(otdProdReport$OTDProductionID)){
 		colFilter=makeFilter(c("ID", "EQUAL", constructID)), colNameOpt="fieldname")$AASeq[1]
 	
 	#calculate Molecular Weight
-	otdProdReport$MonoisotopicMass[i] = round(DSBMWCalc(sequence, monoisotopic=TRUE), digit=2)
+	otdProdReport$MonoisotopicMass[i] = round(DSBMWCalc(toupper(sequence), monoisotopic=TRUE), digit=2)
 	
 	#MSValidation
 	H = calc_formula_mass("H1", monoisotopic=TRUE)
@@ -292,7 +292,7 @@ for(i in 1:length(chemProdReport$ChemProductionID)){
 		}else{
 			variantSequence <- variantSequences[1, 1]
 			#calculate mass from sequence
-			MW_input = DSBMWCalc(variantSequence)
+			MW_input = DSBMWCalc(toupper(variantSequence))
 		}
 	}else if(!is.na(curChemProductionRow$DrugReagentID) && curChemProductionRow$DrugReagentID != ""){
 		# 3) DrugReagent is set. get weight from CompoundsRegistry Reagents table AverageMW.
