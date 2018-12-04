@@ -6,7 +6,8 @@
 options(stringsAsFactors = FALSE)
 library(Rlabkey)
 
-source("C:/labkey/labkey/files/Optides/@files/xlsxToR.R")
+source("${srcDirectory}/xlsxToR.R")
+source("${srcDirectory}/Utils.R")
 pathToInputFile <- "${input.xlsx}"
 
 #Parameters for this script (login script: _netrc)

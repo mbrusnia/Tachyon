@@ -7,7 +7,8 @@ library(Rlabkey)
 
 pathToInputFile <- "${input.xlsx}"
 
-source("C:/labkey/labkey/files/Optides/@files/xlsxToR.R")
+source("${srcDirectory}/xlsxToR.R")
+source("${srcDirectory}/Utils.R")
 
 #Parameters for this script (login script: _netrc)
 BASE_URL = "http://optides-stage.fhcrc.org/"

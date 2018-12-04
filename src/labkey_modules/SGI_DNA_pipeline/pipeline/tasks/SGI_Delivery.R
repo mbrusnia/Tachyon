@@ -8,8 +8,8 @@
 options(stringsAsFactors = FALSE)
 library(Rlabkey)
 
-source("C:/labkey/labkey/files/Optides/@files/xlsxToR.R")
-source("C:/labkey/labkey/files/Optides/@files/Utils.R")
+source("${srcDirectory}/xlsxToR.R")
+source("${srcDirectory}/Utils.R")
 pathToInputFile <- "${input.xlsx}"
 
 jobInfoFile <- sub("..", "../", "${pipeline, taskInfo}", perl=TRUE)

@@ -7,7 +7,8 @@ options(stringsAsFactors = FALSE)
 library(Rlabkey)
 
 #script required for reading xlsx files:
-source("C:/labkey/labkey/files/Optides/@files/xlsxToR.R")
+source("${srcDirectory}/xlsxToR.R")
+source("${srcDirectory}/Utils.R")
 
 pathToInputFile <- "${input.xlsx}"
 

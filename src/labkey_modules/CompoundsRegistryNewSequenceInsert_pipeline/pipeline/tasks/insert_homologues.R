@@ -11,8 +11,8 @@ options(stringsAsFactors = FALSE)
 library(Rlabkey)
 library(stringr)
 
-source("C:/labkey/labkey/files/Optides/@files/xlsxToR.R")
-source("C:/labkey/labkey/files/Optides/@files/Utils.R")
+source("${srcDirectory}/xlsxToR.R")
+source("${srcDirectory}/Utils.R")
 
 jobInfoFile <- sub("..", "../", "${pipeline, taskInfo}", perl=TRUE)
 jobInfo <- read.table(jobInfoFile,

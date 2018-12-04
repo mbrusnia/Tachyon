@@ -9,8 +9,8 @@ options(stringsAsFactors = FALSE)
 library(Rlabkey)
 
 #script required for reading xlsx files:
-source("C:/labkey/labkey/files/Optides/@files/xlsxToR.R")
-source("C:/labkey/labkey/files/Optides/@files/Utils.R")
+source("${srcDirectory}/xlsxToR.R")
+source("${srcDirectory}/Utils.R")
 
 jobInfoFile <- sub("..", "../", "${pipeline, taskInfo}", perl=TRUE)
 jobInfo <- read.table(jobInfoFile,
