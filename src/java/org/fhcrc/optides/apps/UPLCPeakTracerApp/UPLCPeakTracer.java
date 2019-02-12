@@ -48,10 +48,13 @@ public class UPLCPeakTracer {
         // draw peeks on the image
         XYLineChart_AWT chart = new XYLineChart_AWT(sampleName, sampleName, maxMAUForPeak,
                 HPCLPeakList, fivePeaks);
+        sampleName = sampleName.replace("\"", "");
+        sampleName = sampleName.replace("_SEC", "");
+        //File XYChart = new File(outputdir + getFilenameFromFullPath(nrFilename).replace(".arw", ".jpg"));
+        File XYChart = new File(outputdir + sampleName + ".jpg");
         // save image
         int width = 640; /* Width of the image */
         int height = 480; /* Height of the image */
-        File XYChart = new File(outputdir + getFilenameFromFullPath(nrFilename).replace(".arw", ".jpg"));
         ChartUtilities.saveChartAsJPEG(XYChart, chart.getChart(), width, height);
     }
 
@@ -74,7 +77,7 @@ public class UPLCPeakTracer {
         System.out.println(sc.nextLine());
         sampleName = sc.nextLine();
         //remove input quotes from the sample name
-        UPLCPeakTracer.sampleName = sampleName.substring(1,sampleName.length()-1);
+        UPLCPeakTracer.sampleName = sampleName.substring(0,sampleName.length()-1);
         System.out.println(UPLCPeakTracer.sampleName);
 
         while (sc.hasNextLine()) {
