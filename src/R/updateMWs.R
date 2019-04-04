@@ -55,7 +55,7 @@ chemProd <- labkey.selectRows(
     schemaName=SAMPLE_SETS_SCHEMA_NAME,
     queryName="CHEMProduction",
 	colNameOpt="fieldname",  
-    colSelect=c("RowId", "CHEMProductionID", "OTDProductionID", "VariantID", "DrugReagentID", "LinkerReagentID", "AverageMW", "ConjugationMethod")
+    colSelect=c("RowId", "CHEMProductionID", "OTDProductionID", "MDTProductionID","VariantID", "DrugReagentID", "LinkerReagentID", "AverageMW", "ConjugationMethod")
 )
 
 for(i in 1:length(chemProd$CHEMProductionID)){
@@ -66,9 +66,9 @@ for(i in 1:length(chemProd$CHEMProductionID)){
 	
 	#we recalculate mass only for the C14 reductive amination entries that either have an otdID or variantID
 	if(!is.na(chemProd$ConjugationMethod[i]) && chemProd$ConjugationMethod[i] == "C14 reductive amination"
-		&& (!is.na(chemProd$OTDProductionID[i]) || !is.na(chemProd$VariantID[i]))){
+		&& (!is.na(chemProd$OTDProductionID[i]) || !is.na(chemProd$VariantID[i]) || !is.na(chemProd$MDTProductionID[i]))){
 		
-		#get the sequence via construct, if OTDid is set, or variant if VariantID is set
+		#get the sequence via construct, if OTDid is set, or variant if VariantID is set, or MDTProductionID is set
 		if(!is.na(chemProd$OTDProductionID[i]) && is.na(chemProd$VariantID[i])){
 			#get sequence in order to calculate weight
 			otdProdID = chemProd$OTDProductionID[i]
@@ -96,7 +96,26 @@ for(i in 1:length(chemProd$CHEMProductionID)){
 			sequence <- labkey.selectRows(BASE_URL, CONTAINER_PATH, 
 				SAMPLE_SETS_SCHEMA_NAME, "Variant", colSelect = c("ID", "AASeq"), showHidden=TRUE,
 				colFilter=makeFilter(c("ID", "EQUAL", variantID)), colNameOpt="fieldname")$AASeq[1]
-		}
+		}else if(!is.na(chemProd$MDTProductionID[i]) && is.na(chemProd$VariantID[i])){
+                  #get sequence in order to calculate weight
+                  mdtProdID = chemProd$MDTProductionID[i]
+                  if(is.null(mdtProdID) || is.na(mdtProdID) || mdtProdID == ""){
+                    stop(paste0("Row ", i, " is C14 reductive animation, yet has no given MDTProductionID.  Please add the MDTProductionID and try again."))
+                  }
+                  #get ConstructID
+                  constructIDs <- labkey.selectRows(BASE_URL, CONTAINER_PATH,
+                                                    SAMPLE_SETS_SCHEMA_NAME, "MDTProduction", colSelect = c("MDTProductionID", "ParentID"),
+                                                    showHidden=TRUE, colFilter=makeFilter(c("MDTProductionID", "EQUAL", mdtProdID)), colNameOpt="fieldname")
+                  if(length(constructIDs$MDTProductionID) < 1){
+                    stop(paste0("The MDTProductionID: ", mdtProdID, " is not found in the MDTProduction Sampleset!  Please correct this issue and try again."))
+                  }
+                  constructID = gsub("Construct.", "", constructIDs$ParentID[1])
+
+                  #get sequence
+                  sequence <- labkey.selectRows(BASE_URL, CONTAINER_PATH,
+                                                SAMPLE_SETS_SCHEMA_NAME, "Construct", colSelect = c("ID", "AASeq"), showHidden=TRUE,
+                                                colFilter=makeFilter(c("ID", "EQUAL", constructID)), colNameOpt="fieldname")$AASeq[1]
+        }
 
 		#calculate Molecular Weight
 		chemProd$AverageMW[i] = round(DSBMWCalc(toupper(sequence)) + (str_count(sequence, "K")+1) * 2.0 * (calc_formula_mass("C1H2")+ DeltaC14), digit=2)
