@@ -49,7 +49,8 @@ public class HPLCPeakTracer {
         // save image
         int width = 640; /* Width of the image */
         int height = 480; /* Height of the image */
-        File XYChart = new File(outputdir + getFilenameFromFullPath(nrFilename).replace(".CSV", ".jpg"));
+        //File XYChart = new File(outputdir + getFilenameFromFullPath(nrFilename).replace(".CSV", ".jpg"));
+        File XYChart = new File(outputdir + sampleName + ".jpg");
         ChartUtilities.saveChartAsJPEG(XYChart, chart.getChart(), width, height);
     }
 
