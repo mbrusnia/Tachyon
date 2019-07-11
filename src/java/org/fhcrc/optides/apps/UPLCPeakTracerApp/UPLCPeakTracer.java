@@ -44,7 +44,7 @@ public class UPLCPeakTracer {
         // get peaks
         ArrayList<HPLCPeakComparable> fivePeaks = pickPeaks(stdFilename);
         ArrayList<HPLCPeakComparable> HPCLPeakList = acquireData(nrFilename);
-        Collections.sort(fivePeaks);
+        //Collections.sort(fivePeaks);
         // draw peeks on the image
         XYLineChart_AWT chart = new XYLineChart_AWT(sampleName, sampleName, maxMAUForPeak,
                 HPCLPeakList, fivePeaks);
@@ -93,18 +93,20 @@ public class UPLCPeakTracer {
 
     public static ArrayList<HPLCPeakComparable> pickPeaks(String filename)
             throws FileNotFoundException {
+        double STANDARD_INTESNITY_CUTOFF = 0.025;
         ArrayList<HPLCPeakComparable> list = acquireData(filename);
-        ArrayList<HPLCPeakComparable> returnList = new ArrayList<HPLCPeakComparable>();
+        ArrayList<HPLCPeakComparable> peaks = new ArrayList<HPLCPeakComparable>();
         for (int i = 1; i < list.size() - 1; i++) {
             if ((list.get(i).getAu() > (list.get(i - 1).getAu()) && list.get(i)
                     .getAu() > list.get(i + 1).getAu())) {
-                returnList.add(list.get(i));
+                peaks.add(list.get(i));
             }
         }
-        Collections.sort(returnList);
-        for (int i = 0; i < returnList.size() - 1; i++) {
-            if (returnList.get(i).getRt() - returnList.get(i + 1).getRt() < 0.1) {
-                returnList.remove(i + 1);
+        Collections.sort(peaks);
+        ArrayList<HPLCPeakComparable> returnList = new ArrayList<HPLCPeakComparable>();
+        for (int i = 0; i < peaks.size() - 1; i++) {
+            if (peaks.get(i).getAu() >= STANDARD_INTESNITY_CUTOFF) {
+                returnList.add(peaks.get(i));
             }
         }
         return returnList;

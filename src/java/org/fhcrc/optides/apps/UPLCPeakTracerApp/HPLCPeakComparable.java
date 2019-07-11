@@ -10,16 +10,13 @@ public class HPLCPeakComparable extends HPLCPeak implements Comparable<HPLCPeakC
         super(rt, au);
         // TODO Auto-generated constructor stub
     }
+    public HPLCPeakComparable(HPLCPeakComparable p) {
+        super(p.getRt(), p.getAu());
+        // TODO Auto-generated constructor stub
+    }
 
-    @Override
     public int compareTo(HPLCPeakComparable otherPeak) {
-        if(this.getAu()*1000 - otherPeak.getAu()*1000 > 0) {
-            return -1;
-        } else if(this.getAu()*1000 - otherPeak.getAu()*1000 < 0) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return this.getRt() < otherPeak.getRt() ? 1:0;
     }
 
     public String toString() {
