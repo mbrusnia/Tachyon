@@ -93,7 +93,7 @@ public class UPLCPeakTracer {
 
     public static ArrayList<HPLCPeakComparable> pickPeaks(String filename)
             throws FileNotFoundException {
-        double STANDARD_INTESNITY_CUTOFF = 0.025;
+        double STANDARD_INTESNITY_CUTOFF = 0.04;
         ArrayList<HPLCPeakComparable> list = acquireData(filename);
         ArrayList<HPLCPeakComparable> peaks = new ArrayList<HPLCPeakComparable>();
         for (int i = 1; i < list.size() - 1; i++) {
@@ -103,12 +103,34 @@ public class UPLCPeakTracer {
             }
         }
         Collections.sort(peaks);
+        ArrayList<HPLCPeakComparable> candidateList = new ArrayList<HPLCPeakComparable>();
         ArrayList<HPLCPeakComparable> returnList = new ArrayList<HPLCPeakComparable>();
         for (int i = 0; i < peaks.size() - 1; i++) {
             if (peaks.get(i).getAu() >= STANDARD_INTESNITY_CUTOFF) {
-                returnList.add(peaks.get(i));
+                candidateList.add(peaks.get(i));
             }
         }
+        // bad standard has some shoulders. It is not ideal to remove using software instead changing column
+        // but for now I am removing shoulders
+        boolean shoulder = false;
+        for (int i = 0; i < candidateList.size() - 1; i++) {
+            if ((candidateList.get(i+1).getRt() - candidateList.get(i).getRt()) > 0.1) {
+                if(!shoulder){
+                    returnList.add(candidateList.get(i));
+                    shoulder = false;
+                }
+
+            }
+            else{
+                returnList.add(candidateList.get(i));
+                shoulder = true;
+            }
+        }
+        //take care of last peak
+        if((candidateList.get(candidateList.size()-1).getRt() - returnList.get(returnList.size()-1).getRt()) > 0.1){
+            returnList.add(candidateList.get(candidateList.size()-1));
+        }
+
         return returnList;
     }
 
