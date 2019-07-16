@@ -41,6 +41,7 @@ cat("Updating server: ", BASE_URL, "\n")
 
 
 DeltaC14 = 2.0
+NTERMI_C14 = 16.0
 
 #############################################
 ## update CHEMProduction MWs
@@ -55,7 +56,7 @@ chemProd <- labkey.selectRows(
     schemaName=SAMPLE_SETS_SCHEMA_NAME,
     queryName="CHEMProduction",
 	colNameOpt="fieldname",  
-    colSelect=c("RowId", "CHEMProductionID", "OTDProductionID", "MDTProductionID","VariantID", "DrugReagentID", "LinkerReagentID", "AverageMW", "ConjugationMethod")
+    colSelect=c("RowId", "CHEMProductionID", "IntermediateProduct", "OTDProductionID", "MDTProductionID","VariantID", "DrugReagentID", "LinkerReagentID", "AverageMW", "ConjugationMethod")
 )
 
 for(i in 1:length(chemProd$CHEMProductionID)){
@@ -63,7 +64,16 @@ for(i in 1:length(chemProd$CHEMProductionID)){
 	if(!is.na(chemProd$DrugReagentID[i]) || !is.na(chemProd$LinkerReagentID[i])){
 		next
 	}
-	
+	#if IntermediateProduct is CHC compounds and "Dye C14 reductive amination" method, we assume there is only N-termi labeling and add constant value +16
+	if(!is.na(chemProd$IntermediateProduct[i]) && startsWith(chemProd$IntermediateProduct[i],"CHC") && !is.na(chemProd$ConjugationMethod[i]) && (chemProd$ConjugationMethod[i] == "Dye C14 reductive amination")){
+	    intermediateMW  <- labkey.selectRows(BASE_URL, CONTAINER_PATH,
+                                             SAMPLE_SETS_SCHEMA_NAME, "CHEMProduction", colSelect = c("CHEMProductionID", "AverageMW"),
+                                             showHidden=TRUE, colFilter=makeFilter(c("CHEMProductionID", "EQUAL", chemProd$IntermediateProduct[i])), colNameOpt="fieldname")$AverageMW
+	    chemProd$AverageMW[i] = intermediateMW + NTERMI_C14
+	    next
+	}
+
+
 	#we recalculate mass only for the C14 reductive amination entries that either have an otdID or variantID
 	if(!is.na(chemProd$ConjugationMethod[i]) && chemProd$ConjugationMethod[i] == "C14 reductive amination"
 		&& (!is.na(chemProd$OTDProductionID[i]) || !is.na(chemProd$VariantID[i]) || !is.na(chemProd$MDTProductionID[i]))){
