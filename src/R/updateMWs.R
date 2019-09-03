@@ -41,7 +41,7 @@ cat("Updating server: ", BASE_URL, "\n")
 
 
 DeltaC14 = 2.0
-NTERMI_C14 = 16.0
+NTERMI_C14 = 32.0
 
 #############################################
 ## update CHEMProduction MWs
