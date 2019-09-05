@@ -10,6 +10,10 @@ library(stringr)
 library(Peptides)
 
 source("C:/labkey/labkey/files/Optides/@files/Utils.R")
+##put all output into this log file:
+con <- file("C:/Users/tomcat/Programs/OptideCronJobs.log", open="a")
+sink(con, append=TRUE)
+sink(con, append=TRUE, type="message")
 
 BASE_URL = "https://optides-prod.fhcrc.org"
 #BASE_URL = "https://optides-stage.fhcrc.org"
