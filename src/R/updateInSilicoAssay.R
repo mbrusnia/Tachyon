@@ -12,7 +12,7 @@ library(Peptides)
 source("C:/labkey/labkey/files/Optides/@files/Utils.R")
 
 BASE_URL = "https://optides-prod.fhcrc.org"
-
+#BASE_URL = "https://optides-stage.fhcrc.org"
 COMPOUND_ID_COL_NAME = "ID"
 SEQUENCE_COL_NAME = "AASeq"
 
@@ -28,13 +28,14 @@ cat("Updating server: ", BASE_URL, "\n")
 ##  create object "inputDF" which contains only the constructs which need to
 ##  have their values calculated and be inserted into InsilicoAssay
 ###########################################################################
+inputDF <- NULL
 constructs <- labkey.selectRows(
     baseUrl=BASE_URL,
     folderPath="/Optides/CompoundsRegistry/Samples",
     schemaName="samples",
     queryName="Construct",
-	colNameOpt="fieldname", 
-	colFilter=makeFilter(c("OTDProductionID", "NOT_MISSING", "")),  
+	colNameOpt="fieldname",
+	colFilter=makeFilter(c("OTDProductionID", "NOT_MISSING", "")),
     colSelect=c("ID", "ParentID", "AlternateName", "AASeq", "Vector")
 )
 
@@ -43,23 +44,23 @@ alreadyInsertedConstructs <- labkey.selectRows(
     folderPath="/Optides/InSilicoAssay/MolecularProperties",
     schemaName="assay.General.InSilicoAssay",
     queryName="Data",
-	colNameOpt="fieldname", 
-	colFilter=makeFilter(c("OTDProductionID", "NOT_MISSING", "")),  
+	colNameOpt="fieldname",
+	colFilter=makeFilter(c("OTDProductionID", "NOT_MISSING", "")),
     colSelect="ID"
 )
 
-#pull out the constructs that are in Construct but not in InSilicoAssay and 
+#pull out the constructs that are in Construct but not in InSilicoAssay and
 #put them in the object named "inputDF"
 for(i in 1:length(constructs$ID)){
 	if(!constructs$ID[i] %in% alreadyInsertedConstructs$ID){
-		if(!exists("inputDF")){
+		if(is.null(inputDF)){
 			inputDF <- constructs[i,]
 		}else{
 			inputDF <- rbind(inputDF, constructs[i,])
 		}
 	}
 }
-if(!exists("inputDF")){
+if(is.null(inputDF)){
 	cat("No new constructs found.  Exiting.\n")
 	stop("No new constructs found.\n")
 }
@@ -106,17 +107,35 @@ inputDF[is.na(inputDF$Vector), "Vector"] = ""
 ###################################################################
 ## Insert data to Database
 ###################################################################
-bpl <- list(name=paste("Automated_InSilicoAssayInsert_", format(Sys.Date(), "%m_%d_%Y")))
-rpl <- list(name=paste("Automated_InSilicoAssayInsert_", format(Sys.Date(), "%m_%d_%Y")))
 
-assayInfo<- labkey.saveBatch(	baseUrl=BASE_URL,	
-	folderPath="/Optides/InSilicoAssay/MolecularProperties/",	
-	assayName="InSilicoAssay", 
-	resultDataFrame=inputDF,
-	batchPropertyList=bpl,
-	runPropertyList=rpl
+#bpl <- list(name=paste("Automated_InSilicoAssayInsert_", format(Sys.Date(), "%m_%d_%Y")))
+#rpl <- list(name=paste("Automated_InSilicoAssayInsert_", format(Sys.Date(), "%m_%d_%Y")))
+
+###################################################################
+## Commented out the above in favor of the new run line below
+###################################################################
+
+run <- labkey.experiment.createRun(list(name=paste("Automated_InSilicoAssayInsert_", format(Sys.Date(), "%m_%d_%Y"))), dataRows = inputDF)
+
+
+#assayInfo<- labkey.saveBatch(	baseUrl=BASE_URL,
+#	folderPath="/Optides/InSilicoAssay/MolecularProperties/",
+#	assayName="InSilicoAssay",
+#	resultDataFrame=inputDF,
+#	batchPropertyList=bpl,
+#	runPropertyList=rpl
+#)
+
+###################################################################
+## Commented out the above assayInfo using labkey.saveBatch call with the
+## newer labkey.experiment.saveBatch call below
+###################################################################
+
+assayInfo<- labkey.experiment.saveBatch(	baseUrl=BASE_URL,
+	folderPath="/Optides/InSilicoAssay/MolecularProperties/",
+	assayConfig=list(assayName="InSilicoAssay", providerName="General"),
+	runList=run
 )
-
 
 if(!exists("assayInfo")){
 	stop("There was a problem with the insertion.  Please contact administrator.")
@@ -128,4 +147,3 @@ if(!exists("assayInfo")){
 	}
 	cat("\n")
 }
-
