@@ -1,28 +1,36 @@
 {
- "selectedColumns": [
- {"name": "Name", 
-	 "schemaName": "samples",
-	 "queryName": "Construct",
-         "type":"VARCHAR"
-
-},
-{
- "folderPath":"/Optides/InSilicoAssay/MolecularProperties", 
-     "schemaName": "assay.general.InSilicoAssay", 
-     "queryName": "Data", 
-     "name": "NetChargeAtpH7_4", 
-     "type": "DOUBLE", 
-         "sampleIdColumnName": "ID"
- },
-{
- "folderPath":"/Optides/InSilicoAssay/MolecularProperties", 
-     "schemaName": "assay.general.InSilicoAssay", 
-     "queryName": "Data", 
-     "name": "ReducedForm_pI", 
-     "type": "DOUBLE", 
-         "sampleIdColumnName": "ID"
- }
- 
-
- ]
+  "selectedColumns": [
+    {
+      "name": "Name",
+      "type": "VARCHAR",
+      "schemaName": [
+        "samples"
+      ],
+      "queryName": "Construct"
+    },
+    {
+      "name": "NetChargeAtpH7_4",
+      "type": "DOUBLE",
+      "folderPath": "/Optides/InSilicoAssay/MolecularProperties",
+      "schemaName": [
+        "assay",
+        "general",
+        "InSilicoAssay"
+      ],
+      "queryName": "Data",
+      "sampleIdColumnName": "ID"
+    },
+    {
+      "name": "ReducedForm_pI",
+      "type": "DOUBLE",
+      "folderPath": "/Optides/InSilicoAssay/MolecularProperties",
+      "schemaName": [
+        "assay",
+        "general",
+        "InSilicoAssay"
+      ],
+      "queryName": "Data",
+      "sampleIdColumnName": "ID"
+    }
+  ]
 }
