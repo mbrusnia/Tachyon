@@ -33,9 +33,12 @@ public class Seq2Fasta {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos1));
         int seqId = 1;
         while ((line = bufferedReader.readLine()) != null) {
-            bw.write(">" + seqId +"\n");
-            bw.write(line.replace("\n", "").replace("\r", "") + "\n");
-            seqId += 1;
+            line = line.replace(" ","");
+            if(line.length() > 0) {
+                bw.write(">" + seqId + "\n");
+                bw.write(line.replace("\n", "").replace("\r", "") + "\n");
+                seqId += 1;
+            }
         }
         bw.close();
         bufferedReader.close();
