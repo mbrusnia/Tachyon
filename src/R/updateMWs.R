@@ -205,7 +205,7 @@ for(i in 1:length(otdProdReport$OTDProductionID)){
 	#MSValidation
 	H = calc_formula_mass("H1", monoisotopic=TRUE)
 	otdProdReport$MSValidated[i] = "FALSE"
-	for(q in 1:6){
+	for(q in 1:16){
 		if(is.na(otdProdReport$ObservedMz[i]) || otdProdReport$ObservedMz[i] == ""){
 			otdProdReport$ObservedMz[i] = ""
 			otdProdReport$MSValidated[i] = ""
@@ -215,7 +215,7 @@ for(i in 1:length(otdProdReport$OTDProductionID)){
 	#If validation fails, print the q, mz, and diff value of each q:
 	if(otdProdReport$MSValidated[i] == "FALSE"){
 		cat(otdProdID, " with ObservedMz ", otdProdReport$ObservedMz[i], " failed MS/MZ validation.  Here are the q, m/z, and diff. values:\n")
-		for(q in 1:6){
+		for(q in 1:16){
 			cat(q, ": ", sequence, ": ", (otdProdReport$MonoisotopicMass[i] + q*H)/q, ": ", abs((otdProdReport$MonoisotopicMass[i] + q*H)/q - as.numeric(otdProdReport$ObservedMz[i])), "\n")
 		}
 	}
