@@ -46,7 +46,11 @@ machineNameFromBaseURL <- function(baseUrl){
 }
 
 write_NetRC_file <- function(machineName, login, password){
-	filename <- paste0(Sys.getenv()["HOME"], .Platform$file.sep, "_netrc")
+	# During Labkey 19.3, Jon stated that "Env variables stopped working for some unknown reason" -- ticket#39279
+	# Thus, I made alternative route which is hardcoding directly to netrc file but it is not ideal.
+	# I leave the original line and commented out and hope that the future Labkey release will work with Env variables as it used to.
+	#filename <- paste0(Sys.getenv()["HOME"], .Platform$file.sep, "_netrc")
+	filename <- paste0("C://Users//tomcat//_netrc")
 	if(!file.exists(filename)){
 		f = file(description=filename, open="w")
 		cat(file=f, sep="", "machine ", machineName, "\n")
