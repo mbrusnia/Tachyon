@@ -93,7 +93,7 @@ public class UPLCPeakTracer {
 
     public static ArrayList<HPLCPeakComparable> pickPeaks(String filename)
             throws FileNotFoundException {
-        double STANDARD_INTESNITY_CUTOFF = 0.04;
+        double STANDARD_INTESNITY_CUTOFF = 0.06;
         ArrayList<HPLCPeakComparable> list = acquireData(filename);
         ArrayList<HPLCPeakComparable> peaks = new ArrayList<HPLCPeakComparable>();
         for (int i = 1; i < list.size() - 1; i++) {
