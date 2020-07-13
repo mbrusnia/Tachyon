@@ -150,7 +150,7 @@ public class HPLCFractionTracer {
                 if (file.isFile()) {
                     if (!file.getAbsolutePath().contains("Blank") && file.getName().contains(REPORT_FILE)) {
                         reportFiles.add(file);
-                    } else if (file.getName().contains("SMT-") && file.getName().contains(".CSV")) {
+                    } else if ((file.getName().contains("SMT-")|| file.getName().contains("MDT-")) && file.getName().contains(".CSV")) {
                         chromatogramFiles.add(file);
                     }
                 } else if (file.isDirectory()) {
