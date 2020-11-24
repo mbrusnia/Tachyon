@@ -111,14 +111,18 @@ public class UPLCPeakTracer {
             }
         }
         // bad standard has some shoulders. It is not ideal to remove using software instead changing column
-        // but for now I am removing shoulders
+        // but for now I am removing shoulders. Adjust SHOULDER_CUTOFF constant but column should be in good condition to use the default 0.1
+        // When colum is good, HT team use the SHOULDER_CUTOFF=0.1 (deployed system), but when column gets old but didn't replaced it and sample is already ran
+        // I just temporarly change SHOULDER_CUTOFF value wider and process for them since that is not the ideal condition, don't deploy with wide SHOULDER_CUTOFF value
         boolean shoulder = false;
+        double SHOULDER_CUTOFF = 0.1;
         for (int i = 0; i < candidateList.size() - 1; i++) {
-            if ((candidateList.get(i+1).getRt() - candidateList.get(i).getRt()) > 0.1) {
+            if ((candidateList.get(i+1).getRt() - candidateList.get(i).getRt()) > SHOULDER_CUTOFF) {
                 if(!shoulder){
                     returnList.add(candidateList.get(i));
                     shoulder = false;
                 }
+                else shoulder = false;
 
             }
             else{
